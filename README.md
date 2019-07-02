@@ -4,14 +4,14 @@ Typescript type definition included.
 
 ## How to use
 ```bash
-npm i traq-api
+npm i traPtitech/node-traq
 ```
 
 ```js
 import { Apis } from "traq-api";
 
 const api = new Apis({
-  accessToken: "1Tk8vgV4R39KVQztXF5VSkec6lGWTvA6859T"
+  accessToken: "/* your token */"
 });
 
 api.channelsGet().then(res => {
