@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sapphi-red/node-traq.git"
+    "url": "git+https://github.com/traPtitech/node-traq.git"
   },
-  "author": "sapphi-red <green@sapphi.red> (https://github.com/sapphi-red)",
+  "author": "traP",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sapphi-red/node-traq/issues"
+    "url": "https://github.com/traPtitech/node-traq/issues"
   },
-  "homepage": "https://github.com/sapphi-red/node-traq#readme",
+  "homepage": "https://github.com/traPtitech/node-traq#readme",
   "dependencies": {
     "axios": "^0.19.0"
   },
