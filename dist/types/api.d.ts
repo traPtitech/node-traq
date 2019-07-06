@@ -572,29 +572,26 @@ export interface InlineObject13 {
  */
 export interface InlineObject14 {
     /**
-     * プライベートチャンネルかどうか
-     * @type {boolean}
-     * @memberof InlineObject14
-     */
-    _private?: boolean;
-    /**
-     *
-     * @type {Array<string>}
-     * @memberof InlineObject14
-     */
-    member?: Array<string>;
-    /**
-     * チャンネル名
+     * editing,monitoring,noneでユーザーの状態を指定する
      * @type {string}
      * @memberof InlineObject14
      */
-    name?: string;
+    status: InlineObject14StatusEnum;
     /**
-     * 親のチャンネルID
+     * 現在いるチャンネルId
      * @type {string}
      * @memberof InlineObject14
      */
-    parent?: string;
+    channelId: string;
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export declare enum InlineObject14StatusEnum {
+    None = "none",
+    Monitoring = "monitoring",
+    Editing = "editing"
 }
 /**
  *
@@ -603,23 +600,29 @@ export interface InlineObject14 {
  */
 export interface InlineObject15 {
     /**
+     * プライベートチャンネルかどうか
+     * @type {boolean}
+     * @memberof InlineObject15
+     */
+    _private?: boolean;
+    /**
+     *
+     * @type {Array<string>}
+     * @memberof InlineObject15
+     */
+    member?: Array<string>;
+    /**
      * チャンネル名
      * @type {string}
      * @memberof InlineObject15
      */
     name?: string;
     /**
-     * 変更後のvisibility
-     * @type {boolean}
+     * 親のチャンネルID
+     * @type {string}
      * @memberof InlineObject15
      */
-    visibility?: boolean;
-    /**
-     * 強制通知かどうか
-     * @type {boolean}
-     * @memberof InlineObject15
-     */
-    force?: boolean;
+    parent?: string;
 }
 /**
  *
@@ -628,11 +631,23 @@ export interface InlineObject15 {
  */
 export interface InlineObject16 {
     /**
-     * 変更後の親チャンネルID
+     * チャンネル名
      * @type {string}
      * @memberof InlineObject16
      */
-    parent: string;
+    name?: string;
+    /**
+     * 変更後のvisibility
+     * @type {boolean}
+     * @memberof InlineObject16
+     */
+    visibility?: boolean;
+    /**
+     * 強制通知かどうか
+     * @type {boolean}
+     * @memberof InlineObject16
+     */
+    force?: boolean;
 }
 /**
  *
@@ -641,11 +656,11 @@ export interface InlineObject16 {
  */
 export interface InlineObject17 {
     /**
-     * チャンネル名
+     * 変更後の親チャンネルID
      * @type {string}
      * @memberof InlineObject17
      */
-    name: string;
+    parent: string;
 }
 /**
  *
@@ -654,11 +669,11 @@ export interface InlineObject17 {
  */
 export interface InlineObject18 {
     /**
-     * チャンネルの説明
+     * チャンネル名
      * @type {string}
      * @memberof InlineObject18
      */
-    text: string;
+    name: string;
 }
 /**
  *
@@ -667,7 +682,7 @@ export interface InlineObject18 {
  */
 export interface InlineObject19 {
     /**
-     * Markdown形式のメッセージ本文
+     * チャンネルの説明
      * @type {string}
      * @memberof InlineObject19
      */
@@ -693,17 +708,11 @@ export interface InlineObject2 {
  */
 export interface InlineObject20 {
     /**
-     * 通知をつける人のユーザーIDの配列
-     * @type {Array<string>}
+     * Markdown形式のメッセージ本文
+     * @type {string}
      * @memberof InlineObject20
      */
-    on?: Array<string>;
-    /**
-     * 通知をつけない人のユーザーIDの配列
-     * @type {Array<string>}
-     * @memberof InlineObject20
-     */
-    off?: Array<string>;
+    text: string;
 }
 /**
  *
@@ -712,11 +721,17 @@ export interface InlineObject20 {
  */
 export interface InlineObject21 {
     /**
-     * ボットコード
-     * @type {string}
+     * 通知をつける人のユーザーIDの配列
+     * @type {Array<string>}
      * @memberof InlineObject21
      */
-    code: string;
+    on?: Array<string>;
+    /**
+     * 通知をつけない人のユーザーIDの配列
+     * @type {Array<string>}
+     * @memberof InlineObject21
+     */
+    off?: Array<string>;
 }
 /**
  *
@@ -725,11 +740,11 @@ export interface InlineObject21 {
  */
 export interface InlineObject22 {
     /**
-     * FCMのデバイストークン
+     * ボットコード
      * @type {string}
      * @memberof InlineObject22
      */
-    token: string;
+    code: string;
 }
 /**
  *
@@ -738,11 +753,11 @@ export interface InlineObject22 {
  */
 export interface InlineObject23 {
     /**
-     * Markdown形式のメッセージ本文
+     * FCMのデバイストークン
      * @type {string}
      * @memberof InlineObject23
      */
-    text: string;
+    token: string;
 }
 /**
  *
@@ -751,11 +766,11 @@ export interface InlineObject23 {
  */
 export interface InlineObject24 {
     /**
-     * 通報理由(100文字以内)
+     * Markdown形式のメッセージ本文
      * @type {string}
      * @memberof InlineObject24
      */
-    reason: string;
+    text: string;
 }
 /**
  *
@@ -764,11 +779,11 @@ export interface InlineObject24 {
  */
 export interface InlineObject25 {
     /**
-     * ピン留めするメッセージID
+     * 通報理由(100文字以内)
      * @type {string}
      * @memberof InlineObject25
      */
-    messageId: string;
+    reason: string;
 }
 /**
  *
@@ -777,29 +792,11 @@ export interface InlineObject25 {
  */
 export interface InlineObject26 {
     /**
-     * webhookユーザーの表示名(32文字まで)
+     * ピン留めするメッセージID
      * @type {string}
      * @memberof InlineObject26
      */
-    name: string;
-    /**
-     * webhookの説明
-     * @type {string}
-     * @memberof InlineObject26
-     */
-    description: string;
-    /**
-     * デフォルトの投稿先チャンネル(パブリックチャンネルのみ)
-     * @type {string}
-     * @memberof InlineObject26
-     */
-    channelId: string;
-    /**
-     * webhookシークレット
-     * @type {string}
-     * @memberof InlineObject26
-     */
-    secret?: string;
+    messageId: string;
 }
 /**
  *
@@ -812,19 +809,19 @@ export interface InlineObject27 {
      * @type {string}
      * @memberof InlineObject27
      */
-    name?: string;
+    name: string;
     /**
      * webhookの説明
      * @type {string}
      * @memberof InlineObject27
      */
-    description?: string;
+    description: string;
     /**
      * デフォルトの投稿先チャンネル(パブリックチャンネルのみ)
      * @type {string}
      * @memberof InlineObject27
      */
-    channelId?: string;
+    channelId: string;
     /**
      * webhookシークレット
      * @type {string}
@@ -839,17 +836,29 @@ export interface InlineObject27 {
  */
 export interface InlineObject28 {
     /**
-     * グループ名(30文字以内)
+     * webhookユーザーの表示名(32文字まで)
      * @type {string}
      * @memberof InlineObject28
      */
-    name: string;
+    name?: string;
     /**
-     * 説明
+     * webhookの説明
      * @type {string}
      * @memberof InlineObject28
      */
     description?: string;
+    /**
+     * デフォルトの投稿先チャンネル(パブリックチャンネルのみ)
+     * @type {string}
+     * @memberof InlineObject28
+     */
+    channelId?: string;
+    /**
+     * webhookシークレット
+     * @type {string}
+     * @memberof InlineObject28
+     */
+    secret?: string;
 }
 /**
  *
@@ -862,19 +871,13 @@ export interface InlineObject29 {
      * @type {string}
      * @memberof InlineObject29
      */
-    name?: string;
+    name: string;
     /**
      * 説明
      * @type {string}
      * @memberof InlineObject29
      */
     description?: string;
-    /**
-     * 管理ユーザー
-     * @type {string}
-     * @memberof InlineObject29
-     */
-    adminUserId?: string;
 }
 /**
  *
@@ -950,11 +953,23 @@ export interface InlineObject3 {
  */
 export interface InlineObject30 {
     /**
-     * 追加するユーザーのID
+     * グループ名(30文字以内)
      * @type {string}
      * @memberof InlineObject30
      */
-    userId: string;
+    name?: string;
+    /**
+     * 説明
+     * @type {string}
+     * @memberof InlineObject30
+     */
+    description?: string;
+    /**
+     * 管理ユーザー
+     * @type {string}
+     * @memberof InlineObject30
+     */
+    adminUserId?: string;
 }
 /**
  *
@@ -963,29 +978,11 @@ export interface InlineObject30 {
  */
 export interface InlineObject31 {
     /**
-     * クライアント名(1-32文字)
+     * 追加するユーザーのID
      * @type {string}
      * @memberof InlineObject31
      */
-    name: string;
-    /**
-     * クライアントの説明
-     * @type {string}
-     * @memberof InlineObject31
-     */
-    description: string;
-    /**
-     * リダイレクト先のURI
-     * @type {string}
-     * @memberof InlineObject31
-     */
-    redirectUri: string;
-    /**
-     * 要求するスコープ(必ず１つ以上)
-     * @type {Array<string>}
-     * @memberof InlineObject31
-     */
-    scopes: Array<string>;
+    userId: string;
 }
 /**
  *
@@ -998,19 +995,25 @@ export interface InlineObject32 {
      * @type {string}
      * @memberof InlineObject32
      */
-    name?: string;
+    name: string;
     /**
-     * 説明
+     * クライアントの説明
      * @type {string}
      * @memberof InlineObject32
      */
-    description?: string;
+    description: string;
     /**
      * リダイレクト先のURI
      * @type {string}
      * @memberof InlineObject32
      */
-    redirectUri?: string;
+    redirectUri: string;
+    /**
+     * 要求するスコープ(必ず１つ以上)
+     * @type {Array<string>}
+     * @memberof InlineObject32
+     */
+    scopes: Array<string>;
 }
 /**
  *
@@ -1019,29 +1022,23 @@ export interface InlineObject32 {
  */
 export interface InlineObject33 {
     /**
-     * botユーザーID(16文字まで)。自動的に先頭に\"BOT_\"が付与されます
+     * クライアント名(1-32文字)
      * @type {string}
      * @memberof InlineObject33
      */
-    name: string;
+    name?: string;
     /**
-     * botユーザーの表示名(32文字まで)
+     * 説明
      * @type {string}
      * @memberof InlineObject33
      */
-    displayName: string;
+    description?: string;
     /**
-     * botの説明
+     * リダイレクト先のURI
      * @type {string}
      * @memberof InlineObject33
      */
-    description: string;
-    /**
-     * botのPOSTエンドポイント
-     * @type {string}
-     * @memberof InlineObject33
-     */
-    postUrl: string;
+    redirectUri?: string;
 }
 /**
  *
@@ -1050,29 +1047,29 @@ export interface InlineObject33 {
  */
 export interface InlineObject34 {
     /**
-     * Bot表示名
+     * botユーザーID(16文字まで)。自動的に先頭に\"BOT_\"が付与されます
      * @type {string}
      * @memberof InlineObject34
      */
-    displayName?: string;
+    name: string;
     /**
-     * Bot説明
+     * botユーザーの表示名(32文字まで)
      * @type {string}
      * @memberof InlineObject34
      */
-    description?: string;
+    displayName: string;
     /**
-     * privileged属性
-     * @type {boolean}
-     * @memberof InlineObject34
-     */
-    privileged?: boolean;
-    /**
-     * BotのPOSTエンドポイント
+     * botの説明
      * @type {string}
      * @memberof InlineObject34
      */
-    webhookUrl?: string;
+    description: string;
+    /**
+     * botのPOSTエンドポイント
+     * @type {string}
+     * @memberof InlineObject34
+     */
+    postUrl: string;
 }
 /**
  *
@@ -1081,11 +1078,29 @@ export interface InlineObject34 {
  */
 export interface InlineObject35 {
     /**
-     * 購読するイベントの配列
-     * @type {Array<string>}
+     * Bot表示名
+     * @type {string}
      * @memberof InlineObject35
      */
-    events: Array<string>;
+    displayName?: string;
+    /**
+     * Bot説明
+     * @type {string}
+     * @memberof InlineObject35
+     */
+    description?: string;
+    /**
+     * privileged属性
+     * @type {boolean}
+     * @memberof InlineObject35
+     */
+    privileged?: boolean;
+    /**
+     * BotのPOSTエンドポイント
+     * @type {string}
+     * @memberof InlineObject35
+     */
+    webhookUrl?: string;
 }
 /**
  *
@@ -1094,9 +1109,22 @@ export interface InlineObject35 {
  */
 export interface InlineObject36 {
     /**
+     * 購読するイベントの配列
+     * @type {Array<string>}
+     * @memberof InlineObject36
+     */
+    events: Array<string>;
+}
+/**
+ *
+ * @export
+ * @interface InlineObject37
+ */
+export interface InlineObject37 {
+    /**
      * activeまたはinactive
      * @type {string}
-     * @memberof InlineObject36
+     * @memberof InlineObject37
      */
     state: string;
 }
@@ -2569,11 +2597,11 @@ export declare const BotApiAxiosParamCreator: (configuration?: Configuration) =>
     /**
      * Botの購読イベントを変更します。
      * @param {string} botID 操作の対象となるBotのID
-     * @param {InlineObject35} [inlineObject35]
+     * @param {InlineObject36} [inlineObject36]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    botsBotIDEventsPut(botID: string, inlineObject35?: InlineObject35, options?: any): RequestArgs;
+    botsBotIDEventsPut(botID: string, inlineObject36?: InlineObject36, options?: any): RequestArgs;
     /**
      * Botを取得します。
      * @param {string} botID 操作の対象となるBotのID
@@ -2599,11 +2627,11 @@ export declare const BotApiAxiosParamCreator: (configuration?: Configuration) =>
     /**
      * Bot情報を変更します。
      * @param {string} botID 操作の対象となるBotのID
-     * @param {InlineObject34} [inlineObject34]
+     * @param {InlineObject35} [inlineObject35]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    botsBotIDPatch(botID: string, inlineObject34?: InlineObject34, options?: any): RequestArgs;
+    botsBotIDPatch(botID: string, inlineObject35?: InlineObject35, options?: any): RequestArgs;
     /**
      * Botの各種トークンを再発行します。
      * @param {string} botID 操作の対象となるBotのID
@@ -2614,11 +2642,11 @@ export declare const BotApiAxiosParamCreator: (configuration?: Configuration) =>
     /**
      * Botの状態を変更します。
      * @param {string} botID 操作の対象となるBotのID
-     * @param {InlineObject36} [inlineObject36]
+     * @param {InlineObject37} [inlineObject37]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    botsBotIDStatePut(botID: string, inlineObject36?: InlineObject36, options?: any): RequestArgs;
+    botsBotIDStatePut(botID: string, inlineObject37?: InlineObject37, options?: any): RequestArgs;
     /**
      * 自分が作成したBotの一覧を取得します。
      * @param {*} [options] Override http request option.
@@ -2627,11 +2655,11 @@ export declare const BotApiAxiosParamCreator: (configuration?: Configuration) =>
     botsGet(options?: any): RequestArgs;
     /**
      * Botを作成します。
-     * @param {InlineObject33} [inlineObject33]
+     * @param {InlineObject34} [inlineObject34]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    botsPost(inlineObject33?: InlineObject33, options?: any): RequestArgs;
+    botsPost(inlineObject34?: InlineObject34, options?: any): RequestArgs;
     /**
      * Botをチャンネルから退出させます。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -2650,11 +2678,11 @@ export declare const BotApiAxiosParamCreator: (configuration?: Configuration) =>
     /**
      * チャンネルにBotを参加させます。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject21} [inlineObject21]
+     * @param {InlineObject22} [inlineObject22]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    channelsChannelIDBotsPost(channelID: string, inlineObject21?: InlineObject21, options?: any): RequestArgs;
+    channelsChannelIDBotsPost(channelID: string, inlineObject22?: InlineObject22, options?: any): RequestArgs;
 };
 /**
  * BotApi - functional programming interface
@@ -2685,11 +2713,11 @@ export declare const BotApiFp: (configuration?: Configuration) => {
     /**
      * Botの購読イベントを変更します。
      * @param {string} botID 操作の対象となるBotのID
-     * @param {InlineObject35} [inlineObject35]
+     * @param {InlineObject36} [inlineObject36]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    botsBotIDEventsPut(botID: string, inlineObject35?: InlineObject35, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    botsBotIDEventsPut(botID: string, inlineObject36?: InlineObject36, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
     /**
      * Botを取得します。
      * @param {string} botID 操作の対象となるBotのID
@@ -2715,11 +2743,11 @@ export declare const BotApiFp: (configuration?: Configuration) => {
     /**
      * Bot情報を変更します。
      * @param {string} botID 操作の対象となるBotのID
-     * @param {InlineObject34} [inlineObject34]
+     * @param {InlineObject35} [inlineObject35]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    botsBotIDPatch(botID: string, inlineObject34?: InlineObject34, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    botsBotIDPatch(botID: string, inlineObject35?: InlineObject35, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
     /**
      * Botの各種トークンを再発行します。
      * @param {string} botID 操作の対象となるBotのID
@@ -2730,11 +2758,11 @@ export declare const BotApiFp: (configuration?: Configuration) => {
     /**
      * Botの状態を変更します。
      * @param {string} botID 操作の対象となるBotのID
-     * @param {InlineObject36} [inlineObject36]
+     * @param {InlineObject37} [inlineObject37]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    botsBotIDStatePut(botID: string, inlineObject36?: InlineObject36, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    botsBotIDStatePut(botID: string, inlineObject37?: InlineObject37, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
     /**
      * 自分が作成したBotの一覧を取得します。
      * @param {*} [options] Override http request option.
@@ -2743,11 +2771,11 @@ export declare const BotApiFp: (configuration?: Configuration) => {
     botsGet(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Bot[]>;
     /**
      * Botを作成します。
-     * @param {InlineObject33} [inlineObject33]
+     * @param {InlineObject34} [inlineObject34]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    botsPost(inlineObject33?: InlineObject33, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<BotDetail>;
+    botsPost(inlineObject34?: InlineObject34, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<BotDetail>;
     /**
      * Botをチャンネルから退出させます。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -2766,11 +2794,11 @@ export declare const BotApiFp: (configuration?: Configuration) => {
     /**
      * チャンネルにBotを参加させます。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject21} [inlineObject21]
+     * @param {InlineObject22} [inlineObject22]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    channelsChannelIDBotsPost(channelID: string, inlineObject21?: InlineObject21, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2008>;
+    channelsChannelIDBotsPost(channelID: string, inlineObject22?: InlineObject22, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2008>;
 };
 /**
  * BotApi - factory interface
@@ -2801,11 +2829,11 @@ export declare const BotApiFactory: (configuration?: Configuration, basePath?: s
     /**
      * Botの購読イベントを変更します。
      * @param {string} botID 操作の対象となるBotのID
-     * @param {InlineObject35} [inlineObject35]
+     * @param {InlineObject36} [inlineObject36]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    botsBotIDEventsPut(botID: string, inlineObject35?: InlineObject35, options?: any): AxiosPromise<Response>;
+    botsBotIDEventsPut(botID: string, inlineObject36?: InlineObject36, options?: any): AxiosPromise<Response>;
     /**
      * Botを取得します。
      * @param {string} botID 操作の対象となるBotのID
@@ -2831,11 +2859,11 @@ export declare const BotApiFactory: (configuration?: Configuration, basePath?: s
     /**
      * Bot情報を変更します。
      * @param {string} botID 操作の対象となるBotのID
-     * @param {InlineObject34} [inlineObject34]
+     * @param {InlineObject35} [inlineObject35]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    botsBotIDPatch(botID: string, inlineObject34?: InlineObject34, options?: any): AxiosPromise<Response>;
+    botsBotIDPatch(botID: string, inlineObject35?: InlineObject35, options?: any): AxiosPromise<Response>;
     /**
      * Botの各種トークンを再発行します。
      * @param {string} botID 操作の対象となるBotのID
@@ -2846,11 +2874,11 @@ export declare const BotApiFactory: (configuration?: Configuration, basePath?: s
     /**
      * Botの状態を変更します。
      * @param {string} botID 操作の対象となるBotのID
-     * @param {InlineObject36} [inlineObject36]
+     * @param {InlineObject37} [inlineObject37]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    botsBotIDStatePut(botID: string, inlineObject36?: InlineObject36, options?: any): AxiosPromise<Response>;
+    botsBotIDStatePut(botID: string, inlineObject37?: InlineObject37, options?: any): AxiosPromise<Response>;
     /**
      * 自分が作成したBotの一覧を取得します。
      * @param {*} [options] Override http request option.
@@ -2859,11 +2887,11 @@ export declare const BotApiFactory: (configuration?: Configuration, basePath?: s
     botsGet(options?: any): AxiosPromise<Bot[]>;
     /**
      * Botを作成します。
-     * @param {InlineObject33} [inlineObject33]
+     * @param {InlineObject34} [inlineObject34]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    botsPost(inlineObject33?: InlineObject33, options?: any): AxiosPromise<BotDetail>;
+    botsPost(inlineObject34?: InlineObject34, options?: any): AxiosPromise<BotDetail>;
     /**
      * Botをチャンネルから退出させます。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -2882,11 +2910,11 @@ export declare const BotApiFactory: (configuration?: Configuration, basePath?: s
     /**
      * チャンネルにBotを参加させます。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject21} [inlineObject21]
+     * @param {InlineObject22} [inlineObject22]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    channelsChannelIDBotsPost(channelID: string, inlineObject21?: InlineObject21, options?: any): AxiosPromise<InlineResponse2008>;
+    channelsChannelIDBotsPost(channelID: string, inlineObject22?: InlineObject22, options?: any): AxiosPromise<InlineResponse2008>;
 };
 /**
  * BotApi - object-oriented interface
@@ -2922,12 +2950,12 @@ export declare class BotApi extends BaseAPI {
     /**
      * Botの購読イベントを変更します。
      * @param {string} botID 操作の対象となるBotのID
-     * @param {InlineObject35} [inlineObject35]
+     * @param {InlineObject36} [inlineObject36]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    botsBotIDEventsPut(botID: string, inlineObject35?: InlineObject35, options?: any): AxiosPromise<Response>;
+    botsBotIDEventsPut(botID: string, inlineObject36?: InlineObject36, options?: any): AxiosPromise<Response>;
     /**
      * Botを取得します。
      * @param {string} botID 操作の対象となるBotのID
@@ -2956,12 +2984,12 @@ export declare class BotApi extends BaseAPI {
     /**
      * Bot情報を変更します。
      * @param {string} botID 操作の対象となるBotのID
-     * @param {InlineObject34} [inlineObject34]
+     * @param {InlineObject35} [inlineObject35]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    botsBotIDPatch(botID: string, inlineObject34?: InlineObject34, options?: any): AxiosPromise<Response>;
+    botsBotIDPatch(botID: string, inlineObject35?: InlineObject35, options?: any): AxiosPromise<Response>;
     /**
      * Botの各種トークンを再発行します。
      * @param {string} botID 操作の対象となるBotのID
@@ -2973,12 +3001,12 @@ export declare class BotApi extends BaseAPI {
     /**
      * Botの状態を変更します。
      * @param {string} botID 操作の対象となるBotのID
-     * @param {InlineObject36} [inlineObject36]
+     * @param {InlineObject37} [inlineObject37]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    botsBotIDStatePut(botID: string, inlineObject36?: InlineObject36, options?: any): AxiosPromise<Response>;
+    botsBotIDStatePut(botID: string, inlineObject37?: InlineObject37, options?: any): AxiosPromise<Response>;
     /**
      * 自分が作成したBotの一覧を取得します。
      * @param {*} [options] Override http request option.
@@ -2988,12 +3016,12 @@ export declare class BotApi extends BaseAPI {
     botsGet(options?: any): AxiosPromise<Bot[]>;
     /**
      * Botを作成します。
-     * @param {InlineObject33} [inlineObject33]
+     * @param {InlineObject34} [inlineObject34]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    botsPost(inlineObject33?: InlineObject33, options?: any): AxiosPromise<BotDetail>;
+    botsPost(inlineObject34?: InlineObject34, options?: any): AxiosPromise<BotDetail>;
     /**
      * Botをチャンネルから退出させます。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -3014,12 +3042,12 @@ export declare class BotApi extends BaseAPI {
     /**
      * チャンネルにBotを参加させます。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject21} [inlineObject21]
+     * @param {InlineObject22} [inlineObject22]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    channelsChannelIDBotsPost(channelID: string, inlineObject21?: InlineObject21, options?: any): AxiosPromise<InlineResponse2008>;
+    channelsChannelIDBotsPost(channelID: string, inlineObject22?: InlineObject22, options?: any): AxiosPromise<InlineResponse2008>;
 }
 /**
  * ChannelApi - axios parameter creator
@@ -3029,11 +3057,11 @@ export declare const ChannelApiAxiosParamCreator: (configuration?: Configuration
     /**
      * 子チャンネルを作成します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject17} [inlineObject17]
+     * @param {InlineObject18} [inlineObject18]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    channelsChannelIDChildrenPost(channelID: string, inlineObject17?: InlineObject17, options?: any): RequestArgs;
+    channelsChannelIDChildrenPost(channelID: string, inlineObject18?: InlineObject18, options?: any): RequestArgs;
     /**
      * チャンネルを削除します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -3051,19 +3079,19 @@ export declare const ChannelApiAxiosParamCreator: (configuration?: Configuration
     /**
      * チャンネルの親チャンネルを変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {InlineObject17} [inlineObject17]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    channelsChannelIDParentPut(channelID: string, inlineObject17?: InlineObject17, options?: any): RequestArgs;
+    /**
+     * チャンネルの情報を変更します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {InlineObject16} [inlineObject16]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    channelsChannelIDParentPut(channelID: string, inlineObject16?: InlineObject16, options?: any): RequestArgs;
-    /**
-     * チャンネルの情報を変更します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject15} [inlineObject15]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    channelsChannelIDPatch(channelID: string, inlineObject15?: InlineObject15, options?: any): RequestArgs;
+    channelsChannelIDPatch(channelID: string, inlineObject16?: InlineObject16, options?: any): RequestArgs;
     /**
      * チャンネルの説明を取得します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -3074,11 +3102,11 @@ export declare const ChannelApiAxiosParamCreator: (configuration?: Configuration
     /**
      * チャンネルの説明を変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject18} [inlineObject18]
+     * @param {InlineObject19} [inlineObject19]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    channelsChannelIDTopicPut(channelID: string, inlineObject18?: InlineObject18, options?: any): RequestArgs;
+    channelsChannelIDTopicPut(channelID: string, inlineObject19?: InlineObject19, options?: any): RequestArgs;
     /**
      * (すべての)チャンネルのリストを取得します。
      * @param {*} [options] Override http request option.
@@ -3087,11 +3115,11 @@ export declare const ChannelApiAxiosParamCreator: (configuration?: Configuration
     channelsGet(options?: any): RequestArgs;
     /**
      * チャンネルを作成します。
-     * @param {InlineObject14} [inlineObject14]
+     * @param {InlineObject15} [inlineObject15]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    channelsPost(inlineObject14?: InlineObject14, options?: any): RequestArgs;
+    channelsPost(inlineObject15?: InlineObject15, options?: any): RequestArgs;
 };
 /**
  * ChannelApi - functional programming interface
@@ -3101,11 +3129,11 @@ export declare const ChannelApiFp: (configuration?: Configuration) => {
     /**
      * 子チャンネルを作成します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject17} [inlineObject17]
+     * @param {InlineObject18} [inlineObject18]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    channelsChannelIDChildrenPost(channelID: string, inlineObject17?: InlineObject17, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Channel>;
+    channelsChannelIDChildrenPost(channelID: string, inlineObject18?: InlineObject18, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Channel>;
     /**
      * チャンネルを削除します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -3123,19 +3151,19 @@ export declare const ChannelApiFp: (configuration?: Configuration) => {
     /**
      * チャンネルの親チャンネルを変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {InlineObject17} [inlineObject17]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    channelsChannelIDParentPut(channelID: string, inlineObject17?: InlineObject17, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    /**
+     * チャンネルの情報を変更します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {InlineObject16} [inlineObject16]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    channelsChannelIDParentPut(channelID: string, inlineObject16?: InlineObject16, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
-    /**
-     * チャンネルの情報を変更します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject15} [inlineObject15]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    channelsChannelIDPatch(channelID: string, inlineObject15?: InlineObject15, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    channelsChannelIDPatch(channelID: string, inlineObject16?: InlineObject16, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
     /**
      * チャンネルの説明を取得します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -3146,11 +3174,11 @@ export declare const ChannelApiFp: (configuration?: Configuration) => {
     /**
      * チャンネルの説明を変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject18} [inlineObject18]
+     * @param {InlineObject19} [inlineObject19]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    channelsChannelIDTopicPut(channelID: string, inlineObject18?: InlineObject18, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    channelsChannelIDTopicPut(channelID: string, inlineObject19?: InlineObject19, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
     /**
      * (すべての)チャンネルのリストを取得します。
      * @param {*} [options] Override http request option.
@@ -3159,11 +3187,11 @@ export declare const ChannelApiFp: (configuration?: Configuration) => {
     channelsGet(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Channel[]>;
     /**
      * チャンネルを作成します。
-     * @param {InlineObject14} [inlineObject14]
+     * @param {InlineObject15} [inlineObject15]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    channelsPost(inlineObject14?: InlineObject14, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Channel>;
+    channelsPost(inlineObject15?: InlineObject15, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Channel>;
 };
 /**
  * ChannelApi - factory interface
@@ -3173,11 +3201,11 @@ export declare const ChannelApiFactory: (configuration?: Configuration, basePath
     /**
      * 子チャンネルを作成します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject17} [inlineObject17]
+     * @param {InlineObject18} [inlineObject18]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    channelsChannelIDChildrenPost(channelID: string, inlineObject17?: InlineObject17, options?: any): AxiosPromise<Channel>;
+    channelsChannelIDChildrenPost(channelID: string, inlineObject18?: InlineObject18, options?: any): AxiosPromise<Channel>;
     /**
      * チャンネルを削除します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -3195,19 +3223,19 @@ export declare const ChannelApiFactory: (configuration?: Configuration, basePath
     /**
      * チャンネルの親チャンネルを変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {InlineObject17} [inlineObject17]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    channelsChannelIDParentPut(channelID: string, inlineObject17?: InlineObject17, options?: any): AxiosPromise<Response>;
+    /**
+     * チャンネルの情報を変更します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {InlineObject16} [inlineObject16]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    channelsChannelIDParentPut(channelID: string, inlineObject16?: InlineObject16, options?: any): AxiosPromise<Response>;
-    /**
-     * チャンネルの情報を変更します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject15} [inlineObject15]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    channelsChannelIDPatch(channelID: string, inlineObject15?: InlineObject15, options?: any): AxiosPromise<Response>;
+    channelsChannelIDPatch(channelID: string, inlineObject16?: InlineObject16, options?: any): AxiosPromise<Response>;
     /**
      * チャンネルの説明を取得します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -3218,11 +3246,11 @@ export declare const ChannelApiFactory: (configuration?: Configuration, basePath
     /**
      * チャンネルの説明を変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject18} [inlineObject18]
+     * @param {InlineObject19} [inlineObject19]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    channelsChannelIDTopicPut(channelID: string, inlineObject18?: InlineObject18, options?: any): AxiosPromise<Response>;
+    channelsChannelIDTopicPut(channelID: string, inlineObject19?: InlineObject19, options?: any): AxiosPromise<Response>;
     /**
      * (すべての)チャンネルのリストを取得します。
      * @param {*} [options] Override http request option.
@@ -3231,11 +3259,11 @@ export declare const ChannelApiFactory: (configuration?: Configuration, basePath
     channelsGet(options?: any): AxiosPromise<Channel[]>;
     /**
      * チャンネルを作成します。
-     * @param {InlineObject14} [inlineObject14]
+     * @param {InlineObject15} [inlineObject15]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    channelsPost(inlineObject14?: InlineObject14, options?: any): AxiosPromise<Channel>;
+    channelsPost(inlineObject15?: InlineObject15, options?: any): AxiosPromise<Channel>;
 };
 /**
  * ChannelApi - object-oriented interface
@@ -3247,12 +3275,12 @@ export declare class ChannelApi extends BaseAPI {
     /**
      * 子チャンネルを作成します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject17} [inlineObject17]
+     * @param {InlineObject18} [inlineObject18]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDChildrenPost(channelID: string, inlineObject17?: InlineObject17, options?: any): AxiosPromise<Channel>;
+    channelsChannelIDChildrenPost(channelID: string, inlineObject18?: InlineObject18, options?: any): AxiosPromise<Channel>;
     /**
      * チャンネルを削除します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -3272,21 +3300,21 @@ export declare class ChannelApi extends BaseAPI {
     /**
      * チャンネルの親チャンネルを変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {InlineObject17} [inlineObject17]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    channelsChannelIDParentPut(channelID: string, inlineObject17?: InlineObject17, options?: any): AxiosPromise<Response>;
+    /**
+     * チャンネルの情報を変更します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {InlineObject16} [inlineObject16]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDParentPut(channelID: string, inlineObject16?: InlineObject16, options?: any): AxiosPromise<Response>;
-    /**
-     * チャンネルの情報を変更します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject15} [inlineObject15]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ChannelApi
-     */
-    channelsChannelIDPatch(channelID: string, inlineObject15?: InlineObject15, options?: any): AxiosPromise<Response>;
+    channelsChannelIDPatch(channelID: string, inlineObject16?: InlineObject16, options?: any): AxiosPromise<Response>;
     /**
      * チャンネルの説明を取得します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -3298,12 +3326,12 @@ export declare class ChannelApi extends BaseAPI {
     /**
      * チャンネルの説明を変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject18} [inlineObject18]
+     * @param {InlineObject19} [inlineObject19]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDTopicPut(channelID: string, inlineObject18?: InlineObject18, options?: any): AxiosPromise<Response>;
+    channelsChannelIDTopicPut(channelID: string, inlineObject19?: InlineObject19, options?: any): AxiosPromise<Response>;
     /**
      * (すべての)チャンネルのリストを取得します。
      * @param {*} [options] Override http request option.
@@ -3313,12 +3341,12 @@ export declare class ChannelApi extends BaseAPI {
     channelsGet(options?: any): AxiosPromise<Channel[]>;
     /**
      * チャンネルを作成します。
-     * @param {InlineObject14} [inlineObject14]
+     * @param {InlineObject15} [inlineObject15]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsPost(inlineObject14?: InlineObject14, options?: any): AxiosPromise<Channel>;
+    channelsPost(inlineObject15?: InlineObject15, options?: any): AxiosPromise<Channel>;
 }
 /**
  * ClientApi - axios parameter creator
@@ -3334,10 +3362,11 @@ export declare const ClientApiAxiosParamCreator: (configuration?: Configuration)
     clientsClientIDDelete(clientID: string, options?: any): RequestArgs;
     /**
      * クライアントの詳細を取得します。
+     * @param {string} clientID 操作の対象となるclientのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    clientsClientIDDetailGet(options?: any): RequestArgs;
+    clientsClientIDDetailGet(clientID: string, options?: any): RequestArgs;
     /**
      * 指定したクライアントIDのクライアントの情報を取得します。
      * @param {string} clientID 操作の対象となるclientのID
@@ -3348,11 +3377,11 @@ export declare const ClientApiAxiosParamCreator: (configuration?: Configuration)
     /**
      * 指定したクライアントIDのクライアントの情報を変更します。
      * @param {string} clientID 操作の対象となるclientのID
-     * @param {InlineObject32} [inlineObject32]
+     * @param {InlineObject33} [inlineObject33]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    clientsClientIDPatch(clientID: string, inlineObject32?: InlineObject32, options?: any): RequestArgs;
+    clientsClientIDPatch(clientID: string, inlineObject33?: InlineObject33, options?: any): RequestArgs;
     /**
      * 自分が登録しているクライアントの一覧を取得します。
      * @param {*} [options] Override http request option.
@@ -3361,11 +3390,11 @@ export declare const ClientApiAxiosParamCreator: (configuration?: Configuration)
     clientsGet(options?: any): RequestArgs;
     /**
      * クライアントを登録します。
-     * @param {InlineObject31} [inlineObject31]
+     * @param {InlineObject32} [inlineObject32]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    clientsPost(inlineObject31?: InlineObject31, options?: any): RequestArgs;
+    clientsPost(inlineObject32?: InlineObject32, options?: any): RequestArgs;
     /**
      * 自分が許可しているクライアントの一覧とトークン情報を取得します。
      * @param {*} [options] Override http request option.
@@ -3394,10 +3423,11 @@ export declare const ClientApiFp: (configuration?: Configuration) => {
     clientsClientIDDelete(clientID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
     /**
      * クライアントの詳細を取得します。
+     * @param {string} clientID 操作の対象となるclientのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    clientsClientIDDetailGet(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<OwnedClientInfo>;
+    clientsClientIDDetailGet(clientID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<OwnedClientInfo>;
     /**
      * 指定したクライアントIDのクライアントの情報を取得します。
      * @param {string} clientID 操作の対象となるclientのID
@@ -3408,11 +3438,11 @@ export declare const ClientApiFp: (configuration?: Configuration) => {
     /**
      * 指定したクライアントIDのクライアントの情報を変更します。
      * @param {string} clientID 操作の対象となるclientのID
-     * @param {InlineObject32} [inlineObject32]
+     * @param {InlineObject33} [inlineObject33]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    clientsClientIDPatch(clientID: string, inlineObject32?: InlineObject32, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    clientsClientIDPatch(clientID: string, inlineObject33?: InlineObject33, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
     /**
      * 自分が登録しているクライアントの一覧を取得します。
      * @param {*} [options] Override http request option.
@@ -3421,11 +3451,11 @@ export declare const ClientApiFp: (configuration?: Configuration) => {
     clientsGet(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<OwnedClientInfo[]>;
     /**
      * クライアントを登録します。
-     * @param {InlineObject31} [inlineObject31]
+     * @param {InlineObject32} [inlineObject32]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    clientsPost(inlineObject31?: InlineObject31, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<OwnedClientInfo>;
+    clientsPost(inlineObject32?: InlineObject32, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<OwnedClientInfo>;
     /**
      * 自分が許可しているクライアントの一覧とトークン情報を取得します。
      * @param {*} [options] Override http request option.
@@ -3454,10 +3484,11 @@ export declare const ClientApiFactory: (configuration?: Configuration, basePath?
     clientsClientIDDelete(clientID: string, options?: any): AxiosPromise<Response>;
     /**
      * クライアントの詳細を取得します。
+     * @param {string} clientID 操作の対象となるclientのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    clientsClientIDDetailGet(options?: any): AxiosPromise<OwnedClientInfo>;
+    clientsClientIDDetailGet(clientID: string, options?: any): AxiosPromise<OwnedClientInfo>;
     /**
      * 指定したクライアントIDのクライアントの情報を取得します。
      * @param {string} clientID 操作の対象となるclientのID
@@ -3468,11 +3499,11 @@ export declare const ClientApiFactory: (configuration?: Configuration, basePath?
     /**
      * 指定したクライアントIDのクライアントの情報を変更します。
      * @param {string} clientID 操作の対象となるclientのID
-     * @param {InlineObject32} [inlineObject32]
+     * @param {InlineObject33} [inlineObject33]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    clientsClientIDPatch(clientID: string, inlineObject32?: InlineObject32, options?: any): AxiosPromise<Response>;
+    clientsClientIDPatch(clientID: string, inlineObject33?: InlineObject33, options?: any): AxiosPromise<Response>;
     /**
      * 自分が登録しているクライアントの一覧を取得します。
      * @param {*} [options] Override http request option.
@@ -3481,11 +3512,11 @@ export declare const ClientApiFactory: (configuration?: Configuration, basePath?
     clientsGet(options?: any): AxiosPromise<OwnedClientInfo[]>;
     /**
      * クライアントを登録します。
-     * @param {InlineObject31} [inlineObject31]
+     * @param {InlineObject32} [inlineObject32]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    clientsPost(inlineObject31?: InlineObject31, options?: any): AxiosPromise<OwnedClientInfo>;
+    clientsPost(inlineObject32?: InlineObject32, options?: any): AxiosPromise<OwnedClientInfo>;
     /**
      * 自分が許可しているクライアントの一覧とトークン情報を取得します。
      * @param {*} [options] Override http request option.
@@ -3517,11 +3548,12 @@ export declare class ClientApi extends BaseAPI {
     clientsClientIDDelete(clientID: string, options?: any): AxiosPromise<Response>;
     /**
      * クライアントの詳細を取得します。
+     * @param {string} clientID 操作の対象となるclientのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    clientsClientIDDetailGet(options?: any): AxiosPromise<OwnedClientInfo>;
+    clientsClientIDDetailGet(clientID: string, options?: any): AxiosPromise<OwnedClientInfo>;
     /**
      * 指定したクライアントIDのクライアントの情報を取得します。
      * @param {string} clientID 操作の対象となるclientのID
@@ -3533,12 +3565,12 @@ export declare class ClientApi extends BaseAPI {
     /**
      * 指定したクライアントIDのクライアントの情報を変更します。
      * @param {string} clientID 操作の対象となるclientのID
-     * @param {InlineObject32} [inlineObject32]
+     * @param {InlineObject33} [inlineObject33]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    clientsClientIDPatch(clientID: string, inlineObject32?: InlineObject32, options?: any): AxiosPromise<Response>;
+    clientsClientIDPatch(clientID: string, inlineObject33?: InlineObject33, options?: any): AxiosPromise<Response>;
     /**
      * 自分が登録しているクライアントの一覧を取得します。
      * @param {*} [options] Override http request option.
@@ -3548,12 +3580,12 @@ export declare class ClientApi extends BaseAPI {
     clientsGet(options?: any): AxiosPromise<OwnedClientInfo[]>;
     /**
      * クライアントを登録します。
-     * @param {InlineObject31} [inlineObject31]
+     * @param {InlineObject32} [inlineObject32]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    clientsPost(inlineObject31?: InlineObject31, options?: any): AxiosPromise<OwnedClientInfo>;
+    clientsPost(inlineObject32?: InlineObject32, options?: any): AxiosPromise<OwnedClientInfo>;
     /**
      * 自分が許可しているクライアントの一覧とトークン情報を取得します。
      * @param {*} [options] Override http request option.
@@ -4108,12 +4140,11 @@ export declare const HeartbeatApiAxiosParamCreator: (configuration?: Configurati
     heartbeatGet(channelId: string, options?: any): RequestArgs;
     /**
      * どのチャンネルを見ているか・編集しているかを送信します。
-     * @param {'none' | 'monitoring' | 'editing'} status editing,monitoring,noneでユーザーの状態を指定する
-     * @param {string} channelId 現在いるチャンネルId
+     * @param {InlineObject14} [inlineObject14]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    heartbeatPost(status: "none" | "monitoring" | "editing", channelId: string, options?: any): RequestArgs;
+    heartbeatPost(inlineObject14?: InlineObject14, options?: any): RequestArgs;
 };
 /**
  * HeartbeatApi - functional programming interface
@@ -4129,12 +4160,11 @@ export declare const HeartbeatApiFp: (configuration?: Configuration) => {
     heartbeatGet(channelId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<HeartbeatRes>;
     /**
      * どのチャンネルを見ているか・編集しているかを送信します。
-     * @param {'none' | 'monitoring' | 'editing'} status editing,monitoring,noneでユーザーの状態を指定する
-     * @param {string} channelId 現在いるチャンネルId
+     * @param {InlineObject14} [inlineObject14]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    heartbeatPost(status: "none" | "monitoring" | "editing", channelId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    heartbeatPost(inlineObject14?: InlineObject14, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
 };
 /**
  * HeartbeatApi - factory interface
@@ -4150,12 +4180,11 @@ export declare const HeartbeatApiFactory: (configuration?: Configuration, basePa
     heartbeatGet(channelId: string, options?: any): AxiosPromise<HeartbeatRes>;
     /**
      * どのチャンネルを見ているか・編集しているかを送信します。
-     * @param {'none' | 'monitoring' | 'editing'} status editing,monitoring,noneでユーザーの状態を指定する
-     * @param {string} channelId 現在いるチャンネルId
+     * @param {InlineObject14} [inlineObject14]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    heartbeatPost(status: "none" | "monitoring" | "editing", channelId: string, options?: any): AxiosPromise<Response>;
+    heartbeatPost(inlineObject14?: InlineObject14, options?: any): AxiosPromise<Response>;
 };
 /**
  * HeartbeatApi - object-oriented interface
@@ -4174,13 +4203,12 @@ export declare class HeartbeatApi extends BaseAPI {
     heartbeatGet(channelId: string, options?: any): AxiosPromise<HeartbeatRes>;
     /**
      * どのチャンネルを見ているか・編集しているかを送信します。
-     * @param {'none' | 'monitoring' | 'editing'} status editing,monitoring,noneでユーザーの状態を指定する
-     * @param {string} channelId 現在いるチャンネルId
+     * @param {InlineObject14} [inlineObject14]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof HeartbeatApi
      */
-    heartbeatPost(status: 'none' | 'monitoring' | 'editing', channelId: string, options?: any): AxiosPromise<Response>;
+    heartbeatPost(inlineObject14?: InlineObject14, options?: any): AxiosPromise<Response>;
 }
 /**
  * MessageApi - axios parameter creator
@@ -4203,11 +4231,11 @@ export declare const MessageApiAxiosParamCreator: (configuration?: Configuration
     /**
      * チャンネルにメッセージを投稿します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject19} [inlineObject19]
+     * @param {InlineObject20} [inlineObject20]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    channelsChannelIDMessagesPost(channelID: string, inlineObject19?: InlineObject19, options?: any): RequestArgs;
+    channelsChannelIDMessagesPost(channelID: string, inlineObject20?: InlineObject20, options?: any): RequestArgs;
     /**
      * 指定したメッセージを削除します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -4225,19 +4253,19 @@ export declare const MessageApiAxiosParamCreator: (configuration?: Configuration
     /**
      * 指定したメッセージを編集します。
      * @param {string} messageID 操作の対象となるメッセージID
-     * @param {InlineObject23} [inlineObject23]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    messagesMessageIDPut(messageID: string, inlineObject23?: InlineObject23, options?: any): RequestArgs;
-    /**
-     * 指定したメッセージを通報します。
-     * @param {string} messageID 操作の対象となるメッセージID
      * @param {InlineObject24} [inlineObject24]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    messagesMessageIDReportPost(messageID: string, inlineObject24?: InlineObject24, options?: any): RequestArgs;
+    messagesMessageIDPut(messageID: string, inlineObject24?: InlineObject24, options?: any): RequestArgs;
+    /**
+     * 指定したメッセージを通報します。
+     * @param {string} messageID 操作の対象となるメッセージID
+     * @param {InlineObject25} [inlineObject25]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    messagesMessageIDReportPost(messageID: string, inlineObject25?: InlineObject25, options?: any): RequestArgs;
     /**
      * メッセージ通報を最大50件取得します。
      * @param {number} [p] ページ番号(ゼロオリジン)
@@ -4288,11 +4316,11 @@ export declare const MessageApiFp: (configuration?: Configuration) => {
     /**
      * チャンネルにメッセージを投稿します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject19} [inlineObject19]
+     * @param {InlineObject20} [inlineObject20]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    channelsChannelIDMessagesPost(channelID: string, inlineObject19?: InlineObject19, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>;
+    channelsChannelIDMessagesPost(channelID: string, inlineObject20?: InlineObject20, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Message>;
     /**
      * 指定したメッセージを削除します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -4310,19 +4338,19 @@ export declare const MessageApiFp: (configuration?: Configuration) => {
     /**
      * 指定したメッセージを編集します。
      * @param {string} messageID 操作の対象となるメッセージID
-     * @param {InlineObject23} [inlineObject23]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    messagesMessageIDPut(messageID: string, inlineObject23?: InlineObject23, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
-    /**
-     * 指定したメッセージを通報します。
-     * @param {string} messageID 操作の対象となるメッセージID
      * @param {InlineObject24} [inlineObject24]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    messagesMessageIDReportPost(messageID: string, inlineObject24?: InlineObject24, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    messagesMessageIDPut(messageID: string, inlineObject24?: InlineObject24, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    /**
+     * 指定したメッセージを通報します。
+     * @param {string} messageID 操作の対象となるメッセージID
+     * @param {InlineObject25} [inlineObject25]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    messagesMessageIDReportPost(messageID: string, inlineObject25?: InlineObject25, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
     /**
      * メッセージ通報を最大50件取得します。
      * @param {number} [p] ページ番号(ゼロオリジン)
@@ -4373,11 +4401,11 @@ export declare const MessageApiFactory: (configuration?: Configuration, basePath
     /**
      * チャンネルにメッセージを投稿します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject19} [inlineObject19]
+     * @param {InlineObject20} [inlineObject20]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    channelsChannelIDMessagesPost(channelID: string, inlineObject19?: InlineObject19, options?: any): AxiosPromise<Message>;
+    channelsChannelIDMessagesPost(channelID: string, inlineObject20?: InlineObject20, options?: any): AxiosPromise<Message>;
     /**
      * 指定したメッセージを削除します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -4395,19 +4423,19 @@ export declare const MessageApiFactory: (configuration?: Configuration, basePath
     /**
      * 指定したメッセージを編集します。
      * @param {string} messageID 操作の対象となるメッセージID
-     * @param {InlineObject23} [inlineObject23]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    messagesMessageIDPut(messageID: string, inlineObject23?: InlineObject23, options?: any): AxiosPromise<Response>;
-    /**
-     * 指定したメッセージを通報します。
-     * @param {string} messageID 操作の対象となるメッセージID
      * @param {InlineObject24} [inlineObject24]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    messagesMessageIDReportPost(messageID: string, inlineObject24?: InlineObject24, options?: any): AxiosPromise<Response>;
+    messagesMessageIDPut(messageID: string, inlineObject24?: InlineObject24, options?: any): AxiosPromise<Response>;
+    /**
+     * 指定したメッセージを通報します。
+     * @param {string} messageID 操作の対象となるメッセージID
+     * @param {InlineObject25} [inlineObject25]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    messagesMessageIDReportPost(messageID: string, inlineObject25?: InlineObject25, options?: any): AxiosPromise<Response>;
     /**
      * メッセージ通報を最大50件取得します。
      * @param {number} [p] ページ番号(ゼロオリジン)
@@ -4461,12 +4489,12 @@ export declare class MessageApi extends BaseAPI {
     /**
      * チャンネルにメッセージを投稿します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject19} [inlineObject19]
+     * @param {InlineObject20} [inlineObject20]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    channelsChannelIDMessagesPost(channelID: string, inlineObject19?: InlineObject19, options?: any): AxiosPromise<Message>;
+    channelsChannelIDMessagesPost(channelID: string, inlineObject20?: InlineObject20, options?: any): AxiosPromise<Message>;
     /**
      * 指定したメッセージを削除します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -4486,21 +4514,21 @@ export declare class MessageApi extends BaseAPI {
     /**
      * 指定したメッセージを編集します。
      * @param {string} messageID 操作の対象となるメッセージID
-     * @param {InlineObject23} [inlineObject23]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MessageApi
-     */
-    messagesMessageIDPut(messageID: string, inlineObject23?: InlineObject23, options?: any): AxiosPromise<Response>;
-    /**
-     * 指定したメッセージを通報します。
-     * @param {string} messageID 操作の対象となるメッセージID
      * @param {InlineObject24} [inlineObject24]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    messagesMessageIDReportPost(messageID: string, inlineObject24?: InlineObject24, options?: any): AxiosPromise<Response>;
+    messagesMessageIDPut(messageID: string, inlineObject24?: InlineObject24, options?: any): AxiosPromise<Response>;
+    /**
+     * 指定したメッセージを通報します。
+     * @param {string} messageID 操作の対象となるメッセージID
+     * @param {InlineObject25} [inlineObject25]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MessageApi
+     */
+    messagesMessageIDReportPost(messageID: string, inlineObject25?: InlineObject25, options?: any): AxiosPromise<Response>;
     /**
      * メッセージ通報を最大50件取得します。
      * @param {number} [p] ページ番号(ゼロオリジン)
@@ -4657,18 +4685,18 @@ export declare const NotificationApiAxiosParamCreator: (configuration?: Configur
     /**
      * チャンネルの通知状況を変更します。 リクエストに含めなかったユーザーIDのユーザーの通知状況は変更しません。 また、存在しないユーザーのIDを指定した場合は無視されます。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject20} [inlineObject20]
+     * @param {InlineObject21} [inlineObject21]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    channelsChannelIDNotificationPut(channelID: string, inlineObject20?: InlineObject20, options?: any): RequestArgs;
+    channelsChannelIDNotificationPut(channelID: string, inlineObject21?: InlineObject21, options?: any): RequestArgs;
     /**
      * FCMデバイスを登録します。
-     * @param {InlineObject22} [inlineObject22]
+     * @param {InlineObject23} [inlineObject23]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    notificationDevicePost(inlineObject22?: InlineObject22, options?: any): RequestArgs;
+    notificationDevicePost(inlineObject23?: InlineObject23, options?: any): RequestArgs;
     /**
      * 通知ストリーム(Server Sent Events)に接続します。
      * @param {*} [options] Override http request option.
@@ -4704,18 +4732,18 @@ export declare const NotificationApiFp: (configuration?: Configuration) => {
     /**
      * チャンネルの通知状況を変更します。 リクエストに含めなかったユーザーIDのユーザーの通知状況は変更しません。 また、存在しないユーザーのIDを指定した場合は無視されます。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject20} [inlineObject20]
+     * @param {InlineObject21} [inlineObject21]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    channelsChannelIDNotificationPut(channelID: string, inlineObject20?: InlineObject20, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    channelsChannelIDNotificationPut(channelID: string, inlineObject21?: InlineObject21, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
     /**
      * FCMデバイスを登録します。
-     * @param {InlineObject22} [inlineObject22]
+     * @param {InlineObject23} [inlineObject23]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    notificationDevicePost(inlineObject22?: InlineObject22, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    notificationDevicePost(inlineObject23?: InlineObject23, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
     /**
      * 通知ストリーム(Server Sent Events)に接続します。
      * @param {*} [options] Override http request option.
@@ -4751,18 +4779,18 @@ export declare const NotificationApiFactory: (configuration?: Configuration, bas
     /**
      * チャンネルの通知状況を変更します。 リクエストに含めなかったユーザーIDのユーザーの通知状況は変更しません。 また、存在しないユーザーのIDを指定した場合は無視されます。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject20} [inlineObject20]
+     * @param {InlineObject21} [inlineObject21]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    channelsChannelIDNotificationPut(channelID: string, inlineObject20?: InlineObject20, options?: any): AxiosPromise<Response>;
+    channelsChannelIDNotificationPut(channelID: string, inlineObject21?: InlineObject21, options?: any): AxiosPromise<Response>;
     /**
      * FCMデバイスを登録します。
-     * @param {InlineObject22} [inlineObject22]
+     * @param {InlineObject23} [inlineObject23]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    notificationDevicePost(inlineObject22?: InlineObject22, options?: any): AxiosPromise<Response>;
+    notificationDevicePost(inlineObject23?: InlineObject23, options?: any): AxiosPromise<Response>;
     /**
      * 通知ストリーム(Server Sent Events)に接続します。
      * @param {*} [options] Override http request option.
@@ -4801,20 +4829,20 @@ export declare class NotificationApi extends BaseAPI {
     /**
      * チャンネルの通知状況を変更します。 リクエストに含めなかったユーザーIDのユーザーの通知状況は変更しません。 また、存在しないユーザーのIDを指定した場合は無視されます。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject20} [inlineObject20]
+     * @param {InlineObject21} [inlineObject21]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    channelsChannelIDNotificationPut(channelID: string, inlineObject20?: InlineObject20, options?: any): AxiosPromise<Response>;
+    channelsChannelIDNotificationPut(channelID: string, inlineObject21?: InlineObject21, options?: any): AxiosPromise<Response>;
     /**
      * FCMデバイスを登録します。
-     * @param {InlineObject22} [inlineObject22]
+     * @param {InlineObject23} [inlineObject23]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    notificationDevicePost(inlineObject22?: InlineObject22, options?: any): AxiosPromise<Response>;
+    notificationDevicePost(inlineObject23?: InlineObject23, options?: any): AxiosPromise<Response>;
     /**
      * 通知ストリーム(Server Sent Events)に接続します。
      * @param {*} [options] Override http request option.
@@ -4866,11 +4894,11 @@ export declare const PinApiAxiosParamCreator: (configuration?: Configuration) =>
     pinsPinIDGet(pinID: string, options?: any): RequestArgs;
     /**
      * チャンネルにメッセージをピン留めします。
-     * @param {InlineObject25} [inlineObject25]
+     * @param {InlineObject26} [inlineObject26]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    pinsPost(inlineObject25?: InlineObject25, options?: any): RequestArgs;
+    pinsPost(inlineObject26?: InlineObject26, options?: any): RequestArgs;
 };
 /**
  * PinApi - functional programming interface
@@ -4900,11 +4928,11 @@ export declare const PinApiFp: (configuration?: Configuration) => {
     pinsPinIDGet(pinID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Pin>;
     /**
      * チャンネルにメッセージをピン留めします。
-     * @param {InlineObject25} [inlineObject25]
+     * @param {InlineObject26} [inlineObject26]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    pinsPost(inlineObject25?: InlineObject25, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2011>;
+    pinsPost(inlineObject26?: InlineObject26, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2011>;
 };
 /**
  * PinApi - factory interface
@@ -4934,11 +4962,11 @@ export declare const PinApiFactory: (configuration?: Configuration, basePath?: s
     pinsPinIDGet(pinID: string, options?: any): AxiosPromise<Pin>;
     /**
      * チャンネルにメッセージをピン留めします。
-     * @param {InlineObject25} [inlineObject25]
+     * @param {InlineObject26} [inlineObject26]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    pinsPost(inlineObject25?: InlineObject25, options?: any): AxiosPromise<InlineResponse2011>;
+    pinsPost(inlineObject26?: InlineObject26, options?: any): AxiosPromise<InlineResponse2011>;
 };
 /**
  * PinApi - object-oriented interface
@@ -4973,12 +5001,12 @@ export declare class PinApi extends BaseAPI {
     pinsPinIDGet(pinID: string, options?: any): AxiosPromise<Pin>;
     /**
      * チャンネルにメッセージをピン留めします。
-     * @param {InlineObject25} [inlineObject25]
+     * @param {InlineObject26} [inlineObject26]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PinApi
      */
-    pinsPost(inlineObject25?: InlineObject25, options?: any): AxiosPromise<InlineResponse2011>;
+    pinsPost(inlineObject26?: InlineObject26, options?: any): AxiosPromise<InlineResponse2011>;
 }
 /**
  * PublicApi - axios parameter creator
@@ -4987,10 +5015,11 @@ export declare class PinApi extends BaseAPI {
 export declare const PublicApiAxiosParamCreator: (configuration?: Configuration) => {
     /**
      * 指定したユーザーのアイコン画像を取得します。
+     * @param {string} username 画像を取得するユーザーのユーザー名
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    publicIconUsernameGet(options?: any): RequestArgs;
+    publicIconUsernameGet(username: string, options?: any): RequestArgs;
 };
 /**
  * PublicApi - functional programming interface
@@ -4999,10 +5028,11 @@ export declare const PublicApiAxiosParamCreator: (configuration?: Configuration)
 export declare const PublicApiFp: (configuration?: Configuration) => {
     /**
      * 指定したユーザーのアイコン画像を取得します。
+     * @param {string} username 画像を取得するユーザーのユーザー名
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    publicIconUsernameGet(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>;
+    publicIconUsernameGet(username: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>;
 };
 /**
  * PublicApi - factory interface
@@ -5011,10 +5041,11 @@ export declare const PublicApiFp: (configuration?: Configuration) => {
 export declare const PublicApiFactory: (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) => {
     /**
      * 指定したユーザーのアイコン画像を取得します。
+     * @param {string} username 画像を取得するユーザーのユーザー名
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    publicIconUsernameGet(options?: any): AxiosPromise<any>;
+    publicIconUsernameGet(username: string, options?: any): AxiosPromise<any>;
 };
 /**
  * PublicApi - object-oriented interface
@@ -5025,11 +5056,12 @@ export declare const PublicApiFactory: (configuration?: Configuration, basePath?
 export declare class PublicApi extends BaseAPI {
     /**
      * 指定したユーザーのアイコン画像を取得します。
+     * @param {string} username 画像を取得するユーザーのユーザー名
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PublicApi
      */
-    publicIconUsernameGet(options?: any): AxiosPromise<any>;
+    publicIconUsernameGet(username: string, options?: any): AxiosPromise<any>;
 }
 /**
  * SessionsApi - axios parameter creator
@@ -5959,11 +5991,11 @@ export declare const UserGroupApiAxiosParamCreator: (configuration?: Configurati
     /**
      * ユーザーグループにメンバーを追加します
      * @param {string} groupID 操作の対象となるユーザーグループID
-     * @param {InlineObject30} [inlineObject30]
+     * @param {InlineObject31} [inlineObject31]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    groupsGroupIDMembersPost(groupID: string, inlineObject30?: InlineObject30, options?: any): RequestArgs;
+    groupsGroupIDMembersPost(groupID: string, inlineObject31?: InlineObject31, options?: any): RequestArgs;
     /**
      * ユーザーグループからメンバーを削除します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -5975,18 +6007,18 @@ export declare const UserGroupApiAxiosParamCreator: (configuration?: Configurati
     /**
      * ユーザーグループの情報を変更します
      * @param {string} groupID 操作の対象となるユーザーグループID
+     * @param {InlineObject30} [inlineObject30]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    groupsGroupIDPatch(groupID: string, inlineObject30?: InlineObject30, options?: any): RequestArgs;
+    /**
+     * ユーザーグループを作成します
      * @param {InlineObject29} [inlineObject29]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    groupsGroupIDPatch(groupID: string, inlineObject29?: InlineObject29, options?: any): RequestArgs;
-    /**
-     * ユーザーグループを作成します
-     * @param {InlineObject28} [inlineObject28]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    groupsPost(inlineObject28?: InlineObject28, options?: any): RequestArgs;
+    groupsPost(inlineObject29?: InlineObject29, options?: any): RequestArgs;
     /**
      * 所属するユーザーグループのIDを取得します
      * @param {*} [options] Override http request option.
@@ -5995,10 +6027,11 @@ export declare const UserGroupApiAxiosParamCreator: (configuration?: Configurati
     usersMeGroupsGet(options?: any): RequestArgs;
     /**
      * 所属するユーザーグループのIDを取得します
+     * @param {string} userID 操作の対象となるユーザーID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    usersUserIDGroupsGet(options?: any): RequestArgs;
+    usersUserIDGroupsGet(userID: string, options?: any): RequestArgs;
 };
 /**
  * UserGroupApi - functional programming interface
@@ -6035,11 +6068,11 @@ export declare const UserGroupApiFp: (configuration?: Configuration) => {
     /**
      * ユーザーグループにメンバーを追加します
      * @param {string} groupID 操作の対象となるユーザーグループID
-     * @param {InlineObject30} [inlineObject30]
+     * @param {InlineObject31} [inlineObject31]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    groupsGroupIDMembersPost(groupID: string, inlineObject30?: InlineObject30, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    groupsGroupIDMembersPost(groupID: string, inlineObject31?: InlineObject31, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
     /**
      * ユーザーグループからメンバーを削除します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -6051,18 +6084,18 @@ export declare const UserGroupApiFp: (configuration?: Configuration) => {
     /**
      * ユーザーグループの情報を変更します
      * @param {string} groupID 操作の対象となるユーザーグループID
+     * @param {InlineObject30} [inlineObject30]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    groupsGroupIDPatch(groupID: string, inlineObject30?: InlineObject30, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    /**
+     * ユーザーグループを作成します
      * @param {InlineObject29} [inlineObject29]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    groupsGroupIDPatch(groupID: string, inlineObject29?: InlineObject29, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
-    /**
-     * ユーザーグループを作成します
-     * @param {InlineObject28} [inlineObject28]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    groupsPost(inlineObject28?: InlineObject28, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserGroup>;
+    groupsPost(inlineObject29?: InlineObject29, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserGroup>;
     /**
      * 所属するユーザーグループのIDを取得します
      * @param {*} [options] Override http request option.
@@ -6071,10 +6104,11 @@ export declare const UserGroupApiFp: (configuration?: Configuration) => {
     usersMeGroupsGet(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string[]>;
     /**
      * 所属するユーザーグループのIDを取得します
+     * @param {string} userID 操作の対象となるユーザーID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    usersUserIDGroupsGet(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string[]>;
+    usersUserIDGroupsGet(userID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string[]>;
 };
 /**
  * UserGroupApi - factory interface
@@ -6111,11 +6145,11 @@ export declare const UserGroupApiFactory: (configuration?: Configuration, basePa
     /**
      * ユーザーグループにメンバーを追加します
      * @param {string} groupID 操作の対象となるユーザーグループID
-     * @param {InlineObject30} [inlineObject30]
+     * @param {InlineObject31} [inlineObject31]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    groupsGroupIDMembersPost(groupID: string, inlineObject30?: InlineObject30, options?: any): AxiosPromise<Response>;
+    groupsGroupIDMembersPost(groupID: string, inlineObject31?: InlineObject31, options?: any): AxiosPromise<Response>;
     /**
      * ユーザーグループからメンバーを削除します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -6127,18 +6161,18 @@ export declare const UserGroupApiFactory: (configuration?: Configuration, basePa
     /**
      * ユーザーグループの情報を変更します
      * @param {string} groupID 操作の対象となるユーザーグループID
+     * @param {InlineObject30} [inlineObject30]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    groupsGroupIDPatch(groupID: string, inlineObject30?: InlineObject30, options?: any): AxiosPromise<Response>;
+    /**
+     * ユーザーグループを作成します
      * @param {InlineObject29} [inlineObject29]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    groupsGroupIDPatch(groupID: string, inlineObject29?: InlineObject29, options?: any): AxiosPromise<Response>;
-    /**
-     * ユーザーグループを作成します
-     * @param {InlineObject28} [inlineObject28]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    groupsPost(inlineObject28?: InlineObject28, options?: any): AxiosPromise<UserGroup>;
+    groupsPost(inlineObject29?: InlineObject29, options?: any): AxiosPromise<UserGroup>;
     /**
      * 所属するユーザーグループのIDを取得します
      * @param {*} [options] Override http request option.
@@ -6147,10 +6181,11 @@ export declare const UserGroupApiFactory: (configuration?: Configuration, basePa
     usersMeGroupsGet(options?: any): AxiosPromise<string[]>;
     /**
      * 所属するユーザーグループのIDを取得します
+     * @param {string} userID 操作の対象となるユーザーID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    usersUserIDGroupsGet(options?: any): AxiosPromise<string[]>;
+    usersUserIDGroupsGet(userID: string, options?: any): AxiosPromise<string[]>;
 };
 /**
  * UserGroupApi - object-oriented interface
@@ -6193,12 +6228,12 @@ export declare class UserGroupApi extends BaseAPI {
     /**
      * ユーザーグループにメンバーを追加します
      * @param {string} groupID 操作の対象となるユーザーグループID
-     * @param {InlineObject30} [inlineObject30]
+     * @param {InlineObject31} [inlineObject31]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    groupsGroupIDMembersPost(groupID: string, inlineObject30?: InlineObject30, options?: any): AxiosPromise<Response>;
+    groupsGroupIDMembersPost(groupID: string, inlineObject31?: InlineObject31, options?: any): AxiosPromise<Response>;
     /**
      * ユーザーグループからメンバーを削除します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -6211,20 +6246,20 @@ export declare class UserGroupApi extends BaseAPI {
     /**
      * ユーザーグループの情報を変更します
      * @param {string} groupID 操作の対象となるユーザーグループID
+     * @param {InlineObject30} [inlineObject30]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserGroupApi
+     */
+    groupsGroupIDPatch(groupID: string, inlineObject30?: InlineObject30, options?: any): AxiosPromise<Response>;
+    /**
+     * ユーザーグループを作成します
      * @param {InlineObject29} [inlineObject29]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    groupsGroupIDPatch(groupID: string, inlineObject29?: InlineObject29, options?: any): AxiosPromise<Response>;
-    /**
-     * ユーザーグループを作成します
-     * @param {InlineObject28} [inlineObject28]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserGroupApi
-     */
-    groupsPost(inlineObject28?: InlineObject28, options?: any): AxiosPromise<UserGroup>;
+    groupsPost(inlineObject29?: InlineObject29, options?: any): AxiosPromise<UserGroup>;
     /**
      * 所属するユーザーグループのIDを取得します
      * @param {*} [options] Override http request option.
@@ -6234,11 +6269,12 @@ export declare class UserGroupApi extends BaseAPI {
     usersMeGroupsGet(options?: any): AxiosPromise<string[]>;
     /**
      * 所属するユーザーグループのIDを取得します
+     * @param {string} userID 操作の対象となるユーザーID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    usersUserIDGroupsGet(options?: any): AxiosPromise<string[]>;
+    usersUserIDGroupsGet(userID: string, options?: any): AxiosPromise<string[]>;
 }
 /**
  * UserTagApi - axios parameter creator
@@ -6440,11 +6476,11 @@ export declare const WebhookApiAxiosParamCreator: (configuration?: Configuration
     webhooksGet(options?: any): RequestArgs;
     /**
      * webhookを作成します。
-     * @param {InlineObject26} [inlineObject26]
+     * @param {InlineObject27} [inlineObject27]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    webhooksPost(inlineObject26?: InlineObject26, options?: any): RequestArgs;
+    webhooksPost(inlineObject27?: InlineObject27, options?: any): RequestArgs;
     /**
      * webhookを削除します。
      * @param {string} webhookID 操作の対象となるWebhookのID
@@ -6485,11 +6521,11 @@ export declare const WebhookApiAxiosParamCreator: (configuration?: Configuration
     /**
      * webhookを修正します。
      * @param {string} webhookID 操作の対象となるWebhookのID
-     * @param {InlineObject27} [inlineObject27]
+     * @param {InlineObject28} [inlineObject28]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    webhooksWebhookIDPatch(webhookID: string, inlineObject27?: InlineObject27, options?: any): RequestArgs;
+    webhooksWebhookIDPatch(webhookID: string, inlineObject28?: InlineObject28, options?: any): RequestArgs;
     /**
      * webhookを送信します。
      * @param {string} webhookID 操作の対象となるWebhookのID
@@ -6514,11 +6550,11 @@ export declare const WebhookApiFp: (configuration?: Configuration) => {
     webhooksGet(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Webhook[]>;
     /**
      * webhookを作成します。
-     * @param {InlineObject26} [inlineObject26]
+     * @param {InlineObject27} [inlineObject27]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    webhooksPost(inlineObject26?: InlineObject26, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Webhook>;
+    webhooksPost(inlineObject27?: InlineObject27, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Webhook>;
     /**
      * webhookを削除します。
      * @param {string} webhookID 操作の対象となるWebhookのID
@@ -6559,11 +6595,11 @@ export declare const WebhookApiFp: (configuration?: Configuration) => {
     /**
      * webhookを修正します。
      * @param {string} webhookID 操作の対象となるWebhookのID
-     * @param {InlineObject27} [inlineObject27]
+     * @param {InlineObject28} [inlineObject28]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    webhooksWebhookIDPatch(webhookID: string, inlineObject27?: InlineObject27, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    webhooksWebhookIDPatch(webhookID: string, inlineObject28?: InlineObject28, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
     /**
      * webhookを送信します。
      * @param {string} webhookID 操作の対象となるWebhookのID
@@ -6588,11 +6624,11 @@ export declare const WebhookApiFactory: (configuration?: Configuration, basePath
     webhooksGet(options?: any): AxiosPromise<Webhook[]>;
     /**
      * webhookを作成します。
-     * @param {InlineObject26} [inlineObject26]
+     * @param {InlineObject27} [inlineObject27]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    webhooksPost(inlineObject26?: InlineObject26, options?: any): AxiosPromise<Webhook>;
+    webhooksPost(inlineObject27?: InlineObject27, options?: any): AxiosPromise<Webhook>;
     /**
      * webhookを削除します。
      * @param {string} webhookID 操作の対象となるWebhookのID
@@ -6633,11 +6669,11 @@ export declare const WebhookApiFactory: (configuration?: Configuration, basePath
     /**
      * webhookを修正します。
      * @param {string} webhookID 操作の対象となるWebhookのID
-     * @param {InlineObject27} [inlineObject27]
+     * @param {InlineObject28} [inlineObject28]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    webhooksWebhookIDPatch(webhookID: string, inlineObject27?: InlineObject27, options?: any): AxiosPromise<Response>;
+    webhooksWebhookIDPatch(webhookID: string, inlineObject28?: InlineObject28, options?: any): AxiosPromise<Response>;
     /**
      * webhookを送信します。
      * @param {string} webhookID 操作の対象となるWebhookのID
@@ -6665,12 +6701,12 @@ export declare class WebhookApi extends BaseAPI {
     webhooksGet(options?: any): AxiosPromise<Webhook[]>;
     /**
      * webhookを作成します。
-     * @param {InlineObject26} [inlineObject26]
+     * @param {InlineObject27} [inlineObject27]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    webhooksPost(inlineObject26?: InlineObject26, options?: any): AxiosPromise<Webhook>;
+    webhooksPost(inlineObject27?: InlineObject27, options?: any): AxiosPromise<Webhook>;
     /**
      * webhookを削除します。
      * @param {string} webhookID 操作の対象となるWebhookのID
@@ -6716,12 +6752,12 @@ export declare class WebhookApi extends BaseAPI {
     /**
      * webhookを修正します。
      * @param {string} webhookID 操作の対象となるWebhookのID
-     * @param {InlineObject27} [inlineObject27]
+     * @param {InlineObject28} [inlineObject28]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    webhooksWebhookIDPatch(webhookID: string, inlineObject27?: InlineObject27, options?: any): AxiosPromise<Response>;
+    webhooksWebhookIDPatch(webhookID: string, inlineObject28?: InlineObject28, options?: any): AxiosPromise<Response>;
     /**
      * webhookを送信します。
      * @param {string} webhookID 操作の対象となるWebhookのID
@@ -6845,12 +6881,12 @@ export declare class Apis extends BaseAPI {
     /**
      * Botの購読イベントを変更します。
      * @param {string} botID 操作の対象となるBotのID
-     * @param {InlineObject35} [inlineObject35]
+     * @param {InlineObject36} [inlineObject36]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    botsBotIDEventsPut(botID: string, inlineObject35?: InlineObject35, options?: any): AxiosPromise<Response>;
+    botsBotIDEventsPut(botID: string, inlineObject36?: InlineObject36, options?: any): AxiosPromise<Response>;
     /**
      * Botを取得します。
      * @param {string} botID 操作の対象となるBotのID
@@ -6879,12 +6915,12 @@ export declare class Apis extends BaseAPI {
     /**
      * Bot情報を変更します。
      * @param {string} botID 操作の対象となるBotのID
-     * @param {InlineObject34} [inlineObject34]
+     * @param {InlineObject35} [inlineObject35]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    botsBotIDPatch(botID: string, inlineObject34?: InlineObject34, options?: any): AxiosPromise<Response>;
+    botsBotIDPatch(botID: string, inlineObject35?: InlineObject35, options?: any): AxiosPromise<Response>;
     /**
      * Botの各種トークンを再発行します。
      * @param {string} botID 操作の対象となるBotのID
@@ -6896,12 +6932,12 @@ export declare class Apis extends BaseAPI {
     /**
      * Botの状態を変更します。
      * @param {string} botID 操作の対象となるBotのID
-     * @param {InlineObject36} [inlineObject36]
+     * @param {InlineObject37} [inlineObject37]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    botsBotIDStatePut(botID: string, inlineObject36?: InlineObject36, options?: any): AxiosPromise<Response>;
+    botsBotIDStatePut(botID: string, inlineObject37?: InlineObject37, options?: any): AxiosPromise<Response>;
     /**
      * 自分が作成したBotの一覧を取得します。
      * @param {*} [options] Override http request option.
@@ -6911,12 +6947,12 @@ export declare class Apis extends BaseAPI {
     botsGet(options?: any): AxiosPromise<Bot[]>;
     /**
      * Botを作成します。
-     * @param {InlineObject33} [inlineObject33]
+     * @param {InlineObject34} [inlineObject34]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    botsPost(inlineObject33?: InlineObject33, options?: any): AxiosPromise<BotDetail>;
+    botsPost(inlineObject34?: InlineObject34, options?: any): AxiosPromise<BotDetail>;
     /**
      * Botをチャンネルから退出させます。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -6937,21 +6973,21 @@ export declare class Apis extends BaseAPI {
     /**
      * チャンネルにBotを参加させます。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject21} [inlineObject21]
+     * @param {InlineObject22} [inlineObject22]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    channelsChannelIDBotsPost(channelID: string, inlineObject21?: InlineObject21, options?: any): AxiosPromise<InlineResponse2008>;
+    channelsChannelIDBotsPost(channelID: string, inlineObject22?: InlineObject22, options?: any): AxiosPromise<InlineResponse2008>;
     /**
      * 子チャンネルを作成します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject17} [inlineObject17]
+     * @param {InlineObject18} [inlineObject18]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDChildrenPost(channelID: string, inlineObject17?: InlineObject17, options?: any): AxiosPromise<Channel>;
+    channelsChannelIDChildrenPost(channelID: string, inlineObject18?: InlineObject18, options?: any): AxiosPromise<Channel>;
     /**
      * チャンネルを削除します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -6971,21 +7007,21 @@ export declare class Apis extends BaseAPI {
     /**
      * チャンネルの親チャンネルを変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {InlineObject17} [inlineObject17]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    channelsChannelIDParentPut(channelID: string, inlineObject17?: InlineObject17, options?: any): AxiosPromise<Response>;
+    /**
+     * チャンネルの情報を変更します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {InlineObject16} [inlineObject16]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDParentPut(channelID: string, inlineObject16?: InlineObject16, options?: any): AxiosPromise<Response>;
-    /**
-     * チャンネルの情報を変更します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject15} [inlineObject15]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ChannelApi
-     */
-    channelsChannelIDPatch(channelID: string, inlineObject15?: InlineObject15, options?: any): AxiosPromise<Response>;
+    channelsChannelIDPatch(channelID: string, inlineObject16?: InlineObject16, options?: any): AxiosPromise<Response>;
     /**
      * チャンネルの説明を取得します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -6997,12 +7033,12 @@ export declare class Apis extends BaseAPI {
     /**
      * チャンネルの説明を変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject18} [inlineObject18]
+     * @param {InlineObject19} [inlineObject19]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDTopicPut(channelID: string, inlineObject18?: InlineObject18, options?: any): AxiosPromise<Response>;
+    channelsChannelIDTopicPut(channelID: string, inlineObject19?: InlineObject19, options?: any): AxiosPromise<Response>;
     /**
      * (すべての)チャンネルのリストを取得します。
      * @param {*} [options] Override http request option.
@@ -7012,12 +7048,12 @@ export declare class Apis extends BaseAPI {
     channelsGet(options?: any): AxiosPromise<Channel[]>;
     /**
      * チャンネルを作成します。
-     * @param {InlineObject14} [inlineObject14]
+     * @param {InlineObject15} [inlineObject15]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsPost(inlineObject14?: InlineObject14, options?: any): AxiosPromise<Channel>;
+    channelsPost(inlineObject15?: InlineObject15, options?: any): AxiosPromise<Channel>;
     /**
      * 指定したクライアントIDのクライアントを削除します。 正常に削除された場合、このクライアントを通じての認可は全て取り消されます。
      * @param {string} clientID 操作の対象となるclientのID
@@ -7028,11 +7064,12 @@ export declare class Apis extends BaseAPI {
     clientsClientIDDelete(clientID: string, options?: any): AxiosPromise<Response>;
     /**
      * クライアントの詳細を取得します。
+     * @param {string} clientID 操作の対象となるclientのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    clientsClientIDDetailGet(options?: any): AxiosPromise<OwnedClientInfo>;
+    clientsClientIDDetailGet(clientID: string, options?: any): AxiosPromise<OwnedClientInfo>;
     /**
      * 指定したクライアントIDのクライアントの情報を取得します。
      * @param {string} clientID 操作の対象となるclientのID
@@ -7044,12 +7081,12 @@ export declare class Apis extends BaseAPI {
     /**
      * 指定したクライアントIDのクライアントの情報を変更します。
      * @param {string} clientID 操作の対象となるclientのID
-     * @param {InlineObject32} [inlineObject32]
+     * @param {InlineObject33} [inlineObject33]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    clientsClientIDPatch(clientID: string, inlineObject32?: InlineObject32, options?: any): AxiosPromise<Response>;
+    clientsClientIDPatch(clientID: string, inlineObject33?: InlineObject33, options?: any): AxiosPromise<Response>;
     /**
      * 自分が登録しているクライアントの一覧を取得します。
      * @param {*} [options] Override http request option.
@@ -7059,12 +7096,12 @@ export declare class Apis extends BaseAPI {
     clientsGet(options?: any): AxiosPromise<OwnedClientInfo[]>;
     /**
      * クライアントを登録します。
-     * @param {InlineObject31} [inlineObject31]
+     * @param {InlineObject32} [inlineObject32]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    clientsPost(inlineObject31?: InlineObject31, options?: any): AxiosPromise<OwnedClientInfo>;
+    clientsPost(inlineObject32?: InlineObject32, options?: any): AxiosPromise<OwnedClientInfo>;
     /**
      * 自分が許可しているクライアントの一覧とトークン情報を取得します。
      * @param {*} [options] Override http request option.
@@ -7220,13 +7257,12 @@ export declare class Apis extends BaseAPI {
     heartbeatGet(channelId: string, options?: any): AxiosPromise<HeartbeatRes>;
     /**
      * どのチャンネルを見ているか・編集しているかを送信します。
-     * @param {'none' | 'monitoring' | 'editing'} status editing,monitoring,noneでユーザーの状態を指定する
-     * @param {string} channelId 現在いるチャンネルId
+     * @param {InlineObject14} [inlineObject14]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof HeartbeatApi
      */
-    heartbeatPost(status: 'none' | 'monitoring' | 'editing', channelId: string, options?: any): AxiosPromise<Response>;
+    heartbeatPost(inlineObject14?: InlineObject14, options?: any): AxiosPromise<Response>;
     /**
      * チャンネルに存在するメッセージを取得します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -7244,12 +7280,12 @@ export declare class Apis extends BaseAPI {
     /**
      * チャンネルにメッセージを投稿します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject19} [inlineObject19]
+     * @param {InlineObject20} [inlineObject20]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    channelsChannelIDMessagesPost(channelID: string, inlineObject19?: InlineObject19, options?: any): AxiosPromise<Message>;
+    channelsChannelIDMessagesPost(channelID: string, inlineObject20?: InlineObject20, options?: any): AxiosPromise<Message>;
     /**
      * 指定したメッセージを削除します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -7269,21 +7305,21 @@ export declare class Apis extends BaseAPI {
     /**
      * 指定したメッセージを編集します。
      * @param {string} messageID 操作の対象となるメッセージID
-     * @param {InlineObject23} [inlineObject23]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MessageApi
-     */
-    messagesMessageIDPut(messageID: string, inlineObject23?: InlineObject23, options?: any): AxiosPromise<Response>;
-    /**
-     * 指定したメッセージを通報します。
-     * @param {string} messageID 操作の対象となるメッセージID
      * @param {InlineObject24} [inlineObject24]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    messagesMessageIDReportPost(messageID: string, inlineObject24?: InlineObject24, options?: any): AxiosPromise<Response>;
+    messagesMessageIDPut(messageID: string, inlineObject24?: InlineObject24, options?: any): AxiosPromise<Response>;
+    /**
+     * 指定したメッセージを通報します。
+     * @param {string} messageID 操作の対象となるメッセージID
+     * @param {InlineObject25} [inlineObject25]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MessageApi
+     */
+    messagesMessageIDReportPost(messageID: string, inlineObject25?: InlineObject25, options?: any): AxiosPromise<Response>;
     /**
      * メッセージ通報を最大50件取得します。
      * @param {number} [p] ページ番号(ゼロオリジン)
@@ -7349,20 +7385,20 @@ export declare class Apis extends BaseAPI {
     /**
      * チャンネルの通知状況を変更します。 リクエストに含めなかったユーザーIDのユーザーの通知状況は変更しません。 また、存在しないユーザーのIDを指定した場合は無視されます。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject20} [inlineObject20]
+     * @param {InlineObject21} [inlineObject21]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    channelsChannelIDNotificationPut(channelID: string, inlineObject20?: InlineObject20, options?: any): AxiosPromise<Response>;
+    channelsChannelIDNotificationPut(channelID: string, inlineObject21?: InlineObject21, options?: any): AxiosPromise<Response>;
     /**
      * FCMデバイスを登録します。
-     * @param {InlineObject22} [inlineObject22]
+     * @param {InlineObject23} [inlineObject23]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    notificationDevicePost(inlineObject22?: InlineObject22, options?: any): AxiosPromise<Response>;
+    notificationDevicePost(inlineObject23?: InlineObject23, options?: any): AxiosPromise<Response>;
     /**
      * 通知ストリーム(Server Sent Events)に接続します。
      * @param {*} [options] Override http request option.
@@ -7411,19 +7447,20 @@ export declare class Apis extends BaseAPI {
     pinsPinIDGet(pinID: string, options?: any): AxiosPromise<Pin>;
     /**
      * チャンネルにメッセージをピン留めします。
-     * @param {InlineObject25} [inlineObject25]
+     * @param {InlineObject26} [inlineObject26]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PinApi
      */
-    pinsPost(inlineObject25?: InlineObject25, options?: any): AxiosPromise<InlineResponse2011>;
+    pinsPost(inlineObject26?: InlineObject26, options?: any): AxiosPromise<InlineResponse2011>;
     /**
      * 指定したユーザーのアイコン画像を取得します。
+     * @param {string} username 画像を取得するユーザーのユーザー名
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PublicApi
      */
-    publicIconUsernameGet(options?: any): AxiosPromise<any>;
+    publicIconUsernameGet(username: string, options?: any): AxiosPromise<any>;
     /**
      * 自分のログインセッションを全てログアウトします。
      * @param {*} [options] Override http request option.
@@ -7669,12 +7706,12 @@ export declare class Apis extends BaseAPI {
     /**
      * ユーザーグループにメンバーを追加します
      * @param {string} groupID 操作の対象となるユーザーグループID
-     * @param {InlineObject30} [inlineObject30]
+     * @param {InlineObject31} [inlineObject31]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    groupsGroupIDMembersPost(groupID: string, inlineObject30?: InlineObject30, options?: any): AxiosPromise<Response>;
+    groupsGroupIDMembersPost(groupID: string, inlineObject31?: InlineObject31, options?: any): AxiosPromise<Response>;
     /**
      * ユーザーグループからメンバーを削除します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -7687,20 +7724,20 @@ export declare class Apis extends BaseAPI {
     /**
      * ユーザーグループの情報を変更します
      * @param {string} groupID 操作の対象となるユーザーグループID
+     * @param {InlineObject30} [inlineObject30]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserGroupApi
+     */
+    groupsGroupIDPatch(groupID: string, inlineObject30?: InlineObject30, options?: any): AxiosPromise<Response>;
+    /**
+     * ユーザーグループを作成します
      * @param {InlineObject29} [inlineObject29]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    groupsGroupIDPatch(groupID: string, inlineObject29?: InlineObject29, options?: any): AxiosPromise<Response>;
-    /**
-     * ユーザーグループを作成します
-     * @param {InlineObject28} [inlineObject28]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserGroupApi
-     */
-    groupsPost(inlineObject28?: InlineObject28, options?: any): AxiosPromise<UserGroup>;
+    groupsPost(inlineObject29?: InlineObject29, options?: any): AxiosPromise<UserGroup>;
     /**
      * 所属するユーザーグループのIDを取得します
      * @param {*} [options] Override http request option.
@@ -7710,11 +7747,12 @@ export declare class Apis extends BaseAPI {
     usersMeGroupsGet(options?: any): AxiosPromise<string[]>;
     /**
      * 所属するユーザーグループのIDを取得します
+     * @param {string} userID 操作の対象となるユーザーID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    usersUserIDGroupsGet(options?: any): AxiosPromise<string[]>;
+    usersUserIDGroupsGet(userID: string, options?: any): AxiosPromise<string[]>;
     /**
      * 指定されたタグの情報を取得します。
      * @param {string} tagID 操作の対象となるタグID
@@ -7768,12 +7806,12 @@ export declare class Apis extends BaseAPI {
     webhooksGet(options?: any): AxiosPromise<Webhook[]>;
     /**
      * webhookを作成します。
-     * @param {InlineObject26} [inlineObject26]
+     * @param {InlineObject27} [inlineObject27]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    webhooksPost(inlineObject26?: InlineObject26, options?: any): AxiosPromise<Webhook>;
+    webhooksPost(inlineObject27?: InlineObject27, options?: any): AxiosPromise<Webhook>;
     /**
      * webhookを削除します。
      * @param {string} webhookID 操作の対象となるWebhookのID
@@ -7819,12 +7857,12 @@ export declare class Apis extends BaseAPI {
     /**
      * webhookを修正します。
      * @param {string} webhookID 操作の対象となるWebhookのID
-     * @param {InlineObject27} [inlineObject27]
+     * @param {InlineObject28} [inlineObject28]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    webhooksWebhookIDPatch(webhookID: string, inlineObject27?: InlineObject27, options?: any): AxiosPromise<Response>;
+    webhooksWebhookIDPatch(webhookID: string, inlineObject28?: InlineObject28, options?: any): AxiosPromise<Response>;
     /**
      * webhookを送信します。
      * @param {string} webhookID 操作の対象となるWebhookのID
