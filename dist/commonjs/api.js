@@ -20,22 +20,71 @@ const base_1 = require("./base");
     * @export
     * @enum {string}
     */
-var HeartbeatResUserStatusesStatusEnum;
-(function (HeartbeatResUserStatusesStatusEnum) {
-    HeartbeatResUserStatusesStatusEnum["Monitoring"] = "monitoring";
-    HeartbeatResUserStatusesStatusEnum["Editing"] = "editing";
-    HeartbeatResUserStatusesStatusEnum["None"] = "none";
-})(HeartbeatResUserStatusesStatusEnum = exports.HeartbeatResUserStatusesStatusEnum || (exports.HeartbeatResUserStatusesStatusEnum = {}));
+var ChannelEventTypeEnum;
+(function (ChannelEventTypeEnum) {
+    ChannelEventTypeEnum["TopicChanged"] = "TopicChanged";
+    ChannelEventTypeEnum["SubscribersChanged"] = "SubscribersChanged";
+    ChannelEventTypeEnum["PinAdded"] = "PinAdded";
+    ChannelEventTypeEnum["PinRemoved"] = "PinRemoved";
+    ChannelEventTypeEnum["NameChanged"] = "NameChanged";
+    ChannelEventTypeEnum["ParentChanged"] = "ParentChanged";
+    ChannelEventTypeEnum["VisibilityChanged"] = "VisibilityChanged";
+    ChannelEventTypeEnum["ForcedNotificationChanged"] = "ForcedNotificationChanged";
+    ChannelEventTypeEnum["ChildCreated"] = "ChildCreated";
+})(ChannelEventTypeEnum = exports.ChannelEventTypeEnum || (exports.ChannelEventTypeEnum = {}));
 /**
-    * @export
-    * @enum {string}
-    */
-var InlineObject14StatusEnum;
-(function (InlineObject14StatusEnum) {
-    InlineObject14StatusEnum["None"] = "none";
-    InlineObject14StatusEnum["Monitoring"] = "monitoring";
-    InlineObject14StatusEnum["Editing"] = "editing";
-})(InlineObject14StatusEnum = exports.InlineObject14StatusEnum || (exports.InlineObject14StatusEnum = {}));
+ *
+ * @export
+ * @enum {string}
+ */
+var ClientScope;
+(function (ClientScope) {
+    ClientScope["Read"] = "read";
+    ClientScope["Write"] = "write";
+    ClientScope["ManageBot"] = "manage_bot";
+})(ClientScope = exports.ClientScope || (exports.ClientScope = {}));
+/**
+ * editing,monitoring,noneのユーザーの状態
+ * @export
+ * @enum {string}
+ */
+var HeartbeatStatus;
+(function (HeartbeatStatus) {
+    HeartbeatStatus["None"] = "none";
+    HeartbeatStatus["Monitoring"] = "monitoring";
+    HeartbeatStatus["Editing"] = "editing";
+})(HeartbeatStatus = exports.HeartbeatStatus || (exports.HeartbeatStatus = {}));
+/**
+ *
+ * @export
+ * @enum {string}
+ */
+var OAuth2Prompt;
+(function (OAuth2Prompt) {
+    OAuth2Prompt["None"] = "none";
+})(OAuth2Prompt = exports.OAuth2Prompt || (exports.OAuth2Prompt = {}));
+/**
+ *
+ * @export
+ * @enum {string}
+ */
+var OAuth2ResponseType;
+(function (OAuth2ResponseType) {
+    OAuth2ResponseType["Code"] = "code";
+    OAuth2ResponseType["Token"] = "token";
+    OAuth2ResponseType["None"] = "none";
+})(OAuth2ResponseType = exports.OAuth2ResponseType || (exports.OAuth2ResponseType = {}));
+/**
+ * アカウントの状態 (0:停止,1:有効,2:一時停止)
+ * @export
+ * @enum {string}
+ */
+var UserStatus;
+(function (UserStatus) {
+    UserStatus[UserStatus["NUMBER_0"] = 0] = "NUMBER_0";
+    UserStatus[UserStatus["NUMBER_1"] = 1] = "NUMBER_1";
+    UserStatus[UserStatus["NUMBER_2"] = 2] = "NUMBER_2";
+})(UserStatus = exports.UserStatus || (exports.UserStatus = {}));
 /**
  * ActivityApi - axios parameter creator
  * @export
@@ -153,11 +202,11 @@ exports.AuthenticationApiAxiosParamCreator = function (configuration) {
         /**
          * ログインを行います。リダイレクトパラメーターが存在する場合はログイン後にリダイレクトします
          * @param {string} [redirect] リダイレクト先
-         * @param {InlineObject} [inlineObject]
+         * @param {UserLogin} [userLogin]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        loginPost(redirect, inlineObject, options = {}) {
+        loginPost(redirect, userLogin, options = {}) {
             const localVarPath = `/login`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -175,8 +224,8 @@ exports.AuthenticationApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject !== undefined ? inlineObject : {}) : (inlineObject || "");
+            const needsSerialization = ("UserLogin" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(userLogin !== undefined ? userLogin : {}) : (userLogin || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -221,12 +270,12 @@ exports.AuthenticationApiFp = function (configuration) {
         /**
          * ログインを行います。リダイレクトパラメーターが存在する場合はログイン後にリダイレクトします
          * @param {string} [redirect] リダイレクト先
-         * @param {InlineObject} [inlineObject]
+         * @param {UserLogin} [userLogin]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        loginPost(redirect, inlineObject, options) {
-            const localVarAxiosArgs = exports.AuthenticationApiAxiosParamCreator(configuration).loginPost(redirect, inlineObject, options);
+        loginPost(redirect, userLogin, options) {
+            const localVarAxiosArgs = exports.AuthenticationApiAxiosParamCreator(configuration).loginPost(redirect, userLogin, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -256,12 +305,12 @@ exports.AuthenticationApiFactory = function (configuration, basePath, axios) {
         /**
          * ログインを行います。リダイレクトパラメーターが存在する場合はログイン後にリダイレクトします
          * @param {string} [redirect] リダイレクト先
-         * @param {InlineObject} [inlineObject]
+         * @param {UserLogin} [userLogin]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        loginPost(redirect, inlineObject, options) {
-            return exports.AuthenticationApiFp(configuration).loginPost(redirect, inlineObject, options)(axios, basePath);
+        loginPost(redirect, userLogin, options) {
+            return exports.AuthenticationApiFp(configuration).loginPost(redirect, userLogin, options)(axios, basePath);
         },
         /**
          * ログアウトを行います。リダイレクトパラメーターが存在する場合はログアウト後にリダイレクトします
@@ -284,13 +333,13 @@ class AuthenticationApi extends base_1.BaseAPI {
     /**
      * ログインを行います。リダイレクトパラメーターが存在する場合はログイン後にリダイレクトします
      * @param {string} [redirect] リダイレクト先
-     * @param {InlineObject} [inlineObject]
+     * @param {UserLogin} [userLogin]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthenticationApi
      */
-    loginPost(redirect, inlineObject, options) {
-        return exports.AuthenticationApiFp(this.configuration).loginPost(redirect, inlineObject, options)(this.axios, this.basePath);
+    loginPost(redirect, userLogin, options) {
+        return exports.AuthenticationApiFp(this.configuration).loginPost(redirect, userLogin, options)(this.axios, this.basePath);
     }
     /**
      * ログアウトを行います。リダイレクトパラメーターが存在する場合はログアウト後にリダイレクトします
@@ -347,7 +396,7 @@ exports.AuthorizationApiAxiosParamCreator = function (configuration) {
         },
         /**
          * OAuth2 認可エンドポイント
-         * @param {string} [responseType]
+         * @param {OAuth2ResponseType} [responseType]
          * @param {string} [clientId]
          * @param {string} [redirectUri]
          * @param {string} [scope]
@@ -355,7 +404,7 @@ exports.AuthorizationApiAxiosParamCreator = function (configuration) {
          * @param {string} [codeChallenge]
          * @param {string} [codeChallengeMethod]
          * @param {string} [nonce]
-         * @param {string} [prompt]
+         * @param {OAuth2Prompt} [prompt]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -407,7 +456,7 @@ exports.AuthorizationApiAxiosParamCreator = function (configuration) {
         },
         /**
          * OAuth2 認可エンドポイント
-         * @param {string} [responseType]
+         * @param {OAuth2ResponseType} [responseType]
          * @param {string} [clientId]
          * @param {string} [redirectUri]
          * @param {string} [scope]
@@ -415,7 +464,7 @@ exports.AuthorizationApiAxiosParamCreator = function (configuration) {
          * @param {string} [codeChallenge]
          * @param {string} [codeChallengeMethod]
          * @param {string} [nonce]
-         * @param {string} [prompt]
+         * @param {OAuth2Prompt} [prompt]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -560,7 +609,7 @@ exports.AuthorizationApiFp = function (configuration) {
         },
         /**
          * OAuth2 認可エンドポイント
-         * @param {string} [responseType]
+         * @param {OAuth2ResponseType} [responseType]
          * @param {string} [clientId]
          * @param {string} [redirectUri]
          * @param {string} [scope]
@@ -568,7 +617,7 @@ exports.AuthorizationApiFp = function (configuration) {
          * @param {string} [codeChallenge]
          * @param {string} [codeChallengeMethod]
          * @param {string} [nonce]
-         * @param {string} [prompt]
+         * @param {OAuth2Prompt} [prompt]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -581,7 +630,7 @@ exports.AuthorizationApiFp = function (configuration) {
         },
         /**
          * OAuth2 認可エンドポイント
-         * @param {string} [responseType]
+         * @param {OAuth2ResponseType} [responseType]
          * @param {string} [clientId]
          * @param {string} [redirectUri]
          * @param {string} [scope]
@@ -589,7 +638,7 @@ exports.AuthorizationApiFp = function (configuration) {
          * @param {string} [codeChallenge]
          * @param {string} [codeChallengeMethod]
          * @param {string} [nonce]
-         * @param {string} [prompt]
+         * @param {OAuth2Prompt} [prompt]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -641,7 +690,7 @@ exports.AuthorizationApiFactory = function (configuration, basePath, axios) {
         },
         /**
          * OAuth2 認可エンドポイント
-         * @param {string} [responseType]
+         * @param {OAuth2ResponseType} [responseType]
          * @param {string} [clientId]
          * @param {string} [redirectUri]
          * @param {string} [scope]
@@ -649,7 +698,7 @@ exports.AuthorizationApiFactory = function (configuration, basePath, axios) {
          * @param {string} [codeChallenge]
          * @param {string} [codeChallengeMethod]
          * @param {string} [nonce]
-         * @param {string} [prompt]
+         * @param {OAuth2Prompt} [prompt]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -658,7 +707,7 @@ exports.AuthorizationApiFactory = function (configuration, basePath, axios) {
         },
         /**
          * OAuth2 認可エンドポイント
-         * @param {string} [responseType]
+         * @param {OAuth2ResponseType} [responseType]
          * @param {string} [clientId]
          * @param {string} [redirectUri]
          * @param {string} [scope]
@@ -666,7 +715,7 @@ exports.AuthorizationApiFactory = function (configuration, basePath, axios) {
          * @param {string} [codeChallenge]
          * @param {string} [codeChallengeMethod]
          * @param {string} [nonce]
-         * @param {string} [prompt]
+         * @param {OAuth2Prompt} [prompt]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -712,7 +761,7 @@ class AuthorizationApi extends base_1.BaseAPI {
     }
     /**
      * OAuth2 認可エンドポイント
-     * @param {string} [responseType]
+     * @param {OAuth2ResponseType} [responseType]
      * @param {string} [clientId]
      * @param {string} [redirectUri]
      * @param {string} [scope]
@@ -720,7 +769,7 @@ class AuthorizationApi extends base_1.BaseAPI {
      * @param {string} [codeChallenge]
      * @param {string} [codeChallengeMethod]
      * @param {string} [nonce]
-     * @param {string} [prompt]
+     * @param {OAuth2Prompt} [prompt]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthorizationApi
@@ -730,7 +779,7 @@ class AuthorizationApi extends base_1.BaseAPI {
     }
     /**
      * OAuth2 認可エンドポイント
-     * @param {string} [responseType]
+     * @param {OAuth2ResponseType} [responseType]
      * @param {string} [clientId]
      * @param {string} [redirectUri]
      * @param {string} [scope]
@@ -738,7 +787,7 @@ class AuthorizationApi extends base_1.BaseAPI {
      * @param {string} [codeChallenge]
      * @param {string} [codeChallengeMethod]
      * @param {string} [nonce]
-     * @param {string} [prompt]
+     * @param {OAuth2Prompt} [prompt]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthorizationApi
@@ -890,11 +939,11 @@ exports.BotApiAxiosParamCreator = function (configuration) {
         /**
          * Botの購読イベントを変更します。
          * @param {string} botID 操作の対象となるBotのID
-         * @param {InlineObject36} [inlineObject36]
+         * @param {PutBotEvents} [putBotEvents]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsBotIDEventsPut(botID, inlineObject36, options = {}) {
+        botsBotIDEventsPut(botID, putBotEvents, options = {}) {
             // verify required parameter 'botID' is not null or undefined
             if (botID === null || botID === undefined) {
                 throw new base_1.RequiredError('botID', 'Required parameter botID was null or undefined when calling botsBotIDEventsPut.');
@@ -922,8 +971,8 @@ exports.BotApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject36" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject36 !== undefined ? inlineObject36 : {}) : (inlineObject36 || "");
+            const needsSerialization = ("PutBotEvents" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(putBotEvents !== undefined ? putBotEvents : {}) : (putBotEvents || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -1052,11 +1101,11 @@ exports.BotApiAxiosParamCreator = function (configuration) {
         /**
          * Bot情報を変更します。
          * @param {string} botID 操作の対象となるBotのID
-         * @param {InlineObject35} [inlineObject35]
+         * @param {PatchBot} [patchBot]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsBotIDPatch(botID, inlineObject35, options = {}) {
+        botsBotIDPatch(botID, patchBot, options = {}) {
             // verify required parameter 'botID' is not null or undefined
             if (botID === null || botID === undefined) {
                 throw new base_1.RequiredError('botID', 'Required parameter botID was null or undefined when calling botsBotIDPatch.');
@@ -1084,8 +1133,8 @@ exports.BotApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject35" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject35 !== undefined ? inlineObject35 : {}) : (inlineObject35 || "");
+            const needsSerialization = ("PatchBot" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(patchBot !== undefined ? patchBot : {}) : (patchBot || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -1132,11 +1181,11 @@ exports.BotApiAxiosParamCreator = function (configuration) {
         /**
          * Botの状態を変更します。
          * @param {string} botID 操作の対象となるBotのID
-         * @param {InlineObject37} [inlineObject37]
+         * @param {PutBotState} [putBotState]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsBotIDStatePut(botID, inlineObject37, options = {}) {
+        botsBotIDStatePut(botID, putBotState, options = {}) {
             // verify required parameter 'botID' is not null or undefined
             if (botID === null || botID === undefined) {
                 throw new base_1.RequiredError('botID', 'Required parameter botID was null or undefined when calling botsBotIDStatePut.');
@@ -1164,8 +1213,8 @@ exports.BotApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject37" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject37 !== undefined ? inlineObject37 : {}) : (inlineObject37 || "");
+            const needsSerialization = ("PutBotState" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(putBotState !== undefined ? putBotState : {}) : (putBotState || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -1205,11 +1254,11 @@ exports.BotApiAxiosParamCreator = function (configuration) {
         },
         /**
          * Botを作成します。
-         * @param {InlineObject34} [inlineObject34]
+         * @param {PostBot} [postBot]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsPost(inlineObject34, options = {}) {
+        botsPost(postBot, options = {}) {
             const localVarPath = `/bots`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -1232,8 +1281,8 @@ exports.BotApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject34" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject34 !== undefined ? inlineObject34 : {}) : (inlineObject34 || "");
+            const needsSerialization = ("PostBot" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(postBot !== undefined ? postBot : {}) : (postBot || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -1324,11 +1373,11 @@ exports.BotApiAxiosParamCreator = function (configuration) {
         /**
          * チャンネルにBotを参加させます。
          * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {InlineObject22} [inlineObject22]
+         * @param {PostBotChannel} [postBotChannel]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDBotsPost(channelID, inlineObject22, options = {}) {
+        channelsChannelIDBotsPost(channelID, postBotChannel, options = {}) {
             // verify required parameter 'channelID' is not null or undefined
             if (channelID === null || channelID === undefined) {
                 throw new base_1.RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDBotsPost.');
@@ -1356,8 +1405,8 @@ exports.BotApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject22" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject22 !== undefined ? inlineObject22 : {}) : (inlineObject22 || "");
+            const needsSerialization = ("PostBotChannel" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(postBotChannel !== undefined ? postBotChannel : {}) : (postBotChannel || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -1413,12 +1462,12 @@ exports.BotApiFp = function (configuration) {
         /**
          * Botの購読イベントを変更します。
          * @param {string} botID 操作の対象となるBotのID
-         * @param {InlineObject36} [inlineObject36]
+         * @param {PutBotEvents} [putBotEvents]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsBotIDEventsPut(botID, inlineObject36, options) {
-            const localVarAxiosArgs = exports.BotApiAxiosParamCreator(configuration).botsBotIDEventsPut(botID, inlineObject36, options);
+        botsBotIDEventsPut(botID, putBotEvents, options) {
+            const localVarAxiosArgs = exports.BotApiAxiosParamCreator(configuration).botsBotIDEventsPut(botID, putBotEvents, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -1467,12 +1516,12 @@ exports.BotApiFp = function (configuration) {
         /**
          * Bot情報を変更します。
          * @param {string} botID 操作の対象となるBotのID
-         * @param {InlineObject35} [inlineObject35]
+         * @param {PatchBot} [patchBot]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsBotIDPatch(botID, inlineObject35, options) {
-            const localVarAxiosArgs = exports.BotApiAxiosParamCreator(configuration).botsBotIDPatch(botID, inlineObject35, options);
+        botsBotIDPatch(botID, patchBot, options) {
+            const localVarAxiosArgs = exports.BotApiAxiosParamCreator(configuration).botsBotIDPatch(botID, patchBot, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -1494,12 +1543,12 @@ exports.BotApiFp = function (configuration) {
         /**
          * Botの状態を変更します。
          * @param {string} botID 操作の対象となるBotのID
-         * @param {InlineObject37} [inlineObject37]
+         * @param {PutBotState} [putBotState]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsBotIDStatePut(botID, inlineObject37, options) {
-            const localVarAxiosArgs = exports.BotApiAxiosParamCreator(configuration).botsBotIDStatePut(botID, inlineObject37, options);
+        botsBotIDStatePut(botID, putBotState, options) {
+            const localVarAxiosArgs = exports.BotApiAxiosParamCreator(configuration).botsBotIDStatePut(botID, putBotState, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -1519,12 +1568,12 @@ exports.BotApiFp = function (configuration) {
         },
         /**
          * Botを作成します。
-         * @param {InlineObject34} [inlineObject34]
+         * @param {PostBot} [postBot]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsPost(inlineObject34, options) {
-            const localVarAxiosArgs = exports.BotApiAxiosParamCreator(configuration).botsPost(inlineObject34, options);
+        botsPost(postBot, options) {
+            const localVarAxiosArgs = exports.BotApiAxiosParamCreator(configuration).botsPost(postBot, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -1560,12 +1609,12 @@ exports.BotApiFp = function (configuration) {
         /**
          * チャンネルにBotを参加させます。
          * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {InlineObject22} [inlineObject22]
+         * @param {PostBotChannel} [postBotChannel]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDBotsPost(channelID, inlineObject22, options) {
-            const localVarAxiosArgs = exports.BotApiAxiosParamCreator(configuration).channelsChannelIDBotsPost(channelID, inlineObject22, options);
+        channelsChannelIDBotsPost(channelID, postBotChannel, options) {
+            const localVarAxiosArgs = exports.BotApiAxiosParamCreator(configuration).channelsChannelIDBotsPost(channelID, postBotChannel, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -1609,12 +1658,12 @@ exports.BotApiFactory = function (configuration, basePath, axios) {
         /**
          * Botの購読イベントを変更します。
          * @param {string} botID 操作の対象となるBotのID
-         * @param {InlineObject36} [inlineObject36]
+         * @param {PutBotEvents} [putBotEvents]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsBotIDEventsPut(botID, inlineObject36, options) {
-            return exports.BotApiFp(configuration).botsBotIDEventsPut(botID, inlineObject36, options)(axios, basePath);
+        botsBotIDEventsPut(botID, putBotEvents, options) {
+            return exports.BotApiFp(configuration).botsBotIDEventsPut(botID, putBotEvents, options)(axios, basePath);
         },
         /**
          * Botを取得します。
@@ -1647,12 +1696,12 @@ exports.BotApiFactory = function (configuration, basePath, axios) {
         /**
          * Bot情報を変更します。
          * @param {string} botID 操作の対象となるBotのID
-         * @param {InlineObject35} [inlineObject35]
+         * @param {PatchBot} [patchBot]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsBotIDPatch(botID, inlineObject35, options) {
-            return exports.BotApiFp(configuration).botsBotIDPatch(botID, inlineObject35, options)(axios, basePath);
+        botsBotIDPatch(botID, patchBot, options) {
+            return exports.BotApiFp(configuration).botsBotIDPatch(botID, patchBot, options)(axios, basePath);
         },
         /**
          * Botの各種トークンを再発行します。
@@ -1666,12 +1715,12 @@ exports.BotApiFactory = function (configuration, basePath, axios) {
         /**
          * Botの状態を変更します。
          * @param {string} botID 操作の対象となるBotのID
-         * @param {InlineObject37} [inlineObject37]
+         * @param {PutBotState} [putBotState]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsBotIDStatePut(botID, inlineObject37, options) {
-            return exports.BotApiFp(configuration).botsBotIDStatePut(botID, inlineObject37, options)(axios, basePath);
+        botsBotIDStatePut(botID, putBotState, options) {
+            return exports.BotApiFp(configuration).botsBotIDStatePut(botID, putBotState, options)(axios, basePath);
         },
         /**
          * 自分が作成したBotの一覧を取得します。
@@ -1683,12 +1732,12 @@ exports.BotApiFactory = function (configuration, basePath, axios) {
         },
         /**
          * Botを作成します。
-         * @param {InlineObject34} [inlineObject34]
+         * @param {PostBot} [postBot]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsPost(inlineObject34, options) {
-            return exports.BotApiFp(configuration).botsPost(inlineObject34, options)(axios, basePath);
+        botsPost(postBot, options) {
+            return exports.BotApiFp(configuration).botsPost(postBot, options)(axios, basePath);
         },
         /**
          * Botをチャンネルから退出させます。
@@ -1712,12 +1761,12 @@ exports.BotApiFactory = function (configuration, basePath, axios) {
         /**
          * チャンネルにBotを参加させます。
          * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {InlineObject22} [inlineObject22]
+         * @param {PostBotChannel} [postBotChannel]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDBotsPost(channelID, inlineObject22, options) {
-            return exports.BotApiFp(configuration).channelsChannelIDBotsPost(channelID, inlineObject22, options)(axios, basePath);
+        channelsChannelIDBotsPost(channelID, postBotChannel, options) {
+            return exports.BotApiFp(configuration).channelsChannelIDBotsPost(channelID, postBotChannel, options)(axios, basePath);
         },
     };
 };
@@ -1761,13 +1810,13 @@ class BotApi extends base_1.BaseAPI {
     /**
      * Botの購読イベントを変更します。
      * @param {string} botID 操作の対象となるBotのID
-     * @param {InlineObject36} [inlineObject36]
+     * @param {PutBotEvents} [putBotEvents]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    botsBotIDEventsPut(botID, inlineObject36, options) {
-        return exports.BotApiFp(this.configuration).botsBotIDEventsPut(botID, inlineObject36, options)(this.axios, this.basePath);
+    botsBotIDEventsPut(botID, putBotEvents, options) {
+        return exports.BotApiFp(this.configuration).botsBotIDEventsPut(botID, putBotEvents, options)(this.axios, this.basePath);
     }
     /**
      * Botを取得します。
@@ -1803,13 +1852,13 @@ class BotApi extends base_1.BaseAPI {
     /**
      * Bot情報を変更します。
      * @param {string} botID 操作の対象となるBotのID
-     * @param {InlineObject35} [inlineObject35]
+     * @param {PatchBot} [patchBot]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    botsBotIDPatch(botID, inlineObject35, options) {
-        return exports.BotApiFp(this.configuration).botsBotIDPatch(botID, inlineObject35, options)(this.axios, this.basePath);
+    botsBotIDPatch(botID, patchBot, options) {
+        return exports.BotApiFp(this.configuration).botsBotIDPatch(botID, patchBot, options)(this.axios, this.basePath);
     }
     /**
      * Botの各種トークンを再発行します。
@@ -1824,13 +1873,13 @@ class BotApi extends base_1.BaseAPI {
     /**
      * Botの状態を変更します。
      * @param {string} botID 操作の対象となるBotのID
-     * @param {InlineObject37} [inlineObject37]
+     * @param {PutBotState} [putBotState]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    botsBotIDStatePut(botID, inlineObject37, options) {
-        return exports.BotApiFp(this.configuration).botsBotIDStatePut(botID, inlineObject37, options)(this.axios, this.basePath);
+    botsBotIDStatePut(botID, putBotState, options) {
+        return exports.BotApiFp(this.configuration).botsBotIDStatePut(botID, putBotState, options)(this.axios, this.basePath);
     }
     /**
      * 自分が作成したBotの一覧を取得します。
@@ -1843,13 +1892,13 @@ class BotApi extends base_1.BaseAPI {
     }
     /**
      * Botを作成します。
-     * @param {InlineObject34} [inlineObject34]
+     * @param {PostBot} [postBot]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    botsPost(inlineObject34, options) {
-        return exports.BotApiFp(this.configuration).botsPost(inlineObject34, options)(this.axios, this.basePath);
+    botsPost(postBot, options) {
+        return exports.BotApiFp(this.configuration).botsPost(postBot, options)(this.axios, this.basePath);
     }
     /**
      * Botをチャンネルから退出させます。
@@ -1875,13 +1924,13 @@ class BotApi extends base_1.BaseAPI {
     /**
      * チャンネルにBotを参加させます。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject22} [inlineObject22]
+     * @param {PostBotChannel} [postBotChannel]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    channelsChannelIDBotsPost(channelID, inlineObject22, options) {
-        return exports.BotApiFp(this.configuration).channelsChannelIDBotsPost(channelID, inlineObject22, options)(this.axios, this.basePath);
+    channelsChannelIDBotsPost(channelID, postBotChannel, options) {
+        return exports.BotApiFp(this.configuration).channelsChannelIDBotsPost(channelID, postBotChannel, options)(this.axios, this.basePath);
     }
 }
 exports.BotApi = BotApi;
@@ -1894,11 +1943,11 @@ exports.ChannelApiAxiosParamCreator = function (configuration) {
         /**
          * 子チャンネルを作成します。
          * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {InlineObject18} [inlineObject18]
+         * @param {CreateChannelChild} [createChannelChild]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDChildrenPost(channelID, inlineObject18, options = {}) {
+        channelsChannelIDChildrenPost(channelID, createChannelChild, options = {}) {
             // verify required parameter 'channelID' is not null or undefined
             if (channelID === null || channelID === undefined) {
                 throw new base_1.RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDChildrenPost.');
@@ -1926,8 +1975,8 @@ exports.ChannelApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject18" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject18 !== undefined ? inlineObject18 : {}) : (inlineObject18 || "");
+            const needsSerialization = ("CreateChannelChild" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(createChannelChild !== undefined ? createChannelChild : {}) : (createChannelChild || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -1955,6 +2004,68 @@ exports.ChannelApiAxiosParamCreator = function (configuration) {
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
             // authentication cookieAuth required
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * チャンネルイベントのリストを取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {number} [limit] 取得する件数 1-200
+         * @param {number} [offset] 取得するオフセット
+         * @param {Date} [since] 取得する時間範囲の開始日時
+         * @param {Date} [until] 取得する時間範囲の終了日時
+         * @param {boolean} [inclusive] 範囲の端を含めるかどうか
+         * @param {'asc' | 'desc'} [order] 昇順か降順か
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        channelsChannelIDEventsGet(channelID, limit, offset, since, until, inclusive, order, options = {}) {
+            // verify required parameter 'channelID' is not null or undefined
+            if (channelID === null || channelID === undefined) {
+                throw new base_1.RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDEventsGet.');
+            }
+            const localVarPath = `/channels/{channelID}/events`
+                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+            if (since !== undefined) {
+                localVarQueryParameter['since'] = since.toISOString();
+            }
+            if (until !== undefined) {
+                localVarQueryParameter['until'] = until.toISOString();
+            }
+            if (inclusive !== undefined) {
+                localVarQueryParameter['inclusive'] = inclusive;
+            }
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
@@ -2005,11 +2116,11 @@ exports.ChannelApiAxiosParamCreator = function (configuration) {
         /**
          * チャンネルの親チャンネルを変更します。
          * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {InlineObject17} [inlineObject17]
+         * @param {PutParentChannel} [putParentChannel]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDParentPut(channelID, inlineObject17, options = {}) {
+        channelsChannelIDParentPut(channelID, putParentChannel, options = {}) {
             // verify required parameter 'channelID' is not null or undefined
             if (channelID === null || channelID === undefined) {
                 throw new base_1.RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDParentPut.');
@@ -2030,8 +2141,8 @@ exports.ChannelApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject17" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject17 !== undefined ? inlineObject17 : {}) : (inlineObject17 || "");
+            const needsSerialization = ("PutParentChannel" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(putParentChannel !== undefined ? putParentChannel : {}) : (putParentChannel || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -2040,11 +2151,11 @@ exports.ChannelApiAxiosParamCreator = function (configuration) {
         /**
          * チャンネルの情報を変更します。
          * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {InlineObject16} [inlineObject16]
+         * @param {PatchChannel} [patchChannel]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDPatch(channelID, inlineObject16, options = {}) {
+        channelsChannelIDPatch(channelID, patchChannel, options = {}) {
             // verify required parameter 'channelID' is not null or undefined
             if (channelID === null || channelID === undefined) {
                 throw new base_1.RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDPatch.');
@@ -2065,8 +2176,8 @@ exports.ChannelApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject16" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject16 !== undefined ? inlineObject16 : {}) : (inlineObject16 || "");
+            const needsSerialization = ("PatchChannel" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(patchChannel !== undefined ? patchChannel : {}) : (patchChannel || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -2113,11 +2224,11 @@ exports.ChannelApiAxiosParamCreator = function (configuration) {
         /**
          * チャンネルの説明を変更します。
          * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {InlineObject19} [inlineObject19]
+         * @param {SetChannelTopic} [setChannelTopic]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDTopicPut(channelID, inlineObject19, options = {}) {
+        channelsChannelIDTopicPut(channelID, setChannelTopic, options = {}) {
             // verify required parameter 'channelID' is not null or undefined
             if (channelID === null || channelID === undefined) {
                 throw new base_1.RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDTopicPut.');
@@ -2145,8 +2256,8 @@ exports.ChannelApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject19" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject19 !== undefined ? inlineObject19 : {}) : (inlineObject19 || "");
+            const needsSerialization = ("SetChannelTopic" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(setChannelTopic !== undefined ? setChannelTopic : {}) : (setChannelTopic || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -2186,11 +2297,11 @@ exports.ChannelApiAxiosParamCreator = function (configuration) {
         },
         /**
          * チャンネルを作成します。
-         * @param {InlineObject15} [inlineObject15]
+         * @param {CreateChannel} [createChannel]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsPost(inlineObject15, options = {}) {
+        channelsPost(createChannel, options = {}) {
             const localVarPath = `/channels`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -2213,8 +2324,8 @@ exports.ChannelApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject15" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject15 !== undefined ? inlineObject15 : {}) : (inlineObject15 || "");
+            const needsSerialization = ("CreateChannel" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(createChannel !== undefined ? createChannel : {}) : (createChannel || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -2231,12 +2342,12 @@ exports.ChannelApiFp = function (configuration) {
         /**
          * 子チャンネルを作成します。
          * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {InlineObject18} [inlineObject18]
+         * @param {CreateChannelChild} [createChannelChild]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDChildrenPost(channelID, inlineObject18, options) {
-            const localVarAxiosArgs = exports.ChannelApiAxiosParamCreator(configuration).channelsChannelIDChildrenPost(channelID, inlineObject18, options);
+        channelsChannelIDChildrenPost(channelID, createChannelChild, options) {
+            const localVarAxiosArgs = exports.ChannelApiAxiosParamCreator(configuration).channelsChannelIDChildrenPost(channelID, createChannelChild, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -2250,6 +2361,25 @@ exports.ChannelApiFp = function (configuration) {
          */
         channelsChannelIDDelete(channelID, options) {
             const localVarAxiosArgs = exports.ChannelApiAxiosParamCreator(configuration).channelsChannelIDDelete(channelID, options);
+            return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * チャンネルイベントのリストを取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {number} [limit] 取得する件数 1-200
+         * @param {number} [offset] 取得するオフセット
+         * @param {Date} [since] 取得する時間範囲の開始日時
+         * @param {Date} [until] 取得する時間範囲の終了日時
+         * @param {boolean} [inclusive] 範囲の端を含めるかどうか
+         * @param {'asc' | 'desc'} [order] 昇順か降順か
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        channelsChannelIDEventsGet(channelID, limit, offset, since, until, inclusive, order, options) {
+            const localVarAxiosArgs = exports.ChannelApiAxiosParamCreator(configuration).channelsChannelIDEventsGet(channelID, limit, offset, since, until, inclusive, order, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -2271,12 +2401,12 @@ exports.ChannelApiFp = function (configuration) {
         /**
          * チャンネルの親チャンネルを変更します。
          * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {InlineObject17} [inlineObject17]
+         * @param {PutParentChannel} [putParentChannel]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDParentPut(channelID, inlineObject17, options) {
-            const localVarAxiosArgs = exports.ChannelApiAxiosParamCreator(configuration).channelsChannelIDParentPut(channelID, inlineObject17, options);
+        channelsChannelIDParentPut(channelID, putParentChannel, options) {
+            const localVarAxiosArgs = exports.ChannelApiAxiosParamCreator(configuration).channelsChannelIDParentPut(channelID, putParentChannel, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -2285,12 +2415,12 @@ exports.ChannelApiFp = function (configuration) {
         /**
          * チャンネルの情報を変更します。
          * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {InlineObject16} [inlineObject16]
+         * @param {PatchChannel} [patchChannel]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDPatch(channelID, inlineObject16, options) {
-            const localVarAxiosArgs = exports.ChannelApiAxiosParamCreator(configuration).channelsChannelIDPatch(channelID, inlineObject16, options);
+        channelsChannelIDPatch(channelID, patchChannel, options) {
+            const localVarAxiosArgs = exports.ChannelApiAxiosParamCreator(configuration).channelsChannelIDPatch(channelID, patchChannel, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -2312,12 +2442,12 @@ exports.ChannelApiFp = function (configuration) {
         /**
          * チャンネルの説明を変更します。
          * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {InlineObject19} [inlineObject19]
+         * @param {SetChannelTopic} [setChannelTopic]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDTopicPut(channelID, inlineObject19, options) {
-            const localVarAxiosArgs = exports.ChannelApiAxiosParamCreator(configuration).channelsChannelIDTopicPut(channelID, inlineObject19, options);
+        channelsChannelIDTopicPut(channelID, setChannelTopic, options) {
+            const localVarAxiosArgs = exports.ChannelApiAxiosParamCreator(configuration).channelsChannelIDTopicPut(channelID, setChannelTopic, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -2337,12 +2467,12 @@ exports.ChannelApiFp = function (configuration) {
         },
         /**
          * チャンネルを作成します。
-         * @param {InlineObject15} [inlineObject15]
+         * @param {CreateChannel} [createChannel]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsPost(inlineObject15, options) {
-            const localVarAxiosArgs = exports.ChannelApiAxiosParamCreator(configuration).channelsPost(inlineObject15, options);
+        channelsPost(createChannel, options) {
+            const localVarAxiosArgs = exports.ChannelApiAxiosParamCreator(configuration).channelsPost(createChannel, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -2359,12 +2489,12 @@ exports.ChannelApiFactory = function (configuration, basePath, axios) {
         /**
          * 子チャンネルを作成します。
          * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {InlineObject18} [inlineObject18]
+         * @param {CreateChannelChild} [createChannelChild]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDChildrenPost(channelID, inlineObject18, options) {
-            return exports.ChannelApiFp(configuration).channelsChannelIDChildrenPost(channelID, inlineObject18, options)(axios, basePath);
+        channelsChannelIDChildrenPost(channelID, createChannelChild, options) {
+            return exports.ChannelApiFp(configuration).channelsChannelIDChildrenPost(channelID, createChannelChild, options)(axios, basePath);
         },
         /**
          * チャンネルを削除します。
@@ -2374,6 +2504,21 @@ exports.ChannelApiFactory = function (configuration, basePath, axios) {
          */
         channelsChannelIDDelete(channelID, options) {
             return exports.ChannelApiFp(configuration).channelsChannelIDDelete(channelID, options)(axios, basePath);
+        },
+        /**
+         * チャンネルイベントのリストを取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {number} [limit] 取得する件数 1-200
+         * @param {number} [offset] 取得するオフセット
+         * @param {Date} [since] 取得する時間範囲の開始日時
+         * @param {Date} [until] 取得する時間範囲の終了日時
+         * @param {boolean} [inclusive] 範囲の端を含めるかどうか
+         * @param {'asc' | 'desc'} [order] 昇順か降順か
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        channelsChannelIDEventsGet(channelID, limit, offset, since, until, inclusive, order, options) {
+            return exports.ChannelApiFp(configuration).channelsChannelIDEventsGet(channelID, limit, offset, since, until, inclusive, order, options)(axios, basePath);
         },
         /**
          * チャンネルの情報を返します。
@@ -2387,22 +2532,22 @@ exports.ChannelApiFactory = function (configuration, basePath, axios) {
         /**
          * チャンネルの親チャンネルを変更します。
          * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {InlineObject17} [inlineObject17]
+         * @param {PutParentChannel} [putParentChannel]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDParentPut(channelID, inlineObject17, options) {
-            return exports.ChannelApiFp(configuration).channelsChannelIDParentPut(channelID, inlineObject17, options)(axios, basePath);
+        channelsChannelIDParentPut(channelID, putParentChannel, options) {
+            return exports.ChannelApiFp(configuration).channelsChannelIDParentPut(channelID, putParentChannel, options)(axios, basePath);
         },
         /**
          * チャンネルの情報を変更します。
          * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {InlineObject16} [inlineObject16]
+         * @param {PatchChannel} [patchChannel]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDPatch(channelID, inlineObject16, options) {
-            return exports.ChannelApiFp(configuration).channelsChannelIDPatch(channelID, inlineObject16, options)(axios, basePath);
+        channelsChannelIDPatch(channelID, patchChannel, options) {
+            return exports.ChannelApiFp(configuration).channelsChannelIDPatch(channelID, patchChannel, options)(axios, basePath);
         },
         /**
          * チャンネルの説明を取得します。
@@ -2416,12 +2561,12 @@ exports.ChannelApiFactory = function (configuration, basePath, axios) {
         /**
          * チャンネルの説明を変更します。
          * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {InlineObject19} [inlineObject19]
+         * @param {SetChannelTopic} [setChannelTopic]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDTopicPut(channelID, inlineObject19, options) {
-            return exports.ChannelApiFp(configuration).channelsChannelIDTopicPut(channelID, inlineObject19, options)(axios, basePath);
+        channelsChannelIDTopicPut(channelID, setChannelTopic, options) {
+            return exports.ChannelApiFp(configuration).channelsChannelIDTopicPut(channelID, setChannelTopic, options)(axios, basePath);
         },
         /**
          * (すべての)チャンネルのリストを取得します。
@@ -2433,12 +2578,12 @@ exports.ChannelApiFactory = function (configuration, basePath, axios) {
         },
         /**
          * チャンネルを作成します。
-         * @param {InlineObject15} [inlineObject15]
+         * @param {CreateChannel} [createChannel]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsPost(inlineObject15, options) {
-            return exports.ChannelApiFp(configuration).channelsPost(inlineObject15, options)(axios, basePath);
+        channelsPost(createChannel, options) {
+            return exports.ChannelApiFp(configuration).channelsPost(createChannel, options)(axios, basePath);
         },
     };
 };
@@ -2452,13 +2597,13 @@ class ChannelApi extends base_1.BaseAPI {
     /**
      * 子チャンネルを作成します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject18} [inlineObject18]
+     * @param {CreateChannelChild} [createChannelChild]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDChildrenPost(channelID, inlineObject18, options) {
-        return exports.ChannelApiFp(this.configuration).channelsChannelIDChildrenPost(channelID, inlineObject18, options)(this.axios, this.basePath);
+    channelsChannelIDChildrenPost(channelID, createChannelChild, options) {
+        return exports.ChannelApiFp(this.configuration).channelsChannelIDChildrenPost(channelID, createChannelChild, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルを削除します。
@@ -2469,6 +2614,22 @@ class ChannelApi extends base_1.BaseAPI {
      */
     channelsChannelIDDelete(channelID, options) {
         return exports.ChannelApiFp(this.configuration).channelsChannelIDDelete(channelID, options)(this.axios, this.basePath);
+    }
+    /**
+     * チャンネルイベントのリストを取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {number} [limit] 取得する件数 1-200
+     * @param {number} [offset] 取得するオフセット
+     * @param {Date} [since] 取得する時間範囲の開始日時
+     * @param {Date} [until] 取得する時間範囲の終了日時
+     * @param {boolean} [inclusive] 範囲の端を含めるかどうか
+     * @param {'asc' | 'desc'} [order] 昇順か降順か
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    channelsChannelIDEventsGet(channelID, limit, offset, since, until, inclusive, order, options) {
+        return exports.ChannelApiFp(this.configuration).channelsChannelIDEventsGet(channelID, limit, offset, since, until, inclusive, order, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルの情報を返します。
@@ -2483,24 +2644,24 @@ class ChannelApi extends base_1.BaseAPI {
     /**
      * チャンネルの親チャンネルを変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject17} [inlineObject17]
+     * @param {PutParentChannel} [putParentChannel]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDParentPut(channelID, inlineObject17, options) {
-        return exports.ChannelApiFp(this.configuration).channelsChannelIDParentPut(channelID, inlineObject17, options)(this.axios, this.basePath);
+    channelsChannelIDParentPut(channelID, putParentChannel, options) {
+        return exports.ChannelApiFp(this.configuration).channelsChannelIDParentPut(channelID, putParentChannel, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルの情報を変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject16} [inlineObject16]
+     * @param {PatchChannel} [patchChannel]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDPatch(channelID, inlineObject16, options) {
-        return exports.ChannelApiFp(this.configuration).channelsChannelIDPatch(channelID, inlineObject16, options)(this.axios, this.basePath);
+    channelsChannelIDPatch(channelID, patchChannel, options) {
+        return exports.ChannelApiFp(this.configuration).channelsChannelIDPatch(channelID, patchChannel, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルの説明を取得します。
@@ -2515,13 +2676,13 @@ class ChannelApi extends base_1.BaseAPI {
     /**
      * チャンネルの説明を変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject19} [inlineObject19]
+     * @param {SetChannelTopic} [setChannelTopic]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDTopicPut(channelID, inlineObject19, options) {
-        return exports.ChannelApiFp(this.configuration).channelsChannelIDTopicPut(channelID, inlineObject19, options)(this.axios, this.basePath);
+    channelsChannelIDTopicPut(channelID, setChannelTopic, options) {
+        return exports.ChannelApiFp(this.configuration).channelsChannelIDTopicPut(channelID, setChannelTopic, options)(this.axios, this.basePath);
     }
     /**
      * (すべての)チャンネルのリストを取得します。
@@ -2534,13 +2695,13 @@ class ChannelApi extends base_1.BaseAPI {
     }
     /**
      * チャンネルを作成します。
-     * @param {InlineObject15} [inlineObject15]
+     * @param {CreateChannel} [createChannel]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsPost(inlineObject15, options) {
-        return exports.ChannelApiFp(this.configuration).channelsPost(inlineObject15, options)(this.axios, this.basePath);
+    channelsPost(createChannel, options) {
+        return exports.ChannelApiFp(this.configuration).channelsPost(createChannel, options)(this.axios, this.basePath);
     }
 }
 exports.ChannelApi = ChannelApi;
@@ -2667,11 +2828,11 @@ exports.ClientApiAxiosParamCreator = function (configuration) {
         /**
          * 指定したクライアントIDのクライアントの情報を変更します。
          * @param {string} clientID 操作の対象となるclientのID
-         * @param {InlineObject33} [inlineObject33]
+         * @param {PatchClient} [patchClient]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clientsClientIDPatch(clientID, inlineObject33, options = {}) {
+        clientsClientIDPatch(clientID, patchClient, options = {}) {
             // verify required parameter 'clientID' is not null or undefined
             if (clientID === null || clientID === undefined) {
                 throw new base_1.RequiredError('clientID', 'Required parameter clientID was null or undefined when calling clientsClientIDPatch.');
@@ -2699,8 +2860,8 @@ exports.ClientApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject33" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject33 !== undefined ? inlineObject33 : {}) : (inlineObject33 || "");
+            const needsSerialization = ("PatchClient" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(patchClient !== undefined ? patchClient : {}) : (patchClient || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -2740,11 +2901,11 @@ exports.ClientApiAxiosParamCreator = function (configuration) {
         },
         /**
          * クライアントを登録します。
-         * @param {InlineObject32} [inlineObject32]
+         * @param {PostClient} [postClient]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clientsPost(inlineObject32, options = {}) {
+        clientsPost(postClient, options = {}) {
             const localVarPath = `/clients`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -2767,8 +2928,8 @@ exports.ClientApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject32" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject32 !== undefined ? inlineObject32 : {}) : (inlineObject32 || "");
+            const needsSerialization = ("PostClient" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(postClient !== undefined ? postClient : {}) : (postClient || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -2880,12 +3041,12 @@ exports.ClientApiFp = function (configuration) {
         /**
          * 指定したクライアントIDのクライアントの情報を変更します。
          * @param {string} clientID 操作の対象となるclientのID
-         * @param {InlineObject33} [inlineObject33]
+         * @param {PatchClient} [patchClient]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clientsClientIDPatch(clientID, inlineObject33, options) {
-            const localVarAxiosArgs = exports.ClientApiAxiosParamCreator(configuration).clientsClientIDPatch(clientID, inlineObject33, options);
+        clientsClientIDPatch(clientID, patchClient, options) {
+            const localVarAxiosArgs = exports.ClientApiAxiosParamCreator(configuration).clientsClientIDPatch(clientID, patchClient, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -2905,12 +3066,12 @@ exports.ClientApiFp = function (configuration) {
         },
         /**
          * クライアントを登録します。
-         * @param {InlineObject32} [inlineObject32]
+         * @param {PostClient} [postClient]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clientsPost(inlineObject32, options) {
-            const localVarAxiosArgs = exports.ClientApiAxiosParamCreator(configuration).clientsPost(inlineObject32, options);
+        clientsPost(postClient, options) {
+            const localVarAxiosArgs = exports.ClientApiAxiosParamCreator(configuration).clientsPost(postClient, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -2979,12 +3140,12 @@ exports.ClientApiFactory = function (configuration, basePath, axios) {
         /**
          * 指定したクライアントIDのクライアントの情報を変更します。
          * @param {string} clientID 操作の対象となるclientのID
-         * @param {InlineObject33} [inlineObject33]
+         * @param {PatchClient} [patchClient]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clientsClientIDPatch(clientID, inlineObject33, options) {
-            return exports.ClientApiFp(configuration).clientsClientIDPatch(clientID, inlineObject33, options)(axios, basePath);
+        clientsClientIDPatch(clientID, patchClient, options) {
+            return exports.ClientApiFp(configuration).clientsClientIDPatch(clientID, patchClient, options)(axios, basePath);
         },
         /**
          * 自分が登録しているクライアントの一覧を取得します。
@@ -2996,12 +3157,12 @@ exports.ClientApiFactory = function (configuration, basePath, axios) {
         },
         /**
          * クライアントを登録します。
-         * @param {InlineObject32} [inlineObject32]
+         * @param {PostClient} [postClient]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clientsPost(inlineObject32, options) {
-            return exports.ClientApiFp(configuration).clientsPost(inlineObject32, options)(axios, basePath);
+        clientsPost(postClient, options) {
+            return exports.ClientApiFp(configuration).clientsPost(postClient, options)(axios, basePath);
         },
         /**
          * 自分が許可しているクライアントの一覧とトークン情報を取得します。
@@ -3062,13 +3223,13 @@ class ClientApi extends base_1.BaseAPI {
     /**
      * 指定したクライアントIDのクライアントの情報を変更します。
      * @param {string} clientID 操作の対象となるclientのID
-     * @param {InlineObject33} [inlineObject33]
+     * @param {PatchClient} [patchClient]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    clientsClientIDPatch(clientID, inlineObject33, options) {
-        return exports.ClientApiFp(this.configuration).clientsClientIDPatch(clientID, inlineObject33, options)(this.axios, this.basePath);
+    clientsClientIDPatch(clientID, patchClient, options) {
+        return exports.ClientApiFp(this.configuration).clientsClientIDPatch(clientID, patchClient, options)(this.axios, this.basePath);
     }
     /**
      * 自分が登録しているクライアントの一覧を取得します。
@@ -3081,13 +3242,13 @@ class ClientApi extends base_1.BaseAPI {
     }
     /**
      * クライアントを登録します。
-     * @param {InlineObject32} [inlineObject32]
+     * @param {PostClient} [postClient]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    clientsPost(inlineObject32, options) {
-        return exports.ClientApiFp(this.configuration).clientsPost(inlineObject32, options)(this.axios, this.basePath);
+    clientsPost(postClient, options) {
+        return exports.ClientApiFp(this.configuration).clientsPost(postClient, options)(this.axios, this.basePath);
     }
     /**
      * 自分が許可しているクライアントの一覧とトークン情報を取得します。
@@ -3195,11 +3356,11 @@ exports.ClipApiAxiosParamCreator = function (configuration) {
         /**
          * 指定したクリップのフォルダを変更します。
          * @param {string} clipID 捜査の対象となるクリップのID
-         * @param {InlineObject8} [inlineObject8]
+         * @param {ClipsFolderIDObject} [clipsFolderIDObject]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsClipIDFolderPut(clipID, inlineObject8, options = {}) {
+        usersMeClipsClipIDFolderPut(clipID, clipsFolderIDObject, options = {}) {
             // verify required parameter 'clipID' is not null or undefined
             if (clipID === null || clipID === undefined) {
                 throw new base_1.RequiredError('clipID', 'Required parameter clipID was null or undefined when calling usersMeClipsClipIDFolderPut.');
@@ -3227,8 +3388,8 @@ exports.ClipApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject8" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject8 !== undefined ? inlineObject8 : {}) : (inlineObject8 || "");
+            const needsSerialization = ("ClipsFolderIDObject" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(clipsFolderIDObject !== undefined ? clipsFolderIDObject : {}) : (clipsFolderIDObject || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -3351,11 +3512,11 @@ exports.ClipApiAxiosParamCreator = function (configuration) {
         /**
          * クリップフォルダ名を変更します。
          * @param {string} folderID 操作の対象となるクリップフォルダのID
-         * @param {InlineObject10} [inlineObject10]
+         * @param {ClipsFolderNameObject} [clipsFolderNameObject]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsFoldersFolderIDPatch(folderID, inlineObject10, options = {}) {
+        usersMeClipsFoldersFolderIDPatch(folderID, clipsFolderNameObject, options = {}) {
             // verify required parameter 'folderID' is not null or undefined
             if (folderID === null || folderID === undefined) {
                 throw new base_1.RequiredError('folderID', 'Required parameter folderID was null or undefined when calling usersMeClipsFoldersFolderIDPatch.');
@@ -3383,8 +3544,8 @@ exports.ClipApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject10" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject10 !== undefined ? inlineObject10 : {}) : (inlineObject10 || "");
+            const needsSerialization = ("ClipsFolderNameObject" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(clipsFolderNameObject !== undefined ? clipsFolderNameObject : {}) : (clipsFolderNameObject || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -3424,11 +3585,11 @@ exports.ClipApiAxiosParamCreator = function (configuration) {
         },
         /**
          * クリップフォルダを作成します。
-         * @param {InlineObject9} [inlineObject9]
+         * @param {ClipsFolderNameObject} [clipsFolderNameObject]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsFoldersPost(inlineObject9, options = {}) {
+        usersMeClipsFoldersPost(clipsFolderNameObject, options = {}) {
             const localVarPath = `/users/me/clips/folders`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -3451,8 +3612,8 @@ exports.ClipApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject9" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject9 !== undefined ? inlineObject9 : {}) : (inlineObject9 || "");
+            const needsSerialization = ("ClipsFolderNameObject" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(clipsFolderNameObject !== undefined ? clipsFolderNameObject : {}) : (clipsFolderNameObject || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -3492,11 +3653,11 @@ exports.ClipApiAxiosParamCreator = function (configuration) {
         },
         /**
          * 新しくメッセージをクリップします。
-         * @param {InlineObject7} [inlineObject7]
+         * @param {SetClip} [setClip]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsPost(inlineObject7, options = {}) {
+        usersMeClipsPost(setClip, options = {}) {
             const localVarPath = `/users/me/clips`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -3519,8 +3680,8 @@ exports.ClipApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject7" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject7 !== undefined ? inlineObject7 : {}) : (inlineObject7 || "");
+            const needsSerialization = ("SetClip" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(setClip !== undefined ? setClip : {}) : (setClip || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -3563,12 +3724,12 @@ exports.ClipApiFp = function (configuration) {
         /**
          * 指定したクリップのフォルダを変更します。
          * @param {string} clipID 捜査の対象となるクリップのID
-         * @param {InlineObject8} [inlineObject8]
+         * @param {ClipsFolderIDObject} [clipsFolderIDObject]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsClipIDFolderPut(clipID, inlineObject8, options) {
-            const localVarAxiosArgs = exports.ClipApiAxiosParamCreator(configuration).usersMeClipsClipIDFolderPut(clipID, inlineObject8, options);
+        usersMeClipsClipIDFolderPut(clipID, clipsFolderIDObject, options) {
+            const localVarAxiosArgs = exports.ClipApiAxiosParamCreator(configuration).usersMeClipsClipIDFolderPut(clipID, clipsFolderIDObject, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -3616,12 +3777,12 @@ exports.ClipApiFp = function (configuration) {
         /**
          * クリップフォルダ名を変更します。
          * @param {string} folderID 操作の対象となるクリップフォルダのID
-         * @param {InlineObject10} [inlineObject10]
+         * @param {ClipsFolderNameObject} [clipsFolderNameObject]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsFoldersFolderIDPatch(folderID, inlineObject10, options) {
-            const localVarAxiosArgs = exports.ClipApiAxiosParamCreator(configuration).usersMeClipsFoldersFolderIDPatch(folderID, inlineObject10, options);
+        usersMeClipsFoldersFolderIDPatch(folderID, clipsFolderNameObject, options) {
+            const localVarAxiosArgs = exports.ClipApiAxiosParamCreator(configuration).usersMeClipsFoldersFolderIDPatch(folderID, clipsFolderNameObject, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -3641,12 +3802,12 @@ exports.ClipApiFp = function (configuration) {
         },
         /**
          * クリップフォルダを作成します。
-         * @param {InlineObject9} [inlineObject9]
+         * @param {ClipsFolderNameObject} [clipsFolderNameObject]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsFoldersPost(inlineObject9, options) {
-            const localVarAxiosArgs = exports.ClipApiAxiosParamCreator(configuration).usersMeClipsFoldersPost(inlineObject9, options);
+        usersMeClipsFoldersPost(clipsFolderNameObject, options) {
+            const localVarAxiosArgs = exports.ClipApiAxiosParamCreator(configuration).usersMeClipsFoldersPost(clipsFolderNameObject, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -3666,12 +3827,12 @@ exports.ClipApiFp = function (configuration) {
         },
         /**
          * 新しくメッセージをクリップします。
-         * @param {InlineObject7} [inlineObject7]
+         * @param {SetClip} [setClip]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsPost(inlineObject7, options) {
-            const localVarAxiosArgs = exports.ClipApiAxiosParamCreator(configuration).usersMeClipsPost(inlineObject7, options);
+        usersMeClipsPost(setClip, options) {
+            const localVarAxiosArgs = exports.ClipApiAxiosParamCreator(configuration).usersMeClipsPost(setClip, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -3706,12 +3867,12 @@ exports.ClipApiFactory = function (configuration, basePath, axios) {
         /**
          * 指定したクリップのフォルダを変更します。
          * @param {string} clipID 捜査の対象となるクリップのID
-         * @param {InlineObject8} [inlineObject8]
+         * @param {ClipsFolderIDObject} [clipsFolderIDObject]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsClipIDFolderPut(clipID, inlineObject8, options) {
-            return exports.ClipApiFp(configuration).usersMeClipsClipIDFolderPut(clipID, inlineObject8, options)(axios, basePath);
+        usersMeClipsClipIDFolderPut(clipID, clipsFolderIDObject, options) {
+            return exports.ClipApiFp(configuration).usersMeClipsClipIDFolderPut(clipID, clipsFolderIDObject, options)(axios, basePath);
         },
         /**
          * 指定したクリップのメッセージを取得します。
@@ -3743,12 +3904,12 @@ exports.ClipApiFactory = function (configuration, basePath, axios) {
         /**
          * クリップフォルダ名を変更します。
          * @param {string} folderID 操作の対象となるクリップフォルダのID
-         * @param {InlineObject10} [inlineObject10]
+         * @param {ClipsFolderNameObject} [clipsFolderNameObject]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsFoldersFolderIDPatch(folderID, inlineObject10, options) {
-            return exports.ClipApiFp(configuration).usersMeClipsFoldersFolderIDPatch(folderID, inlineObject10, options)(axios, basePath);
+        usersMeClipsFoldersFolderIDPatch(folderID, clipsFolderNameObject, options) {
+            return exports.ClipApiFp(configuration).usersMeClipsFoldersFolderIDPatch(folderID, clipsFolderNameObject, options)(axios, basePath);
         },
         /**
          * クリップフォルダ一覧を取得します。
@@ -3760,12 +3921,12 @@ exports.ClipApiFactory = function (configuration, basePath, axios) {
         },
         /**
          * クリップフォルダを作成します。
-         * @param {InlineObject9} [inlineObject9]
+         * @param {ClipsFolderNameObject} [clipsFolderNameObject]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsFoldersPost(inlineObject9, options) {
-            return exports.ClipApiFp(configuration).usersMeClipsFoldersPost(inlineObject9, options)(axios, basePath);
+        usersMeClipsFoldersPost(clipsFolderNameObject, options) {
+            return exports.ClipApiFp(configuration).usersMeClipsFoldersPost(clipsFolderNameObject, options)(axios, basePath);
         },
         /**
          * 全てのクリップを取得します。
@@ -3777,12 +3938,12 @@ exports.ClipApiFactory = function (configuration, basePath, axios) {
         },
         /**
          * 新しくメッセージをクリップします。
-         * @param {InlineObject7} [inlineObject7]
+         * @param {SetClip} [setClip]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsPost(inlineObject7, options) {
-            return exports.ClipApiFp(configuration).usersMeClipsPost(inlineObject7, options)(axios, basePath);
+        usersMeClipsPost(setClip, options) {
+            return exports.ClipApiFp(configuration).usersMeClipsPost(setClip, options)(axios, basePath);
         },
     };
 };
@@ -3816,13 +3977,13 @@ class ClipApi extends base_1.BaseAPI {
     /**
      * 指定したクリップのフォルダを変更します。
      * @param {string} clipID 捜査の対象となるクリップのID
-     * @param {InlineObject8} [inlineObject8]
+     * @param {ClipsFolderIDObject} [clipsFolderIDObject]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsClipIDFolderPut(clipID, inlineObject8, options) {
-        return exports.ClipApiFp(this.configuration).usersMeClipsClipIDFolderPut(clipID, inlineObject8, options)(this.axios, this.basePath);
+    usersMeClipsClipIDFolderPut(clipID, clipsFolderIDObject, options) {
+        return exports.ClipApiFp(this.configuration).usersMeClipsClipIDFolderPut(clipID, clipsFolderIDObject, options)(this.axios, this.basePath);
     }
     /**
      * 指定したクリップのメッセージを取得します。
@@ -3857,13 +4018,13 @@ class ClipApi extends base_1.BaseAPI {
     /**
      * クリップフォルダ名を変更します。
      * @param {string} folderID 操作の対象となるクリップフォルダのID
-     * @param {InlineObject10} [inlineObject10]
+     * @param {ClipsFolderNameObject} [clipsFolderNameObject]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsFoldersFolderIDPatch(folderID, inlineObject10, options) {
-        return exports.ClipApiFp(this.configuration).usersMeClipsFoldersFolderIDPatch(folderID, inlineObject10, options)(this.axios, this.basePath);
+    usersMeClipsFoldersFolderIDPatch(folderID, clipsFolderNameObject, options) {
+        return exports.ClipApiFp(this.configuration).usersMeClipsFoldersFolderIDPatch(folderID, clipsFolderNameObject, options)(this.axios, this.basePath);
     }
     /**
      * クリップフォルダ一覧を取得します。
@@ -3876,13 +4037,13 @@ class ClipApi extends base_1.BaseAPI {
     }
     /**
      * クリップフォルダを作成します。
-     * @param {InlineObject9} [inlineObject9]
+     * @param {ClipsFolderNameObject} [clipsFolderNameObject]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsFoldersPost(inlineObject9, options) {
-        return exports.ClipApiFp(this.configuration).usersMeClipsFoldersPost(inlineObject9, options)(this.axios, this.basePath);
+    usersMeClipsFoldersPost(clipsFolderNameObject, options) {
+        return exports.ClipApiFp(this.configuration).usersMeClipsFoldersPost(clipsFolderNameObject, options)(this.axios, this.basePath);
     }
     /**
      * 全てのクリップを取得します。
@@ -3895,13 +4056,13 @@ class ClipApi extends base_1.BaseAPI {
     }
     /**
      * 新しくメッセージをクリップします。
-     * @param {InlineObject7} [inlineObject7]
+     * @param {SetClip} [setClip]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsPost(inlineObject7, options) {
-        return exports.ClipApiFp(this.configuration).usersMeClipsPost(inlineObject7, options)(this.axios, this.basePath);
+    usersMeClipsPost(setClip, options) {
+        return exports.ClipApiFp(this.configuration).usersMeClipsPost(setClip, options)(this.axios, this.basePath);
     }
 }
 exports.ClipApi = ClipApi;
@@ -4347,11 +4508,11 @@ exports.HeartbeatApiAxiosParamCreator = function (configuration) {
         },
         /**
          * どのチャンネルを見ているか・編集しているかを送信します。
-         * @param {InlineObject14} [inlineObject14]
+         * @param {Heartbeat} [heartbeat]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        heartbeatPost(inlineObject14, options = {}) {
+        heartbeatPost(heartbeat, options = {}) {
             const localVarPath = `/heartbeat`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -4374,8 +4535,8 @@ exports.HeartbeatApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject14" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject14 !== undefined ? inlineObject14 : {}) : (inlineObject14 || "");
+            const needsSerialization = ("Heartbeat" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(heartbeat !== undefined ? heartbeat : {}) : (heartbeat || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -4404,12 +4565,12 @@ exports.HeartbeatApiFp = function (configuration) {
         },
         /**
          * どのチャンネルを見ているか・編集しているかを送信します。
-         * @param {InlineObject14} [inlineObject14]
+         * @param {Heartbeat} [heartbeat]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        heartbeatPost(inlineObject14, options) {
-            const localVarAxiosArgs = exports.HeartbeatApiAxiosParamCreator(configuration).heartbeatPost(inlineObject14, options);
+        heartbeatPost(heartbeat, options) {
+            const localVarAxiosArgs = exports.HeartbeatApiAxiosParamCreator(configuration).heartbeatPost(heartbeat, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -4434,12 +4595,12 @@ exports.HeartbeatApiFactory = function (configuration, basePath, axios) {
         },
         /**
          * どのチャンネルを見ているか・編集しているかを送信します。
-         * @param {InlineObject14} [inlineObject14]
+         * @param {Heartbeat} [heartbeat]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        heartbeatPost(inlineObject14, options) {
-            return exports.HeartbeatApiFp(configuration).heartbeatPost(inlineObject14, options)(axios, basePath);
+        heartbeatPost(heartbeat, options) {
+            return exports.HeartbeatApiFp(configuration).heartbeatPost(heartbeat, options)(axios, basePath);
         },
     };
 };
@@ -4462,13 +4623,13 @@ class HeartbeatApi extends base_1.BaseAPI {
     }
     /**
      * どのチャンネルを見ているか・編集しているかを送信します。
-     * @param {InlineObject14} [inlineObject14]
+     * @param {Heartbeat} [heartbeat]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof HeartbeatApi
      */
-    heartbeatPost(inlineObject14, options) {
-        return exports.HeartbeatApiFp(this.configuration).heartbeatPost(inlineObject14, options)(this.axios, this.basePath);
+    heartbeatPost(heartbeat, options) {
+        return exports.HeartbeatApiFp(this.configuration).heartbeatPost(heartbeat, options)(this.axios, this.basePath);
     }
 }
 exports.HeartbeatApi = HeartbeatApi;
@@ -4543,11 +4704,11 @@ exports.MessageApiAxiosParamCreator = function (configuration) {
         /**
          * チャンネルにメッセージを投稿します。
          * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {InlineObject20} [inlineObject20]
+         * @param {SendMessage} [sendMessage]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDMessagesPost(channelID, inlineObject20, options = {}) {
+        channelsChannelIDMessagesPost(channelID, sendMessage, options = {}) {
             // verify required parameter 'channelID' is not null or undefined
             if (channelID === null || channelID === undefined) {
                 throw new base_1.RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDMessagesPost.');
@@ -4575,8 +4736,8 @@ exports.MessageApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject20" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject20 !== undefined ? inlineObject20 : {}) : (inlineObject20 || "");
+            const needsSerialization = ("SendMessage" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(sendMessage !== undefined ? sendMessage : {}) : (sendMessage || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -4661,11 +4822,11 @@ exports.MessageApiAxiosParamCreator = function (configuration) {
         /**
          * 指定したメッセージを編集します。
          * @param {string} messageID 操作の対象となるメッセージID
-         * @param {InlineObject24} [inlineObject24]
+         * @param {SendMessage} [sendMessage]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesMessageIDPut(messageID, inlineObject24, options = {}) {
+        messagesMessageIDPut(messageID, sendMessage, options = {}) {
             // verify required parameter 'messageID' is not null or undefined
             if (messageID === null || messageID === undefined) {
                 throw new base_1.RequiredError('messageID', 'Required parameter messageID was null or undefined when calling messagesMessageIDPut.');
@@ -4693,8 +4854,8 @@ exports.MessageApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject24" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject24 !== undefined ? inlineObject24 : {}) : (inlineObject24 || "");
+            const needsSerialization = ("SendMessage" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(sendMessage !== undefined ? sendMessage : {}) : (sendMessage || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -4703,11 +4864,11 @@ exports.MessageApiAxiosParamCreator = function (configuration) {
         /**
          * 指定したメッセージを通報します。
          * @param {string} messageID 操作の対象となるメッセージID
-         * @param {InlineObject25} [inlineObject25]
+         * @param {ReportMessage} [reportMessage]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesMessageIDReportPost(messageID, inlineObject25, options = {}) {
+        messagesMessageIDReportPost(messageID, reportMessage, options = {}) {
             // verify required parameter 'messageID' is not null or undefined
             if (messageID === null || messageID === undefined) {
                 throw new base_1.RequiredError('messageID', 'Required parameter messageID was null or undefined when calling messagesMessageIDReportPost.');
@@ -4735,8 +4896,8 @@ exports.MessageApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject25" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject25 !== undefined ? inlineObject25 : {}) : (inlineObject25 || "");
+            const needsSerialization = ("ReportMessage" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(reportMessage !== undefined ? reportMessage : {}) : (reportMessage || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -4836,11 +4997,11 @@ exports.MessageApiAxiosParamCreator = function (configuration) {
         /**
          * DMチャンネルにメッセージを投稿します。
          * @param {string} userID 操作の対象となるユーザーID
-         * @param {InlineObject11} [inlineObject11]
+         * @param {SendMessage} [sendMessage]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDMessagesPost(userID, inlineObject11, options = {}) {
+        usersUserIDMessagesPost(userID, sendMessage, options = {}) {
             // verify required parameter 'userID' is not null or undefined
             if (userID === null || userID === undefined) {
                 throw new base_1.RequiredError('userID', 'Required parameter userID was null or undefined when calling usersUserIDMessagesPost.');
@@ -4868,8 +5029,8 @@ exports.MessageApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject11" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject11 !== undefined ? inlineObject11 : {}) : (inlineObject11 || "");
+            const needsSerialization = ("SendMessage" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(sendMessage !== undefined ? sendMessage : {}) : (sendMessage || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -4905,12 +5066,12 @@ exports.MessageApiFp = function (configuration) {
         /**
          * チャンネルにメッセージを投稿します。
          * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {InlineObject20} [inlineObject20]
+         * @param {SendMessage} [sendMessage]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDMessagesPost(channelID, inlineObject20, options) {
-            const localVarAxiosArgs = exports.MessageApiAxiosParamCreator(configuration).channelsChannelIDMessagesPost(channelID, inlineObject20, options);
+        channelsChannelIDMessagesPost(channelID, sendMessage, options) {
+            const localVarAxiosArgs = exports.MessageApiAxiosParamCreator(configuration).channelsChannelIDMessagesPost(channelID, sendMessage, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -4945,12 +5106,12 @@ exports.MessageApiFp = function (configuration) {
         /**
          * 指定したメッセージを編集します。
          * @param {string} messageID 操作の対象となるメッセージID
-         * @param {InlineObject24} [inlineObject24]
+         * @param {SendMessage} [sendMessage]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesMessageIDPut(messageID, inlineObject24, options) {
-            const localVarAxiosArgs = exports.MessageApiAxiosParamCreator(configuration).messagesMessageIDPut(messageID, inlineObject24, options);
+        messagesMessageIDPut(messageID, sendMessage, options) {
+            const localVarAxiosArgs = exports.MessageApiAxiosParamCreator(configuration).messagesMessageIDPut(messageID, sendMessage, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -4959,12 +5120,12 @@ exports.MessageApiFp = function (configuration) {
         /**
          * 指定したメッセージを通報します。
          * @param {string} messageID 操作の対象となるメッセージID
-         * @param {InlineObject25} [inlineObject25]
+         * @param {ReportMessage} [reportMessage]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesMessageIDReportPost(messageID, inlineObject25, options) {
-            const localVarAxiosArgs = exports.MessageApiAxiosParamCreator(configuration).messagesMessageIDReportPost(messageID, inlineObject25, options);
+        messagesMessageIDReportPost(messageID, reportMessage, options) {
+            const localVarAxiosArgs = exports.MessageApiAxiosParamCreator(configuration).messagesMessageIDReportPost(messageID, reportMessage, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -5005,12 +5166,12 @@ exports.MessageApiFp = function (configuration) {
         /**
          * DMチャンネルにメッセージを投稿します。
          * @param {string} userID 操作の対象となるユーザーID
-         * @param {InlineObject11} [inlineObject11]
+         * @param {SendMessage} [sendMessage]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDMessagesPost(userID, inlineObject11, options) {
-            const localVarAxiosArgs = exports.MessageApiAxiosParamCreator(configuration).usersUserIDMessagesPost(userID, inlineObject11, options);
+        usersUserIDMessagesPost(userID, sendMessage, options) {
+            const localVarAxiosArgs = exports.MessageApiAxiosParamCreator(configuration).usersUserIDMessagesPost(userID, sendMessage, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -5042,12 +5203,12 @@ exports.MessageApiFactory = function (configuration, basePath, axios) {
         /**
          * チャンネルにメッセージを投稿します。
          * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {InlineObject20} [inlineObject20]
+         * @param {SendMessage} [sendMessage]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDMessagesPost(channelID, inlineObject20, options) {
-            return exports.MessageApiFp(configuration).channelsChannelIDMessagesPost(channelID, inlineObject20, options)(axios, basePath);
+        channelsChannelIDMessagesPost(channelID, sendMessage, options) {
+            return exports.MessageApiFp(configuration).channelsChannelIDMessagesPost(channelID, sendMessage, options)(axios, basePath);
         },
         /**
          * 指定したメッセージを削除します。
@@ -5070,22 +5231,22 @@ exports.MessageApiFactory = function (configuration, basePath, axios) {
         /**
          * 指定したメッセージを編集します。
          * @param {string} messageID 操作の対象となるメッセージID
-         * @param {InlineObject24} [inlineObject24]
+         * @param {SendMessage} [sendMessage]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesMessageIDPut(messageID, inlineObject24, options) {
-            return exports.MessageApiFp(configuration).messagesMessageIDPut(messageID, inlineObject24, options)(axios, basePath);
+        messagesMessageIDPut(messageID, sendMessage, options) {
+            return exports.MessageApiFp(configuration).messagesMessageIDPut(messageID, sendMessage, options)(axios, basePath);
         },
         /**
          * 指定したメッセージを通報します。
          * @param {string} messageID 操作の対象となるメッセージID
-         * @param {InlineObject25} [inlineObject25]
+         * @param {ReportMessage} [reportMessage]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesMessageIDReportPost(messageID, inlineObject25, options) {
-            return exports.MessageApiFp(configuration).messagesMessageIDReportPost(messageID, inlineObject25, options)(axios, basePath);
+        messagesMessageIDReportPost(messageID, reportMessage, options) {
+            return exports.MessageApiFp(configuration).messagesMessageIDReportPost(messageID, reportMessage, options)(axios, basePath);
         },
         /**
          * メッセージ通報を最大50件取得します。
@@ -5114,12 +5275,12 @@ exports.MessageApiFactory = function (configuration, basePath, axios) {
         /**
          * DMチャンネルにメッセージを投稿します。
          * @param {string} userID 操作の対象となるユーザーID
-         * @param {InlineObject11} [inlineObject11]
+         * @param {SendMessage} [sendMessage]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDMessagesPost(userID, inlineObject11, options) {
-            return exports.MessageApiFp(configuration).usersUserIDMessagesPost(userID, inlineObject11, options)(axios, basePath);
+        usersUserIDMessagesPost(userID, sendMessage, options) {
+            return exports.MessageApiFp(configuration).usersUserIDMessagesPost(userID, sendMessage, options)(axios, basePath);
         },
     };
 };
@@ -5149,13 +5310,13 @@ class MessageApi extends base_1.BaseAPI {
     /**
      * チャンネルにメッセージを投稿します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject20} [inlineObject20]
+     * @param {SendMessage} [sendMessage]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    channelsChannelIDMessagesPost(channelID, inlineObject20, options) {
-        return exports.MessageApiFp(this.configuration).channelsChannelIDMessagesPost(channelID, inlineObject20, options)(this.axios, this.basePath);
+    channelsChannelIDMessagesPost(channelID, sendMessage, options) {
+        return exports.MessageApiFp(this.configuration).channelsChannelIDMessagesPost(channelID, sendMessage, options)(this.axios, this.basePath);
     }
     /**
      * 指定したメッセージを削除します。
@@ -5180,24 +5341,24 @@ class MessageApi extends base_1.BaseAPI {
     /**
      * 指定したメッセージを編集します。
      * @param {string} messageID 操作の対象となるメッセージID
-     * @param {InlineObject24} [inlineObject24]
+     * @param {SendMessage} [sendMessage]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    messagesMessageIDPut(messageID, inlineObject24, options) {
-        return exports.MessageApiFp(this.configuration).messagesMessageIDPut(messageID, inlineObject24, options)(this.axios, this.basePath);
+    messagesMessageIDPut(messageID, sendMessage, options) {
+        return exports.MessageApiFp(this.configuration).messagesMessageIDPut(messageID, sendMessage, options)(this.axios, this.basePath);
     }
     /**
      * 指定したメッセージを通報します。
      * @param {string} messageID 操作の対象となるメッセージID
-     * @param {InlineObject25} [inlineObject25]
+     * @param {ReportMessage} [reportMessage]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    messagesMessageIDReportPost(messageID, inlineObject25, options) {
-        return exports.MessageApiFp(this.configuration).messagesMessageIDReportPost(messageID, inlineObject25, options)(this.axios, this.basePath);
+    messagesMessageIDReportPost(messageID, reportMessage, options) {
+        return exports.MessageApiFp(this.configuration).messagesMessageIDReportPost(messageID, reportMessage, options)(this.axios, this.basePath);
     }
     /**
      * メッセージ通報を最大50件取得します。
@@ -5228,13 +5389,13 @@ class MessageApi extends base_1.BaseAPI {
     /**
      * DMチャンネルにメッセージを投稿します。
      * @param {string} userID 操作の対象となるユーザーID
-     * @param {InlineObject11} [inlineObject11]
+     * @param {SendMessage} [sendMessage]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    usersUserIDMessagesPost(userID, inlineObject11, options) {
-        return exports.MessageApiFp(this.configuration).usersUserIDMessagesPost(userID, inlineObject11, options)(this.axios, this.basePath);
+    usersUserIDMessagesPost(userID, sendMessage, options) {
+        return exports.MessageApiFp(this.configuration).usersUserIDMessagesPost(userID, sendMessage, options)(this.axios, this.basePath);
     }
 }
 exports.MessageApi = MessageApi;
@@ -5519,11 +5680,11 @@ exports.NotificationApiAxiosParamCreator = function (configuration) {
         /**
          * チャンネルの通知状況を変更します。 リクエストに含めなかったユーザーIDのユーザーの通知状況は変更しません。 また、存在しないユーザーのIDを指定した場合は無視されます。
          * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {InlineObject21} [inlineObject21]
+         * @param {NotificationUsers} [notificationUsers]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDNotificationPut(channelID, inlineObject21, options = {}) {
+        channelsChannelIDNotificationPut(channelID, notificationUsers, options = {}) {
             // verify required parameter 'channelID' is not null or undefined
             if (channelID === null || channelID === undefined) {
                 throw new base_1.RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDNotificationPut.');
@@ -5551,8 +5712,8 @@ exports.NotificationApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject21" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject21 !== undefined ? inlineObject21 : {}) : (inlineObject21 || "");
+            const needsSerialization = ("NotificationUsers" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(notificationUsers !== undefined ? notificationUsers : {}) : (notificationUsers || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -5560,11 +5721,11 @@ exports.NotificationApiAxiosParamCreator = function (configuration) {
         },
         /**
          * FCMデバイスを登録します。
-         * @param {InlineObject23} [inlineObject23]
+         * @param {FCMToken} [fCMToken]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        notificationDevicePost(inlineObject23, options = {}) {
+        notificationDevicePost(fCMToken, options = {}) {
             const localVarPath = `/notification/device`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -5587,8 +5748,8 @@ exports.NotificationApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject23" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject23 !== undefined ? inlineObject23 : {}) : (inlineObject23 || "");
+            const needsSerialization = ("FCMToken" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(fCMToken !== undefined ? fCMToken : {}) : (fCMToken || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -5720,12 +5881,12 @@ exports.NotificationApiFp = function (configuration) {
         /**
          * チャンネルの通知状況を変更します。 リクエストに含めなかったユーザーIDのユーザーの通知状況は変更しません。 また、存在しないユーザーのIDを指定した場合は無視されます。
          * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {InlineObject21} [inlineObject21]
+         * @param {NotificationUsers} [notificationUsers]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDNotificationPut(channelID, inlineObject21, options) {
-            const localVarAxiosArgs = exports.NotificationApiAxiosParamCreator(configuration).channelsChannelIDNotificationPut(channelID, inlineObject21, options);
+        channelsChannelIDNotificationPut(channelID, notificationUsers, options) {
+            const localVarAxiosArgs = exports.NotificationApiAxiosParamCreator(configuration).channelsChannelIDNotificationPut(channelID, notificationUsers, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -5733,12 +5894,12 @@ exports.NotificationApiFp = function (configuration) {
         },
         /**
          * FCMデバイスを登録します。
-         * @param {InlineObject23} [inlineObject23]
+         * @param {FCMToken} [fCMToken]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        notificationDevicePost(inlineObject23, options) {
-            const localVarAxiosArgs = exports.NotificationApiAxiosParamCreator(configuration).notificationDevicePost(inlineObject23, options);
+        notificationDevicePost(fCMToken, options) {
+            const localVarAxiosArgs = exports.NotificationApiAxiosParamCreator(configuration).notificationDevicePost(fCMToken, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -5801,21 +5962,21 @@ exports.NotificationApiFactory = function (configuration, basePath, axios) {
         /**
          * チャンネルの通知状況を変更します。 リクエストに含めなかったユーザーIDのユーザーの通知状況は変更しません。 また、存在しないユーザーのIDを指定した場合は無視されます。
          * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {InlineObject21} [inlineObject21]
+         * @param {NotificationUsers} [notificationUsers]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDNotificationPut(channelID, inlineObject21, options) {
-            return exports.NotificationApiFp(configuration).channelsChannelIDNotificationPut(channelID, inlineObject21, options)(axios, basePath);
+        channelsChannelIDNotificationPut(channelID, notificationUsers, options) {
+            return exports.NotificationApiFp(configuration).channelsChannelIDNotificationPut(channelID, notificationUsers, options)(axios, basePath);
         },
         /**
          * FCMデバイスを登録します。
-         * @param {InlineObject23} [inlineObject23]
+         * @param {FCMToken} [fCMToken]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        notificationDevicePost(inlineObject23, options) {
-            return exports.NotificationApiFp(configuration).notificationDevicePost(inlineObject23, options)(axios, basePath);
+        notificationDevicePost(fCMToken, options) {
+            return exports.NotificationApiFp(configuration).notificationDevicePost(fCMToken, options)(axios, basePath);
         },
         /**
          * 通知ストリーム(Server Sent Events)に接続します。
@@ -5864,23 +6025,23 @@ class NotificationApi extends base_1.BaseAPI {
     /**
      * チャンネルの通知状況を変更します。 リクエストに含めなかったユーザーIDのユーザーの通知状況は変更しません。 また、存在しないユーザーのIDを指定した場合は無視されます。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject21} [inlineObject21]
+     * @param {NotificationUsers} [notificationUsers]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    channelsChannelIDNotificationPut(channelID, inlineObject21, options) {
-        return exports.NotificationApiFp(this.configuration).channelsChannelIDNotificationPut(channelID, inlineObject21, options)(this.axios, this.basePath);
+    channelsChannelIDNotificationPut(channelID, notificationUsers, options) {
+        return exports.NotificationApiFp(this.configuration).channelsChannelIDNotificationPut(channelID, notificationUsers, options)(this.axios, this.basePath);
     }
     /**
      * FCMデバイスを登録します。
-     * @param {InlineObject23} [inlineObject23]
+     * @param {FCMToken} [fCMToken]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    notificationDevicePost(inlineObject23, options) {
-        return exports.NotificationApiFp(this.configuration).notificationDevicePost(inlineObject23, options)(this.axios, this.basePath);
+    notificationDevicePost(fCMToken, options) {
+        return exports.NotificationApiFp(this.configuration).notificationDevicePost(fCMToken, options)(this.axios, this.basePath);
     }
     /**
      * 通知ストリーム(Server Sent Events)に接続します。
@@ -6034,11 +6195,11 @@ exports.PinApiAxiosParamCreator = function (configuration) {
         },
         /**
          * チャンネルにメッセージをピン留めします。
-         * @param {InlineObject26} [inlineObject26]
+         * @param {MessageIDObject} [messageIDObject]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        pinsPost(inlineObject26, options = {}) {
+        pinsPost(messageIDObject, options = {}) {
             const localVarPath = `/pins`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -6061,8 +6222,8 @@ exports.PinApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject26" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject26 !== undefined ? inlineObject26 : {}) : (inlineObject26 || "");
+            const needsSerialization = ("MessageIDObject" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(messageIDObject !== undefined ? messageIDObject : {}) : (messageIDObject || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -6117,12 +6278,12 @@ exports.PinApiFp = function (configuration) {
         },
         /**
          * チャンネルにメッセージをピン留めします。
-         * @param {InlineObject26} [inlineObject26]
+         * @param {MessageIDObject} [messageIDObject]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        pinsPost(inlineObject26, options) {
-            const localVarAxiosArgs = exports.PinApiAxiosParamCreator(configuration).pinsPost(inlineObject26, options);
+        pinsPost(messageIDObject, options) {
+            const localVarAxiosArgs = exports.PinApiAxiosParamCreator(configuration).pinsPost(messageIDObject, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -6165,12 +6326,12 @@ exports.PinApiFactory = function (configuration, basePath, axios) {
         },
         /**
          * チャンネルにメッセージをピン留めします。
-         * @param {InlineObject26} [inlineObject26]
+         * @param {MessageIDObject} [messageIDObject]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        pinsPost(inlineObject26, options) {
-            return exports.PinApiFp(configuration).pinsPost(inlineObject26, options)(axios, basePath);
+        pinsPost(messageIDObject, options) {
+            return exports.PinApiFp(configuration).pinsPost(messageIDObject, options)(axios, basePath);
         },
     };
 };
@@ -6213,13 +6374,13 @@ class PinApi extends base_1.BaseAPI {
     }
     /**
      * チャンネルにメッセージをピン留めします。
-     * @param {InlineObject26} [inlineObject26]
+     * @param {MessageIDObject} [messageIDObject]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PinApi
      */
-    pinsPost(inlineObject26, options) {
-        return exports.PinApiFp(this.configuration).pinsPost(inlineObject26, options)(this.axios, this.basePath);
+    pinsPost(messageIDObject, options) {
+        return exports.PinApiFp(this.configuration).pinsPost(messageIDObject, options)(this.axios, this.basePath);
     }
 }
 exports.PinApi = PinApi;
@@ -7749,11 +7910,11 @@ exports.UserApiAxiosParamCreator = function (configuration) {
         },
         /**
          * 自分のパスワードを変更します。
-         * @param {InlineObject6} [inlineObject6]
+         * @param {ChangePassword} [changePassword]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMePasswordPut(inlineObject6, options = {}) {
+        usersMePasswordPut(changePassword, options = {}) {
             const localVarPath = `/users/me/password`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -7769,8 +7930,8 @@ exports.UserApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject6" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject6 !== undefined ? inlineObject6 : {}) : (inlineObject6 || "");
+            const needsSerialization = ("ChangePassword" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(changePassword !== undefined ? changePassword : {}) : (changePassword || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -7778,11 +7939,11 @@ exports.UserApiAxiosParamCreator = function (configuration) {
         },
         /**
          * 自分のユーザー情報を変更します。
-         * @param {InlineObject5} [inlineObject5]
+         * @param {UserData} [userData]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMePatch(inlineObject5, options = {}) {
+        usersMePatch(userData, options = {}) {
             const localVarPath = `/users/me`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -7805,8 +7966,8 @@ exports.UserApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject5" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject5 !== undefined ? inlineObject5 : {}) : (inlineObject5 || "");
+            const needsSerialization = ("UserData" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(userData !== undefined ? userData : {}) : (userData || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -7839,11 +8000,11 @@ exports.UserApiAxiosParamCreator = function (configuration) {
         },
         /**
          * ユーザー登録します
-         * @param {InlineObject4} [inlineObject4]
+         * @param {UserRegister} [userRegister]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersPost(inlineObject4, options = {}) {
+        usersPost(userRegister, options = {}) {
             const localVarPath = `/users`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -7859,8 +8020,8 @@ exports.UserApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject4" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject4 !== undefined ? inlineObject4 : {}) : (inlineObject4 || "");
+            const needsSerialization = ("UserRegister" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(userRegister !== undefined ? userRegister : {}) : (userRegister || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -8001,12 +8162,12 @@ exports.UserApiFp = function (configuration) {
         },
         /**
          * 自分のパスワードを変更します。
-         * @param {InlineObject6} [inlineObject6]
+         * @param {ChangePassword} [changePassword]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMePasswordPut(inlineObject6, options) {
-            const localVarAxiosArgs = exports.UserApiAxiosParamCreator(configuration).usersMePasswordPut(inlineObject6, options);
+        usersMePasswordPut(changePassword, options) {
+            const localVarAxiosArgs = exports.UserApiAxiosParamCreator(configuration).usersMePasswordPut(changePassword, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -8014,12 +8175,12 @@ exports.UserApiFp = function (configuration) {
         },
         /**
          * 自分のユーザー情報を変更します。
-         * @param {InlineObject5} [inlineObject5]
+         * @param {UserData} [userData]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMePatch(inlineObject5, options) {
-            const localVarAxiosArgs = exports.UserApiAxiosParamCreator(configuration).usersMePatch(inlineObject5, options);
+        usersMePatch(userData, options) {
+            const localVarAxiosArgs = exports.UserApiAxiosParamCreator(configuration).usersMePatch(userData, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -8039,12 +8200,12 @@ exports.UserApiFp = function (configuration) {
         },
         /**
          * ユーザー登録します
-         * @param {InlineObject4} [inlineObject4]
+         * @param {UserRegister} [userRegister]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersPost(inlineObject4, options) {
-            const localVarAxiosArgs = exports.UserApiAxiosParamCreator(configuration).usersPost(inlineObject4, options);
+        usersPost(userRegister, options) {
+            const localVarAxiosArgs = exports.UserApiAxiosParamCreator(configuration).usersPost(userRegister, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -8119,21 +8280,21 @@ exports.UserApiFactory = function (configuration, basePath, axios) {
         },
         /**
          * 自分のパスワードを変更します。
-         * @param {InlineObject6} [inlineObject6]
+         * @param {ChangePassword} [changePassword]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMePasswordPut(inlineObject6, options) {
-            return exports.UserApiFp(configuration).usersMePasswordPut(inlineObject6, options)(axios, basePath);
+        usersMePasswordPut(changePassword, options) {
+            return exports.UserApiFp(configuration).usersMePasswordPut(changePassword, options)(axios, basePath);
         },
         /**
          * 自分のユーザー情報を変更します。
-         * @param {InlineObject5} [inlineObject5]
+         * @param {UserData} [userData]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMePatch(inlineObject5, options) {
-            return exports.UserApiFp(configuration).usersMePatch(inlineObject5, options)(axios, basePath);
+        usersMePatch(userData, options) {
+            return exports.UserApiFp(configuration).usersMePatch(userData, options)(axios, basePath);
         },
         /**
          * 自分のQRコードを取得します。
@@ -8145,12 +8306,12 @@ exports.UserApiFactory = function (configuration, basePath, axios) {
         },
         /**
          * ユーザー登録します
-         * @param {InlineObject4} [inlineObject4]
+         * @param {UserRegister} [userRegister]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersPost(inlineObject4, options) {
-            return exports.UserApiFp(configuration).usersPost(inlineObject4, options)(axios, basePath);
+        usersPost(userRegister, options) {
+            return exports.UserApiFp(configuration).usersPost(userRegister, options)(axios, basePath);
         },
         /**
          * ユーザーの詳細を取得します。
@@ -8218,23 +8379,23 @@ class UserApi extends base_1.BaseAPI {
     }
     /**
      * 自分のパスワードを変更します。
-     * @param {InlineObject6} [inlineObject6]
+     * @param {ChangePassword} [changePassword]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    usersMePasswordPut(inlineObject6, options) {
-        return exports.UserApiFp(this.configuration).usersMePasswordPut(inlineObject6, options)(this.axios, this.basePath);
+    usersMePasswordPut(changePassword, options) {
+        return exports.UserApiFp(this.configuration).usersMePasswordPut(changePassword, options)(this.axios, this.basePath);
     }
     /**
      * 自分のユーザー情報を変更します。
-     * @param {InlineObject5} [inlineObject5]
+     * @param {UserData} [userData]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    usersMePatch(inlineObject5, options) {
-        return exports.UserApiFp(this.configuration).usersMePatch(inlineObject5, options)(this.axios, this.basePath);
+    usersMePatch(userData, options) {
+        return exports.UserApiFp(this.configuration).usersMePatch(userData, options)(this.axios, this.basePath);
     }
     /**
      * 自分のQRコードを取得します。
@@ -8247,13 +8408,13 @@ class UserApi extends base_1.BaseAPI {
     }
     /**
      * ユーザー登録します
-     * @param {InlineObject4} [inlineObject4]
+     * @param {UserRegister} [userRegister]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    usersPost(inlineObject4, options) {
-        return exports.UserApiFp(this.configuration).usersPost(inlineObject4, options)(this.axios, this.basePath);
+    usersPost(userRegister, options) {
+        return exports.UserApiFp(this.configuration).usersPost(userRegister, options)(this.axios, this.basePath);
     }
     /**
      * ユーザーの詳細を取得します。
@@ -8432,11 +8593,11 @@ exports.UserGroupApiAxiosParamCreator = function (configuration) {
         /**
          * ユーザーグループにメンバーを追加します
          * @param {string} groupID 操作の対象となるユーザーグループID
-         * @param {InlineObject31} [inlineObject31]
+         * @param {AddUserGroup} [addUserGroup]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsGroupIDMembersPost(groupID, inlineObject31, options = {}) {
+        groupsGroupIDMembersPost(groupID, addUserGroup, options = {}) {
             // verify required parameter 'groupID' is not null or undefined
             if (groupID === null || groupID === undefined) {
                 throw new base_1.RequiredError('groupID', 'Required parameter groupID was null or undefined when calling groupsGroupIDMembersPost.');
@@ -8464,8 +8625,8 @@ exports.UserGroupApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject31" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject31 !== undefined ? inlineObject31 : {}) : (inlineObject31 || "");
+            const needsSerialization = ("AddUserGroup" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(addUserGroup !== undefined ? addUserGroup : {}) : (addUserGroup || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -8518,11 +8679,11 @@ exports.UserGroupApiAxiosParamCreator = function (configuration) {
         /**
          * ユーザーグループの情報を変更します
          * @param {string} groupID 操作の対象となるユーザーグループID
-         * @param {InlineObject30} [inlineObject30]
+         * @param {PatchUserGroup} [patchUserGroup]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsGroupIDPatch(groupID, inlineObject30, options = {}) {
+        groupsGroupIDPatch(groupID, patchUserGroup, options = {}) {
             // verify required parameter 'groupID' is not null or undefined
             if (groupID === null || groupID === undefined) {
                 throw new base_1.RequiredError('groupID', 'Required parameter groupID was null or undefined when calling groupsGroupIDPatch.');
@@ -8550,8 +8711,8 @@ exports.UserGroupApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject30" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject30 !== undefined ? inlineObject30 : {}) : (inlineObject30 || "");
+            const needsSerialization = ("PatchUserGroup" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(patchUserGroup !== undefined ? patchUserGroup : {}) : (patchUserGroup || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -8559,11 +8720,11 @@ exports.UserGroupApiAxiosParamCreator = function (configuration) {
         },
         /**
          * ユーザーグループを作成します
-         * @param {InlineObject29} [inlineObject29]
+         * @param {PostUserGroup} [postUserGroup]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsPost(inlineObject29, options = {}) {
+        groupsPost(postUserGroup, options = {}) {
             const localVarPath = `/groups`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -8586,8 +8747,8 @@ exports.UserGroupApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject29" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject29 !== undefined ? inlineObject29 : {}) : (inlineObject29 || "");
+            const needsSerialization = ("PostUserGroup" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(postUserGroup !== undefined ? postUserGroup : {}) : (postUserGroup || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -8725,12 +8886,12 @@ exports.UserGroupApiFp = function (configuration) {
         /**
          * ユーザーグループにメンバーを追加します
          * @param {string} groupID 操作の対象となるユーザーグループID
-         * @param {InlineObject31} [inlineObject31]
+         * @param {AddUserGroup} [addUserGroup]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsGroupIDMembersPost(groupID, inlineObject31, options) {
-            const localVarAxiosArgs = exports.UserGroupApiAxiosParamCreator(configuration).groupsGroupIDMembersPost(groupID, inlineObject31, options);
+        groupsGroupIDMembersPost(groupID, addUserGroup, options) {
+            const localVarAxiosArgs = exports.UserGroupApiAxiosParamCreator(configuration).groupsGroupIDMembersPost(groupID, addUserGroup, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -8753,12 +8914,12 @@ exports.UserGroupApiFp = function (configuration) {
         /**
          * ユーザーグループの情報を変更します
          * @param {string} groupID 操作の対象となるユーザーグループID
-         * @param {InlineObject30} [inlineObject30]
+         * @param {PatchUserGroup} [patchUserGroup]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsGroupIDPatch(groupID, inlineObject30, options) {
-            const localVarAxiosArgs = exports.UserGroupApiAxiosParamCreator(configuration).groupsGroupIDPatch(groupID, inlineObject30, options);
+        groupsGroupIDPatch(groupID, patchUserGroup, options) {
+            const localVarAxiosArgs = exports.UserGroupApiAxiosParamCreator(configuration).groupsGroupIDPatch(groupID, patchUserGroup, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -8766,12 +8927,12 @@ exports.UserGroupApiFp = function (configuration) {
         },
         /**
          * ユーザーグループを作成します
-         * @param {InlineObject29} [inlineObject29]
+         * @param {PostUserGroup} [postUserGroup]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsPost(inlineObject29, options) {
-            const localVarAxiosArgs = exports.UserGroupApiAxiosParamCreator(configuration).groupsPost(inlineObject29, options);
+        groupsPost(postUserGroup, options) {
+            const localVarAxiosArgs = exports.UserGroupApiAxiosParamCreator(configuration).groupsPost(postUserGroup, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -8848,12 +9009,12 @@ exports.UserGroupApiFactory = function (configuration, basePath, axios) {
         /**
          * ユーザーグループにメンバーを追加します
          * @param {string} groupID 操作の対象となるユーザーグループID
-         * @param {InlineObject31} [inlineObject31]
+         * @param {AddUserGroup} [addUserGroup]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsGroupIDMembersPost(groupID, inlineObject31, options) {
-            return exports.UserGroupApiFp(configuration).groupsGroupIDMembersPost(groupID, inlineObject31, options)(axios, basePath);
+        groupsGroupIDMembersPost(groupID, addUserGroup, options) {
+            return exports.UserGroupApiFp(configuration).groupsGroupIDMembersPost(groupID, addUserGroup, options)(axios, basePath);
         },
         /**
          * ユーザーグループからメンバーを削除します
@@ -8868,21 +9029,21 @@ exports.UserGroupApiFactory = function (configuration, basePath, axios) {
         /**
          * ユーザーグループの情報を変更します
          * @param {string} groupID 操作の対象となるユーザーグループID
-         * @param {InlineObject30} [inlineObject30]
+         * @param {PatchUserGroup} [patchUserGroup]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsGroupIDPatch(groupID, inlineObject30, options) {
-            return exports.UserGroupApiFp(configuration).groupsGroupIDPatch(groupID, inlineObject30, options)(axios, basePath);
+        groupsGroupIDPatch(groupID, patchUserGroup, options) {
+            return exports.UserGroupApiFp(configuration).groupsGroupIDPatch(groupID, patchUserGroup, options)(axios, basePath);
         },
         /**
          * ユーザーグループを作成します
-         * @param {InlineObject29} [inlineObject29]
+         * @param {PostUserGroup} [postUserGroup]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsPost(inlineObject29, options) {
-            return exports.UserGroupApiFp(configuration).groupsPost(inlineObject29, options)(axios, basePath);
+        groupsPost(postUserGroup, options) {
+            return exports.UserGroupApiFp(configuration).groupsPost(postUserGroup, options)(axios, basePath);
         },
         /**
          * 所属するユーザーグループのIDを取得します
@@ -8952,13 +9113,13 @@ class UserGroupApi extends base_1.BaseAPI {
     /**
      * ユーザーグループにメンバーを追加します
      * @param {string} groupID 操作の対象となるユーザーグループID
-     * @param {InlineObject31} [inlineObject31]
+     * @param {AddUserGroup} [addUserGroup]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    groupsGroupIDMembersPost(groupID, inlineObject31, options) {
-        return exports.UserGroupApiFp(this.configuration).groupsGroupIDMembersPost(groupID, inlineObject31, options)(this.axios, this.basePath);
+    groupsGroupIDMembersPost(groupID, addUserGroup, options) {
+        return exports.UserGroupApiFp(this.configuration).groupsGroupIDMembersPost(groupID, addUserGroup, options)(this.axios, this.basePath);
     }
     /**
      * ユーザーグループからメンバーを削除します
@@ -8974,23 +9135,23 @@ class UserGroupApi extends base_1.BaseAPI {
     /**
      * ユーザーグループの情報を変更します
      * @param {string} groupID 操作の対象となるユーザーグループID
-     * @param {InlineObject30} [inlineObject30]
+     * @param {PatchUserGroup} [patchUserGroup]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    groupsGroupIDPatch(groupID, inlineObject30, options) {
-        return exports.UserGroupApiFp(this.configuration).groupsGroupIDPatch(groupID, inlineObject30, options)(this.axios, this.basePath);
+    groupsGroupIDPatch(groupID, patchUserGroup, options) {
+        return exports.UserGroupApiFp(this.configuration).groupsGroupIDPatch(groupID, patchUserGroup, options)(this.axios, this.basePath);
     }
     /**
      * ユーザーグループを作成します
-     * @param {InlineObject29} [inlineObject29]
+     * @param {PostUserGroup} [postUserGroup]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    groupsPost(inlineObject29, options) {
-        return exports.UserGroupApiFp(this.configuration).groupsPost(inlineObject29, options)(this.axios, this.basePath);
+    groupsPost(postUserGroup, options) {
+        return exports.UserGroupApiFp(this.configuration).groupsPost(postUserGroup, options)(this.axios, this.basePath);
     }
     /**
      * 所属するユーザーグループのIDを取得します
@@ -9098,11 +9259,11 @@ exports.UserTagApiAxiosParamCreator = function (configuration) {
         /**
          * ユーザーにタグを追加します。
          * @param {string} userID 操作の対象となるユーザーID
-         * @param {InlineObject12} [inlineObject12]
+         * @param {SetTag} [setTag]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDTagsPost(userID, inlineObject12, options = {}) {
+        usersUserIDTagsPost(userID, setTag, options = {}) {
             // verify required parameter 'userID' is not null or undefined
             if (userID === null || userID === undefined) {
                 throw new base_1.RequiredError('userID', 'Required parameter userID was null or undefined when calling usersUserIDTagsPost.');
@@ -9130,8 +9291,8 @@ exports.UserTagApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject12" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject12 !== undefined ? inlineObject12 : {}) : (inlineObject12 || "");
+            const needsSerialization = ("SetTag" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(setTag !== undefined ? setTag : {}) : (setTag || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -9185,11 +9346,11 @@ exports.UserTagApiAxiosParamCreator = function (configuration) {
          * タグのロック、アンロックを変更します。
          * @param {string} userID 操作の対象となるユーザーID
          * @param {string} tagID 操作の対象となるタグID
-         * @param {InlineObject13} [inlineObject13]
+         * @param {SetTagLock} [setTagLock]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDTagsTagIDPatch(userID, tagID, inlineObject13, options = {}) {
+        usersUserIDTagsTagIDPatch(userID, tagID, setTagLock, options = {}) {
             // verify required parameter 'userID' is not null or undefined
             if (userID === null || userID === undefined) {
                 throw new base_1.RequiredError('userID', 'Required parameter userID was null or undefined when calling usersUserIDTagsTagIDPatch.');
@@ -9222,8 +9383,8 @@ exports.UserTagApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject13" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject13 !== undefined ? inlineObject13 : {}) : (inlineObject13 || "");
+            const needsSerialization = ("SetTagLock" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(setTagLock !== undefined ? setTagLock : {}) : (setTagLock || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -9266,12 +9427,12 @@ exports.UserTagApiFp = function (configuration) {
         /**
          * ユーザーにタグを追加します。
          * @param {string} userID 操作の対象となるユーザーID
-         * @param {InlineObject12} [inlineObject12]
+         * @param {SetTag} [setTag]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDTagsPost(userID, inlineObject12, options) {
-            const localVarAxiosArgs = exports.UserTagApiAxiosParamCreator(configuration).usersUserIDTagsPost(userID, inlineObject12, options);
+        usersUserIDTagsPost(userID, setTag, options) {
+            const localVarAxiosArgs = exports.UserTagApiAxiosParamCreator(configuration).usersUserIDTagsPost(userID, setTag, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -9295,12 +9456,12 @@ exports.UserTagApiFp = function (configuration) {
          * タグのロック、アンロックを変更します。
          * @param {string} userID 操作の対象となるユーザーID
          * @param {string} tagID 操作の対象となるタグID
-         * @param {InlineObject13} [inlineObject13]
+         * @param {SetTagLock} [setTagLock]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDTagsTagIDPatch(userID, tagID, inlineObject13, options) {
-            const localVarAxiosArgs = exports.UserTagApiAxiosParamCreator(configuration).usersUserIDTagsTagIDPatch(userID, tagID, inlineObject13, options);
+        usersUserIDTagsTagIDPatch(userID, tagID, setTagLock, options) {
+            const localVarAxiosArgs = exports.UserTagApiAxiosParamCreator(configuration).usersUserIDTagsTagIDPatch(userID, tagID, setTagLock, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -9335,12 +9496,12 @@ exports.UserTagApiFactory = function (configuration, basePath, axios) {
         /**
          * ユーザーにタグを追加します。
          * @param {string} userID 操作の対象となるユーザーID
-         * @param {InlineObject12} [inlineObject12]
+         * @param {SetTag} [setTag]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDTagsPost(userID, inlineObject12, options) {
-            return exports.UserTagApiFp(configuration).usersUserIDTagsPost(userID, inlineObject12, options)(axios, basePath);
+        usersUserIDTagsPost(userID, setTag, options) {
+            return exports.UserTagApiFp(configuration).usersUserIDTagsPost(userID, setTag, options)(axios, basePath);
         },
         /**
          * ユーザーから指定したタグを削除します。既に存在しないタグを削除しようとした場合は無視されます(204)。
@@ -9356,12 +9517,12 @@ exports.UserTagApiFactory = function (configuration, basePath, axios) {
          * タグのロック、アンロックを変更します。
          * @param {string} userID 操作の対象となるユーザーID
          * @param {string} tagID 操作の対象となるタグID
-         * @param {InlineObject13} [inlineObject13]
+         * @param {SetTagLock} [setTagLock]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDTagsTagIDPatch(userID, tagID, inlineObject13, options) {
-            return exports.UserTagApiFp(configuration).usersUserIDTagsTagIDPatch(userID, tagID, inlineObject13, options)(axios, basePath);
+        usersUserIDTagsTagIDPatch(userID, tagID, setTagLock, options) {
+            return exports.UserTagApiFp(configuration).usersUserIDTagsTagIDPatch(userID, tagID, setTagLock, options)(axios, basePath);
         },
     };
 };
@@ -9395,13 +9556,13 @@ class UserTagApi extends base_1.BaseAPI {
     /**
      * ユーザーにタグを追加します。
      * @param {string} userID 操作の対象となるユーザーID
-     * @param {InlineObject12} [inlineObject12]
+     * @param {SetTag} [setTag]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserTagApi
      */
-    usersUserIDTagsPost(userID, inlineObject12, options) {
-        return exports.UserTagApiFp(this.configuration).usersUserIDTagsPost(userID, inlineObject12, options)(this.axios, this.basePath);
+    usersUserIDTagsPost(userID, setTag, options) {
+        return exports.UserTagApiFp(this.configuration).usersUserIDTagsPost(userID, setTag, options)(this.axios, this.basePath);
     }
     /**
      * ユーザーから指定したタグを削除します。既に存在しないタグを削除しようとした場合は無視されます(204)。
@@ -9418,13 +9579,13 @@ class UserTagApi extends base_1.BaseAPI {
      * タグのロック、アンロックを変更します。
      * @param {string} userID 操作の対象となるユーザーID
      * @param {string} tagID 操作の対象となるタグID
-     * @param {InlineObject13} [inlineObject13]
+     * @param {SetTagLock} [setTagLock]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserTagApi
      */
-    usersUserIDTagsTagIDPatch(userID, tagID, inlineObject13, options) {
-        return exports.UserTagApiFp(this.configuration).usersUserIDTagsTagIDPatch(userID, tagID, inlineObject13, options)(this.axios, this.basePath);
+    usersUserIDTagsTagIDPatch(userID, tagID, setTagLock, options) {
+        return exports.UserTagApiFp(this.configuration).usersUserIDTagsTagIDPatch(userID, tagID, setTagLock, options)(this.axios, this.basePath);
     }
 }
 exports.UserTagApi = UserTagApi;
@@ -9468,11 +9629,11 @@ exports.WebhookApiAxiosParamCreator = function (configuration) {
         },
         /**
          * webhookを作成します。
-         * @param {InlineObject27} [inlineObject27]
+         * @param {PostWebhook} [postWebhook]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhooksPost(inlineObject27, options = {}) {
+        webhooksPost(postWebhook, options = {}) {
             const localVarPath = `/webhooks`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -9495,8 +9656,8 @@ exports.WebhookApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject27" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject27 !== undefined ? inlineObject27 : {}) : (inlineObject27 || "");
+            const needsSerialization = ("PostWebhook" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(postWebhook !== undefined ? postWebhook : {}) : (postWebhook || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -9697,11 +9858,11 @@ exports.WebhookApiAxiosParamCreator = function (configuration) {
         /**
          * webhookを修正します。
          * @param {string} webhookID 操作の対象となるWebhookのID
-         * @param {InlineObject28} [inlineObject28]
+         * @param {PatchWebhook} [patchWebhook]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhooksWebhookIDPatch(webhookID, inlineObject28, options = {}) {
+        webhooksWebhookIDPatch(webhookID, patchWebhook, options = {}) {
             // verify required parameter 'webhookID' is not null or undefined
             if (webhookID === null || webhookID === undefined) {
                 throw new base_1.RequiredError('webhookID', 'Required parameter webhookID was null or undefined when calling webhooksWebhookIDPatch.');
@@ -9729,8 +9890,8 @@ exports.WebhookApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("InlineObject28" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(inlineObject28 !== undefined ? inlineObject28 : {}) : (inlineObject28 || "");
+            const needsSerialization = ("PatchWebhook" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(patchWebhook !== undefined ? patchWebhook : {}) : (patchWebhook || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -9800,12 +9961,12 @@ exports.WebhookApiFp = function (configuration) {
         },
         /**
          * webhookを作成します。
-         * @param {InlineObject27} [inlineObject27]
+         * @param {PostWebhook} [postWebhook]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhooksPost(inlineObject27, options) {
-            const localVarAxiosArgs = exports.WebhookApiAxiosParamCreator(configuration).webhooksPost(inlineObject27, options);
+        webhooksPost(postWebhook, options) {
+            const localVarAxiosArgs = exports.WebhookApiAxiosParamCreator(configuration).webhooksPost(postWebhook, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -9881,12 +10042,12 @@ exports.WebhookApiFp = function (configuration) {
         /**
          * webhookを修正します。
          * @param {string} webhookID 操作の対象となるWebhookのID
-         * @param {InlineObject28} [inlineObject28]
+         * @param {PatchWebhook} [patchWebhook]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhooksWebhookIDPatch(webhookID, inlineObject28, options) {
-            const localVarAxiosArgs = exports.WebhookApiAxiosParamCreator(configuration).webhooksWebhookIDPatch(webhookID, inlineObject28, options);
+        webhooksWebhookIDPatch(webhookID, patchWebhook, options) {
+            const localVarAxiosArgs = exports.WebhookApiAxiosParamCreator(configuration).webhooksWebhookIDPatch(webhookID, patchWebhook, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -9926,12 +10087,12 @@ exports.WebhookApiFactory = function (configuration, basePath, axios) {
         },
         /**
          * webhookを作成します。
-         * @param {InlineObject27} [inlineObject27]
+         * @param {PostWebhook} [postWebhook]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhooksPost(inlineObject27, options) {
-            return exports.WebhookApiFp(configuration).webhooksPost(inlineObject27, options)(axios, basePath);
+        webhooksPost(postWebhook, options) {
+            return exports.WebhookApiFp(configuration).webhooksPost(postWebhook, options)(axios, basePath);
         },
         /**
          * webhookを削除します。
@@ -9983,12 +10144,12 @@ exports.WebhookApiFactory = function (configuration, basePath, axios) {
         /**
          * webhookを修正します。
          * @param {string} webhookID 操作の対象となるWebhookのID
-         * @param {InlineObject28} [inlineObject28]
+         * @param {PatchWebhook} [patchWebhook]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhooksWebhookIDPatch(webhookID, inlineObject28, options) {
-            return exports.WebhookApiFp(configuration).webhooksWebhookIDPatch(webhookID, inlineObject28, options)(axios, basePath);
+        webhooksWebhookIDPatch(webhookID, patchWebhook, options) {
+            return exports.WebhookApiFp(configuration).webhooksWebhookIDPatch(webhookID, patchWebhook, options)(axios, basePath);
         },
         /**
          * webhookを送信します。
@@ -10022,13 +10183,13 @@ class WebhookApi extends base_1.BaseAPI {
     }
     /**
      * webhookを作成します。
-     * @param {InlineObject27} [inlineObject27]
+     * @param {PostWebhook} [postWebhook]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    webhooksPost(inlineObject27, options) {
-        return exports.WebhookApiFp(this.configuration).webhooksPost(inlineObject27, options)(this.axios, this.basePath);
+    webhooksPost(postWebhook, options) {
+        return exports.WebhookApiFp(this.configuration).webhooksPost(postWebhook, options)(this.axios, this.basePath);
     }
     /**
      * webhookを削除します。
@@ -10085,13 +10246,13 @@ class WebhookApi extends base_1.BaseAPI {
     /**
      * webhookを修正します。
      * @param {string} webhookID 操作の対象となるWebhookのID
-     * @param {InlineObject28} [inlineObject28]
+     * @param {PatchWebhook} [patchWebhook]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    webhooksWebhookIDPatch(webhookID, inlineObject28, options) {
-        return exports.WebhookApiFp(this.configuration).webhooksWebhookIDPatch(webhookID, inlineObject28, options)(this.axios, this.basePath);
+    webhooksWebhookIDPatch(webhookID, patchWebhook, options) {
+        return exports.WebhookApiFp(this.configuration).webhooksWebhookIDPatch(webhookID, patchWebhook, options)(this.axios, this.basePath);
     }
     /**
      * webhookを送信します。
@@ -10123,13 +10284,13 @@ class Apis extends base_1.BaseAPI {
     /**
      * ログインを行います。リダイレクトパラメーターが存在する場合はログイン後にリダイレクトします
      * @param {string} [redirect] リダイレクト先
-     * @param {InlineObject} [inlineObject]
+     * @param {UserLogin} [userLogin]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthenticationApi
      */
-    loginPost(redirect, inlineObject, options) {
-        return exports.AuthenticationApiFp(this.configuration).loginPost(redirect, inlineObject, options)(this.axios, this.basePath);
+    loginPost(redirect, userLogin, options) {
+        return exports.AuthenticationApiFp(this.configuration).loginPost(redirect, userLogin, options)(this.axios, this.basePath);
     }
     /**
      * ログアウトを行います。リダイレクトパラメーターが存在する場合はログアウト後にリダイレクトします
@@ -10153,7 +10314,7 @@ class Apis extends base_1.BaseAPI {
     }
     /**
      * OAuth2 認可エンドポイント
-     * @param {string} [responseType]
+     * @param {OAuth2ResponseType} [responseType]
      * @param {string} [clientId]
      * @param {string} [redirectUri]
      * @param {string} [scope]
@@ -10161,7 +10322,7 @@ class Apis extends base_1.BaseAPI {
      * @param {string} [codeChallenge]
      * @param {string} [codeChallengeMethod]
      * @param {string} [nonce]
-     * @param {string} [prompt]
+     * @param {OAuth2Prompt} [prompt]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthorizationApi
@@ -10171,7 +10332,7 @@ class Apis extends base_1.BaseAPI {
     }
     /**
      * OAuth2 認可エンドポイント
-     * @param {string} [responseType]
+     * @param {OAuth2ResponseType} [responseType]
      * @param {string} [clientId]
      * @param {string} [redirectUri]
      * @param {string} [scope]
@@ -10179,7 +10340,7 @@ class Apis extends base_1.BaseAPI {
      * @param {string} [codeChallenge]
      * @param {string} [codeChallengeMethod]
      * @param {string} [nonce]
-     * @param {string} [prompt]
+     * @param {OAuth2Prompt} [prompt]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthorizationApi
@@ -10239,13 +10400,13 @@ class Apis extends base_1.BaseAPI {
     /**
      * Botの購読イベントを変更します。
      * @param {string} botID 操作の対象となるBotのID
-     * @param {InlineObject36} [inlineObject36]
+     * @param {PutBotEvents} [putBotEvents]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    botsBotIDEventsPut(botID, inlineObject36, options) {
-        return exports.BotApiFp(this.configuration).botsBotIDEventsPut(botID, inlineObject36, options)(this.axios, this.basePath);
+    botsBotIDEventsPut(botID, putBotEvents, options) {
+        return exports.BotApiFp(this.configuration).botsBotIDEventsPut(botID, putBotEvents, options)(this.axios, this.basePath);
     }
     /**
      * Botを取得します。
@@ -10281,13 +10442,13 @@ class Apis extends base_1.BaseAPI {
     /**
      * Bot情報を変更します。
      * @param {string} botID 操作の対象となるBotのID
-     * @param {InlineObject35} [inlineObject35]
+     * @param {PatchBot} [patchBot]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    botsBotIDPatch(botID, inlineObject35, options) {
-        return exports.BotApiFp(this.configuration).botsBotIDPatch(botID, inlineObject35, options)(this.axios, this.basePath);
+    botsBotIDPatch(botID, patchBot, options) {
+        return exports.BotApiFp(this.configuration).botsBotIDPatch(botID, patchBot, options)(this.axios, this.basePath);
     }
     /**
      * Botの各種トークンを再発行します。
@@ -10302,13 +10463,13 @@ class Apis extends base_1.BaseAPI {
     /**
      * Botの状態を変更します。
      * @param {string} botID 操作の対象となるBotのID
-     * @param {InlineObject37} [inlineObject37]
+     * @param {PutBotState} [putBotState]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    botsBotIDStatePut(botID, inlineObject37, options) {
-        return exports.BotApiFp(this.configuration).botsBotIDStatePut(botID, inlineObject37, options)(this.axios, this.basePath);
+    botsBotIDStatePut(botID, putBotState, options) {
+        return exports.BotApiFp(this.configuration).botsBotIDStatePut(botID, putBotState, options)(this.axios, this.basePath);
     }
     /**
      * 自分が作成したBotの一覧を取得します。
@@ -10321,13 +10482,13 @@ class Apis extends base_1.BaseAPI {
     }
     /**
      * Botを作成します。
-     * @param {InlineObject34} [inlineObject34]
+     * @param {PostBot} [postBot]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    botsPost(inlineObject34, options) {
-        return exports.BotApiFp(this.configuration).botsPost(inlineObject34, options)(this.axios, this.basePath);
+    botsPost(postBot, options) {
+        return exports.BotApiFp(this.configuration).botsPost(postBot, options)(this.axios, this.basePath);
     }
     /**
      * Botをチャンネルから退出させます。
@@ -10353,24 +10514,24 @@ class Apis extends base_1.BaseAPI {
     /**
      * チャンネルにBotを参加させます。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject22} [inlineObject22]
+     * @param {PostBotChannel} [postBotChannel]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    channelsChannelIDBotsPost(channelID, inlineObject22, options) {
-        return exports.BotApiFp(this.configuration).channelsChannelIDBotsPost(channelID, inlineObject22, options)(this.axios, this.basePath);
+    channelsChannelIDBotsPost(channelID, postBotChannel, options) {
+        return exports.BotApiFp(this.configuration).channelsChannelIDBotsPost(channelID, postBotChannel, options)(this.axios, this.basePath);
     }
     /**
      * 子チャンネルを作成します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject18} [inlineObject18]
+     * @param {CreateChannelChild} [createChannelChild]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDChildrenPost(channelID, inlineObject18, options) {
-        return exports.ChannelApiFp(this.configuration).channelsChannelIDChildrenPost(channelID, inlineObject18, options)(this.axios, this.basePath);
+    channelsChannelIDChildrenPost(channelID, createChannelChild, options) {
+        return exports.ChannelApiFp(this.configuration).channelsChannelIDChildrenPost(channelID, createChannelChild, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルを削除します。
@@ -10381,6 +10542,22 @@ class Apis extends base_1.BaseAPI {
      */
     channelsChannelIDDelete(channelID, options) {
         return exports.ChannelApiFp(this.configuration).channelsChannelIDDelete(channelID, options)(this.axios, this.basePath);
+    }
+    /**
+     * チャンネルイベントのリストを取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {number} [limit] 取得する件数 1-200
+     * @param {number} [offset] 取得するオフセット
+     * @param {Date} [since] 取得する時間範囲の開始日時
+     * @param {Date} [until] 取得する時間範囲の終了日時
+     * @param {boolean} [inclusive] 範囲の端を含めるかどうか
+     * @param {'asc' | 'desc'} [order] 昇順か降順か
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    channelsChannelIDEventsGet(channelID, limit, offset, since, until, inclusive, order, options) {
+        return exports.ChannelApiFp(this.configuration).channelsChannelIDEventsGet(channelID, limit, offset, since, until, inclusive, order, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルの情報を返します。
@@ -10395,24 +10572,24 @@ class Apis extends base_1.BaseAPI {
     /**
      * チャンネルの親チャンネルを変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject17} [inlineObject17]
+     * @param {PutParentChannel} [putParentChannel]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDParentPut(channelID, inlineObject17, options) {
-        return exports.ChannelApiFp(this.configuration).channelsChannelIDParentPut(channelID, inlineObject17, options)(this.axios, this.basePath);
+    channelsChannelIDParentPut(channelID, putParentChannel, options) {
+        return exports.ChannelApiFp(this.configuration).channelsChannelIDParentPut(channelID, putParentChannel, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルの情報を変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject16} [inlineObject16]
+     * @param {PatchChannel} [patchChannel]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDPatch(channelID, inlineObject16, options) {
-        return exports.ChannelApiFp(this.configuration).channelsChannelIDPatch(channelID, inlineObject16, options)(this.axios, this.basePath);
+    channelsChannelIDPatch(channelID, patchChannel, options) {
+        return exports.ChannelApiFp(this.configuration).channelsChannelIDPatch(channelID, patchChannel, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルの説明を取得します。
@@ -10427,13 +10604,13 @@ class Apis extends base_1.BaseAPI {
     /**
      * チャンネルの説明を変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject19} [inlineObject19]
+     * @param {SetChannelTopic} [setChannelTopic]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDTopicPut(channelID, inlineObject19, options) {
-        return exports.ChannelApiFp(this.configuration).channelsChannelIDTopicPut(channelID, inlineObject19, options)(this.axios, this.basePath);
+    channelsChannelIDTopicPut(channelID, setChannelTopic, options) {
+        return exports.ChannelApiFp(this.configuration).channelsChannelIDTopicPut(channelID, setChannelTopic, options)(this.axios, this.basePath);
     }
     /**
      * (すべての)チャンネルのリストを取得します。
@@ -10446,13 +10623,13 @@ class Apis extends base_1.BaseAPI {
     }
     /**
      * チャンネルを作成します。
-     * @param {InlineObject15} [inlineObject15]
+     * @param {CreateChannel} [createChannel]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsPost(inlineObject15, options) {
-        return exports.ChannelApiFp(this.configuration).channelsPost(inlineObject15, options)(this.axios, this.basePath);
+    channelsPost(createChannel, options) {
+        return exports.ChannelApiFp(this.configuration).channelsPost(createChannel, options)(this.axios, this.basePath);
     }
     /**
      * 指定したクライアントIDのクライアントを削除します。 正常に削除された場合、このクライアントを通じての認可は全て取り消されます。
@@ -10487,13 +10664,13 @@ class Apis extends base_1.BaseAPI {
     /**
      * 指定したクライアントIDのクライアントの情報を変更します。
      * @param {string} clientID 操作の対象となるclientのID
-     * @param {InlineObject33} [inlineObject33]
+     * @param {PatchClient} [patchClient]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    clientsClientIDPatch(clientID, inlineObject33, options) {
-        return exports.ClientApiFp(this.configuration).clientsClientIDPatch(clientID, inlineObject33, options)(this.axios, this.basePath);
+    clientsClientIDPatch(clientID, patchClient, options) {
+        return exports.ClientApiFp(this.configuration).clientsClientIDPatch(clientID, patchClient, options)(this.axios, this.basePath);
     }
     /**
      * 自分が登録しているクライアントの一覧を取得します。
@@ -10506,13 +10683,13 @@ class Apis extends base_1.BaseAPI {
     }
     /**
      * クライアントを登録します。
-     * @param {InlineObject32} [inlineObject32]
+     * @param {PostClient} [postClient]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    clientsPost(inlineObject32, options) {
-        return exports.ClientApiFp(this.configuration).clientsPost(inlineObject32, options)(this.axios, this.basePath);
+    clientsPost(postClient, options) {
+        return exports.ClientApiFp(this.configuration).clientsPost(postClient, options)(this.axios, this.basePath);
     }
     /**
      * 自分が許可しているクライアントの一覧とトークン情報を取得します。
@@ -10556,13 +10733,13 @@ class Apis extends base_1.BaseAPI {
     /**
      * 指定したクリップのフォルダを変更します。
      * @param {string} clipID 捜査の対象となるクリップのID
-     * @param {InlineObject8} [inlineObject8]
+     * @param {ClipsFolderIDObject} [clipsFolderIDObject]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsClipIDFolderPut(clipID, inlineObject8, options) {
-        return exports.ClipApiFp(this.configuration).usersMeClipsClipIDFolderPut(clipID, inlineObject8, options)(this.axios, this.basePath);
+    usersMeClipsClipIDFolderPut(clipID, clipsFolderIDObject, options) {
+        return exports.ClipApiFp(this.configuration).usersMeClipsClipIDFolderPut(clipID, clipsFolderIDObject, options)(this.axios, this.basePath);
     }
     /**
      * 指定したクリップのメッセージを取得します。
@@ -10597,13 +10774,13 @@ class Apis extends base_1.BaseAPI {
     /**
      * クリップフォルダ名を変更します。
      * @param {string} folderID 操作の対象となるクリップフォルダのID
-     * @param {InlineObject10} [inlineObject10]
+     * @param {ClipsFolderNameObject} [clipsFolderNameObject]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsFoldersFolderIDPatch(folderID, inlineObject10, options) {
-        return exports.ClipApiFp(this.configuration).usersMeClipsFoldersFolderIDPatch(folderID, inlineObject10, options)(this.axios, this.basePath);
+    usersMeClipsFoldersFolderIDPatch(folderID, clipsFolderNameObject, options) {
+        return exports.ClipApiFp(this.configuration).usersMeClipsFoldersFolderIDPatch(folderID, clipsFolderNameObject, options)(this.axios, this.basePath);
     }
     /**
      * クリップフォルダ一覧を取得します。
@@ -10616,13 +10793,13 @@ class Apis extends base_1.BaseAPI {
     }
     /**
      * クリップフォルダを作成します。
-     * @param {InlineObject9} [inlineObject9]
+     * @param {ClipsFolderNameObject} [clipsFolderNameObject]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsFoldersPost(inlineObject9, options) {
-        return exports.ClipApiFp(this.configuration).usersMeClipsFoldersPost(inlineObject9, options)(this.axios, this.basePath);
+    usersMeClipsFoldersPost(clipsFolderNameObject, options) {
+        return exports.ClipApiFp(this.configuration).usersMeClipsFoldersPost(clipsFolderNameObject, options)(this.axios, this.basePath);
     }
     /**
      * 全てのクリップを取得します。
@@ -10635,13 +10812,13 @@ class Apis extends base_1.BaseAPI {
     }
     /**
      * 新しくメッセージをクリップします。
-     * @param {InlineObject7} [inlineObject7]
+     * @param {SetClip} [setClip]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsPost(inlineObject7, options) {
-        return exports.ClipApiFp(this.configuration).usersMeClipsPost(inlineObject7, options)(this.axios, this.basePath);
+    usersMeClipsPost(setClip, options) {
+        return exports.ClipApiFp(this.configuration).usersMeClipsPost(setClip, options)(this.axios, this.basePath);
     }
     /**
      * 指定したファイルを削除します。
@@ -10707,13 +10884,13 @@ class Apis extends base_1.BaseAPI {
     }
     /**
      * どのチャンネルを見ているか・編集しているかを送信します。
-     * @param {InlineObject14} [inlineObject14]
+     * @param {Heartbeat} [heartbeat]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof HeartbeatApi
      */
-    heartbeatPost(inlineObject14, options) {
-        return exports.HeartbeatApiFp(this.configuration).heartbeatPost(inlineObject14, options)(this.axios, this.basePath);
+    heartbeatPost(heartbeat, options) {
+        return exports.HeartbeatApiFp(this.configuration).heartbeatPost(heartbeat, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルに存在するメッセージを取得します。
@@ -10734,13 +10911,13 @@ class Apis extends base_1.BaseAPI {
     /**
      * チャンネルにメッセージを投稿します。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject20} [inlineObject20]
+     * @param {SendMessage} [sendMessage]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    channelsChannelIDMessagesPost(channelID, inlineObject20, options) {
-        return exports.MessageApiFp(this.configuration).channelsChannelIDMessagesPost(channelID, inlineObject20, options)(this.axios, this.basePath);
+    channelsChannelIDMessagesPost(channelID, sendMessage, options) {
+        return exports.MessageApiFp(this.configuration).channelsChannelIDMessagesPost(channelID, sendMessage, options)(this.axios, this.basePath);
     }
     /**
      * 指定したメッセージを削除します。
@@ -10765,24 +10942,24 @@ class Apis extends base_1.BaseAPI {
     /**
      * 指定したメッセージを編集します。
      * @param {string} messageID 操作の対象となるメッセージID
-     * @param {InlineObject24} [inlineObject24]
+     * @param {SendMessage} [sendMessage]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    messagesMessageIDPut(messageID, inlineObject24, options) {
-        return exports.MessageApiFp(this.configuration).messagesMessageIDPut(messageID, inlineObject24, options)(this.axios, this.basePath);
+    messagesMessageIDPut(messageID, sendMessage, options) {
+        return exports.MessageApiFp(this.configuration).messagesMessageIDPut(messageID, sendMessage, options)(this.axios, this.basePath);
     }
     /**
      * 指定したメッセージを通報します。
      * @param {string} messageID 操作の対象となるメッセージID
-     * @param {InlineObject25} [inlineObject25]
+     * @param {ReportMessage} [reportMessage]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    messagesMessageIDReportPost(messageID, inlineObject25, options) {
-        return exports.MessageApiFp(this.configuration).messagesMessageIDReportPost(messageID, inlineObject25, options)(this.axios, this.basePath);
+    messagesMessageIDReportPost(messageID, reportMessage, options) {
+        return exports.MessageApiFp(this.configuration).messagesMessageIDReportPost(messageID, reportMessage, options)(this.axios, this.basePath);
     }
     /**
      * メッセージ通報を最大50件取得します。
@@ -10813,13 +10990,13 @@ class Apis extends base_1.BaseAPI {
     /**
      * DMチャンネルにメッセージを投稿します。
      * @param {string} userID 操作の対象となるユーザーID
-     * @param {InlineObject11} [inlineObject11]
+     * @param {SendMessage} [sendMessage]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    usersUserIDMessagesPost(userID, inlineObject11, options) {
-        return exports.MessageApiFp(this.configuration).usersUserIDMessagesPost(userID, inlineObject11, options)(this.axios, this.basePath);
+    usersUserIDMessagesPost(userID, sendMessage, options) {
+        return exports.MessageApiFp(this.configuration).usersUserIDMessagesPost(userID, sendMessage, options)(this.axios, this.basePath);
     }
     /**
      * 指定したチャンネルのミュートを解除します。既に解除されていた場合は204を返します。
@@ -10863,23 +11040,23 @@ class Apis extends base_1.BaseAPI {
     /**
      * チャンネルの通知状況を変更します。 リクエストに含めなかったユーザーIDのユーザーの通知状況は変更しません。 また、存在しないユーザーのIDを指定した場合は無視されます。
      * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {InlineObject21} [inlineObject21]
+     * @param {NotificationUsers} [notificationUsers]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    channelsChannelIDNotificationPut(channelID, inlineObject21, options) {
-        return exports.NotificationApiFp(this.configuration).channelsChannelIDNotificationPut(channelID, inlineObject21, options)(this.axios, this.basePath);
+    channelsChannelIDNotificationPut(channelID, notificationUsers, options) {
+        return exports.NotificationApiFp(this.configuration).channelsChannelIDNotificationPut(channelID, notificationUsers, options)(this.axios, this.basePath);
     }
     /**
      * FCMデバイスを登録します。
-     * @param {InlineObject23} [inlineObject23]
+     * @param {FCMToken} [fCMToken]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    notificationDevicePost(inlineObject23, options) {
-        return exports.NotificationApiFp(this.configuration).notificationDevicePost(inlineObject23, options)(this.axios, this.basePath);
+    notificationDevicePost(fCMToken, options) {
+        return exports.NotificationApiFp(this.configuration).notificationDevicePost(fCMToken, options)(this.axios, this.basePath);
     }
     /**
      * 通知ストリーム(Server Sent Events)に接続します。
@@ -10941,13 +11118,13 @@ class Apis extends base_1.BaseAPI {
     }
     /**
      * チャンネルにメッセージをピン留めします。
-     * @param {InlineObject26} [inlineObject26]
+     * @param {MessageIDObject} [messageIDObject]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PinApi
      */
-    pinsPost(inlineObject26, options) {
-        return exports.PinApiFp(this.configuration).pinsPost(inlineObject26, options)(this.axios, this.basePath);
+    pinsPost(messageIDObject, options) {
+        return exports.PinApiFp(this.configuration).pinsPost(messageIDObject, options)(this.axios, this.basePath);
     }
     /**
      * 指定したユーザーのアイコン画像を取得します。
@@ -11167,23 +11344,23 @@ class Apis extends base_1.BaseAPI {
     }
     /**
      * 自分のパスワードを変更します。
-     * @param {InlineObject6} [inlineObject6]
+     * @param {ChangePassword} [changePassword]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    usersMePasswordPut(inlineObject6, options) {
-        return exports.UserApiFp(this.configuration).usersMePasswordPut(inlineObject6, options)(this.axios, this.basePath);
+    usersMePasswordPut(changePassword, options) {
+        return exports.UserApiFp(this.configuration).usersMePasswordPut(changePassword, options)(this.axios, this.basePath);
     }
     /**
      * 自分のユーザー情報を変更します。
-     * @param {InlineObject5} [inlineObject5]
+     * @param {UserData} [userData]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    usersMePatch(inlineObject5, options) {
-        return exports.UserApiFp(this.configuration).usersMePatch(inlineObject5, options)(this.axios, this.basePath);
+    usersMePatch(userData, options) {
+        return exports.UserApiFp(this.configuration).usersMePatch(userData, options)(this.axios, this.basePath);
     }
     /**
      * 自分のQRコードを取得します。
@@ -11196,13 +11373,13 @@ class Apis extends base_1.BaseAPI {
     }
     /**
      * ユーザー登録します
-     * @param {InlineObject4} [inlineObject4]
+     * @param {UserRegister} [userRegister]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    usersPost(inlineObject4, options) {
-        return exports.UserApiFp(this.configuration).usersPost(inlineObject4, options)(this.axios, this.basePath);
+    usersPost(userRegister, options) {
+        return exports.UserApiFp(this.configuration).usersPost(userRegister, options)(this.axios, this.basePath);
     }
     /**
      * ユーザーの詳細を取得します。
@@ -11266,13 +11443,13 @@ class Apis extends base_1.BaseAPI {
     /**
      * ユーザーグループにメンバーを追加します
      * @param {string} groupID 操作の対象となるユーザーグループID
-     * @param {InlineObject31} [inlineObject31]
+     * @param {AddUserGroup} [addUserGroup]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    groupsGroupIDMembersPost(groupID, inlineObject31, options) {
-        return exports.UserGroupApiFp(this.configuration).groupsGroupIDMembersPost(groupID, inlineObject31, options)(this.axios, this.basePath);
+    groupsGroupIDMembersPost(groupID, addUserGroup, options) {
+        return exports.UserGroupApiFp(this.configuration).groupsGroupIDMembersPost(groupID, addUserGroup, options)(this.axios, this.basePath);
     }
     /**
      * ユーザーグループからメンバーを削除します
@@ -11288,23 +11465,23 @@ class Apis extends base_1.BaseAPI {
     /**
      * ユーザーグループの情報を変更します
      * @param {string} groupID 操作の対象となるユーザーグループID
-     * @param {InlineObject30} [inlineObject30]
+     * @param {PatchUserGroup} [patchUserGroup]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    groupsGroupIDPatch(groupID, inlineObject30, options) {
-        return exports.UserGroupApiFp(this.configuration).groupsGroupIDPatch(groupID, inlineObject30, options)(this.axios, this.basePath);
+    groupsGroupIDPatch(groupID, patchUserGroup, options) {
+        return exports.UserGroupApiFp(this.configuration).groupsGroupIDPatch(groupID, patchUserGroup, options)(this.axios, this.basePath);
     }
     /**
      * ユーザーグループを作成します
-     * @param {InlineObject29} [inlineObject29]
+     * @param {PostUserGroup} [postUserGroup]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    groupsPost(inlineObject29, options) {
-        return exports.UserGroupApiFp(this.configuration).groupsPost(inlineObject29, options)(this.axios, this.basePath);
+    groupsPost(postUserGroup, options) {
+        return exports.UserGroupApiFp(this.configuration).groupsPost(postUserGroup, options)(this.axios, this.basePath);
     }
     /**
      * 所属するユーザーグループのIDを取得します
@@ -11348,13 +11525,13 @@ class Apis extends base_1.BaseAPI {
     /**
      * ユーザーにタグを追加します。
      * @param {string} userID 操作の対象となるユーザーID
-     * @param {InlineObject12} [inlineObject12]
+     * @param {SetTag} [setTag]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserTagApi
      */
-    usersUserIDTagsPost(userID, inlineObject12, options) {
-        return exports.UserTagApiFp(this.configuration).usersUserIDTagsPost(userID, inlineObject12, options)(this.axios, this.basePath);
+    usersUserIDTagsPost(userID, setTag, options) {
+        return exports.UserTagApiFp(this.configuration).usersUserIDTagsPost(userID, setTag, options)(this.axios, this.basePath);
     }
     /**
      * ユーザーから指定したタグを削除します。既に存在しないタグを削除しようとした場合は無視されます(204)。
@@ -11371,13 +11548,13 @@ class Apis extends base_1.BaseAPI {
      * タグのロック、アンロックを変更します。
      * @param {string} userID 操作の対象となるユーザーID
      * @param {string} tagID 操作の対象となるタグID
-     * @param {InlineObject13} [inlineObject13]
+     * @param {SetTagLock} [setTagLock]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserTagApi
      */
-    usersUserIDTagsTagIDPatch(userID, tagID, inlineObject13, options) {
-        return exports.UserTagApiFp(this.configuration).usersUserIDTagsTagIDPatch(userID, tagID, inlineObject13, options)(this.axios, this.basePath);
+    usersUserIDTagsTagIDPatch(userID, tagID, setTagLock, options) {
+        return exports.UserTagApiFp(this.configuration).usersUserIDTagsTagIDPatch(userID, tagID, setTagLock, options)(this.axios, this.basePath);
     }
     /**
      * 自分が作成したwebhookの一覧を取得します。
@@ -11390,13 +11567,13 @@ class Apis extends base_1.BaseAPI {
     }
     /**
      * webhookを作成します。
-     * @param {InlineObject27} [inlineObject27]
+     * @param {PostWebhook} [postWebhook]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    webhooksPost(inlineObject27, options) {
-        return exports.WebhookApiFp(this.configuration).webhooksPost(inlineObject27, options)(this.axios, this.basePath);
+    webhooksPost(postWebhook, options) {
+        return exports.WebhookApiFp(this.configuration).webhooksPost(postWebhook, options)(this.axios, this.basePath);
     }
     /**
      * webhookを削除します。
@@ -11453,13 +11630,13 @@ class Apis extends base_1.BaseAPI {
     /**
      * webhookを修正します。
      * @param {string} webhookID 操作の対象となるWebhookのID
-     * @param {InlineObject28} [inlineObject28]
+     * @param {PatchWebhook} [patchWebhook]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    webhooksWebhookIDPatch(webhookID, inlineObject28, options) {
-        return exports.WebhookApiFp(this.configuration).webhooksWebhookIDPatch(webhookID, inlineObject28, options)(this.axios, this.basePath);
+    webhooksWebhookIDPatch(webhookID, patchWebhook, options) {
+        return exports.WebhookApiFp(this.configuration).webhooksWebhookIDPatch(webhookID, patchWebhook, options)(this.axios, this.basePath);
     }
     /**
      * webhookを送信します。
