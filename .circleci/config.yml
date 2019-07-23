@@ -42,7 +42,9 @@ jobs:
               npm --no-git-tag-version version $NEW_VERSION
 
               git commit -m "CI\: build"
-              git push origin
+              git push origin master
+              git tag $NEW_VERSION
+              git push origin $NEW_VERSION
             else
               echo 'There are no difference.'
             fi
