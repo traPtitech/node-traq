@@ -4,10 +4,10 @@ import addApis from "./addApis";
 const SWAGGER_URL =
   "https://raw.githubusercontent.com/traPtitech/traQ/master/docs/swagger.yaml";
 
-const GENERATED_FOLDER = "bin/generated";
-const DIST_ES_FOLDER = "dist/es";
-const DIST_COMMONJS_FOLDER = "dist/commonjs";
-const DIST_TYPE_FOLDER = "dist/types";
+const GENERATED_FOLDER = "./bin/generated";
+const DIST_ES_FOLDER = "./dist/es";
+const DIST_COMMONJS_FOLDER = "./dist/commonjs";
+const DIST_TYPE_FOLDER = "./dist/types";
 
 const npx = process.platform === "win32" ? "npx.cmd" : "npx";
 
