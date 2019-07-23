@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node
+      - image: circleci/openjdk:lastest-node
     working_directory: ~/work_dir
     steps:
       - checkout
