@@ -25,7 +25,7 @@ jobs:
               git config user.email "sapphi-red+circleci@users.noreply.github.com"
               git add .
 
-              TRAQ_VERSION=$(curl https://api.github.com/repos/traPtitech/traQ/tags | jq '.[0].name' | sed -n s/[\"v]//pg)
+              TRAQ_VERSION=$(curl -sS https://api.github.com/repos/traPtitech/traQ/tags | jq '.[0].name' | sed -n s/[\"v]//pg)
               echo "TRAQ ${TRAQ_VERSION}"
 
               VERSION=$(cat ./package.json | jq .version | sed -n s/\"//pg | sed -n s/-/./p)
@@ -35,7 +35,7 @@ jobs:
               echo "PACKAGE SHORT ${VERSION_SHORT}"
 
               if [ $TRAQ_VERSION = $VERSION_SHORT ]; then
-                ((VERSION_ARR[3]++))
+                $((VERSION_ARR[3]++))
                 NEW_VERSION="${VERSION_ARR[0]}.${VERSION_ARR[1]}.${VERSION_ARR[2]}-${VERSION_ARR[3]}"
               else
                 NEW_VERSION="${TRAQ_VERSION}-0"
