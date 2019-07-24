@@ -30,7 +30,7 @@ jobs:
 
               VERSION=$(cat ./package.json | jq .version | sed -n s/\"//pg | sed -n s/-/./p)
               VERSION_ARR=($(echo $VERSION | tr -s '.' ' '))
-              VERSION_SHORT=${VERSION_ARR[0]}.${VERSION_ARR[1]}.${VERSION_ARR2}
+              VERSION_SHORT=${VERSION_ARR[0]}.${VERSION_ARR[1]}.${VERSION_ARR[2]}
 
               if [ $TRAQ_VERSION = $VERSION_SHORT ]; then
                 ((VERSION_ARR[3]++))
