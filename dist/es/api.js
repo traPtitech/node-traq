@@ -96,7 +96,7 @@ export const ActivityApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        activityLatestMessagesGet(limit, subscribe, options = {}) {
+        getActivities(limit, subscribe, options = {}) {
             const localVarPath = `/activity/latest-messages`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -144,8 +144,8 @@ export const ActivityApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        activityLatestMessagesGet(limit, subscribe, options) {
-            const localVarAxiosArgs = ActivityApiAxiosParamCreator(configuration).activityLatestMessagesGet(limit, subscribe, options);
+        getActivities(limit, subscribe, options) {
+            const localVarAxiosArgs = ActivityApiAxiosParamCreator(configuration).getActivities(limit, subscribe, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -166,8 +166,8 @@ export const ActivityApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        activityLatestMessagesGet(limit, subscribe, options) {
-            return ActivityApiFp(configuration).activityLatestMessagesGet(limit, subscribe, options)(axios, basePath);
+        getActivities(limit, subscribe, options) {
+            return ActivityApiFp(configuration).getActivities(limit, subscribe, options)(axios, basePath);
         },
     };
 };
@@ -186,8 +186,8 @@ export class ActivityApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ActivityApi
      */
-    activityLatestMessagesGet(limit, subscribe, options) {
-        return ActivityApiFp(this.configuration).activityLatestMessagesGet(limit, subscribe, options)(this.axios, this.basePath);
+    getActivities(limit, subscribe, options) {
+        return ActivityApiFp(this.configuration).getActivities(limit, subscribe, options)(this.axios, this.basePath);
     }
 }
 /**
@@ -203,7 +203,7 @@ export const AuthenticationApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        loginPost(redirect, userLogin, options = {}) {
+        login(redirect, userLogin, options = {}) {
             const localVarPath = `/login`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -234,7 +234,7 @@ export const AuthenticationApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        logoutPost(redirect, options = {}) {
+        logout(redirect, options = {}) {
             const localVarPath = `/logout`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -271,8 +271,8 @@ export const AuthenticationApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        loginPost(redirect, userLogin, options) {
-            const localVarAxiosArgs = AuthenticationApiAxiosParamCreator(configuration).loginPost(redirect, userLogin, options);
+        login(redirect, userLogin, options) {
+            const localVarAxiosArgs = AuthenticationApiAxiosParamCreator(configuration).login(redirect, userLogin, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -284,8 +284,8 @@ export const AuthenticationApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        logoutPost(redirect, options) {
-            const localVarAxiosArgs = AuthenticationApiAxiosParamCreator(configuration).logoutPost(redirect, options);
+        logout(redirect, options) {
+            const localVarAxiosArgs = AuthenticationApiAxiosParamCreator(configuration).logout(redirect, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -306,8 +306,8 @@ export const AuthenticationApiFactory = function (configuration, basePath, axios
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        loginPost(redirect, userLogin, options) {
-            return AuthenticationApiFp(configuration).loginPost(redirect, userLogin, options)(axios, basePath);
+        login(redirect, userLogin, options) {
+            return AuthenticationApiFp(configuration).login(redirect, userLogin, options)(axios, basePath);
         },
         /**
          * ログアウトを行います。リダイレクトパラメーターが存在する場合はログアウト後にリダイレクトします
@@ -315,8 +315,8 @@ export const AuthenticationApiFactory = function (configuration, basePath, axios
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        logoutPost(redirect, options) {
-            return AuthenticationApiFp(configuration).logoutPost(redirect, options)(axios, basePath);
+        logout(redirect, options) {
+            return AuthenticationApiFp(configuration).logout(redirect, options)(axios, basePath);
         },
     };
 };
@@ -335,8 +335,8 @@ export class AuthenticationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthenticationApi
      */
-    loginPost(redirect, userLogin, options) {
-        return AuthenticationApiFp(this.configuration).loginPost(redirect, userLogin, options)(this.axios, this.basePath);
+    login(redirect, userLogin, options) {
+        return AuthenticationApiFp(this.configuration).login(redirect, userLogin, options)(this.axios, this.basePath);
     }
     /**
      * ログアウトを行います。リダイレクトパラメーターが存在する場合はログアウト後にリダイレクトします
@@ -345,8 +345,8 @@ export class AuthenticationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthenticationApi
      */
-    logoutPost(redirect, options) {
-        return AuthenticationApiFp(this.configuration).logoutPost(redirect, options)(this.axios, this.basePath);
+    logout(redirect, options) {
+        return AuthenticationApiFp(this.configuration).logout(redirect, options)(this.axios, this.basePath);
     }
 }
 /**
@@ -355,41 +355,6 @@ export class AuthenticationApi extends BaseAPI {
  */
 export const AuthorizationApiAxiosParamCreator = function (configuration) {
     return {
-        /**
-         * OAuth2 認可承諾
-         * @param {string} submit 承諾する場合は\\\&quot;approve\\\&quot;
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        oauth2AuthorizeDecidePost(submit, options = {}) {
-            // verify required parameter 'submit' is not null or undefined
-            if (submit === null || submit === undefined) {
-                throw new RequiredError('submit', 'Required parameter submit was null or undefined when calling oauth2AuthorizeDecidePost.');
-            }
-            const localVarPath = `/oauth2/authorize/decide`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            const localVarFormParams = new URLSearchParams();
-            // authentication cookieAuth required
-            if (submit !== undefined) {
-                localVarFormParams.set('submit', submit);
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            localVarRequestOptions.data = localVarFormParams.toString();
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
         /**
          * OAuth2 認可エンドポイント
          * @param {OAuth2ResponseType} [responseType]
@@ -404,7 +369,7 @@ export const AuthorizationApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        oauth2AuthorizeGet(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options = {}) {
+        getOauth2Authorize(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options = {}) {
             const localVarPath = `/oauth2/authorize`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -464,7 +429,7 @@ export const AuthorizationApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        oauth2AuthorizePost(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options = {}) {
+        postOauth2Authorize(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options = {}) {
             const localVarPath = `/oauth2/authorize`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -513,6 +478,41 @@ export const AuthorizationApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
+         * OAuth2 認可承諾
+         * @param {string} submit 承諾する場合は\\\&quot;approve\\\&quot;
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postOauth2AuthorizeDecide(submit, options = {}) {
+            // verify required parameter 'submit' is not null or undefined
+            if (submit === null || submit === undefined) {
+                throw new RequiredError('submit', 'Required parameter submit was null or undefined when calling postOauth2AuthorizeDecide.');
+            }
+            const localVarPath = `/oauth2/authorize/decide`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            const localVarFormParams = new URLSearchParams();
+            // authentication cookieAuth required
+            if (submit !== undefined) {
+                localVarFormParams.set('submit', submit);
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            localVarRequestOptions.data = localVarFormParams.toString();
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * OAuth2 トークンエンドポイント
          * @param {string} grantType
          * @param {string} [code]
@@ -527,10 +527,10 @@ export const AuthorizationApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        oauth2TokenPost(grantType, code, redirectUri, clientId, codeVerifier, username, password, scope, refreshToken, clientSecret, options = {}) {
+        postOauth2Token(grantType, code, redirectUri, clientId, codeVerifier, username, password, scope, refreshToken, clientSecret, options = {}) {
             // verify required parameter 'grantType' is not null or undefined
             if (grantType === null || grantType === undefined) {
-                throw new RequiredError('grantType', 'Required parameter grantType was null or undefined when calling oauth2TokenPost.');
+                throw new RequiredError('grantType', 'Required parameter grantType was null or undefined when calling postOauth2Token.');
             }
             const localVarPath = `/oauth2/token`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
@@ -591,55 +591,55 @@ export const AuthorizationApiAxiosParamCreator = function (configuration) {
 export const AuthorizationApiFp = function (configuration) {
     return {
         /**
+         * OAuth2 認可エンドポイント
+         * @param {OAuth2ResponseType} [responseType]
+         * @param {string} [clientId]
+         * @param {string} [redirectUri]
+         * @param {string} [scope]
+         * @param {string} [state]
+         * @param {string} [codeChallenge]
+         * @param {string} [codeChallengeMethod]
+         * @param {string} [nonce]
+         * @param {OAuth2Prompt} [prompt]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOauth2Authorize(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options) {
+            const localVarAxiosArgs = AuthorizationApiAxiosParamCreator(configuration).getOauth2Authorize(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * OAuth2 認可エンドポイント
+         * @param {OAuth2ResponseType} [responseType]
+         * @param {string} [clientId]
+         * @param {string} [redirectUri]
+         * @param {string} [scope]
+         * @param {string} [state]
+         * @param {string} [codeChallenge]
+         * @param {string} [codeChallengeMethod]
+         * @param {string} [nonce]
+         * @param {OAuth2Prompt} [prompt]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postOauth2Authorize(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options) {
+            const localVarAxiosArgs = AuthorizationApiAxiosParamCreator(configuration).postOauth2Authorize(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
          * OAuth2 認可承諾
          * @param {string} submit 承諾する場合は\\\&quot;approve\\\&quot;
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        oauth2AuthorizeDecidePost(submit, options) {
-            const localVarAxiosArgs = AuthorizationApiAxiosParamCreator(configuration).oauth2AuthorizeDecidePost(submit, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * OAuth2 認可エンドポイント
-         * @param {OAuth2ResponseType} [responseType]
-         * @param {string} [clientId]
-         * @param {string} [redirectUri]
-         * @param {string} [scope]
-         * @param {string} [state]
-         * @param {string} [codeChallenge]
-         * @param {string} [codeChallengeMethod]
-         * @param {string} [nonce]
-         * @param {OAuth2Prompt} [prompt]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        oauth2AuthorizeGet(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options) {
-            const localVarAxiosArgs = AuthorizationApiAxiosParamCreator(configuration).oauth2AuthorizeGet(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * OAuth2 認可エンドポイント
-         * @param {OAuth2ResponseType} [responseType]
-         * @param {string} [clientId]
-         * @param {string} [redirectUri]
-         * @param {string} [scope]
-         * @param {string} [state]
-         * @param {string} [codeChallenge]
-         * @param {string} [codeChallengeMethod]
-         * @param {string} [nonce]
-         * @param {OAuth2Prompt} [prompt]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        oauth2AuthorizePost(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options) {
-            const localVarAxiosArgs = AuthorizationApiAxiosParamCreator(configuration).oauth2AuthorizePost(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options);
+        postOauth2AuthorizeDecide(submit, options) {
+            const localVarAxiosArgs = AuthorizationApiAxiosParamCreator(configuration).postOauth2AuthorizeDecide(submit, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -660,8 +660,8 @@ export const AuthorizationApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        oauth2TokenPost(grantType, code, redirectUri, clientId, codeVerifier, username, password, scope, refreshToken, clientSecret, options) {
-            const localVarAxiosArgs = AuthorizationApiAxiosParamCreator(configuration).oauth2TokenPost(grantType, code, redirectUri, clientId, codeVerifier, username, password, scope, refreshToken, clientSecret, options);
+        postOauth2Token(grantType, code, redirectUri, clientId, codeVerifier, username, password, scope, refreshToken, clientSecret, options) {
+            const localVarAxiosArgs = AuthorizationApiAxiosParamCreator(configuration).postOauth2Token(grantType, code, redirectUri, clientId, codeVerifier, username, password, scope, refreshToken, clientSecret, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -676,47 +676,47 @@ export const AuthorizationApiFp = function (configuration) {
 export const AuthorizationApiFactory = function (configuration, basePath, axios) {
     return {
         /**
+         * OAuth2 認可エンドポイント
+         * @param {OAuth2ResponseType} [responseType]
+         * @param {string} [clientId]
+         * @param {string} [redirectUri]
+         * @param {string} [scope]
+         * @param {string} [state]
+         * @param {string} [codeChallenge]
+         * @param {string} [codeChallengeMethod]
+         * @param {string} [nonce]
+         * @param {OAuth2Prompt} [prompt]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOauth2Authorize(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options) {
+            return AuthorizationApiFp(configuration).getOauth2Authorize(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options)(axios, basePath);
+        },
+        /**
+         * OAuth2 認可エンドポイント
+         * @param {OAuth2ResponseType} [responseType]
+         * @param {string} [clientId]
+         * @param {string} [redirectUri]
+         * @param {string} [scope]
+         * @param {string} [state]
+         * @param {string} [codeChallenge]
+         * @param {string} [codeChallengeMethod]
+         * @param {string} [nonce]
+         * @param {OAuth2Prompt} [prompt]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postOauth2Authorize(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options) {
+            return AuthorizationApiFp(configuration).postOauth2Authorize(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options)(axios, basePath);
+        },
+        /**
          * OAuth2 認可承諾
          * @param {string} submit 承諾する場合は\\\&quot;approve\\\&quot;
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        oauth2AuthorizeDecidePost(submit, options) {
-            return AuthorizationApiFp(configuration).oauth2AuthorizeDecidePost(submit, options)(axios, basePath);
-        },
-        /**
-         * OAuth2 認可エンドポイント
-         * @param {OAuth2ResponseType} [responseType]
-         * @param {string} [clientId]
-         * @param {string} [redirectUri]
-         * @param {string} [scope]
-         * @param {string} [state]
-         * @param {string} [codeChallenge]
-         * @param {string} [codeChallengeMethod]
-         * @param {string} [nonce]
-         * @param {OAuth2Prompt} [prompt]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        oauth2AuthorizeGet(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options) {
-            return AuthorizationApiFp(configuration).oauth2AuthorizeGet(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options)(axios, basePath);
-        },
-        /**
-         * OAuth2 認可エンドポイント
-         * @param {OAuth2ResponseType} [responseType]
-         * @param {string} [clientId]
-         * @param {string} [redirectUri]
-         * @param {string} [scope]
-         * @param {string} [state]
-         * @param {string} [codeChallenge]
-         * @param {string} [codeChallengeMethod]
-         * @param {string} [nonce]
-         * @param {OAuth2Prompt} [prompt]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        oauth2AuthorizePost(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options) {
-            return AuthorizationApiFp(configuration).oauth2AuthorizePost(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options)(axios, basePath);
+        postOauth2AuthorizeDecide(submit, options) {
+            return AuthorizationApiFp(configuration).postOauth2AuthorizeDecide(submit, options)(axios, basePath);
         },
         /**
          * OAuth2 トークンエンドポイント
@@ -733,8 +733,8 @@ export const AuthorizationApiFactory = function (configuration, basePath, axios)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        oauth2TokenPost(grantType, code, redirectUri, clientId, codeVerifier, username, password, scope, refreshToken, clientSecret, options) {
-            return AuthorizationApiFp(configuration).oauth2TokenPost(grantType, code, redirectUri, clientId, codeVerifier, username, password, scope, refreshToken, clientSecret, options)(axios, basePath);
+        postOauth2Token(grantType, code, redirectUri, clientId, codeVerifier, username, password, scope, refreshToken, clientSecret, options) {
+            return AuthorizationApiFp(configuration).postOauth2Token(grantType, code, redirectUri, clientId, codeVerifier, username, password, scope, refreshToken, clientSecret, options)(axios, basePath);
         },
     };
 };
@@ -746,50 +746,50 @@ export const AuthorizationApiFactory = function (configuration, basePath, axios)
  */
 export class AuthorizationApi extends BaseAPI {
     /**
+     * OAuth2 認可エンドポイント
+     * @param {OAuth2ResponseType} [responseType]
+     * @param {string} [clientId]
+     * @param {string} [redirectUri]
+     * @param {string} [scope]
+     * @param {string} [state]
+     * @param {string} [codeChallenge]
+     * @param {string} [codeChallengeMethod]
+     * @param {string} [nonce]
+     * @param {OAuth2Prompt} [prompt]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthorizationApi
+     */
+    getOauth2Authorize(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options) {
+        return AuthorizationApiFp(this.configuration).getOauth2Authorize(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options)(this.axios, this.basePath);
+    }
+    /**
+     * OAuth2 認可エンドポイント
+     * @param {OAuth2ResponseType} [responseType]
+     * @param {string} [clientId]
+     * @param {string} [redirectUri]
+     * @param {string} [scope]
+     * @param {string} [state]
+     * @param {string} [codeChallenge]
+     * @param {string} [codeChallengeMethod]
+     * @param {string} [nonce]
+     * @param {OAuth2Prompt} [prompt]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthorizationApi
+     */
+    postOauth2Authorize(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options) {
+        return AuthorizationApiFp(this.configuration).postOauth2Authorize(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options)(this.axios, this.basePath);
+    }
+    /**
      * OAuth2 認可承諾
      * @param {string} submit 承諾する場合は\\\&quot;approve\\\&quot;
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuthorizationApi
      */
-    oauth2AuthorizeDecidePost(submit, options) {
-        return AuthorizationApiFp(this.configuration).oauth2AuthorizeDecidePost(submit, options)(this.axios, this.basePath);
-    }
-    /**
-     * OAuth2 認可エンドポイント
-     * @param {OAuth2ResponseType} [responseType]
-     * @param {string} [clientId]
-     * @param {string} [redirectUri]
-     * @param {string} [scope]
-     * @param {string} [state]
-     * @param {string} [codeChallenge]
-     * @param {string} [codeChallengeMethod]
-     * @param {string} [nonce]
-     * @param {OAuth2Prompt} [prompt]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AuthorizationApi
-     */
-    oauth2AuthorizeGet(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options) {
-        return AuthorizationApiFp(this.configuration).oauth2AuthorizeGet(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options)(this.axios, this.basePath);
-    }
-    /**
-     * OAuth2 認可エンドポイント
-     * @param {OAuth2ResponseType} [responseType]
-     * @param {string} [clientId]
-     * @param {string} [redirectUri]
-     * @param {string} [scope]
-     * @param {string} [state]
-     * @param {string} [codeChallenge]
-     * @param {string} [codeChallengeMethod]
-     * @param {string} [nonce]
-     * @param {OAuth2Prompt} [prompt]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AuthorizationApi
-     */
-    oauth2AuthorizePost(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options) {
-        return AuthorizationApiFp(this.configuration).oauth2AuthorizePost(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options)(this.axios, this.basePath);
+    postOauth2AuthorizeDecide(submit, options) {
+        return AuthorizationApiFp(this.configuration).postOauth2AuthorizeDecide(submit, options)(this.axios, this.basePath);
     }
     /**
      * OAuth2 トークンエンドポイント
@@ -807,8 +807,8 @@ export class AuthorizationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthorizationApi
      */
-    oauth2TokenPost(grantType, code, redirectUri, clientId, codeVerifier, username, password, scope, refreshToken, clientSecret, options) {
-        return AuthorizationApiFp(this.configuration).oauth2TokenPost(grantType, code, redirectUri, clientId, codeVerifier, username, password, scope, refreshToken, clientSecret, options)(this.axios, this.basePath);
+    postOauth2Token(grantType, code, redirectUri, clientId, codeVerifier, username, password, scope, refreshToken, clientSecret, options) {
+        return AuthorizationApiFp(this.configuration).postOauth2Token(grantType, code, redirectUri, clientId, codeVerifier, username, password, scope, refreshToken, clientSecret, options)(this.axios, this.basePath);
     }
 }
 /**
@@ -818,114 +818,42 @@ export class AuthorizationApi extends BaseAPI {
 export const BotApiAxiosParamCreator = function (configuration) {
     return {
         /**
-         * Botが参加しているチャンネルのUUIDの配列を取得します。
-         * @param {string} botID 操作の対象となるBotのID
+         * チャンネルにBotを参加させます。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {PostBotChannel} [postBotChannel]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsBotIDChannelsGet(botID, options = {}) {
-            // verify required parameter 'botID' is not null or undefined
-            if (botID === null || botID === undefined) {
-                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling botsBotIDChannelsGet.');
+        addChannelBot(channelID, postBotChannel, options = {}) {
+            // verify required parameter 'channelID' is not null or undefined
+            if (channelID === null || channelID === undefined) {
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling addChannelBot.');
             }
-            const localVarPath = `/bots/{botID}/channels`
-                .replace(`{${"botID"}}`, encodeURIComponent(String(botID)));
+            const localVarPath = `/channels/{channelID}/bots`
+                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
             // authentication traqOAuth2 required
             // oauth required
             if (configuration && configuration.accessToken) {
                 const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read", "manage_bot"])
+                    ? configuration.accessToken("traqOAuth2", ["write", "manage_bot"])
                     : configuration.accessToken;
                 localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
             }
+            localVarHeaderParameter['Content-Type'] = 'application/json';
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Botを削除します。
-         * @param {string} botID 操作の対象となるBotのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        botsBotIDDelete(botID, options = {}) {
-            // verify required parameter 'botID' is not null or undefined
-            if (botID === null || botID === undefined) {
-                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling botsBotIDDelete.');
-            }
-            const localVarPath = `/bots/{botID}`
-                .replace(`{${"botID"}}`, encodeURIComponent(String(botID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["manage_bot"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Botの詳細を取得します。
-         * @param {string} botID 操作の対象となるBotのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        botsBotIDDetailGet(botID, options = {}) {
-            // verify required parameter 'botID' is not null or undefined
-            if (botID === null || botID === undefined) {
-                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling botsBotIDDetailGet.');
-            }
-            const localVarPath = `/bots/{botID}/detail`
-                .replace(`{${"botID"}}`, encodeURIComponent(String(botID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read", "manage_bot"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = ("PostBotChannel" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(postBotChannel !== undefined ? postBotChannel : {}) : (postBotChannel || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -938,10 +866,10 @@ export const BotApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsBotIDEventsPut(botID, putBotEvents, options = {}) {
+        changeBotEvents(botID, putBotEvents, options = {}) {
             // verify required parameter 'botID' is not null or undefined
             if (botID === null || botID === undefined) {
-                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling botsBotIDEventsPut.');
+                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling changeBotEvents.');
             }
             const localVarPath = `/bots/{botID}/events`
                 .replace(`{${"botID"}}`, encodeURIComponent(String(botID)));
@@ -974,92 +902,16 @@ export const BotApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * Botを取得します。
-         * @param {string} botID 操作の対象となるBotのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        botsBotIDGet(botID, options = {}) {
-            // verify required parameter 'botID' is not null or undefined
-            if (botID === null || botID === undefined) {
-                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling botsBotIDGet.');
-            }
-            const localVarPath = `/bots/{botID}`
-                .replace(`{${"botID"}}`, encodeURIComponent(String(botID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read", "manage_bot"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 指定したBotのアイコンを取得します。
-         * @param {string} botID 操作の対象となるBotのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        botsBotIDIconGet(botID, options = {}) {
-            // verify required parameter 'botID' is not null or undefined
-            if (botID === null || botID === undefined) {
-                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling botsBotIDIconGet.');
-            }
-            const localVarPath = `/bots/{botID}/icon`
-                .replace(`{${"botID"}}`, encodeURIComponent(String(botID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read", "manage_bot"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * 指定したBotのアイコンを変更します。
          * @param {string} botID 操作の対象となるBotのID
          * @param {any} [file] Botユーザーのアイコン(1MBまでのpng, jpeg, gif)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsBotIDIconPut(botID, file, options = {}) {
+        changeBotIcon(botID, file, options = {}) {
             // verify required parameter 'botID' is not null or undefined
             if (botID === null || botID === undefined) {
-                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling botsBotIDIconPut.');
+                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling changeBotIcon.');
             }
             const localVarPath = `/bots/{botID}/icon`
                 .replace(`{${"botID"}}`, encodeURIComponent(String(botID)));
@@ -1094,96 +946,16 @@ export const BotApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * Bot情報を変更します。
-         * @param {string} botID 操作の対象となるBotのID
-         * @param {PatchBot} [patchBot]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        botsBotIDPatch(botID, patchBot, options = {}) {
-            // verify required parameter 'botID' is not null or undefined
-            if (botID === null || botID === undefined) {
-                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling botsBotIDPatch.');
-            }
-            const localVarPath = `/bots/{botID}`
-                .replace(`{${"botID"}}`, encodeURIComponent(String(botID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["manage_bot"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("PatchBot" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(patchBot !== undefined ? patchBot : {}) : (patchBot || "");
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Botの各種トークンを再発行します。
-         * @param {string} botID 操作の対象となるBotのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        botsBotIDReissuePost(botID, options = {}) {
-            // verify required parameter 'botID' is not null or undefined
-            if (botID === null || botID === undefined) {
-                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling botsBotIDReissuePost.');
-            }
-            const localVarPath = `/bots/{botID}/reissue`
-                .replace(`{${"botID"}}`, encodeURIComponent(String(botID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["manage_bot"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * Botの状態を変更します。
          * @param {string} botID 操作の対象となるBotのID
          * @param {PutBotState} [putBotState]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsBotIDStatePut(botID, putBotState, options = {}) {
+        changeBotState(botID, putBotState, options = {}) {
             // verify required parameter 'botID' is not null or undefined
             if (botID === null || botID === undefined) {
-                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling botsBotIDStatePut.');
+                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling changeBotState.');
             }
             const localVarPath = `/bots/{botID}/state`
                 .replace(`{${"botID"}}`, encodeURIComponent(String(botID)));
@@ -1216,44 +988,12 @@ export const BotApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * 自分が作成したBotの一覧を取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        botsGet(options = {}) {
-            const localVarPath = `/bots`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read", "manage_bot"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * Botを作成します。
          * @param {PostBot} [postBot]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsPost(postBot, options = {}) {
+        createBots(postBot, options = {}) {
             const localVarPath = `/bots`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -1284,23 +1024,17 @@ export const BotApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * Botをチャンネルから退出させます。
-         * @param {string} channelID 操作の対象となるチャンネルのID
+         * Botを削除します。
          * @param {string} botID 操作の対象となるBotのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDBotsBotIDDelete(channelID, botID, options = {}) {
-            // verify required parameter 'channelID' is not null or undefined
-            if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDBotsBotIDDelete.');
-            }
+        deleteBot(botID, options = {}) {
             // verify required parameter 'botID' is not null or undefined
             if (botID === null || botID === undefined) {
-                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling channelsChannelIDBotsBotIDDelete.');
+                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling deleteBot.');
             }
-            const localVarPath = `/channels/{channelID}/bots/{botID}`
-                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)))
+            const localVarPath = `/bots/{botID}`
                 .replace(`{${"botID"}}`, encodeURIComponent(String(botID)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -1314,7 +1048,233 @@ export const BotApiAxiosParamCreator = function (configuration) {
             // oauth required
             if (configuration && configuration.accessToken) {
                 const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["write", "manage_bot"])
+                    ? configuration.accessToken("traqOAuth2", ["manage_bot"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Bot情報を変更します。
+         * @param {string} botID 操作の対象となるBotのID
+         * @param {PatchBot} [patchBot]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        editBot(botID, patchBot, options = {}) {
+            // verify required parameter 'botID' is not null or undefined
+            if (botID === null || botID === undefined) {
+                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling editBot.');
+            }
+            const localVarPath = `/bots/{botID}`
+                .replace(`{${"botID"}}`, encodeURIComponent(String(botID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["manage_bot"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = ("PatchBot" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(patchBot !== undefined ? patchBot : {}) : (patchBot || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Botを取得します。
+         * @param {string} botID 操作の対象となるBotのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBot(botID, options = {}) {
+            // verify required parameter 'botID' is not null or undefined
+            if (botID === null || botID === undefined) {
+                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling getBot.');
+            }
+            const localVarPath = `/bots/{botID}`
+                .replace(`{${"botID"}}`, encodeURIComponent(String(botID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read", "manage_bot"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Botが参加しているチャンネルのUUIDの配列を取得します。
+         * @param {string} botID 操作の対象となるBotのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBotChannels(botID, options = {}) {
+            // verify required parameter 'botID' is not null or undefined
+            if (botID === null || botID === undefined) {
+                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling getBotChannels.');
+            }
+            const localVarPath = `/bots/{botID}/channels`
+                .replace(`{${"botID"}}`, encodeURIComponent(String(botID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read", "manage_bot"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Botの詳細を取得します。
+         * @param {string} botID 操作の対象となるBotのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBotDetail(botID, options = {}) {
+            // verify required parameter 'botID' is not null or undefined
+            if (botID === null || botID === undefined) {
+                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling getBotDetail.');
+            }
+            const localVarPath = `/bots/{botID}/detail`
+                .replace(`{${"botID"}}`, encodeURIComponent(String(botID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read", "manage_bot"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 指定したBotのアイコンを取得します。
+         * @param {string} botID 操作の対象となるBotのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBotIcon(botID, options = {}) {
+            // verify required parameter 'botID' is not null or undefined
+            if (botID === null || botID === undefined) {
+                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling getBotIcon.');
+            }
+            const localVarPath = `/bots/{botID}/icon`
+                .replace(`{${"botID"}}`, encodeURIComponent(String(botID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read", "manage_bot"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 自分が作成したBotの一覧を取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBots(options = {}) {
+            const localVarPath = `/bots`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read", "manage_bot"])
                     : configuration.accessToken;
                 localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
             }
@@ -1333,10 +1293,10 @@ export const BotApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDBotsGet(channelID, options = {}) {
+        getChannelBots(channelID, options = {}) {
             // verify required parameter 'channelID' is not null or undefined
             if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDBotsGet.');
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling getChannelBots.');
             }
             const localVarPath = `/channels/{channelID}/bots`
                 .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
@@ -1366,19 +1326,18 @@ export const BotApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * チャンネルにBotを参加させます。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {PostBotChannel} [postBotChannel]
+         * Botの各種トークンを再発行します。
+         * @param {string} botID 操作の対象となるBotのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDBotsPost(channelID, postBotChannel, options = {}) {
-            // verify required parameter 'channelID' is not null or undefined
-            if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDBotsPost.');
+        reissueBotTokens(botID, options = {}) {
+            // verify required parameter 'botID' is not null or undefined
+            if (botID === null || botID === undefined) {
+                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling reissueBotTokens.');
             }
-            const localVarPath = `/channels/{channelID}/bots`
-                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
+            const localVarPath = `/bots/{botID}/reissue`
+                .replace(`{${"botID"}}`, encodeURIComponent(String(botID)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -1391,17 +1350,58 @@ export const BotApiAxiosParamCreator = function (configuration) {
             // oauth required
             if (configuration && configuration.accessToken) {
                 const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["write", "manage_bot"])
+                    ? configuration.accessToken("traqOAuth2", ["manage_bot"])
                     : configuration.accessToken;
                 localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
             }
-            localVarHeaderParameter['Content-Type'] = 'application/json';
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("PostBotChannel" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(postBotChannel !== undefined ? postBotChannel : {}) : (postBotChannel || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Botをチャンネルから退出させます。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {string} botID 操作の対象となるBotのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeChannelBot(channelID, botID, options = {}) {
+            // verify required parameter 'channelID' is not null or undefined
+            if (channelID === null || channelID === undefined) {
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling removeChannelBot.');
+            }
+            // verify required parameter 'botID' is not null or undefined
+            if (botID === null || botID === undefined) {
+                throw new RequiredError('botID', 'Required parameter botID was null or undefined when calling removeChannelBot.');
+            }
+            const localVarPath = `/channels/{channelID}/bots/{botID}`
+                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)))
+                .replace(`{${"botID"}}`, encodeURIComponent(String(botID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["write", "manage_bot"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -1416,39 +1416,14 @@ export const BotApiAxiosParamCreator = function (configuration) {
 export const BotApiFp = function (configuration) {
     return {
         /**
-         * Botが参加しているチャンネルのUUIDの配列を取得します。
-         * @param {string} botID 操作の対象となるBotのID
+         * チャンネルにBotを参加させます。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {PostBotChannel} [postBotChannel]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsBotIDChannelsGet(botID, options) {
-            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).botsBotIDChannelsGet(botID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * Botを削除します。
-         * @param {string} botID 操作の対象となるBotのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        botsBotIDDelete(botID, options) {
-            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).botsBotIDDelete(botID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * Botの詳細を取得します。
-         * @param {string} botID 操作の対象となるBotのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        botsBotIDDetailGet(botID, options) {
-            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).botsBotIDDetailGet(botID, options);
+        addChannelBot(channelID, postBotChannel, options) {
+            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).addChannelBot(channelID, postBotChannel, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -1461,34 +1436,8 @@ export const BotApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsBotIDEventsPut(botID, putBotEvents, options) {
-            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).botsBotIDEventsPut(botID, putBotEvents, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * Botを取得します。
-         * @param {string} botID 操作の対象となるBotのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        botsBotIDGet(botID, options) {
-            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).botsBotIDGet(botID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 指定したBotのアイコンを取得します。
-         * @param {string} botID 操作の対象となるBotのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        botsBotIDIconGet(botID, options) {
-            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).botsBotIDIconGet(botID, options);
+        changeBotEvents(botID, putBotEvents, options) {
+            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).changeBotEvents(botID, putBotEvents, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -1501,35 +1450,8 @@ export const BotApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsBotIDIconPut(botID, file, options) {
-            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).botsBotIDIconPut(botID, file, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * Bot情報を変更します。
-         * @param {string} botID 操作の対象となるBotのID
-         * @param {PatchBot} [patchBot]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        botsBotIDPatch(botID, patchBot, options) {
-            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).botsBotIDPatch(botID, patchBot, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * Botの各種トークンを再発行します。
-         * @param {string} botID 操作の対象となるBotのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        botsBotIDReissuePost(botID, options) {
-            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).botsBotIDReissuePost(botID, options);
+        changeBotIcon(botID, file, options) {
+            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).changeBotIcon(botID, file, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -1542,20 +1464,8 @@ export const BotApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsBotIDStatePut(botID, putBotState, options) {
-            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).botsBotIDStatePut(botID, putBotState, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 自分が作成したBotの一覧を取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        botsGet(options) {
-            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).botsGet(options);
+        changeBotState(botID, putBotState, options) {
+            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).changeBotState(botID, putBotState, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -1567,8 +1477,125 @@ export const BotApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsPost(postBot, options) {
-            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).botsPost(postBot, options);
+        createBots(postBot, options) {
+            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).createBots(postBot, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * Botを削除します。
+         * @param {string} botID 操作の対象となるBotのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteBot(botID, options) {
+            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).deleteBot(botID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * Bot情報を変更します。
+         * @param {string} botID 操作の対象となるBotのID
+         * @param {PatchBot} [patchBot]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        editBot(botID, patchBot, options) {
+            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).editBot(botID, patchBot, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * Botを取得します。
+         * @param {string} botID 操作の対象となるBotのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBot(botID, options) {
+            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).getBot(botID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * Botが参加しているチャンネルのUUIDの配列を取得します。
+         * @param {string} botID 操作の対象となるBotのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBotChannels(botID, options) {
+            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).getBotChannels(botID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * Botの詳細を取得します。
+         * @param {string} botID 操作の対象となるBotのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBotDetail(botID, options) {
+            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).getBotDetail(botID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 指定したBotのアイコンを取得します。
+         * @param {string} botID 操作の対象となるBotのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBotIcon(botID, options) {
+            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).getBotIcon(botID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 自分が作成したBotの一覧を取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBots(options) {
+            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).getBots(options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * チャンネルに参加しているBot一覧を取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getChannelBots(channelID, options) {
+            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).getChannelBots(channelID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * Botの各種トークンを再発行します。
+         * @param {string} botID 操作の対象となるBotのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        reissueBotTokens(botID, options) {
+            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).reissueBotTokens(botID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -1581,35 +1608,8 @@ export const BotApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDBotsBotIDDelete(channelID, botID, options) {
-            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).channelsChannelIDBotsBotIDDelete(channelID, botID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * チャンネルに参加しているBot一覧を取得します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDBotsGet(channelID, options) {
-            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).channelsChannelIDBotsGet(channelID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * チャンネルにBotを参加させます。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {PostBotChannel} [postBotChannel]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDBotsPost(channelID, postBotChannel, options) {
-            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).channelsChannelIDBotsPost(channelID, postBotChannel, options);
+        removeChannelBot(channelID, botID, options) {
+            const localVarAxiosArgs = BotApiAxiosParamCreator(configuration).removeChannelBot(channelID, botID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -1624,31 +1624,14 @@ export const BotApiFp = function (configuration) {
 export const BotApiFactory = function (configuration, basePath, axios) {
     return {
         /**
-         * Botが参加しているチャンネルのUUIDの配列を取得します。
-         * @param {string} botID 操作の対象となるBotのID
+         * チャンネルにBotを参加させます。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {PostBotChannel} [postBotChannel]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsBotIDChannelsGet(botID, options) {
-            return BotApiFp(configuration).botsBotIDChannelsGet(botID, options)(axios, basePath);
-        },
-        /**
-         * Botを削除します。
-         * @param {string} botID 操作の対象となるBotのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        botsBotIDDelete(botID, options) {
-            return BotApiFp(configuration).botsBotIDDelete(botID, options)(axios, basePath);
-        },
-        /**
-         * Botの詳細を取得します。
-         * @param {string} botID 操作の対象となるBotのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        botsBotIDDetailGet(botID, options) {
-            return BotApiFp(configuration).botsBotIDDetailGet(botID, options)(axios, basePath);
+        addChannelBot(channelID, postBotChannel, options) {
+            return BotApiFp(configuration).addChannelBot(channelID, postBotChannel, options)(axios, basePath);
         },
         /**
          * Botの購読イベントを変更します。
@@ -1657,26 +1640,8 @@ export const BotApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsBotIDEventsPut(botID, putBotEvents, options) {
-            return BotApiFp(configuration).botsBotIDEventsPut(botID, putBotEvents, options)(axios, basePath);
-        },
-        /**
-         * Botを取得します。
-         * @param {string} botID 操作の対象となるBotのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        botsBotIDGet(botID, options) {
-            return BotApiFp(configuration).botsBotIDGet(botID, options)(axios, basePath);
-        },
-        /**
-         * 指定したBotのアイコンを取得します。
-         * @param {string} botID 操作の対象となるBotのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        botsBotIDIconGet(botID, options) {
-            return BotApiFp(configuration).botsBotIDIconGet(botID, options)(axios, basePath);
+        changeBotEvents(botID, putBotEvents, options) {
+            return BotApiFp(configuration).changeBotEvents(botID, putBotEvents, options)(axios, basePath);
         },
         /**
          * 指定したBotのアイコンを変更します。
@@ -1685,27 +1650,8 @@ export const BotApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsBotIDIconPut(botID, file, options) {
-            return BotApiFp(configuration).botsBotIDIconPut(botID, file, options)(axios, basePath);
-        },
-        /**
-         * Bot情報を変更します。
-         * @param {string} botID 操作の対象となるBotのID
-         * @param {PatchBot} [patchBot]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        botsBotIDPatch(botID, patchBot, options) {
-            return BotApiFp(configuration).botsBotIDPatch(botID, patchBot, options)(axios, basePath);
-        },
-        /**
-         * Botの各種トークンを再発行します。
-         * @param {string} botID 操作の対象となるBotのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        botsBotIDReissuePost(botID, options) {
-            return BotApiFp(configuration).botsBotIDReissuePost(botID, options)(axios, basePath);
+        changeBotIcon(botID, file, options) {
+            return BotApiFp(configuration).changeBotIcon(botID, file, options)(axios, basePath);
         },
         /**
          * Botの状態を変更します。
@@ -1714,16 +1660,8 @@ export const BotApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsBotIDStatePut(botID, putBotState, options) {
-            return BotApiFp(configuration).botsBotIDStatePut(botID, putBotState, options)(axios, basePath);
-        },
-        /**
-         * 自分が作成したBotの一覧を取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        botsGet(options) {
-            return BotApiFp(configuration).botsGet(options)(axios, basePath);
+        changeBotState(botID, putBotState, options) {
+            return BotApiFp(configuration).changeBotState(botID, putBotState, options)(axios, basePath);
         },
         /**
          * Botを作成します。
@@ -1731,8 +1669,89 @@ export const BotApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        botsPost(postBot, options) {
-            return BotApiFp(configuration).botsPost(postBot, options)(axios, basePath);
+        createBots(postBot, options) {
+            return BotApiFp(configuration).createBots(postBot, options)(axios, basePath);
+        },
+        /**
+         * Botを削除します。
+         * @param {string} botID 操作の対象となるBotのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteBot(botID, options) {
+            return BotApiFp(configuration).deleteBot(botID, options)(axios, basePath);
+        },
+        /**
+         * Bot情報を変更します。
+         * @param {string} botID 操作の対象となるBotのID
+         * @param {PatchBot} [patchBot]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        editBot(botID, patchBot, options) {
+            return BotApiFp(configuration).editBot(botID, patchBot, options)(axios, basePath);
+        },
+        /**
+         * Botを取得します。
+         * @param {string} botID 操作の対象となるBotのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBot(botID, options) {
+            return BotApiFp(configuration).getBot(botID, options)(axios, basePath);
+        },
+        /**
+         * Botが参加しているチャンネルのUUIDの配列を取得します。
+         * @param {string} botID 操作の対象となるBotのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBotChannels(botID, options) {
+            return BotApiFp(configuration).getBotChannels(botID, options)(axios, basePath);
+        },
+        /**
+         * Botの詳細を取得します。
+         * @param {string} botID 操作の対象となるBotのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBotDetail(botID, options) {
+            return BotApiFp(configuration).getBotDetail(botID, options)(axios, basePath);
+        },
+        /**
+         * 指定したBotのアイコンを取得します。
+         * @param {string} botID 操作の対象となるBotのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBotIcon(botID, options) {
+            return BotApiFp(configuration).getBotIcon(botID, options)(axios, basePath);
+        },
+        /**
+         * 自分が作成したBotの一覧を取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBots(options) {
+            return BotApiFp(configuration).getBots(options)(axios, basePath);
+        },
+        /**
+         * チャンネルに参加しているBot一覧を取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getChannelBots(channelID, options) {
+            return BotApiFp(configuration).getChannelBots(channelID, options)(axios, basePath);
+        },
+        /**
+         * Botの各種トークンを再発行します。
+         * @param {string} botID 操作の対象となるBotのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        reissueBotTokens(botID, options) {
+            return BotApiFp(configuration).reissueBotTokens(botID, options)(axios, basePath);
         },
         /**
          * Botをチャンネルから退出させます。
@@ -1741,27 +1760,8 @@ export const BotApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDBotsBotIDDelete(channelID, botID, options) {
-            return BotApiFp(configuration).channelsChannelIDBotsBotIDDelete(channelID, botID, options)(axios, basePath);
-        },
-        /**
-         * チャンネルに参加しているBot一覧を取得します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDBotsGet(channelID, options) {
-            return BotApiFp(configuration).channelsChannelIDBotsGet(channelID, options)(axios, basePath);
-        },
-        /**
-         * チャンネルにBotを参加させます。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {PostBotChannel} [postBotChannel]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDBotsPost(channelID, postBotChannel, options) {
-            return BotApiFp(configuration).channelsChannelIDBotsPost(channelID, postBotChannel, options)(axios, basePath);
+        removeChannelBot(channelID, botID, options) {
+            return BotApiFp(configuration).removeChannelBot(channelID, botID, options)(axios, basePath);
         },
     };
 };
@@ -1773,34 +1773,15 @@ export const BotApiFactory = function (configuration, basePath, axios) {
  */
 export class BotApi extends BaseAPI {
     /**
-     * Botが参加しているチャンネルのUUIDの配列を取得します。
-     * @param {string} botID 操作の対象となるBotのID
+     * チャンネルにBotを参加させます。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {PostBotChannel} [postBotChannel]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    botsBotIDChannelsGet(botID, options) {
-        return BotApiFp(this.configuration).botsBotIDChannelsGet(botID, options)(this.axios, this.basePath);
-    }
-    /**
-     * Botを削除します。
-     * @param {string} botID 操作の対象となるBotのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    botsBotIDDelete(botID, options) {
-        return BotApiFp(this.configuration).botsBotIDDelete(botID, options)(this.axios, this.basePath);
-    }
-    /**
-     * Botの詳細を取得します。
-     * @param {string} botID 操作の対象となるBotのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    botsBotIDDetailGet(botID, options) {
-        return BotApiFp(this.configuration).botsBotIDDetailGet(botID, options)(this.axios, this.basePath);
+    addChannelBot(channelID, postBotChannel, options) {
+        return BotApiFp(this.configuration).addChannelBot(channelID, postBotChannel, options)(this.axios, this.basePath);
     }
     /**
      * Botの購読イベントを変更します。
@@ -1810,28 +1791,8 @@ export class BotApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    botsBotIDEventsPut(botID, putBotEvents, options) {
-        return BotApiFp(this.configuration).botsBotIDEventsPut(botID, putBotEvents, options)(this.axios, this.basePath);
-    }
-    /**
-     * Botを取得します。
-     * @param {string} botID 操作の対象となるBotのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    botsBotIDGet(botID, options) {
-        return BotApiFp(this.configuration).botsBotIDGet(botID, options)(this.axios, this.basePath);
-    }
-    /**
-     * 指定したBotのアイコンを取得します。
-     * @param {string} botID 操作の対象となるBotのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    botsBotIDIconGet(botID, options) {
-        return BotApiFp(this.configuration).botsBotIDIconGet(botID, options)(this.axios, this.basePath);
+    changeBotEvents(botID, putBotEvents, options) {
+        return BotApiFp(this.configuration).changeBotEvents(botID, putBotEvents, options)(this.axios, this.basePath);
     }
     /**
      * 指定したBotのアイコンを変更します。
@@ -1841,29 +1802,8 @@ export class BotApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    botsBotIDIconPut(botID, file, options) {
-        return BotApiFp(this.configuration).botsBotIDIconPut(botID, file, options)(this.axios, this.basePath);
-    }
-    /**
-     * Bot情報を変更します。
-     * @param {string} botID 操作の対象となるBotのID
-     * @param {PatchBot} [patchBot]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    botsBotIDPatch(botID, patchBot, options) {
-        return BotApiFp(this.configuration).botsBotIDPatch(botID, patchBot, options)(this.axios, this.basePath);
-    }
-    /**
-     * Botの各種トークンを再発行します。
-     * @param {string} botID 操作の対象となるBotのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    botsBotIDReissuePost(botID, options) {
-        return BotApiFp(this.configuration).botsBotIDReissuePost(botID, options)(this.axios, this.basePath);
+    changeBotIcon(botID, file, options) {
+        return BotApiFp(this.configuration).changeBotIcon(botID, file, options)(this.axios, this.basePath);
     }
     /**
      * Botの状態を変更します。
@@ -1873,17 +1813,8 @@ export class BotApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    botsBotIDStatePut(botID, putBotState, options) {
-        return BotApiFp(this.configuration).botsBotIDStatePut(botID, putBotState, options)(this.axios, this.basePath);
-    }
-    /**
-     * 自分が作成したBotの一覧を取得します。
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    botsGet(options) {
-        return BotApiFp(this.configuration).botsGet(options)(this.axios, this.basePath);
+    changeBotState(botID, putBotState, options) {
+        return BotApiFp(this.configuration).changeBotState(botID, putBotState, options)(this.axios, this.basePath);
     }
     /**
      * Botを作成します。
@@ -1892,8 +1823,98 @@ export class BotApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    botsPost(postBot, options) {
-        return BotApiFp(this.configuration).botsPost(postBot, options)(this.axios, this.basePath);
+    createBots(postBot, options) {
+        return BotApiFp(this.configuration).createBots(postBot, options)(this.axios, this.basePath);
+    }
+    /**
+     * Botを削除します。
+     * @param {string} botID 操作の対象となるBotのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    deleteBot(botID, options) {
+        return BotApiFp(this.configuration).deleteBot(botID, options)(this.axios, this.basePath);
+    }
+    /**
+     * Bot情報を変更します。
+     * @param {string} botID 操作の対象となるBotのID
+     * @param {PatchBot} [patchBot]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    editBot(botID, patchBot, options) {
+        return BotApiFp(this.configuration).editBot(botID, patchBot, options)(this.axios, this.basePath);
+    }
+    /**
+     * Botを取得します。
+     * @param {string} botID 操作の対象となるBotのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    getBot(botID, options) {
+        return BotApiFp(this.configuration).getBot(botID, options)(this.axios, this.basePath);
+    }
+    /**
+     * Botが参加しているチャンネルのUUIDの配列を取得します。
+     * @param {string} botID 操作の対象となるBotのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    getBotChannels(botID, options) {
+        return BotApiFp(this.configuration).getBotChannels(botID, options)(this.axios, this.basePath);
+    }
+    /**
+     * Botの詳細を取得します。
+     * @param {string} botID 操作の対象となるBotのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    getBotDetail(botID, options) {
+        return BotApiFp(this.configuration).getBotDetail(botID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したBotのアイコンを取得します。
+     * @param {string} botID 操作の対象となるBotのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    getBotIcon(botID, options) {
+        return BotApiFp(this.configuration).getBotIcon(botID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 自分が作成したBotの一覧を取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    getBots(options) {
+        return BotApiFp(this.configuration).getBots(options)(this.axios, this.basePath);
+    }
+    /**
+     * チャンネルに参加しているBot一覧を取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    getChannelBots(channelID, options) {
+        return BotApiFp(this.configuration).getChannelBots(channelID, options)(this.axios, this.basePath);
+    }
+    /**
+     * Botの各種トークンを再発行します。
+     * @param {string} botID 操作の対象となるBotのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    reissueBotTokens(botID, options) {
+        return BotApiFp(this.configuration).reissueBotTokens(botID, options)(this.axios, this.basePath);
     }
     /**
      * Botをチャンネルから退出させます。
@@ -1903,29 +1924,8 @@ export class BotApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    channelsChannelIDBotsBotIDDelete(channelID, botID, options) {
-        return BotApiFp(this.configuration).channelsChannelIDBotsBotIDDelete(channelID, botID, options)(this.axios, this.basePath);
-    }
-    /**
-     * チャンネルに参加しているBot一覧を取得します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    channelsChannelIDBotsGet(channelID, options) {
-        return BotApiFp(this.configuration).channelsChannelIDBotsGet(channelID, options)(this.axios, this.basePath);
-    }
-    /**
-     * チャンネルにBotを参加させます。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {PostBotChannel} [postBotChannel]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    channelsChannelIDBotsPost(channelID, postBotChannel, options) {
-        return BotApiFp(this.configuration).channelsChannelIDBotsPost(channelID, postBotChannel, options)(this.axios, this.basePath);
+    removeChannelBot(channelID, botID, options) {
+        return BotApiFp(this.configuration).removeChannelBot(channelID, botID, options)(this.axios, this.basePath);
     }
 }
 /**
@@ -1935,16 +1935,129 @@ export class BotApi extends BaseAPI {
 export const ChannelApiAxiosParamCreator = function (configuration) {
     return {
         /**
+         * チャンネルの親チャンネルを変更します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {PutParentChannel} [putParentChannel]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        changeChannelParent(channelID, putParentChannel, options = {}) {
+            // verify required parameter 'channelID' is not null or undefined
+            if (channelID === null || channelID === undefined) {
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling changeChannelParent.');
+            }
+            const localVarPath = `/channels/{channelID}/parent`
+                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication cookieAuth required
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = ("PutParentChannel" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(putParentChannel !== undefined ? putParentChannel : {}) : (putParentChannel || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * チャンネルの説明を変更します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {SetChannelTopic} [setChannelTopic]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        changeChannelTopic(channelID, setChannelTopic, options = {}) {
+            // verify required parameter 'channelID' is not null or undefined
+            if (channelID === null || channelID === undefined) {
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling changeChannelTopic.');
+            }
+            const localVarPath = `/channels/{channelID}/topic`
+                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["write"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = ("SetChannelTopic" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(setChannelTopic !== undefined ? setChannelTopic : {}) : (setChannelTopic || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * チャンネルを作成します。
+         * @param {CreateChannel} [createChannel]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createChannel(createChannel, options = {}) {
+            const localVarPath = `/channels`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["write"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = ("CreateChannel" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(createChannel !== undefined ? createChannel : {}) : (createChannel || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * 子チャンネルを作成します。
          * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {CreateChannelChild} [createChannelChild]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDChildrenPost(channelID, createChannelChild, options = {}) {
+        createChannelChild(channelID, createChannelChild, options = {}) {
             // verify required parameter 'channelID' is not null or undefined
             if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDChildrenPost.');
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling createChannelChild.');
             }
             const localVarPath = `/channels/{channelID}/children`
                 .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
@@ -1982,10 +2095,10 @@ export const ChannelApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDDelete(channelID, options = {}) {
+        deleteChannel(channelID, options = {}) {
             // verify required parameter 'channelID' is not null or undefined
             if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDDelete.');
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling deleteChannel.');
             }
             const localVarPath = `/channels/{channelID}`
                 .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
@@ -2008,6 +2121,79 @@ export const ChannelApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
+         * チャンネルの情報を変更します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {PatchChannel} [patchChannel]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        editChannel(channelID, patchChannel, options = {}) {
+            // verify required parameter 'channelID' is not null or undefined
+            if (channelID === null || channelID === undefined) {
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling editChannel.');
+            }
+            const localVarPath = `/channels/{channelID}`
+                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication cookieAuth required
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = ("PatchChannel" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(patchChannel !== undefined ? patchChannel : {}) : (patchChannel || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * チャンネルの情報を返します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getChannel(channelID, options = {}) {
+            // verify required parameter 'channelID' is not null or undefined
+            if (channelID === null || channelID === undefined) {
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling getChannel.');
+            }
+            const localVarPath = `/channels/{channelID}`
+                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * チャンネルイベントのリストを取得します。
          * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {number} [limit] 取得する件数 1-200
@@ -2019,10 +2205,10 @@ export const ChannelApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDEventsGet(channelID, limit, offset, since, until, inclusive, order, options = {}) {
+        getChannelEvents(channelID, limit, offset, since, until, inclusive, order, options = {}) {
             // verify required parameter 'channelID' is not null or undefined
             if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDEventsGet.');
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling getChannelEvents.');
             }
             const localVarPath = `/channels/{channelID}/events`
                 .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
@@ -2070,123 +2256,15 @@ export const ChannelApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * チャンネルの情報を返します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDGet(channelID, options = {}) {
-            // verify required parameter 'channelID' is not null or undefined
-            if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDGet.');
-            }
-            const localVarPath = `/channels/{channelID}`
-                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * チャンネルの親チャンネルを変更します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {PutParentChannel} [putParentChannel]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDParentPut(channelID, putParentChannel, options = {}) {
-            // verify required parameter 'channelID' is not null or undefined
-            if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDParentPut.');
-            }
-            const localVarPath = `/channels/{channelID}/parent`
-                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication cookieAuth required
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("PutParentChannel" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(putParentChannel !== undefined ? putParentChannel : {}) : (putParentChannel || "");
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * チャンネルの情報を変更します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {PatchChannel} [patchChannel]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDPatch(channelID, patchChannel, options = {}) {
-            // verify required parameter 'channelID' is not null or undefined
-            if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDPatch.');
-            }
-            const localVarPath = `/channels/{channelID}`
-                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication cookieAuth required
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("PatchChannel" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(patchChannel !== undefined ? patchChannel : {}) : (patchChannel || "");
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * チャンネルの説明を取得します。
          * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDTopicGet(channelID, options = {}) {
+        getChannelTopic(channelID, options = {}) {
             // verify required parameter 'channelID' is not null or undefined
             if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDTopicGet.');
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling getChannelTopic.');
             }
             const localVarPath = `/channels/{channelID}/topic`
                 .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
@@ -2210,48 +2288,6 @@ export const ChannelApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * チャンネルの説明を変更します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {SetChannelTopic} [setChannelTopic]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDTopicPut(channelID, setChannelTopic, options = {}) {
-            // verify required parameter 'channelID' is not null or undefined
-            if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDTopicPut.');
-            }
-            const localVarPath = `/channels/{channelID}/topic`
-                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["write"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("SetChannelTopic" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(setChannelTopic !== undefined ? setChannelTopic : {}) : (setChannelTopic || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -2262,7 +2298,7 @@ export const ChannelApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsGet(options = {}) {
+        getChannels(options = {}) {
             const localVarPath = `/channels`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -2289,42 +2325,6 @@ export const ChannelApiAxiosParamCreator = function (configuration) {
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * チャンネルを作成します。
-         * @param {CreateChannel} [createChannel]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsPost(createChannel, options = {}) {
-            const localVarPath = `/channels`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["write"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("CreateChannel" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(createChannel !== undefined ? createChannel : {}) : (createChannel || "");
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     };
 };
 /**
@@ -2334,14 +2334,55 @@ export const ChannelApiAxiosParamCreator = function (configuration) {
 export const ChannelApiFp = function (configuration) {
     return {
         /**
+         * チャンネルの親チャンネルを変更します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {PutParentChannel} [putParentChannel]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        changeChannelParent(channelID, putParentChannel, options) {
+            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).changeChannelParent(channelID, putParentChannel, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * チャンネルの説明を変更します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {SetChannelTopic} [setChannelTopic]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        changeChannelTopic(channelID, setChannelTopic, options) {
+            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).changeChannelTopic(channelID, setChannelTopic, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * チャンネルを作成します。
+         * @param {CreateChannel} [createChannel]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createChannel(createChannel, options) {
+            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).createChannel(createChannel, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
          * 子チャンネルを作成します。
          * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {CreateChannelChild} [createChannelChild]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDChildrenPost(channelID, createChannelChild, options) {
-            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).channelsChannelIDChildrenPost(channelID, createChannelChild, options);
+        createChannelChild(channelID, createChannelChild, options) {
+            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).createChannelChild(channelID, createChannelChild, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -2353,8 +2394,35 @@ export const ChannelApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDDelete(channelID, options) {
-            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).channelsChannelIDDelete(channelID, options);
+        deleteChannel(channelID, options) {
+            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).deleteChannel(channelID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * チャンネルの情報を変更します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {PatchChannel} [patchChannel]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        editChannel(channelID, patchChannel, options) {
+            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).editChannel(channelID, patchChannel, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * チャンネルの情報を返します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getChannel(channelID, options) {
+            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).getChannel(channelID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -2372,49 +2440,8 @@ export const ChannelApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDEventsGet(channelID, limit, offset, since, until, inclusive, order, options) {
-            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).channelsChannelIDEventsGet(channelID, limit, offset, since, until, inclusive, order, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * チャンネルの情報を返します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDGet(channelID, options) {
-            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).channelsChannelIDGet(channelID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * チャンネルの親チャンネルを変更します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {PutParentChannel} [putParentChannel]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDParentPut(channelID, putParentChannel, options) {
-            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).channelsChannelIDParentPut(channelID, putParentChannel, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * チャンネルの情報を変更します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {PatchChannel} [patchChannel]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDPatch(channelID, patchChannel, options) {
-            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).channelsChannelIDPatch(channelID, patchChannel, options);
+        getChannelEvents(channelID, limit, offset, since, until, inclusive, order, options) {
+            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).getChannelEvents(channelID, limit, offset, since, until, inclusive, order, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -2426,22 +2453,8 @@ export const ChannelApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDTopicGet(channelID, options) {
-            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).channelsChannelIDTopicGet(channelID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * チャンネルの説明を変更します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {SetChannelTopic} [setChannelTopic]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDTopicPut(channelID, setChannelTopic, options) {
-            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).channelsChannelIDTopicPut(channelID, setChannelTopic, options);
+        getChannelTopic(channelID, options) {
+            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).getChannelTopic(channelID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -2452,21 +2465,8 @@ export const ChannelApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsGet(options) {
-            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).channelsGet(options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * チャンネルを作成します。
-         * @param {CreateChannel} [createChannel]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsPost(createChannel, options) {
-            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).channelsPost(createChannel, options);
+        getChannels(options) {
+            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).getChannels(options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -2481,14 +2481,43 @@ export const ChannelApiFp = function (configuration) {
 export const ChannelApiFactory = function (configuration, basePath, axios) {
     return {
         /**
+         * チャンネルの親チャンネルを変更します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {PutParentChannel} [putParentChannel]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        changeChannelParent(channelID, putParentChannel, options) {
+            return ChannelApiFp(configuration).changeChannelParent(channelID, putParentChannel, options)(axios, basePath);
+        },
+        /**
+         * チャンネルの説明を変更します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {SetChannelTopic} [setChannelTopic]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        changeChannelTopic(channelID, setChannelTopic, options) {
+            return ChannelApiFp(configuration).changeChannelTopic(channelID, setChannelTopic, options)(axios, basePath);
+        },
+        /**
+         * チャンネルを作成します。
+         * @param {CreateChannel} [createChannel]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createChannel(createChannel, options) {
+            return ChannelApiFp(configuration).createChannel(createChannel, options)(axios, basePath);
+        },
+        /**
          * 子チャンネルを作成します。
          * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {CreateChannelChild} [createChannelChild]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDChildrenPost(channelID, createChannelChild, options) {
-            return ChannelApiFp(configuration).channelsChannelIDChildrenPost(channelID, createChannelChild, options)(axios, basePath);
+        createChannelChild(channelID, createChannelChild, options) {
+            return ChannelApiFp(configuration).createChannelChild(channelID, createChannelChild, options)(axios, basePath);
         },
         /**
          * チャンネルを削除します。
@@ -2496,8 +2525,27 @@ export const ChannelApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDDelete(channelID, options) {
-            return ChannelApiFp(configuration).channelsChannelIDDelete(channelID, options)(axios, basePath);
+        deleteChannel(channelID, options) {
+            return ChannelApiFp(configuration).deleteChannel(channelID, options)(axios, basePath);
+        },
+        /**
+         * チャンネルの情報を変更します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {PatchChannel} [patchChannel]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        editChannel(channelID, patchChannel, options) {
+            return ChannelApiFp(configuration).editChannel(channelID, patchChannel, options)(axios, basePath);
+        },
+        /**
+         * チャンネルの情報を返します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getChannel(channelID, options) {
+            return ChannelApiFp(configuration).getChannel(channelID, options)(axios, basePath);
         },
         /**
          * チャンネルイベントのリストを取得します。
@@ -2511,37 +2559,8 @@ export const ChannelApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDEventsGet(channelID, limit, offset, since, until, inclusive, order, options) {
-            return ChannelApiFp(configuration).channelsChannelIDEventsGet(channelID, limit, offset, since, until, inclusive, order, options)(axios, basePath);
-        },
-        /**
-         * チャンネルの情報を返します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDGet(channelID, options) {
-            return ChannelApiFp(configuration).channelsChannelIDGet(channelID, options)(axios, basePath);
-        },
-        /**
-         * チャンネルの親チャンネルを変更します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {PutParentChannel} [putParentChannel]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDParentPut(channelID, putParentChannel, options) {
-            return ChannelApiFp(configuration).channelsChannelIDParentPut(channelID, putParentChannel, options)(axios, basePath);
-        },
-        /**
-         * チャンネルの情報を変更します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {PatchChannel} [patchChannel]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDPatch(channelID, patchChannel, options) {
-            return ChannelApiFp(configuration).channelsChannelIDPatch(channelID, patchChannel, options)(axios, basePath);
+        getChannelEvents(channelID, limit, offset, since, until, inclusive, order, options) {
+            return ChannelApiFp(configuration).getChannelEvents(channelID, limit, offset, since, until, inclusive, order, options)(axios, basePath);
         },
         /**
          * チャンネルの説明を取得します。
@@ -2549,35 +2568,16 @@ export const ChannelApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDTopicGet(channelID, options) {
-            return ChannelApiFp(configuration).channelsChannelIDTopicGet(channelID, options)(axios, basePath);
-        },
-        /**
-         * チャンネルの説明を変更します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {SetChannelTopic} [setChannelTopic]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDTopicPut(channelID, setChannelTopic, options) {
-            return ChannelApiFp(configuration).channelsChannelIDTopicPut(channelID, setChannelTopic, options)(axios, basePath);
+        getChannelTopic(channelID, options) {
+            return ChannelApiFp(configuration).getChannelTopic(channelID, options)(axios, basePath);
         },
         /**
          * (すべての)チャンネルのリストを取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsGet(options) {
-            return ChannelApiFp(configuration).channelsGet(options)(axios, basePath);
-        },
-        /**
-         * チャンネルを作成します。
-         * @param {CreateChannel} [createChannel]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsPost(createChannel, options) {
-            return ChannelApiFp(configuration).channelsPost(createChannel, options)(axios, basePath);
+        getChannels(options) {
+            return ChannelApiFp(configuration).getChannels(options)(axios, basePath);
         },
     };
 };
@@ -2589,6 +2589,38 @@ export const ChannelApiFactory = function (configuration, basePath, axios) {
  */
 export class ChannelApi extends BaseAPI {
     /**
+     * チャンネルの親チャンネルを変更します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {PutParentChannel} [putParentChannel]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    changeChannelParent(channelID, putParentChannel, options) {
+        return ChannelApiFp(this.configuration).changeChannelParent(channelID, putParentChannel, options)(this.axios, this.basePath);
+    }
+    /**
+     * チャンネルの説明を変更します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {SetChannelTopic} [setChannelTopic]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    changeChannelTopic(channelID, setChannelTopic, options) {
+        return ChannelApiFp(this.configuration).changeChannelTopic(channelID, setChannelTopic, options)(this.axios, this.basePath);
+    }
+    /**
+     * チャンネルを作成します。
+     * @param {CreateChannel} [createChannel]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    createChannel(createChannel, options) {
+        return ChannelApiFp(this.configuration).createChannel(createChannel, options)(this.axios, this.basePath);
+    }
+    /**
      * 子チャンネルを作成します。
      * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {CreateChannelChild} [createChannelChild]
@@ -2596,8 +2628,8 @@ export class ChannelApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDChildrenPost(channelID, createChannelChild, options) {
-        return ChannelApiFp(this.configuration).channelsChannelIDChildrenPost(channelID, createChannelChild, options)(this.axios, this.basePath);
+    createChannelChild(channelID, createChannelChild, options) {
+        return ChannelApiFp(this.configuration).createChannelChild(channelID, createChannelChild, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルを削除します。
@@ -2606,8 +2638,29 @@ export class ChannelApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDDelete(channelID, options) {
-        return ChannelApiFp(this.configuration).channelsChannelIDDelete(channelID, options)(this.axios, this.basePath);
+    deleteChannel(channelID, options) {
+        return ChannelApiFp(this.configuration).deleteChannel(channelID, options)(this.axios, this.basePath);
+    }
+    /**
+     * チャンネルの情報を変更します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {PatchChannel} [patchChannel]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    editChannel(channelID, patchChannel, options) {
+        return ChannelApiFp(this.configuration).editChannel(channelID, patchChannel, options)(this.axios, this.basePath);
+    }
+    /**
+     * チャンネルの情報を返します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    getChannel(channelID, options) {
+        return ChannelApiFp(this.configuration).getChannel(channelID, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルイベントのリストを取得します。
@@ -2622,40 +2675,8 @@ export class ChannelApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDEventsGet(channelID, limit, offset, since, until, inclusive, order, options) {
-        return ChannelApiFp(this.configuration).channelsChannelIDEventsGet(channelID, limit, offset, since, until, inclusive, order, options)(this.axios, this.basePath);
-    }
-    /**
-     * チャンネルの情報を返します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ChannelApi
-     */
-    channelsChannelIDGet(channelID, options) {
-        return ChannelApiFp(this.configuration).channelsChannelIDGet(channelID, options)(this.axios, this.basePath);
-    }
-    /**
-     * チャンネルの親チャンネルを変更します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {PutParentChannel} [putParentChannel]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ChannelApi
-     */
-    channelsChannelIDParentPut(channelID, putParentChannel, options) {
-        return ChannelApiFp(this.configuration).channelsChannelIDParentPut(channelID, putParentChannel, options)(this.axios, this.basePath);
-    }
-    /**
-     * チャンネルの情報を変更します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {PatchChannel} [patchChannel]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ChannelApi
-     */
-    channelsChannelIDPatch(channelID, patchChannel, options) {
-        return ChannelApiFp(this.configuration).channelsChannelIDPatch(channelID, patchChannel, options)(this.axios, this.basePath);
+    getChannelEvents(channelID, limit, offset, since, until, inclusive, order, options) {
+        return ChannelApiFp(this.configuration).getChannelEvents(channelID, limit, offset, since, until, inclusive, order, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルの説明を取得します。
@@ -2664,19 +2685,8 @@ export class ChannelApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDTopicGet(channelID, options) {
-        return ChannelApiFp(this.configuration).channelsChannelIDTopicGet(channelID, options)(this.axios, this.basePath);
-    }
-    /**
-     * チャンネルの説明を変更します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {SetChannelTopic} [setChannelTopic]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ChannelApi
-     */
-    channelsChannelIDTopicPut(channelID, setChannelTopic, options) {
-        return ChannelApiFp(this.configuration).channelsChannelIDTopicPut(channelID, setChannelTopic, options)(this.axios, this.basePath);
+    getChannelTopic(channelID, options) {
+        return ChannelApiFp(this.configuration).getChannelTopic(channelID, options)(this.axios, this.basePath);
     }
     /**
      * (すべての)チャンネルのリストを取得します。
@@ -2684,18 +2694,8 @@ export class ChannelApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsGet(options) {
-        return ChannelApiFp(this.configuration).channelsGet(options)(this.axios, this.basePath);
-    }
-    /**
-     * チャンネルを作成します。
-     * @param {CreateChannel} [createChannel]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ChannelApi
-     */
-    channelsPost(createChannel, options) {
-        return ChannelApiFp(this.configuration).channelsPost(createChannel, options)(this.axios, this.basePath);
+    getChannels(options) {
+        return ChannelApiFp(this.configuration).getChannels(options)(this.axios, this.basePath);
     }
 }
 /**
@@ -2705,15 +2705,51 @@ export class ChannelApi extends BaseAPI {
 export const ClientApiAxiosParamCreator = function (configuration) {
     return {
         /**
+         * クライアントを登録します。
+         * @param {PostClient} [postClient]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createClient(postClient, options = {}) {
+            const localVarPath = `/clients`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["manage_bot"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = ("PostClient" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(postClient !== undefined ? postClient : {}) : (postClient || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * 指定したクライアントIDのクライアントを削除します。 正常に削除された場合、このクライアントを通じての認可は全て取り消されます。
          * @param {string} clientID 操作の対象となるclientのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clientsClientIDDelete(clientID, options = {}) {
+        deleteClient(clientID, options = {}) {
             // verify required parameter 'clientID' is not null or undefined
             if (clientID === null || clientID === undefined) {
-                throw new RequiredError('clientID', 'Required parameter clientID was null or undefined when calling clientsClientIDDelete.');
+                throw new RequiredError('clientID', 'Required parameter clientID was null or undefined when calling deleteClient.');
             }
             const localVarPath = `/clients/{clientID}`
                 .replace(`{${"clientID"}}`, encodeURIComponent(String(clientID)));
@@ -2743,34 +2779,27 @@ export const ClientApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * クライアントの詳細を取得します。
-         * @param {string} clientID 操作の対象となるclientのID
+         * 指定したトークンの認可を取り消します。
+         * @param {string} oauth2TokenID 操作の対象となるTokenのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clientsClientIDDetailGet(clientID, options = {}) {
-            // verify required parameter 'clientID' is not null or undefined
-            if (clientID === null || clientID === undefined) {
-                throw new RequiredError('clientID', 'Required parameter clientID was null or undefined when calling clientsClientIDDetailGet.');
+        deleteToken(oauth2TokenID, options = {}) {
+            // verify required parameter 'oauth2TokenID' is not null or undefined
+            if (oauth2TokenID === null || oauth2TokenID === undefined) {
+                throw new RequiredError('oauth2TokenID', 'Required parameter oauth2TokenID was null or undefined when calling deleteToken.');
             }
-            const localVarPath = `/clients/{clientID}/detail`
-                .replace(`{${"clientID"}}`, encodeURIComponent(String(clientID)));
+            const localVarPath = `/users/me/tokens/{oauth2TokenID}`
+                .replace(`{${"oauth2TokenID"}}`, encodeURIComponent(String(oauth2TokenID)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["manage_bot"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
+            // authentication cookieAuth required
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
@@ -2786,10 +2815,10 @@ export const ClientApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clientsClientIDGet(clientID, options = {}) {
+        getClient(clientID, options = {}) {
             // verify required parameter 'clientID' is not null or undefined
             if (clientID === null || clientID === undefined) {
-                throw new RequiredError('clientID', 'Required parameter clientID was null or undefined when calling clientsClientIDGet.');
+                throw new RequiredError('clientID', 'Required parameter clientID was null or undefined when calling getClient.');
             }
             const localVarPath = `/clients/{clientID}`
                 .replace(`{${"clientID"}}`, encodeURIComponent(String(clientID)));
@@ -2819,16 +2848,111 @@ export const ClientApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
+         * クライアントの詳細を取得します。
+         * @param {string} clientID 操作の対象となるclientのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getClientDetail(clientID, options = {}) {
+            // verify required parameter 'clientID' is not null or undefined
+            if (clientID === null || clientID === undefined) {
+                throw new RequiredError('clientID', 'Required parameter clientID was null or undefined when calling getClientDetail.');
+            }
+            const localVarPath = `/clients/{clientID}/detail`
+                .replace(`{${"clientID"}}`, encodeURIComponent(String(clientID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["manage_bot"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 自分が登録しているクライアントの一覧を取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getClients(options = {}) {
+            const localVarPath = `/clients`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["manage_bot"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 自分が許可しているクライアントの一覧とトークン情報を取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokens(options = {}) {
+            const localVarPath = `/users/me/tokens`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication cookieAuth required
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * 指定したクライアントIDのクライアントの情報を変更します。
          * @param {string} clientID 操作の対象となるclientのID
          * @param {PatchClient} [patchClient]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clientsClientIDPatch(clientID, patchClient, options = {}) {
+        patchClient(clientID, patchClient, options = {}) {
             // verify required parameter 'clientID' is not null or undefined
             if (clientID === null || clientID === undefined) {
-                throw new RequiredError('clientID', 'Required parameter clientID was null or undefined when calling clientsClientIDPatch.');
+                throw new RequiredError('clientID', 'Required parameter clientID was null or undefined when calling patchClient.');
             }
             const localVarPath = `/clients/{clientID}`
                 .replace(`{${"clientID"}}`, encodeURIComponent(String(clientID)));
@@ -2860,130 +2984,6 @@ export const ClientApiAxiosParamCreator = function (configuration) {
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * 自分が登録しているクライアントの一覧を取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        clientsGet(options = {}) {
-            const localVarPath = `/clients`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["manage_bot"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * クライアントを登録します。
-         * @param {PostClient} [postClient]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        clientsPost(postClient, options = {}) {
-            const localVarPath = `/clients`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["manage_bot"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("PostClient" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(postClient !== undefined ? postClient : {}) : (postClient || "");
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 自分が許可しているクライアントの一覧とトークン情報を取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeTokensGet(options = {}) {
-            const localVarPath = `/users/me/tokens`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication cookieAuth required
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 指定したトークンの認可を取り消します。
-         * @param {string} oauth2TokenID 操作の対象となるTokenのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeTokensOauth2TokenIDDelete(oauth2TokenID, options = {}) {
-            // verify required parameter 'oauth2TokenID' is not null or undefined
-            if (oauth2TokenID === null || oauth2TokenID === undefined) {
-                throw new RequiredError('oauth2TokenID', 'Required parameter oauth2TokenID was null or undefined when calling usersMeTokensOauth2TokenIDDelete.');
-            }
-            const localVarPath = `/users/me/tokens/{oauth2TokenID}`
-                .replace(`{${"oauth2TokenID"}}`, encodeURIComponent(String(oauth2TokenID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication cookieAuth required
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     };
 };
 /**
@@ -2993,26 +2993,39 @@ export const ClientApiAxiosParamCreator = function (configuration) {
 export const ClientApiFp = function (configuration) {
     return {
         /**
-         * 指定したクライアントIDのクライアントを削除します。 正常に削除された場合、このクライアントを通じての認可は全て取り消されます。
-         * @param {string} clientID 操作の対象となるclientのID
+         * クライアントを登録します。
+         * @param {PostClient} [postClient]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clientsClientIDDelete(clientID, options) {
-            const localVarAxiosArgs = ClientApiAxiosParamCreator(configuration).clientsClientIDDelete(clientID, options);
+        createClient(postClient, options) {
+            const localVarAxiosArgs = ClientApiAxiosParamCreator(configuration).createClient(postClient, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
             };
         },
         /**
-         * クライアントの詳細を取得します。
+         * 指定したクライアントIDのクライアントを削除します。 正常に削除された場合、このクライアントを通じての認可は全て取り消されます。
          * @param {string} clientID 操作の対象となるclientのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clientsClientIDDetailGet(clientID, options) {
-            const localVarAxiosArgs = ClientApiAxiosParamCreator(configuration).clientsClientIDDetailGet(clientID, options);
+        deleteClient(clientID, options) {
+            const localVarAxiosArgs = ClientApiAxiosParamCreator(configuration).deleteClient(clientID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 指定したトークンの認可を取り消します。
+         * @param {string} oauth2TokenID 操作の対象となるTokenのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteToken(oauth2TokenID, options) {
+            const localVarAxiosArgs = ClientApiAxiosParamCreator(configuration).deleteToken(oauth2TokenID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -3024,8 +3037,45 @@ export const ClientApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clientsClientIDGet(clientID, options) {
-            const localVarAxiosArgs = ClientApiAxiosParamCreator(configuration).clientsClientIDGet(clientID, options);
+        getClient(clientID, options) {
+            const localVarAxiosArgs = ClientApiAxiosParamCreator(configuration).getClient(clientID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * クライアントの詳細を取得します。
+         * @param {string} clientID 操作の対象となるclientのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getClientDetail(clientID, options) {
+            const localVarAxiosArgs = ClientApiAxiosParamCreator(configuration).getClientDetail(clientID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 自分が登録しているクライアントの一覧を取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getClients(options) {
+            const localVarAxiosArgs = ClientApiAxiosParamCreator(configuration).getClients(options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 自分が許可しているクライアントの一覧とトークン情報を取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokens(options) {
+            const localVarAxiosArgs = ClientApiAxiosParamCreator(configuration).getTokens(options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -3038,58 +3088,8 @@ export const ClientApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clientsClientIDPatch(clientID, patchClient, options) {
-            const localVarAxiosArgs = ClientApiAxiosParamCreator(configuration).clientsClientIDPatch(clientID, patchClient, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 自分が登録しているクライアントの一覧を取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        clientsGet(options) {
-            const localVarAxiosArgs = ClientApiAxiosParamCreator(configuration).clientsGet(options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * クライアントを登録します。
-         * @param {PostClient} [postClient]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        clientsPost(postClient, options) {
-            const localVarAxiosArgs = ClientApiAxiosParamCreator(configuration).clientsPost(postClient, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 自分が許可しているクライアントの一覧とトークン情報を取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeTokensGet(options) {
-            const localVarAxiosArgs = ClientApiAxiosParamCreator(configuration).usersMeTokensGet(options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 指定したトークンの認可を取り消します。
-         * @param {string} oauth2TokenID 操作の対象となるTokenのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeTokensOauth2TokenIDDelete(oauth2TokenID, options) {
-            const localVarAxiosArgs = ClientApiAxiosParamCreator(configuration).usersMeTokensOauth2TokenIDDelete(oauth2TokenID, options);
+        patchClient(clientID, patchClient, options) {
+            const localVarAxiosArgs = ClientApiAxiosParamCreator(configuration).patchClient(clientID, patchClient, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -3104,22 +3104,31 @@ export const ClientApiFp = function (configuration) {
 export const ClientApiFactory = function (configuration, basePath, axios) {
     return {
         /**
+         * クライアントを登録します。
+         * @param {PostClient} [postClient]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createClient(postClient, options) {
+            return ClientApiFp(configuration).createClient(postClient, options)(axios, basePath);
+        },
+        /**
          * 指定したクライアントIDのクライアントを削除します。 正常に削除された場合、このクライアントを通じての認可は全て取り消されます。
          * @param {string} clientID 操作の対象となるclientのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clientsClientIDDelete(clientID, options) {
-            return ClientApiFp(configuration).clientsClientIDDelete(clientID, options)(axios, basePath);
+        deleteClient(clientID, options) {
+            return ClientApiFp(configuration).deleteClient(clientID, options)(axios, basePath);
         },
         /**
-         * クライアントの詳細を取得します。
-         * @param {string} clientID 操作の対象となるclientのID
+         * 指定したトークンの認可を取り消します。
+         * @param {string} oauth2TokenID 操作の対象となるTokenのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clientsClientIDDetailGet(clientID, options) {
-            return ClientApiFp(configuration).clientsClientIDDetailGet(clientID, options)(axios, basePath);
+        deleteToken(oauth2TokenID, options) {
+            return ClientApiFp(configuration).deleteToken(oauth2TokenID, options)(axios, basePath);
         },
         /**
          * 指定したクライアントIDのクライアントの情報を取得します。
@@ -3127,8 +3136,33 @@ export const ClientApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clientsClientIDGet(clientID, options) {
-            return ClientApiFp(configuration).clientsClientIDGet(clientID, options)(axios, basePath);
+        getClient(clientID, options) {
+            return ClientApiFp(configuration).getClient(clientID, options)(axios, basePath);
+        },
+        /**
+         * クライアントの詳細を取得します。
+         * @param {string} clientID 操作の対象となるclientのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getClientDetail(clientID, options) {
+            return ClientApiFp(configuration).getClientDetail(clientID, options)(axios, basePath);
+        },
+        /**
+         * 自分が登録しているクライアントの一覧を取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getClients(options) {
+            return ClientApiFp(configuration).getClients(options)(axios, basePath);
+        },
+        /**
+         * 自分が許可しているクライアントの一覧とトークン情報を取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokens(options) {
+            return ClientApiFp(configuration).getTokens(options)(axios, basePath);
         },
         /**
          * 指定したクライアントIDのクライアントの情報を変更します。
@@ -3137,42 +3171,8 @@ export const ClientApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clientsClientIDPatch(clientID, patchClient, options) {
-            return ClientApiFp(configuration).clientsClientIDPatch(clientID, patchClient, options)(axios, basePath);
-        },
-        /**
-         * 自分が登録しているクライアントの一覧を取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        clientsGet(options) {
-            return ClientApiFp(configuration).clientsGet(options)(axios, basePath);
-        },
-        /**
-         * クライアントを登録します。
-         * @param {PostClient} [postClient]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        clientsPost(postClient, options) {
-            return ClientApiFp(configuration).clientsPost(postClient, options)(axios, basePath);
-        },
-        /**
-         * 自分が許可しているクライアントの一覧とトークン情報を取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeTokensGet(options) {
-            return ClientApiFp(configuration).usersMeTokensGet(options)(axios, basePath);
-        },
-        /**
-         * 指定したトークンの認可を取り消します。
-         * @param {string} oauth2TokenID 操作の対象となるTokenのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeTokensOauth2TokenIDDelete(oauth2TokenID, options) {
-            return ClientApiFp(configuration).usersMeTokensOauth2TokenIDDelete(oauth2TokenID, options)(axios, basePath);
+        patchClient(clientID, patchClient, options) {
+            return ClientApiFp(configuration).patchClient(clientID, patchClient, options)(axios, basePath);
         },
     };
 };
@@ -3184,24 +3184,34 @@ export const ClientApiFactory = function (configuration, basePath, axios) {
  */
 export class ClientApi extends BaseAPI {
     /**
+     * クライアントを登録します。
+     * @param {PostClient} [postClient]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClientApi
+     */
+    createClient(postClient, options) {
+        return ClientApiFp(this.configuration).createClient(postClient, options)(this.axios, this.basePath);
+    }
+    /**
      * 指定したクライアントIDのクライアントを削除します。 正常に削除された場合、このクライアントを通じての認可は全て取り消されます。
      * @param {string} clientID 操作の対象となるclientのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    clientsClientIDDelete(clientID, options) {
-        return ClientApiFp(this.configuration).clientsClientIDDelete(clientID, options)(this.axios, this.basePath);
+    deleteClient(clientID, options) {
+        return ClientApiFp(this.configuration).deleteClient(clientID, options)(this.axios, this.basePath);
     }
     /**
-     * クライアントの詳細を取得します。
-     * @param {string} clientID 操作の対象となるclientのID
+     * 指定したトークンの認可を取り消します。
+     * @param {string} oauth2TokenID 操作の対象となるTokenのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    clientsClientIDDetailGet(clientID, options) {
-        return ClientApiFp(this.configuration).clientsClientIDDetailGet(clientID, options)(this.axios, this.basePath);
+    deleteToken(oauth2TokenID, options) {
+        return ClientApiFp(this.configuration).deleteToken(oauth2TokenID, options)(this.axios, this.basePath);
     }
     /**
      * 指定したクライアントIDのクライアントの情報を取得します。
@@ -3210,8 +3220,36 @@ export class ClientApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    clientsClientIDGet(clientID, options) {
-        return ClientApiFp(this.configuration).clientsClientIDGet(clientID, options)(this.axios, this.basePath);
+    getClient(clientID, options) {
+        return ClientApiFp(this.configuration).getClient(clientID, options)(this.axios, this.basePath);
+    }
+    /**
+     * クライアントの詳細を取得します。
+     * @param {string} clientID 操作の対象となるclientのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClientApi
+     */
+    getClientDetail(clientID, options) {
+        return ClientApiFp(this.configuration).getClientDetail(clientID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 自分が登録しているクライアントの一覧を取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClientApi
+     */
+    getClients(options) {
+        return ClientApiFp(this.configuration).getClients(options)(this.axios, this.basePath);
+    }
+    /**
+     * 自分が許可しているクライアントの一覧とトークン情報を取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClientApi
+     */
+    getTokens(options) {
+        return ClientApiFp(this.configuration).getTokens(options)(this.axios, this.basePath);
     }
     /**
      * 指定したクライアントIDのクライアントの情報を変更します。
@@ -3221,46 +3259,8 @@ export class ClientApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    clientsClientIDPatch(clientID, patchClient, options) {
-        return ClientApiFp(this.configuration).clientsClientIDPatch(clientID, patchClient, options)(this.axios, this.basePath);
-    }
-    /**
-     * 自分が登録しているクライアントの一覧を取得します。
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClientApi
-     */
-    clientsGet(options) {
-        return ClientApiFp(this.configuration).clientsGet(options)(this.axios, this.basePath);
-    }
-    /**
-     * クライアントを登録します。
-     * @param {PostClient} [postClient]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClientApi
-     */
-    clientsPost(postClient, options) {
-        return ClientApiFp(this.configuration).clientsPost(postClient, options)(this.axios, this.basePath);
-    }
-    /**
-     * 自分が許可しているクライアントの一覧とトークン情報を取得します。
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClientApi
-     */
-    usersMeTokensGet(options) {
-        return ClientApiFp(this.configuration).usersMeTokensGet(options)(this.axios, this.basePath);
-    }
-    /**
-     * 指定したトークンの認可を取り消します。
-     * @param {string} oauth2TokenID 操作の対象となるTokenのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClientApi
-     */
-    usersMeTokensOauth2TokenIDDelete(oauth2TokenID, options) {
-        return ClientApiFp(this.configuration).usersMeTokensOauth2TokenIDDelete(oauth2TokenID, options)(this.axios, this.basePath);
+    patchClient(clientID, patchClient, options) {
+        return ClientApiFp(this.configuration).patchClient(clientID, patchClient, options)(this.axios, this.basePath);
     }
 }
 /**
@@ -3270,92 +3270,16 @@ export class ClientApi extends BaseAPI {
 export const ClipApiAxiosParamCreator = function (configuration) {
     return {
         /**
-         * 指定したクリップを削除します。
-         * @param {string} clipID 捜査の対象となるクリップのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeClipsClipIDDelete(clipID, options = {}) {
-            // verify required parameter 'clipID' is not null or undefined
-            if (clipID === null || clipID === undefined) {
-                throw new RequiredError('clipID', 'Required parameter clipID was null or undefined when calling usersMeClipsClipIDDelete.');
-            }
-            const localVarPath = `/users/me/clips/{clipID}`
-                .replace(`{${"clipID"}}`, encodeURIComponent(String(clipID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["write"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 指定したクリップのフォルダ情報を取得します。
-         * @param {string} clipID 捜査の対象となるクリップのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeClipsClipIDFolderGet(clipID, options = {}) {
-            // verify required parameter 'clipID' is not null or undefined
-            if (clipID === null || clipID === undefined) {
-                throw new RequiredError('clipID', 'Required parameter clipID was null or undefined when calling usersMeClipsClipIDFolderGet.');
-            }
-            const localVarPath = `/users/me/clips/{clipID}/folder`
-                .replace(`{${"clipID"}}`, encodeURIComponent(String(clipID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * 指定したクリップのフォルダを変更します。
          * @param {string} clipID 捜査の対象となるクリップのID
          * @param {ClipsFolderIDObject} [clipsFolderIDObject]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsClipIDFolderPut(clipID, clipsFolderIDObject, options = {}) {
+        changeClipsFolder(clipID, clipsFolderIDObject, options = {}) {
             // verify required parameter 'clipID' is not null or undefined
             if (clipID === null || clipID === undefined) {
-                throw new RequiredError('clipID', 'Required parameter clipID was null or undefined when calling usersMeClipsClipIDFolderPut.');
+                throw new RequiredError('clipID', 'Required parameter clipID was null or undefined when calling changeClipsFolder.');
             }
             const localVarPath = `/users/me/clips/{clipID}/folder`
                 .replace(`{${"clipID"}}`, encodeURIComponent(String(clipID)));
@@ -3388,38 +3312,72 @@ export const ClipApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * 指定したクリップのメッセージを取得します。
-         * @param {string} clipID 捜査の対象となるクリップのID
+         * 新しくメッセージをクリップします。
+         * @param {SetClip} [setClip]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsClipIDGet(clipID, options = {}) {
-            // verify required parameter 'clipID' is not null or undefined
-            if (clipID === null || clipID === undefined) {
-                throw new RequiredError('clipID', 'Required parameter clipID was null or undefined when calling usersMeClipsClipIDGet.');
-            }
-            const localVarPath = `/users/me/clips/{clipID}`
-                .replace(`{${"clipID"}}`, encodeURIComponent(String(clipID)));
+        clipMessage(setClip, options = {}) {
+            const localVarPath = `/users/me/clips`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
             // authentication traqOAuth2 required
             // oauth required
             if (configuration && configuration.accessToken) {
                 const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read"])
+                    ? configuration.accessToken("traqOAuth2", ["write"])
                     : configuration.accessToken;
                 localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
             }
+            localVarHeaderParameter['Content-Type'] = 'application/json';
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = ("SetClip" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(setClip !== undefined ? setClip : {}) : (setClip || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * クリップフォルダを作成します。
+         * @param {ClipsFolderNameObject} [clipsFolderNameObject]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createClipFolders(clipsFolderNameObject, options = {}) {
+            const localVarPath = `/users/me/clips/folders`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["write"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = ("ClipsFolderNameObject" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(clipsFolderNameObject !== undefined ? clipsFolderNameObject : {}) : (clipsFolderNameObject || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -3431,10 +3389,10 @@ export const ClipApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsFoldersFolderIDDelete(folderID, options = {}) {
+        deleteClipFolder(folderID, options = {}) {
             // verify required parameter 'folderID' is not null or undefined
             if (folderID === null || folderID === undefined) {
-                throw new RequiredError('folderID', 'Required parameter folderID was null or undefined when calling usersMeClipsFoldersFolderIDDelete.');
+                throw new RequiredError('folderID', 'Required parameter folderID was null or undefined when calling deleteClipFolder.');
             }
             const localVarPath = `/users/me/clips/folders/{folderID}`
                 .replace(`{${"folderID"}}`, encodeURIComponent(String(folderID)));
@@ -3464,54 +3422,16 @@ export const ClipApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * フォルダ内のクリップ一覧を取得します。
-         * @param {string} folderID 操作の対象となるクリップフォルダのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeClipsFoldersFolderIDGet(folderID, options = {}) {
-            // verify required parameter 'folderID' is not null or undefined
-            if (folderID === null || folderID === undefined) {
-                throw new RequiredError('folderID', 'Required parameter folderID was null or undefined when calling usersMeClipsFoldersFolderIDGet.');
-            }
-            const localVarPath = `/users/me/clips/folders/{folderID}`
-                .replace(`{${"folderID"}}`, encodeURIComponent(String(folderID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * クリップフォルダ名を変更します。
          * @param {string} folderID 操作の対象となるクリップフォルダのID
          * @param {ClipsFolderNameObject} [clipsFolderNameObject]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsFoldersFolderIDPatch(folderID, clipsFolderNameObject, options = {}) {
+        editClipFolder(folderID, clipsFolderNameObject, options = {}) {
             // verify required parameter 'folderID' is not null or undefined
             if (folderID === null || folderID === undefined) {
-                throw new RequiredError('folderID', 'Required parameter folderID was null or undefined when calling usersMeClipsFoldersFolderIDPatch.');
+                throw new RequiredError('folderID', 'Required parameter folderID was null or undefined when calling editClipFolder.');
             }
             const localVarPath = `/users/me/clips/folders/{folderID}`
                 .replace(`{${"folderID"}}`, encodeURIComponent(String(folderID)));
@@ -3544,12 +3464,18 @@ export const ClipApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * クリップフォルダ一覧を取得します。
+         * 指定したクリップのメッセージを取得します。
+         * @param {string} clipID 捜査の対象となるクリップのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsFoldersGet(options = {}) {
-            const localVarPath = `/users/me/clips/folders`;
+        getClip(clipID, options = {}) {
+            // verify required parameter 'clipID' is not null or undefined
+            if (clipID === null || clipID === undefined) {
+                throw new RequiredError('clipID', 'Required parameter clipID was null or undefined when calling getClip.');
+            }
+            const localVarPath = `/users/me/clips/{clipID}`
+                .replace(`{${"clipID"}}`, encodeURIComponent(String(clipID)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -3576,36 +3502,70 @@ export const ClipApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * クリップフォルダを作成します。
-         * @param {ClipsFolderNameObject} [clipsFolderNameObject]
+         * フォルダ内のクリップ一覧を取得します。
+         * @param {string} folderID 操作の対象となるクリップフォルダのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsFoldersPost(clipsFolderNameObject, options = {}) {
-            const localVarPath = `/users/me/clips/folders`;
+        getClipFolder(folderID, options = {}) {
+            // verify required parameter 'folderID' is not null or undefined
+            if (folderID === null || folderID === undefined) {
+                throw new RequiredError('folderID', 'Required parameter folderID was null or undefined when calling getClipFolder.');
+            }
+            const localVarPath = `/users/me/clips/folders/{folderID}`
+                .replace(`{${"folderID"}}`, encodeURIComponent(String(folderID)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
             // authentication traqOAuth2 required
             // oauth required
             if (configuration && configuration.accessToken) {
                 const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["write"])
+                    ? configuration.accessToken("traqOAuth2", ["read"])
                     : configuration.accessToken;
                 localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
             }
-            localVarHeaderParameter['Content-Type'] = 'application/json';
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("ClipsFolderNameObject" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(clipsFolderNameObject !== undefined ? clipsFolderNameObject : {}) : (clipsFolderNameObject || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * クリップフォルダ一覧を取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getClipFolders(options = {}) {
+            const localVarPath = `/users/me/clips/folders`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -3616,7 +3576,7 @@ export const ClipApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsGet(options = {}) {
+        getClips(options = {}) {
             const localVarPath = `/users/me/clips`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -3644,19 +3604,62 @@ export const ClipApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * 新しくメッセージをクリップします。
-         * @param {SetClip} [setClip]
+         * 指定したクリップのフォルダ情報を取得します。
+         * @param {string} clipID 捜査の対象となるクリップのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsPost(setClip, options = {}) {
-            const localVarPath = `/users/me/clips`;
+        getClipsFolder(clipID, options = {}) {
+            // verify required parameter 'clipID' is not null or undefined
+            if (clipID === null || clipID === undefined) {
+                throw new RequiredError('clipID', 'Required parameter clipID was null or undefined when calling getClipsFolder.');
+            }
+            const localVarPath = `/users/me/clips/{clipID}/folder`
+                .replace(`{${"clipID"}}`, encodeURIComponent(String(clipID)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 指定したクリップを削除します。
+         * @param {string} clipID 捜査の対象となるクリップのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unclipMessage(clipID, options = {}) {
+            // verify required parameter 'clipID' is not null or undefined
+            if (clipID === null || clipID === undefined) {
+                throw new RequiredError('clipID', 'Required parameter clipID was null or undefined when calling unclipMessage.');
+            }
+            const localVarPath = `/users/me/clips/{clipID}`
+                .replace(`{${"clipID"}}`, encodeURIComponent(String(clipID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
             // authentication traqOAuth2 required
@@ -3667,13 +3670,10 @@ export const ClipApiAxiosParamCreator = function (configuration) {
                     : configuration.accessToken;
                 localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
             }
-            localVarHeaderParameter['Content-Type'] = 'application/json';
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("SetClip" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(setClip !== undefined ? setClip : {}) : (setClip || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -3688,53 +3688,40 @@ export const ClipApiAxiosParamCreator = function (configuration) {
 export const ClipApiFp = function (configuration) {
     return {
         /**
-         * 指定したクリップを削除します。
-         * @param {string} clipID 捜査の対象となるクリップのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeClipsClipIDDelete(clipID, options) {
-            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).usersMeClipsClipIDDelete(clipID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 指定したクリップのフォルダ情報を取得します。
-         * @param {string} clipID 捜査の対象となるクリップのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeClipsClipIDFolderGet(clipID, options) {
-            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).usersMeClipsClipIDFolderGet(clipID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
          * 指定したクリップのフォルダを変更します。
          * @param {string} clipID 捜査の対象となるクリップのID
          * @param {ClipsFolderIDObject} [clipsFolderIDObject]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsClipIDFolderPut(clipID, clipsFolderIDObject, options) {
-            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).usersMeClipsClipIDFolderPut(clipID, clipsFolderIDObject, options);
+        changeClipsFolder(clipID, clipsFolderIDObject, options) {
+            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).changeClipsFolder(clipID, clipsFolderIDObject, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
             };
         },
         /**
-         * 指定したクリップのメッセージを取得します。
-         * @param {string} clipID 捜査の対象となるクリップのID
+         * 新しくメッセージをクリップします。
+         * @param {SetClip} [setClip]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsClipIDGet(clipID, options) {
-            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).usersMeClipsClipIDGet(clipID, options);
+        clipMessage(setClip, options) {
+            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).clipMessage(setClip, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * クリップフォルダを作成します。
+         * @param {ClipsFolderNameObject} [clipsFolderNameObject]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createClipFolders(clipsFolderNameObject, options) {
+            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).createClipFolders(clipsFolderNameObject, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -3746,21 +3733,8 @@ export const ClipApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsFoldersFolderIDDelete(folderID, options) {
-            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).usersMeClipsFoldersFolderIDDelete(folderID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * フォルダ内のクリップ一覧を取得します。
-         * @param {string} folderID 操作の対象となるクリップフォルダのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeClipsFoldersFolderIDGet(folderID, options) {
-            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).usersMeClipsFoldersFolderIDGet(folderID, options);
+        deleteClipFolder(folderID, options) {
+            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).deleteClipFolder(folderID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -3773,8 +3747,34 @@ export const ClipApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsFoldersFolderIDPatch(folderID, clipsFolderNameObject, options) {
-            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).usersMeClipsFoldersFolderIDPatch(folderID, clipsFolderNameObject, options);
+        editClipFolder(folderID, clipsFolderNameObject, options) {
+            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).editClipFolder(folderID, clipsFolderNameObject, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 指定したクリップのメッセージを取得します。
+         * @param {string} clipID 捜査の対象となるクリップのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getClip(clipID, options) {
+            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).getClip(clipID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * フォルダ内のクリップ一覧を取得します。
+         * @param {string} folderID 操作の対象となるクリップフォルダのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getClipFolder(folderID, options) {
+            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).getClipFolder(folderID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -3785,21 +3785,8 @@ export const ClipApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsFoldersGet(options) {
-            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).usersMeClipsFoldersGet(options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * クリップフォルダを作成します。
-         * @param {ClipsFolderNameObject} [clipsFolderNameObject]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeClipsFoldersPost(clipsFolderNameObject, options) {
-            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).usersMeClipsFoldersPost(clipsFolderNameObject, options);
+        getClipFolders(options) {
+            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).getClipFolders(options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -3810,21 +3797,34 @@ export const ClipApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsGet(options) {
-            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).usersMeClipsGet(options);
+        getClips(options) {
+            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).getClips(options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
             };
         },
         /**
-         * 新しくメッセージをクリップします。
-         * @param {SetClip} [setClip]
+         * 指定したクリップのフォルダ情報を取得します。
+         * @param {string} clipID 捜査の対象となるクリップのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsPost(setClip, options) {
-            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).usersMeClipsPost(setClip, options);
+        getClipsFolder(clipID, options) {
+            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).getClipsFolder(clipID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 指定したクリップを削除します。
+         * @param {string} clipID 捜査の対象となるクリップのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unclipMessage(clipID, options) {
+            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).unclipMessage(clipID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -3839,41 +3839,32 @@ export const ClipApiFp = function (configuration) {
 export const ClipApiFactory = function (configuration, basePath, axios) {
     return {
         /**
-         * 指定したクリップを削除します。
-         * @param {string} clipID 捜査の対象となるクリップのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeClipsClipIDDelete(clipID, options) {
-            return ClipApiFp(configuration).usersMeClipsClipIDDelete(clipID, options)(axios, basePath);
-        },
-        /**
-         * 指定したクリップのフォルダ情報を取得します。
-         * @param {string} clipID 捜査の対象となるクリップのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeClipsClipIDFolderGet(clipID, options) {
-            return ClipApiFp(configuration).usersMeClipsClipIDFolderGet(clipID, options)(axios, basePath);
-        },
-        /**
          * 指定したクリップのフォルダを変更します。
          * @param {string} clipID 捜査の対象となるクリップのID
          * @param {ClipsFolderIDObject} [clipsFolderIDObject]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsClipIDFolderPut(clipID, clipsFolderIDObject, options) {
-            return ClipApiFp(configuration).usersMeClipsClipIDFolderPut(clipID, clipsFolderIDObject, options)(axios, basePath);
+        changeClipsFolder(clipID, clipsFolderIDObject, options) {
+            return ClipApiFp(configuration).changeClipsFolder(clipID, clipsFolderIDObject, options)(axios, basePath);
         },
         /**
-         * 指定したクリップのメッセージを取得します。
-         * @param {string} clipID 捜査の対象となるクリップのID
+         * 新しくメッセージをクリップします。
+         * @param {SetClip} [setClip]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsClipIDGet(clipID, options) {
-            return ClipApiFp(configuration).usersMeClipsClipIDGet(clipID, options)(axios, basePath);
+        clipMessage(setClip, options) {
+            return ClipApiFp(configuration).clipMessage(setClip, options)(axios, basePath);
+        },
+        /**
+         * クリップフォルダを作成します。
+         * @param {ClipsFolderNameObject} [clipsFolderNameObject]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createClipFolders(clipsFolderNameObject, options) {
+            return ClipApiFp(configuration).createClipFolders(clipsFolderNameObject, options)(axios, basePath);
         },
         /**
          * クリップフォルダを削除します。フォルダ内のクリップは全て削除されます。
@@ -3881,17 +3872,8 @@ export const ClipApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsFoldersFolderIDDelete(folderID, options) {
-            return ClipApiFp(configuration).usersMeClipsFoldersFolderIDDelete(folderID, options)(axios, basePath);
-        },
-        /**
-         * フォルダ内のクリップ一覧を取得します。
-         * @param {string} folderID 操作の対象となるクリップフォルダのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeClipsFoldersFolderIDGet(folderID, options) {
-            return ClipApiFp(configuration).usersMeClipsFoldersFolderIDGet(folderID, options)(axios, basePath);
+        deleteClipFolder(folderID, options) {
+            return ClipApiFp(configuration).deleteClipFolder(folderID, options)(axios, basePath);
         },
         /**
          * クリップフォルダ名を変更します。
@@ -3900,42 +3882,60 @@ export const ClipApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsFoldersFolderIDPatch(folderID, clipsFolderNameObject, options) {
-            return ClipApiFp(configuration).usersMeClipsFoldersFolderIDPatch(folderID, clipsFolderNameObject, options)(axios, basePath);
+        editClipFolder(folderID, clipsFolderNameObject, options) {
+            return ClipApiFp(configuration).editClipFolder(folderID, clipsFolderNameObject, options)(axios, basePath);
+        },
+        /**
+         * 指定したクリップのメッセージを取得します。
+         * @param {string} clipID 捜査の対象となるクリップのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getClip(clipID, options) {
+            return ClipApiFp(configuration).getClip(clipID, options)(axios, basePath);
+        },
+        /**
+         * フォルダ内のクリップ一覧を取得します。
+         * @param {string} folderID 操作の対象となるクリップフォルダのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getClipFolder(folderID, options) {
+            return ClipApiFp(configuration).getClipFolder(folderID, options)(axios, basePath);
         },
         /**
          * クリップフォルダ一覧を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsFoldersGet(options) {
-            return ClipApiFp(configuration).usersMeClipsFoldersGet(options)(axios, basePath);
-        },
-        /**
-         * クリップフォルダを作成します。
-         * @param {ClipsFolderNameObject} [clipsFolderNameObject]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeClipsFoldersPost(clipsFolderNameObject, options) {
-            return ClipApiFp(configuration).usersMeClipsFoldersPost(clipsFolderNameObject, options)(axios, basePath);
+        getClipFolders(options) {
+            return ClipApiFp(configuration).getClipFolders(options)(axios, basePath);
         },
         /**
          * 全てのクリップを取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsGet(options) {
-            return ClipApiFp(configuration).usersMeClipsGet(options)(axios, basePath);
+        getClips(options) {
+            return ClipApiFp(configuration).getClips(options)(axios, basePath);
         },
         /**
-         * 新しくメッセージをクリップします。
-         * @param {SetClip} [setClip]
+         * 指定したクリップのフォルダ情報を取得します。
+         * @param {string} clipID 捜査の対象となるクリップのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeClipsPost(setClip, options) {
-            return ClipApiFp(configuration).usersMeClipsPost(setClip, options)(axios, basePath);
+        getClipsFolder(clipID, options) {
+            return ClipApiFp(configuration).getClipsFolder(clipID, options)(axios, basePath);
+        },
+        /**
+         * 指定したクリップを削除します。
+         * @param {string} clipID 捜査の対象となるクリップのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unclipMessage(clipID, options) {
+            return ClipApiFp(configuration).unclipMessage(clipID, options)(axios, basePath);
         },
     };
 };
@@ -3947,26 +3947,6 @@ export const ClipApiFactory = function (configuration, basePath, axios) {
  */
 export class ClipApi extends BaseAPI {
     /**
-     * 指定したクリップを削除します。
-     * @param {string} clipID 捜査の対象となるクリップのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClipApi
-     */
-    usersMeClipsClipIDDelete(clipID, options) {
-        return ClipApiFp(this.configuration).usersMeClipsClipIDDelete(clipID, options)(this.axios, this.basePath);
-    }
-    /**
-     * 指定したクリップのフォルダ情報を取得します。
-     * @param {string} clipID 捜査の対象となるクリップのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClipApi
-     */
-    usersMeClipsClipIDFolderGet(clipID, options) {
-        return ClipApiFp(this.configuration).usersMeClipsClipIDFolderGet(clipID, options)(this.axios, this.basePath);
-    }
-    /**
      * 指定したクリップのフォルダを変更します。
      * @param {string} clipID 捜査の対象となるクリップのID
      * @param {ClipsFolderIDObject} [clipsFolderIDObject]
@@ -3974,18 +3954,28 @@ export class ClipApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsClipIDFolderPut(clipID, clipsFolderIDObject, options) {
-        return ClipApiFp(this.configuration).usersMeClipsClipIDFolderPut(clipID, clipsFolderIDObject, options)(this.axios, this.basePath);
+    changeClipsFolder(clipID, clipsFolderIDObject, options) {
+        return ClipApiFp(this.configuration).changeClipsFolder(clipID, clipsFolderIDObject, options)(this.axios, this.basePath);
     }
     /**
-     * 指定したクリップのメッセージを取得します。
-     * @param {string} clipID 捜査の対象となるクリップのID
+     * 新しくメッセージをクリップします。
+     * @param {SetClip} [setClip]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsClipIDGet(clipID, options) {
-        return ClipApiFp(this.configuration).usersMeClipsClipIDGet(clipID, options)(this.axios, this.basePath);
+    clipMessage(setClip, options) {
+        return ClipApiFp(this.configuration).clipMessage(setClip, options)(this.axios, this.basePath);
+    }
+    /**
+     * クリップフォルダを作成します。
+     * @param {ClipsFolderNameObject} [clipsFolderNameObject]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClipApi
+     */
+    createClipFolders(clipsFolderNameObject, options) {
+        return ClipApiFp(this.configuration).createClipFolders(clipsFolderNameObject, options)(this.axios, this.basePath);
     }
     /**
      * クリップフォルダを削除します。フォルダ内のクリップは全て削除されます。
@@ -3994,18 +3984,8 @@ export class ClipApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsFoldersFolderIDDelete(folderID, options) {
-        return ClipApiFp(this.configuration).usersMeClipsFoldersFolderIDDelete(folderID, options)(this.axios, this.basePath);
-    }
-    /**
-     * フォルダ内のクリップ一覧を取得します。
-     * @param {string} folderID 操作の対象となるクリップフォルダのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClipApi
-     */
-    usersMeClipsFoldersFolderIDGet(folderID, options) {
-        return ClipApiFp(this.configuration).usersMeClipsFoldersFolderIDGet(folderID, options)(this.axios, this.basePath);
+    deleteClipFolder(folderID, options) {
+        return ClipApiFp(this.configuration).deleteClipFolder(folderID, options)(this.axios, this.basePath);
     }
     /**
      * クリップフォルダ名を変更します。
@@ -4015,8 +3995,28 @@ export class ClipApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsFoldersFolderIDPatch(folderID, clipsFolderNameObject, options) {
-        return ClipApiFp(this.configuration).usersMeClipsFoldersFolderIDPatch(folderID, clipsFolderNameObject, options)(this.axios, this.basePath);
+    editClipFolder(folderID, clipsFolderNameObject, options) {
+        return ClipApiFp(this.configuration).editClipFolder(folderID, clipsFolderNameObject, options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したクリップのメッセージを取得します。
+     * @param {string} clipID 捜査の対象となるクリップのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClipApi
+     */
+    getClip(clipID, options) {
+        return ClipApiFp(this.configuration).getClip(clipID, options)(this.axios, this.basePath);
+    }
+    /**
+     * フォルダ内のクリップ一覧を取得します。
+     * @param {string} folderID 操作の対象となるクリップフォルダのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClipApi
+     */
+    getClipFolder(folderID, options) {
+        return ClipApiFp(this.configuration).getClipFolder(folderID, options)(this.axios, this.basePath);
     }
     /**
      * クリップフォルダ一覧を取得します。
@@ -4024,18 +4024,8 @@ export class ClipApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsFoldersGet(options) {
-        return ClipApiFp(this.configuration).usersMeClipsFoldersGet(options)(this.axios, this.basePath);
-    }
-    /**
-     * クリップフォルダを作成します。
-     * @param {ClipsFolderNameObject} [clipsFolderNameObject]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClipApi
-     */
-    usersMeClipsFoldersPost(clipsFolderNameObject, options) {
-        return ClipApiFp(this.configuration).usersMeClipsFoldersPost(clipsFolderNameObject, options)(this.axios, this.basePath);
+    getClipFolders(options) {
+        return ClipApiFp(this.configuration).getClipFolders(options)(this.axios, this.basePath);
     }
     /**
      * 全てのクリップを取得します。
@@ -4043,18 +4033,28 @@ export class ClipApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsGet(options) {
-        return ClipApiFp(this.configuration).usersMeClipsGet(options)(this.axios, this.basePath);
+    getClips(options) {
+        return ClipApiFp(this.configuration).getClips(options)(this.axios, this.basePath);
     }
     /**
-     * 新しくメッセージをクリップします。
-     * @param {SetClip} [setClip]
+     * 指定したクリップのフォルダ情報を取得します。
+     * @param {string} clipID 捜査の対象となるクリップのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsPost(setClip, options) {
-        return ClipApiFp(this.configuration).usersMeClipsPost(setClip, options)(this.axios, this.basePath);
+    getClipsFolder(clipID, options) {
+        return ClipApiFp(this.configuration).getClipsFolder(clipID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したクリップを削除します。
+     * @param {string} clipID 捜査の対象となるクリップのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClipApi
+     */
+    unclipMessage(clipID, options) {
+        return ClipApiFp(this.configuration).unclipMessage(clipID, options)(this.axios, this.basePath);
     }
 }
 /**
@@ -4069,10 +4069,10 @@ export const FileApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        filesFileIDDelete(fileID, options = {}) {
+        deleteFile(fileID, options = {}) {
             // verify required parameter 'fileID' is not null or undefined
             if (fileID === null || fileID === undefined) {
-                throw new RequiredError('fileID', 'Required parameter fileID was null or undefined when calling filesFileIDDelete.');
+                throw new RequiredError('fileID', 'Required parameter fileID was null or undefined when calling deleteFile.');
             }
             const localVarPath = `/files/{fileID}`
                 .replace(`{${"fileID"}}`, encodeURIComponent(String(fileID)));
@@ -4101,10 +4101,10 @@ export const FileApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        filesFileIDGet(fileID, dl, options = {}) {
+        getFile(fileID, dl, options = {}) {
             // verify required parameter 'fileID' is not null or undefined
             if (fileID === null || fileID === undefined) {
-                throw new RequiredError('fileID', 'Required parameter fileID was null or undefined when calling filesFileIDGet.');
+                throw new RequiredError('fileID', 'Required parameter fileID was null or undefined when calling getFile.');
             }
             const localVarPath = `/files/{fileID}`
                 .replace(`{${"fileID"}}`, encodeURIComponent(String(fileID)));
@@ -4142,10 +4142,10 @@ export const FileApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        filesFileIDMetaGet(fileID, options = {}) {
+        getFileMeta(fileID, options = {}) {
             // verify required parameter 'fileID' is not null or undefined
             if (fileID === null || fileID === undefined) {
-                throw new RequiredError('fileID', 'Required parameter fileID was null or undefined when calling filesFileIDMetaGet.');
+                throw new RequiredError('fileID', 'Required parameter fileID was null or undefined when calling getFileMeta.');
             }
             const localVarPath = `/files/{fileID}/meta`
                 .replace(`{${"fileID"}}`, encodeURIComponent(String(fileID)));
@@ -4180,10 +4180,10 @@ export const FileApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        filesFileIDThumbnailGet(fileID, options = {}) {
+        getFileThumbnail(fileID, options = {}) {
             // verify required parameter 'fileID' is not null or undefined
             if (fileID === null || fileID === undefined) {
-                throw new RequiredError('fileID', 'Required parameter fileID was null or undefined when calling filesFileIDThumbnailGet.');
+                throw new RequiredError('fileID', 'Required parameter fileID was null or undefined when calling getFileThumbnail.');
             }
             const localVarPath = `/files/{fileID}/thumbnail`
                 .replace(`{${"fileID"}}`, encodeURIComponent(String(fileID)));
@@ -4219,10 +4219,10 @@ export const FileApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        filesPost(file, aclReadable, options = {}) {
+        uploadFile(file, aclReadable, options = {}) {
             // verify required parameter 'file' is not null or undefined
             if (file === null || file === undefined) {
-                throw new RequiredError('file', 'Required parameter file was null or undefined when calling filesPost.');
+                throw new RequiredError('file', 'Required parameter file was null or undefined when calling uploadFile.');
             }
             const localVarPath = `/files`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
@@ -4272,8 +4272,8 @@ export const FileApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        filesFileIDDelete(fileID, options) {
-            const localVarAxiosArgs = FileApiAxiosParamCreator(configuration).filesFileIDDelete(fileID, options);
+        deleteFile(fileID, options) {
+            const localVarAxiosArgs = FileApiAxiosParamCreator(configuration).deleteFile(fileID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -4286,8 +4286,8 @@ export const FileApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        filesFileIDGet(fileID, dl, options) {
-            const localVarAxiosArgs = FileApiAxiosParamCreator(configuration).filesFileIDGet(fileID, dl, options);
+        getFile(fileID, dl, options) {
+            const localVarAxiosArgs = FileApiAxiosParamCreator(configuration).getFile(fileID, dl, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -4299,8 +4299,8 @@ export const FileApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        filesFileIDMetaGet(fileID, options) {
-            const localVarAxiosArgs = FileApiAxiosParamCreator(configuration).filesFileIDMetaGet(fileID, options);
+        getFileMeta(fileID, options) {
+            const localVarAxiosArgs = FileApiAxiosParamCreator(configuration).getFileMeta(fileID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -4312,8 +4312,8 @@ export const FileApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        filesFileIDThumbnailGet(fileID, options) {
-            const localVarAxiosArgs = FileApiAxiosParamCreator(configuration).filesFileIDThumbnailGet(fileID, options);
+        getFileThumbnail(fileID, options) {
+            const localVarAxiosArgs = FileApiAxiosParamCreator(configuration).getFileThumbnail(fileID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -4326,8 +4326,8 @@ export const FileApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        filesPost(file, aclReadable, options) {
-            const localVarAxiosArgs = FileApiAxiosParamCreator(configuration).filesPost(file, aclReadable, options);
+        uploadFile(file, aclReadable, options) {
+            const localVarAxiosArgs = FileApiAxiosParamCreator(configuration).uploadFile(file, aclReadable, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -4347,8 +4347,8 @@ export const FileApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        filesFileIDDelete(fileID, options) {
-            return FileApiFp(configuration).filesFileIDDelete(fileID, options)(axios, basePath);
+        deleteFile(fileID, options) {
+            return FileApiFp(configuration).deleteFile(fileID, options)(axios, basePath);
         },
         /**
          * 指定したファイルの中身を取得します。
@@ -4357,8 +4357,8 @@ export const FileApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        filesFileIDGet(fileID, dl, options) {
-            return FileApiFp(configuration).filesFileIDGet(fileID, dl, options)(axios, basePath);
+        getFile(fileID, dl, options) {
+            return FileApiFp(configuration).getFile(fileID, dl, options)(axios, basePath);
         },
         /**
          * 指定したファイルのメタデータを取得します
@@ -4366,8 +4366,8 @@ export const FileApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        filesFileIDMetaGet(fileID, options) {
-            return FileApiFp(configuration).filesFileIDMetaGet(fileID, options)(axios, basePath);
+        getFileMeta(fileID, options) {
+            return FileApiFp(configuration).getFileMeta(fileID, options)(axios, basePath);
         },
         /**
          * 指定したファイルのサムネイルを取得します
@@ -4375,8 +4375,8 @@ export const FileApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        filesFileIDThumbnailGet(fileID, options) {
-            return FileApiFp(configuration).filesFileIDThumbnailGet(fileID, options)(axios, basePath);
+        getFileThumbnail(fileID, options) {
+            return FileApiFp(configuration).getFileThumbnail(fileID, options)(axios, basePath);
         },
         /**
          * ファイルをアップロードします
@@ -4385,8 +4385,8 @@ export const FileApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        filesPost(file, aclReadable, options) {
-            return FileApiFp(configuration).filesPost(file, aclReadable, options)(axios, basePath);
+        uploadFile(file, aclReadable, options) {
+            return FileApiFp(configuration).uploadFile(file, aclReadable, options)(axios, basePath);
         },
     };
 };
@@ -4404,8 +4404,8 @@ export class FileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FileApi
      */
-    filesFileIDDelete(fileID, options) {
-        return FileApiFp(this.configuration).filesFileIDDelete(fileID, options)(this.axios, this.basePath);
+    deleteFile(fileID, options) {
+        return FileApiFp(this.configuration).deleteFile(fileID, options)(this.axios, this.basePath);
     }
     /**
      * 指定したファイルの中身を取得します。
@@ -4415,8 +4415,8 @@ export class FileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FileApi
      */
-    filesFileIDGet(fileID, dl, options) {
-        return FileApiFp(this.configuration).filesFileIDGet(fileID, dl, options)(this.axios, this.basePath);
+    getFile(fileID, dl, options) {
+        return FileApiFp(this.configuration).getFile(fileID, dl, options)(this.axios, this.basePath);
     }
     /**
      * 指定したファイルのメタデータを取得します
@@ -4425,8 +4425,8 @@ export class FileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FileApi
      */
-    filesFileIDMetaGet(fileID, options) {
-        return FileApiFp(this.configuration).filesFileIDMetaGet(fileID, options)(this.axios, this.basePath);
+    getFileMeta(fileID, options) {
+        return FileApiFp(this.configuration).getFileMeta(fileID, options)(this.axios, this.basePath);
     }
     /**
      * 指定したファイルのサムネイルを取得します
@@ -4435,8 +4435,8 @@ export class FileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FileApi
      */
-    filesFileIDThumbnailGet(fileID, options) {
-        return FileApiFp(this.configuration).filesFileIDThumbnailGet(fileID, options)(this.axios, this.basePath);
+    getFileThumbnail(fileID, options) {
+        return FileApiFp(this.configuration).getFileThumbnail(fileID, options)(this.axios, this.basePath);
     }
     /**
      * ファイルをアップロードします
@@ -4446,8 +4446,8 @@ export class FileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FileApi
      */
-    filesPost(file, aclReadable, options) {
-        return FileApiFp(this.configuration).filesPost(file, aclReadable, options)(this.axios, this.basePath);
+    uploadFile(file, aclReadable, options) {
+        return FileApiFp(this.configuration).uploadFile(file, aclReadable, options)(this.axios, this.basePath);
     }
 }
 /**
@@ -4462,10 +4462,10 @@ export const HeartbeatApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        heartbeatGet(channelId, options = {}) {
+        getHeartbeat(channelId, options = {}) {
             // verify required parameter 'channelId' is not null or undefined
             if (channelId === null || channelId === undefined) {
-                throw new RequiredError('channelId', 'Required parameter channelId was null or undefined when calling heartbeatGet.');
+                throw new RequiredError('channelId', 'Required parameter channelId was null or undefined when calling getHeartbeat.');
             }
             const localVarPath = `/heartbeat`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
@@ -4502,7 +4502,7 @@ export const HeartbeatApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        heartbeatPost(heartbeat, options = {}) {
+        postHeartbeat(heartbeat, options = {}) {
             const localVarPath = `/heartbeat`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -4546,8 +4546,8 @@ export const HeartbeatApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        heartbeatGet(channelId, options) {
-            const localVarAxiosArgs = HeartbeatApiAxiosParamCreator(configuration).heartbeatGet(channelId, options);
+        getHeartbeat(channelId, options) {
+            const localVarAxiosArgs = HeartbeatApiAxiosParamCreator(configuration).getHeartbeat(channelId, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -4559,8 +4559,8 @@ export const HeartbeatApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        heartbeatPost(heartbeat, options) {
-            const localVarAxiosArgs = HeartbeatApiAxiosParamCreator(configuration).heartbeatPost(heartbeat, options);
+        postHeartbeat(heartbeat, options) {
+            const localVarAxiosArgs = HeartbeatApiAxiosParamCreator(configuration).postHeartbeat(heartbeat, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -4580,8 +4580,8 @@ export const HeartbeatApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        heartbeatGet(channelId, options) {
-            return HeartbeatApiFp(configuration).heartbeatGet(channelId, options)(axios, basePath);
+        getHeartbeat(channelId, options) {
+            return HeartbeatApiFp(configuration).getHeartbeat(channelId, options)(axios, basePath);
         },
         /**
          * どのチャンネルを見ているか・編集しているかを送信します。
@@ -4589,8 +4589,8 @@ export const HeartbeatApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        heartbeatPost(heartbeat, options) {
-            return HeartbeatApiFp(configuration).heartbeatPost(heartbeat, options)(axios, basePath);
+        postHeartbeat(heartbeat, options) {
+            return HeartbeatApiFp(configuration).postHeartbeat(heartbeat, options)(axios, basePath);
         },
     };
 };
@@ -4608,8 +4608,8 @@ export class HeartbeatApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof HeartbeatApi
      */
-    heartbeatGet(channelId, options) {
-        return HeartbeatApiFp(this.configuration).heartbeatGet(channelId, options)(this.axios, this.basePath);
+    getHeartbeat(channelId, options) {
+        return HeartbeatApiFp(this.configuration).getHeartbeat(channelId, options)(this.axios, this.basePath);
     }
     /**
      * どのチャンネルを見ているか・編集しているかを送信します。
@@ -4618,8 +4618,8 @@ export class HeartbeatApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof HeartbeatApi
      */
-    heartbeatPost(heartbeat, options) {
-        return HeartbeatApiFp(this.configuration).heartbeatPost(heartbeat, options)(this.axios, this.basePath);
+    postHeartbeat(heartbeat, options) {
+        return HeartbeatApiFp(this.configuration).postHeartbeat(heartbeat, options)(this.axios, this.basePath);
     }
 }
 /**
@@ -4629,119 +4629,15 @@ export class HeartbeatApi extends BaseAPI {
 export const MessageApiAxiosParamCreator = function (configuration) {
     return {
         /**
-         * チャンネルに存在するメッセージを取得します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {number} [limit] 取得する件数 1-200
-         * @param {number} [offset] 取得するオフセット
-         * @param {Date} [since] 取得する時間範囲の開始日時
-         * @param {Date} [until] 取得する時間範囲の終了日時
-         * @param {boolean} [inclusive] 範囲の端を含めるかどうか
-         * @param {'asc' | 'desc'} [order] 昇順か降順か
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDMessagesGet(channelID, limit, offset, since, until, inclusive, order, options = {}) {
-            // verify required parameter 'channelID' is not null or undefined
-            if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDMessagesGet.');
-            }
-            const localVarPath = `/channels/{channelID}/messages`
-                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            if (limit !== undefined) {
-                localVarQueryParameter['limit'] = limit;
-            }
-            if (offset !== undefined) {
-                localVarQueryParameter['offset'] = offset;
-            }
-            if (since !== undefined) {
-                localVarQueryParameter['since'] = since.toISOString();
-            }
-            if (until !== undefined) {
-                localVarQueryParameter['until'] = until.toISOString();
-            }
-            if (inclusive !== undefined) {
-                localVarQueryParameter['inclusive'] = inclusive;
-            }
-            if (order !== undefined) {
-                localVarQueryParameter['order'] = order;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * チャンネルにメッセージを投稿します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {SendMessage} [sendMessage]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDMessagesPost(channelID, sendMessage, options = {}) {
-            // verify required parameter 'channelID' is not null or undefined
-            if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDMessagesPost.');
-            }
-            const localVarPath = `/channels/{channelID}/messages`
-                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["write"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("SendMessage" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(sendMessage !== undefined ? sendMessage : {}) : (sendMessage || "");
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * 指定したメッセージを削除します。
          * @param {string} messageID 操作の対象となるメッセージID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesMessageIDDelete(messageID, options = {}) {
+        deleteMessage(messageID, options = {}) {
             // verify required parameter 'messageID' is not null or undefined
             if (messageID === null || messageID === undefined) {
-                throw new RequiredError('messageID', 'Required parameter messageID was null or undefined when calling messagesMessageIDDelete.');
+                throw new RequiredError('messageID', 'Required parameter messageID was null or undefined when calling deleteMessage.');
             }
             const localVarPath = `/messages/{messageID}`
                 .replace(`{${"messageID"}}`, encodeURIComponent(String(messageID)));
@@ -4771,54 +4667,16 @@ export const MessageApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * 指定したメッセージを取得します。
-         * @param {string} messageID 操作の対象となるメッセージID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesMessageIDGet(messageID, options = {}) {
-            // verify required parameter 'messageID' is not null or undefined
-            if (messageID === null || messageID === undefined) {
-                throw new RequiredError('messageID', 'Required parameter messageID was null or undefined when calling messagesMessageIDGet.');
-            }
-            const localVarPath = `/messages/{messageID}`
-                .replace(`{${"messageID"}}`, encodeURIComponent(String(messageID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * 指定したメッセージを編集します。
          * @param {string} messageID 操作の対象となるメッセージID
          * @param {SendMessage} [sendMessage]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesMessageIDPut(messageID, sendMessage, options = {}) {
+        editMessage(messageID, sendMessage, options = {}) {
             // verify required parameter 'messageID' is not null or undefined
             if (messageID === null || messageID === undefined) {
-                throw new RequiredError('messageID', 'Required parameter messageID was null or undefined when calling messagesMessageIDPut.');
+                throw new RequiredError('messageID', 'Required parameter messageID was null or undefined when calling editMessage.');
             }
             const localVarPath = `/messages/{messageID}`
                 .replace(`{${"messageID"}}`, encodeURIComponent(String(messageID)));
@@ -4851,77 +4709,6 @@ export const MessageApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * 指定したメッセージを通報します。
-         * @param {string} messageID 操作の対象となるメッセージID
-         * @param {ReportMessage} [reportMessage]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesMessageIDReportPost(messageID, reportMessage, options = {}) {
-            // verify required parameter 'messageID' is not null or undefined
-            if (messageID === null || messageID === undefined) {
-                throw new RequiredError('messageID', 'Required parameter messageID was null or undefined when calling messagesMessageIDReportPost.');
-            }
-            const localVarPath = `/messages/{messageID}/report`
-                .replace(`{${"messageID"}}`, encodeURIComponent(String(messageID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["write"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("ReportMessage" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(reportMessage !== undefined ? reportMessage : {}) : (reportMessage || "");
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * メッセージ通報を最大50件取得します。
-         * @param {number} [p] ページ番号(ゼロオリジン)
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesReportsGet(p, options = {}) {
-            const localVarPath = `/messages/reports`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication cookieAuth required
-            if (p !== undefined) {
-                localVarQueryParameter['p'] = p;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * DMチャンネルに存在するメッセージを取得します。
          * @param {string} userID 操作の対象となるユーザーID
          * @param {number} [limit] 取得する件数 1-200
@@ -4933,10 +4720,10 @@ export const MessageApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDMessagesGet(userID, limit, offset, since, until, inclusive, order, options = {}) {
+        getDirectMessages(userID, limit, offset, since, until, inclusive, order, options = {}) {
             // verify required parameter 'userID' is not null or undefined
             if (userID === null || userID === undefined) {
-                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling usersUserIDMessagesGet.');
+                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling getDirectMessages.');
             }
             const localVarPath = `/users/{userID}/messages`
                 .replace(`{${"userID"}}`, encodeURIComponent(String(userID)));
@@ -4984,16 +4771,145 @@ export const MessageApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
+         * 指定したメッセージを取得します。
+         * @param {string} messageID 操作の対象となるメッセージID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMessage(messageID, options = {}) {
+            // verify required parameter 'messageID' is not null or undefined
+            if (messageID === null || messageID === undefined) {
+                throw new RequiredError('messageID', 'Required parameter messageID was null or undefined when calling getMessage.');
+            }
+            const localVarPath = `/messages/{messageID}`
+                .replace(`{${"messageID"}}`, encodeURIComponent(String(messageID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * チャンネルに存在するメッセージを取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {number} [limit] 取得する件数 1-200
+         * @param {number} [offset] 取得するオフセット
+         * @param {Date} [since] 取得する時間範囲の開始日時
+         * @param {Date} [until] 取得する時間範囲の終了日時
+         * @param {boolean} [inclusive] 範囲の端を含めるかどうか
+         * @param {'asc' | 'desc'} [order] 昇順か降順か
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMessages(channelID, limit, offset, since, until, inclusive, order, options = {}) {
+            // verify required parameter 'channelID' is not null or undefined
+            if (channelID === null || channelID === undefined) {
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling getMessages.');
+            }
+            const localVarPath = `/channels/{channelID}/messages`
+                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+            if (since !== undefined) {
+                localVarQueryParameter['since'] = since.toISOString();
+            }
+            if (until !== undefined) {
+                localVarQueryParameter['until'] = until.toISOString();
+            }
+            if (inclusive !== undefined) {
+                localVarQueryParameter['inclusive'] = inclusive;
+            }
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * メッセージ通報を最大50件取得します。
+         * @param {number} [p] ページ番号(ゼロオリジン)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getReports(p, options = {}) {
+            const localVarPath = `/messages/reports`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication cookieAuth required
+            if (p !== undefined) {
+                localVarQueryParameter['p'] = p;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * DMチャンネルにメッセージを投稿します。
          * @param {string} userID 操作の対象となるユーザーID
          * @param {SendMessage} [sendMessage]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDMessagesPost(userID, sendMessage, options = {}) {
+        postDirectMessage(userID, sendMessage, options = {}) {
             // verify required parameter 'userID' is not null or undefined
             if (userID === null || userID === undefined) {
-                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling usersUserIDMessagesPost.');
+                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling postDirectMessage.');
             }
             const localVarPath = `/users/{userID}/messages`
                 .replace(`{${"userID"}}`, encodeURIComponent(String(userID)));
@@ -5025,6 +4941,90 @@ export const MessageApiAxiosParamCreator = function (configuration) {
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * チャンネルにメッセージを投稿します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {SendMessage} [sendMessage]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postMessage(channelID, sendMessage, options = {}) {
+            // verify required parameter 'channelID' is not null or undefined
+            if (channelID === null || channelID === undefined) {
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling postMessage.');
+            }
+            const localVarPath = `/channels/{channelID}/messages`
+                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["write"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = ("SendMessage" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(sendMessage !== undefined ? sendMessage : {}) : (sendMessage || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 指定したメッセージを通報します。
+         * @param {string} messageID 操作の対象となるメッセージID
+         * @param {ReportMessage} [reportMessage]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        reportMessage(messageID, reportMessage, options = {}) {
+            // verify required parameter 'messageID' is not null or undefined
+            if (messageID === null || messageID === undefined) {
+                throw new RequiredError('messageID', 'Required parameter messageID was null or undefined when calling reportMessage.');
+            }
+            const localVarPath = `/messages/{messageID}/report`
+                .replace(`{${"messageID"}}`, encodeURIComponent(String(messageID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["write"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = ("ReportMessage" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(reportMessage !== undefined ? reportMessage : {}) : (reportMessage || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     };
 };
 /**
@@ -5034,59 +5034,13 @@ export const MessageApiAxiosParamCreator = function (configuration) {
 export const MessageApiFp = function (configuration) {
     return {
         /**
-         * チャンネルに存在するメッセージを取得します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {number} [limit] 取得する件数 1-200
-         * @param {number} [offset] 取得するオフセット
-         * @param {Date} [since] 取得する時間範囲の開始日時
-         * @param {Date} [until] 取得する時間範囲の終了日時
-         * @param {boolean} [inclusive] 範囲の端を含めるかどうか
-         * @param {'asc' | 'desc'} [order] 昇順か降順か
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDMessagesGet(channelID, limit, offset, since, until, inclusive, order, options) {
-            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).channelsChannelIDMessagesGet(channelID, limit, offset, since, until, inclusive, order, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * チャンネルにメッセージを投稿します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {SendMessage} [sendMessage]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDMessagesPost(channelID, sendMessage, options) {
-            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).channelsChannelIDMessagesPost(channelID, sendMessage, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
          * 指定したメッセージを削除します。
          * @param {string} messageID 操作の対象となるメッセージID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesMessageIDDelete(messageID, options) {
-            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).messagesMessageIDDelete(messageID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 指定したメッセージを取得します。
-         * @param {string} messageID 操作の対象となるメッセージID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesMessageIDGet(messageID, options) {
-            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).messagesMessageIDGet(messageID, options);
+        deleteMessage(messageID, options) {
+            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).deleteMessage(messageID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -5099,35 +5053,8 @@ export const MessageApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesMessageIDPut(messageID, sendMessage, options) {
-            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).messagesMessageIDPut(messageID, sendMessage, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 指定したメッセージを通報します。
-         * @param {string} messageID 操作の対象となるメッセージID
-         * @param {ReportMessage} [reportMessage]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesMessageIDReportPost(messageID, reportMessage, options) {
-            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).messagesMessageIDReportPost(messageID, reportMessage, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * メッセージ通報を最大50件取得します。
-         * @param {number} [p] ページ番号(ゼロオリジン)
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesReportsGet(p, options) {
-            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).messagesReportsGet(p, options);
+        editMessage(messageID, sendMessage, options) {
+            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).editMessage(messageID, sendMessage, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -5145,8 +5072,53 @@ export const MessageApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDMessagesGet(userID, limit, offset, since, until, inclusive, order, options) {
-            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).usersUserIDMessagesGet(userID, limit, offset, since, until, inclusive, order, options);
+        getDirectMessages(userID, limit, offset, since, until, inclusive, order, options) {
+            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).getDirectMessages(userID, limit, offset, since, until, inclusive, order, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 指定したメッセージを取得します。
+         * @param {string} messageID 操作の対象となるメッセージID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMessage(messageID, options) {
+            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).getMessage(messageID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * チャンネルに存在するメッセージを取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {number} [limit] 取得する件数 1-200
+         * @param {number} [offset] 取得するオフセット
+         * @param {Date} [since] 取得する時間範囲の開始日時
+         * @param {Date} [until] 取得する時間範囲の終了日時
+         * @param {boolean} [inclusive] 範囲の端を含めるかどうか
+         * @param {'asc' | 'desc'} [order] 昇順か降順か
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMessages(channelID, limit, offset, since, until, inclusive, order, options) {
+            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).getMessages(channelID, limit, offset, since, until, inclusive, order, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * メッセージ通報を最大50件取得します。
+         * @param {number} [p] ページ番号(ゼロオリジン)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getReports(p, options) {
+            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).getReports(p, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -5159,8 +5131,36 @@ export const MessageApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDMessagesPost(userID, sendMessage, options) {
-            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).usersUserIDMessagesPost(userID, sendMessage, options);
+        postDirectMessage(userID, sendMessage, options) {
+            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).postDirectMessage(userID, sendMessage, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * チャンネルにメッセージを投稿します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {SendMessage} [sendMessage]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postMessage(channelID, sendMessage, options) {
+            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).postMessage(channelID, sendMessage, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 指定したメッセージを通報します。
+         * @param {string} messageID 操作の対象となるメッセージID
+         * @param {ReportMessage} [reportMessage]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        reportMessage(messageID, reportMessage, options) {
+            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).reportMessage(messageID, reportMessage, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -5175,47 +5175,13 @@ export const MessageApiFp = function (configuration) {
 export const MessageApiFactory = function (configuration, basePath, axios) {
     return {
         /**
-         * チャンネルに存在するメッセージを取得します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {number} [limit] 取得する件数 1-200
-         * @param {number} [offset] 取得するオフセット
-         * @param {Date} [since] 取得する時間範囲の開始日時
-         * @param {Date} [until] 取得する時間範囲の終了日時
-         * @param {boolean} [inclusive] 範囲の端を含めるかどうか
-         * @param {'asc' | 'desc'} [order] 昇順か降順か
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDMessagesGet(channelID, limit, offset, since, until, inclusive, order, options) {
-            return MessageApiFp(configuration).channelsChannelIDMessagesGet(channelID, limit, offset, since, until, inclusive, order, options)(axios, basePath);
-        },
-        /**
-         * チャンネルにメッセージを投稿します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {SendMessage} [sendMessage]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDMessagesPost(channelID, sendMessage, options) {
-            return MessageApiFp(configuration).channelsChannelIDMessagesPost(channelID, sendMessage, options)(axios, basePath);
-        },
-        /**
          * 指定したメッセージを削除します。
          * @param {string} messageID 操作の対象となるメッセージID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesMessageIDDelete(messageID, options) {
-            return MessageApiFp(configuration).messagesMessageIDDelete(messageID, options)(axios, basePath);
-        },
-        /**
-         * 指定したメッセージを取得します。
-         * @param {string} messageID 操作の対象となるメッセージID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesMessageIDGet(messageID, options) {
-            return MessageApiFp(configuration).messagesMessageIDGet(messageID, options)(axios, basePath);
+        deleteMessage(messageID, options) {
+            return MessageApiFp(configuration).deleteMessage(messageID, options)(axios, basePath);
         },
         /**
          * 指定したメッセージを編集します。
@@ -5224,27 +5190,8 @@ export const MessageApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesMessageIDPut(messageID, sendMessage, options) {
-            return MessageApiFp(configuration).messagesMessageIDPut(messageID, sendMessage, options)(axios, basePath);
-        },
-        /**
-         * 指定したメッセージを通報します。
-         * @param {string} messageID 操作の対象となるメッセージID
-         * @param {ReportMessage} [reportMessage]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesMessageIDReportPost(messageID, reportMessage, options) {
-            return MessageApiFp(configuration).messagesMessageIDReportPost(messageID, reportMessage, options)(axios, basePath);
-        },
-        /**
-         * メッセージ通報を最大50件取得します。
-         * @param {number} [p] ページ番号(ゼロオリジン)
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesReportsGet(p, options) {
-            return MessageApiFp(configuration).messagesReportsGet(p, options)(axios, basePath);
+        editMessage(messageID, sendMessage, options) {
+            return MessageApiFp(configuration).editMessage(messageID, sendMessage, options)(axios, basePath);
         },
         /**
          * DMチャンネルに存在するメッセージを取得します。
@@ -5258,8 +5205,41 @@ export const MessageApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDMessagesGet(userID, limit, offset, since, until, inclusive, order, options) {
-            return MessageApiFp(configuration).usersUserIDMessagesGet(userID, limit, offset, since, until, inclusive, order, options)(axios, basePath);
+        getDirectMessages(userID, limit, offset, since, until, inclusive, order, options) {
+            return MessageApiFp(configuration).getDirectMessages(userID, limit, offset, since, until, inclusive, order, options)(axios, basePath);
+        },
+        /**
+         * 指定したメッセージを取得します。
+         * @param {string} messageID 操作の対象となるメッセージID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMessage(messageID, options) {
+            return MessageApiFp(configuration).getMessage(messageID, options)(axios, basePath);
+        },
+        /**
+         * チャンネルに存在するメッセージを取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {number} [limit] 取得する件数 1-200
+         * @param {number} [offset] 取得するオフセット
+         * @param {Date} [since] 取得する時間範囲の開始日時
+         * @param {Date} [until] 取得する時間範囲の終了日時
+         * @param {boolean} [inclusive] 範囲の端を含めるかどうか
+         * @param {'asc' | 'desc'} [order] 昇順か降順か
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMessages(channelID, limit, offset, since, until, inclusive, order, options) {
+            return MessageApiFp(configuration).getMessages(channelID, limit, offset, since, until, inclusive, order, options)(axios, basePath);
+        },
+        /**
+         * メッセージ通報を最大50件取得します。
+         * @param {number} [p] ページ番号(ゼロオリジン)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getReports(p, options) {
+            return MessageApiFp(configuration).getReports(p, options)(axios, basePath);
         },
         /**
          * DMチャンネルにメッセージを投稿します。
@@ -5268,8 +5248,28 @@ export const MessageApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDMessagesPost(userID, sendMessage, options) {
-            return MessageApiFp(configuration).usersUserIDMessagesPost(userID, sendMessage, options)(axios, basePath);
+        postDirectMessage(userID, sendMessage, options) {
+            return MessageApiFp(configuration).postDirectMessage(userID, sendMessage, options)(axios, basePath);
+        },
+        /**
+         * チャンネルにメッセージを投稿します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {SendMessage} [sendMessage]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postMessage(channelID, sendMessage, options) {
+            return MessageApiFp(configuration).postMessage(channelID, sendMessage, options)(axios, basePath);
+        },
+        /**
+         * 指定したメッセージを通報します。
+         * @param {string} messageID 操作の対象となるメッセージID
+         * @param {ReportMessage} [reportMessage]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        reportMessage(messageID, reportMessage, options) {
+            return MessageApiFp(configuration).reportMessage(messageID, reportMessage, options)(axios, basePath);
         },
     };
 };
@@ -5281,51 +5281,14 @@ export const MessageApiFactory = function (configuration, basePath, axios) {
  */
 export class MessageApi extends BaseAPI {
     /**
-     * チャンネルに存在するメッセージを取得します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {number} [limit] 取得する件数 1-200
-     * @param {number} [offset] 取得するオフセット
-     * @param {Date} [since] 取得する時間範囲の開始日時
-     * @param {Date} [until] 取得する時間範囲の終了日時
-     * @param {boolean} [inclusive] 範囲の端を含めるかどうか
-     * @param {'asc' | 'desc'} [order] 昇順か降順か
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MessageApi
-     */
-    channelsChannelIDMessagesGet(channelID, limit, offset, since, until, inclusive, order, options) {
-        return MessageApiFp(this.configuration).channelsChannelIDMessagesGet(channelID, limit, offset, since, until, inclusive, order, options)(this.axios, this.basePath);
-    }
-    /**
-     * チャンネルにメッセージを投稿します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {SendMessage} [sendMessage]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MessageApi
-     */
-    channelsChannelIDMessagesPost(channelID, sendMessage, options) {
-        return MessageApiFp(this.configuration).channelsChannelIDMessagesPost(channelID, sendMessage, options)(this.axios, this.basePath);
-    }
-    /**
      * 指定したメッセージを削除します。
      * @param {string} messageID 操作の対象となるメッセージID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    messagesMessageIDDelete(messageID, options) {
-        return MessageApiFp(this.configuration).messagesMessageIDDelete(messageID, options)(this.axios, this.basePath);
-    }
-    /**
-     * 指定したメッセージを取得します。
-     * @param {string} messageID 操作の対象となるメッセージID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MessageApi
-     */
-    messagesMessageIDGet(messageID, options) {
-        return MessageApiFp(this.configuration).messagesMessageIDGet(messageID, options)(this.axios, this.basePath);
+    deleteMessage(messageID, options) {
+        return MessageApiFp(this.configuration).deleteMessage(messageID, options)(this.axios, this.basePath);
     }
     /**
      * 指定したメッセージを編集します。
@@ -5335,29 +5298,8 @@ export class MessageApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    messagesMessageIDPut(messageID, sendMessage, options) {
-        return MessageApiFp(this.configuration).messagesMessageIDPut(messageID, sendMessage, options)(this.axios, this.basePath);
-    }
-    /**
-     * 指定したメッセージを通報します。
-     * @param {string} messageID 操作の対象となるメッセージID
-     * @param {ReportMessage} [reportMessage]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MessageApi
-     */
-    messagesMessageIDReportPost(messageID, reportMessage, options) {
-        return MessageApiFp(this.configuration).messagesMessageIDReportPost(messageID, reportMessage, options)(this.axios, this.basePath);
-    }
-    /**
-     * メッセージ通報を最大50件取得します。
-     * @param {number} [p] ページ番号(ゼロオリジン)
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MessageApi
-     */
-    messagesReportsGet(p, options) {
-        return MessageApiFp(this.configuration).messagesReportsGet(p, options)(this.axios, this.basePath);
+    editMessage(messageID, sendMessage, options) {
+        return MessageApiFp(this.configuration).editMessage(messageID, sendMessage, options)(this.axios, this.basePath);
     }
     /**
      * DMチャンネルに存在するメッセージを取得します。
@@ -5372,8 +5314,44 @@ export class MessageApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    usersUserIDMessagesGet(userID, limit, offset, since, until, inclusive, order, options) {
-        return MessageApiFp(this.configuration).usersUserIDMessagesGet(userID, limit, offset, since, until, inclusive, order, options)(this.axios, this.basePath);
+    getDirectMessages(userID, limit, offset, since, until, inclusive, order, options) {
+        return MessageApiFp(this.configuration).getDirectMessages(userID, limit, offset, since, until, inclusive, order, options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したメッセージを取得します。
+     * @param {string} messageID 操作の対象となるメッセージID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MessageApi
+     */
+    getMessage(messageID, options) {
+        return MessageApiFp(this.configuration).getMessage(messageID, options)(this.axios, this.basePath);
+    }
+    /**
+     * チャンネルに存在するメッセージを取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {number} [limit] 取得する件数 1-200
+     * @param {number} [offset] 取得するオフセット
+     * @param {Date} [since] 取得する時間範囲の開始日時
+     * @param {Date} [until] 取得する時間範囲の終了日時
+     * @param {boolean} [inclusive] 範囲の端を含めるかどうか
+     * @param {'asc' | 'desc'} [order] 昇順か降順か
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MessageApi
+     */
+    getMessages(channelID, limit, offset, since, until, inclusive, order, options) {
+        return MessageApiFp(this.configuration).getMessages(channelID, limit, offset, since, until, inclusive, order, options)(this.axios, this.basePath);
+    }
+    /**
+     * メッセージ通報を最大50件取得します。
+     * @param {number} [p] ページ番号(ゼロオリジン)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MessageApi
+     */
+    getReports(p, options) {
+        return MessageApiFp(this.configuration).getReports(p, options)(this.axios, this.basePath);
     }
     /**
      * DMチャンネルにメッセージを投稿します。
@@ -5383,8 +5361,30 @@ export class MessageApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    usersUserIDMessagesPost(userID, sendMessage, options) {
-        return MessageApiFp(this.configuration).usersUserIDMessagesPost(userID, sendMessage, options)(this.axios, this.basePath);
+    postDirectMessage(userID, sendMessage, options) {
+        return MessageApiFp(this.configuration).postDirectMessage(userID, sendMessage, options)(this.axios, this.basePath);
+    }
+    /**
+     * チャンネルにメッセージを投稿します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {SendMessage} [sendMessage]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MessageApi
+     */
+    postMessage(channelID, sendMessage, options) {
+        return MessageApiFp(this.configuration).postMessage(channelID, sendMessage, options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したメッセージを通報します。
+     * @param {string} messageID 操作の対象となるメッセージID
+     * @param {ReportMessage} [reportMessage]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MessageApi
+     */
+    reportMessage(messageID, reportMessage, options) {
+        return MessageApiFp(this.configuration).reportMessage(messageID, reportMessage, options)(this.axios, this.basePath);
     }
 }
 /**
@@ -5394,31 +5394,25 @@ export class MessageApi extends BaseAPI {
 export const MuteApiAxiosParamCreator = function (configuration) {
     return {
         /**
-         * 指定したチャンネルのミュートを解除します。既に解除されていた場合は204を返します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
+         * ミュートしているチャンネルのIDの配列を返します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeMuteChannelIDDelete(channelID, options = {}) {
-            // verify required parameter 'channelID' is not null or undefined
-            if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling usersMeMuteChannelIDDelete.');
-            }
-            const localVarPath = `/users/me/mute/{channelID}`
-                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
+        getMutedChannels(options = {}) {
+            const localVarPath = `/users/me/mute`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
             // authentication traqOAuth2 required
             // oauth required
             if (configuration && configuration.accessToken) {
                 const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["write"])
+                    ? configuration.accessToken("traqOAuth2", ["read"])
                     : configuration.accessToken;
                 localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
             }
@@ -5437,10 +5431,10 @@ export const MuteApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeMuteChannelIDPost(channelID, options = {}) {
+        muteChannel(channelID, options = {}) {
             // verify required parameter 'channelID' is not null or undefined
             if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling usersMeMuteChannelIDPost.');
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling muteChannel.');
             }
             const localVarPath = `/users/me/mute/{channelID}`
                 .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
@@ -5470,25 +5464,31 @@ export const MuteApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * ミュートしているチャンネルのIDの配列を返します。
+         * 指定したチャンネルのミュートを解除します。既に解除されていた場合は204を返します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeMuteGet(options = {}) {
-            const localVarPath = `/users/me/mute`;
+        unmuteChannel(channelID, options = {}) {
+            // verify required parameter 'channelID' is not null or undefined
+            if (channelID === null || channelID === undefined) {
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling unmuteChannel.');
+            }
+            const localVarPath = `/users/me/mute/{channelID}`
+                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
             // authentication traqOAuth2 required
             // oauth required
             if (configuration && configuration.accessToken) {
                 const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read"])
+                    ? configuration.accessToken("traqOAuth2", ["write"])
                     : configuration.accessToken;
                 localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
             }
@@ -5510,13 +5510,12 @@ export const MuteApiAxiosParamCreator = function (configuration) {
 export const MuteApiFp = function (configuration) {
     return {
         /**
-         * 指定したチャンネルのミュートを解除します。既に解除されていた場合は204を返します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
+         * ミュートしているチャンネルのIDの配列を返します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeMuteChannelIDDelete(channelID, options) {
-            const localVarAxiosArgs = MuteApiAxiosParamCreator(configuration).usersMeMuteChannelIDDelete(channelID, options);
+        getMutedChannels(options) {
+            const localVarAxiosArgs = MuteApiAxiosParamCreator(configuration).getMutedChannels(options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -5528,20 +5527,21 @@ export const MuteApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeMuteChannelIDPost(channelID, options) {
-            const localVarAxiosArgs = MuteApiAxiosParamCreator(configuration).usersMeMuteChannelIDPost(channelID, options);
+        muteChannel(channelID, options) {
+            const localVarAxiosArgs = MuteApiAxiosParamCreator(configuration).muteChannel(channelID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
             };
         },
         /**
-         * ミュートしているチャンネルのIDの配列を返します。
+         * 指定したチャンネルのミュートを解除します。既に解除されていた場合は204を返します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeMuteGet(options) {
-            const localVarAxiosArgs = MuteApiAxiosParamCreator(configuration).usersMeMuteGet(options);
+        unmuteChannel(channelID, options) {
+            const localVarAxiosArgs = MuteApiAxiosParamCreator(configuration).unmuteChannel(channelID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -5556,13 +5556,12 @@ export const MuteApiFp = function (configuration) {
 export const MuteApiFactory = function (configuration, basePath, axios) {
     return {
         /**
-         * 指定したチャンネルのミュートを解除します。既に解除されていた場合は204を返します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
+         * ミュートしているチャンネルのIDの配列を返します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeMuteChannelIDDelete(channelID, options) {
-            return MuteApiFp(configuration).usersMeMuteChannelIDDelete(channelID, options)(axios, basePath);
+        getMutedChannels(options) {
+            return MuteApiFp(configuration).getMutedChannels(options)(axios, basePath);
         },
         /**
          * 指定したチャンネルをミュートします。ただし、強制通知チャンネルはミュートできません。既にミュートしていた場合は204を返します。
@@ -5570,16 +5569,17 @@ export const MuteApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeMuteChannelIDPost(channelID, options) {
-            return MuteApiFp(configuration).usersMeMuteChannelIDPost(channelID, options)(axios, basePath);
+        muteChannel(channelID, options) {
+            return MuteApiFp(configuration).muteChannel(channelID, options)(axios, basePath);
         },
         /**
-         * ミュートしているチャンネルのIDの配列を返します。
+         * 指定したチャンネルのミュートを解除します。既に解除されていた場合は204を返します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeMuteGet(options) {
-            return MuteApiFp(configuration).usersMeMuteGet(options)(axios, basePath);
+        unmuteChannel(channelID, options) {
+            return MuteApiFp(configuration).unmuteChannel(channelID, options)(axios, basePath);
         },
     };
 };
@@ -5591,14 +5591,13 @@ export const MuteApiFactory = function (configuration, basePath, axios) {
  */
 export class MuteApi extends BaseAPI {
     /**
-     * 指定したチャンネルのミュートを解除します。既に解除されていた場合は204を返します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
+     * ミュートしているチャンネルのIDの配列を返します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MuteApi
      */
-    usersMeMuteChannelIDDelete(channelID, options) {
-        return MuteApiFp(this.configuration).usersMeMuteChannelIDDelete(channelID, options)(this.axios, this.basePath);
+    getMutedChannels(options) {
+        return MuteApiFp(this.configuration).getMutedChannels(options)(this.axios, this.basePath);
     }
     /**
      * 指定したチャンネルをミュートします。ただし、強制通知チャンネルはミュートできません。既にミュートしていた場合は204を返します。
@@ -5607,17 +5606,18 @@ export class MuteApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MuteApi
      */
-    usersMeMuteChannelIDPost(channelID, options) {
-        return MuteApiFp(this.configuration).usersMeMuteChannelIDPost(channelID, options)(this.axios, this.basePath);
+    muteChannel(channelID, options) {
+        return MuteApiFp(this.configuration).muteChannel(channelID, options)(this.axios, this.basePath);
     }
     /**
-     * ミュートしているチャンネルのIDの配列を返します。
+     * 指定したチャンネルのミュートを解除します。既に解除されていた場合は204を返します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MuteApi
      */
-    usersMeMuteGet(options) {
-        return MuteApiFp(this.configuration).usersMeMuteGet(options)(this.axios, this.basePath);
+    unmuteChannel(channelID, options) {
+        return MuteApiFp(this.configuration).unmuteChannel(channelID, options)(this.axios, this.basePath);
     }
 }
 /**
@@ -5627,54 +5627,16 @@ export class MuteApi extends BaseAPI {
 export const NotificationApiAxiosParamCreator = function (configuration) {
     return {
         /**
-         * 通知を点けているユーザーのIDの配列を取得します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDNotificationGet(channelID, options = {}) {
-            // verify required parameter 'channelID' is not null or undefined
-            if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDNotificationGet.');
-            }
-            const localVarPath = `/channels/{channelID}/notification`
-                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * チャンネルの通知状況を変更します。 リクエストに含めなかったユーザーIDのユーザーの通知状況は変更しません。 また、存在しないユーザーのIDを指定した場合は無視されます。
          * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {NotificationUsers} [notificationUsers]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDNotificationPut(channelID, notificationUsers, options = {}) {
+        changeNotifications(channelID, notificationUsers, options = {}) {
             // verify required parameter 'channelID' is not null or undefined
             if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDNotificationPut.');
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling changeNotifications.');
             }
             const localVarPath = `/channels/{channelID}/notification`
                 .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
@@ -5707,48 +5669,50 @@ export const NotificationApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * FCMデバイスを登録します。
-         * @param {FCMToken} [fCMToken]
+         * 通知ストリーム(Server Sent Events)に接続します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        notificationDevicePost(fCMToken, options = {}) {
-            const localVarPath = `/notification/device`;
+        connectNotification(options = {}) {
+            const localVarPath = `/notification`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
             // authentication traqOAuth2 required
             // oauth required
             if (configuration && configuration.accessToken) {
                 const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["write"])
+                    ? configuration.accessToken("traqOAuth2", ["read"])
                     : configuration.accessToken;
                 localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
             }
-            localVarHeaderParameter['Content-Type'] = 'application/json';
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("FCMToken" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(fCMToken !== undefined ? fCMToken : {}) : (fCMToken || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
             };
         },
         /**
-         * 通知ストリーム(Server Sent Events)に接続します。
+         * 通知を点けているユーザーのIDの配列を取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        notificationGet(options = {}) {
-            const localVarPath = `/notification`;
+        getNotifications(channelID, options = {}) {
+            // verify required parameter 'channelID' is not null or undefined
+            if (channelID === null || channelID === undefined) {
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling getNotifications.');
+            }
+            const localVarPath = `/channels/{channelID}/notification`
+                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -5779,7 +5743,7 @@ export const NotificationApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeNotificationGet(options = {}) {
+        getNotifiedChannels(options = {}) {
             const localVarPath = `/users/me/notification`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -5812,10 +5776,10 @@ export const NotificationApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDNotificationGet(userID, options = {}) {
+        getUserNotifiedChannels(userID, options = {}) {
             // verify required parameter 'userID' is not null or undefined
             if (userID === null || userID === undefined) {
-                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling usersUserIDNotificationGet.');
+                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling getUserNotifiedChannels.');
             }
             const localVarPath = `/users/{userID}/notification`
                 .replace(`{${"userID"}}`, encodeURIComponent(String(userID)));
@@ -5844,6 +5808,42 @@ export const NotificationApiAxiosParamCreator = function (configuration) {
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * FCMデバイスを登録します。
+         * @param {FCMToken} [fCMToken]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        registerNotificationDevice(fCMToken, options = {}) {
+            const localVarPath = `/notification/device`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["write"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = ("FCMToken" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(fCMToken !== undefined ? fCMToken : {}) : (fCMToken || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     };
 };
 /**
@@ -5853,40 +5853,14 @@ export const NotificationApiAxiosParamCreator = function (configuration) {
 export const NotificationApiFp = function (configuration) {
     return {
         /**
-         * 通知を点けているユーザーのIDの配列を取得します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDNotificationGet(channelID, options) {
-            const localVarAxiosArgs = NotificationApiAxiosParamCreator(configuration).channelsChannelIDNotificationGet(channelID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
          * チャンネルの通知状況を変更します。 リクエストに含めなかったユーザーIDのユーザーの通知状況は変更しません。 また、存在しないユーザーのIDを指定した場合は無視されます。
          * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {NotificationUsers} [notificationUsers]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDNotificationPut(channelID, notificationUsers, options) {
-            const localVarAxiosArgs = NotificationApiAxiosParamCreator(configuration).channelsChannelIDNotificationPut(channelID, notificationUsers, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * FCMデバイスを登録します。
-         * @param {FCMToken} [fCMToken]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        notificationDevicePost(fCMToken, options) {
-            const localVarAxiosArgs = NotificationApiAxiosParamCreator(configuration).notificationDevicePost(fCMToken, options);
+        changeNotifications(channelID, notificationUsers, options) {
+            const localVarAxiosArgs = NotificationApiAxiosParamCreator(configuration).changeNotifications(channelID, notificationUsers, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -5897,8 +5871,21 @@ export const NotificationApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        notificationGet(options) {
-            const localVarAxiosArgs = NotificationApiAxiosParamCreator(configuration).notificationGet(options);
+        connectNotification(options) {
+            const localVarAxiosArgs = NotificationApiAxiosParamCreator(configuration).connectNotification(options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 通知を点けているユーザーのIDの配列を取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getNotifications(channelID, options) {
+            const localVarAxiosArgs = NotificationApiAxiosParamCreator(configuration).getNotifications(channelID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -5909,8 +5896,8 @@ export const NotificationApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeNotificationGet(options) {
-            const localVarAxiosArgs = NotificationApiAxiosParamCreator(configuration).usersMeNotificationGet(options);
+        getNotifiedChannels(options) {
+            const localVarAxiosArgs = NotificationApiAxiosParamCreator(configuration).getNotifiedChannels(options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -5922,8 +5909,21 @@ export const NotificationApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDNotificationGet(userID, options) {
-            const localVarAxiosArgs = NotificationApiAxiosParamCreator(configuration).usersUserIDNotificationGet(userID, options);
+        getUserNotifiedChannels(userID, options) {
+            const localVarAxiosArgs = NotificationApiAxiosParamCreator(configuration).getUserNotifiedChannels(userID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * FCMデバイスを登録します。
+         * @param {FCMToken} [fCMToken]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        registerNotificationDevice(fCMToken, options) {
+            const localVarAxiosArgs = NotificationApiAxiosParamCreator(configuration).registerNotificationDevice(fCMToken, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -5938,48 +5938,39 @@ export const NotificationApiFp = function (configuration) {
 export const NotificationApiFactory = function (configuration, basePath, axios) {
     return {
         /**
-         * 通知を点けているユーザーのIDの配列を取得します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDNotificationGet(channelID, options) {
-            return NotificationApiFp(configuration).channelsChannelIDNotificationGet(channelID, options)(axios, basePath);
-        },
-        /**
          * チャンネルの通知状況を変更します。 リクエストに含めなかったユーザーIDのユーザーの通知状況は変更しません。 また、存在しないユーザーのIDを指定した場合は無視されます。
          * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {NotificationUsers} [notificationUsers]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDNotificationPut(channelID, notificationUsers, options) {
-            return NotificationApiFp(configuration).channelsChannelIDNotificationPut(channelID, notificationUsers, options)(axios, basePath);
-        },
-        /**
-         * FCMデバイスを登録します。
-         * @param {FCMToken} [fCMToken]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        notificationDevicePost(fCMToken, options) {
-            return NotificationApiFp(configuration).notificationDevicePost(fCMToken, options)(axios, basePath);
+        changeNotifications(channelID, notificationUsers, options) {
+            return NotificationApiFp(configuration).changeNotifications(channelID, notificationUsers, options)(axios, basePath);
         },
         /**
          * 通知ストリーム(Server Sent Events)に接続します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        notificationGet(options) {
-            return NotificationApiFp(configuration).notificationGet(options)(axios, basePath);
+        connectNotification(options) {
+            return NotificationApiFp(configuration).connectNotification(options)(axios, basePath);
+        },
+        /**
+         * 通知を点けているユーザーのIDの配列を取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getNotifications(channelID, options) {
+            return NotificationApiFp(configuration).getNotifications(channelID, options)(axios, basePath);
         },
         /**
          * 自分が通知を入れているチャンネルのリストを取得します
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeNotificationGet(options) {
-            return NotificationApiFp(configuration).usersMeNotificationGet(options)(axios, basePath);
+        getNotifiedChannels(options) {
+            return NotificationApiFp(configuration).getNotifiedChannels(options)(axios, basePath);
         },
         /**
          * ユーザーが通知を入れているチャンネルのリストを取得します
@@ -5987,8 +5978,17 @@ export const NotificationApiFactory = function (configuration, basePath, axios) 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDNotificationGet(userID, options) {
-            return NotificationApiFp(configuration).usersUserIDNotificationGet(userID, options)(axios, basePath);
+        getUserNotifiedChannels(userID, options) {
+            return NotificationApiFp(configuration).getUserNotifiedChannels(userID, options)(axios, basePath);
+        },
+        /**
+         * FCMデバイスを登録します。
+         * @param {FCMToken} [fCMToken]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        registerNotificationDevice(fCMToken, options) {
+            return NotificationApiFp(configuration).registerNotificationDevice(fCMToken, options)(axios, basePath);
         },
     };
 };
@@ -6000,16 +6000,6 @@ export const NotificationApiFactory = function (configuration, basePath, axios) 
  */
 export class NotificationApi extends BaseAPI {
     /**
-     * 通知を点けているユーザーのIDの配列を取得します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof NotificationApi
-     */
-    channelsChannelIDNotificationGet(channelID, options) {
-        return NotificationApiFp(this.configuration).channelsChannelIDNotificationGet(channelID, options)(this.axios, this.basePath);
-    }
-    /**
      * チャンネルの通知状況を変更します。 リクエストに含めなかったユーザーIDのユーザーの通知状況は変更しません。 また、存在しないユーザーのIDを指定した場合は無視されます。
      * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {NotificationUsers} [notificationUsers]
@@ -6017,18 +6007,8 @@ export class NotificationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    channelsChannelIDNotificationPut(channelID, notificationUsers, options) {
-        return NotificationApiFp(this.configuration).channelsChannelIDNotificationPut(channelID, notificationUsers, options)(this.axios, this.basePath);
-    }
-    /**
-     * FCMデバイスを登録します。
-     * @param {FCMToken} [fCMToken]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof NotificationApi
-     */
-    notificationDevicePost(fCMToken, options) {
-        return NotificationApiFp(this.configuration).notificationDevicePost(fCMToken, options)(this.axios, this.basePath);
+    changeNotifications(channelID, notificationUsers, options) {
+        return NotificationApiFp(this.configuration).changeNotifications(channelID, notificationUsers, options)(this.axios, this.basePath);
     }
     /**
      * 通知ストリーム(Server Sent Events)に接続します。
@@ -6036,8 +6016,18 @@ export class NotificationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    notificationGet(options) {
-        return NotificationApiFp(this.configuration).notificationGet(options)(this.axios, this.basePath);
+    connectNotification(options) {
+        return NotificationApiFp(this.configuration).connectNotification(options)(this.axios, this.basePath);
+    }
+    /**
+     * 通知を点けているユーザーのIDの配列を取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NotificationApi
+     */
+    getNotifications(channelID, options) {
+        return NotificationApiFp(this.configuration).getNotifications(channelID, options)(this.axios, this.basePath);
     }
     /**
      * 自分が通知を入れているチャンネルのリストを取得します
@@ -6045,8 +6035,8 @@ export class NotificationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    usersMeNotificationGet(options) {
-        return NotificationApiFp(this.configuration).usersMeNotificationGet(options)(this.axios, this.basePath);
+    getNotifiedChannels(options) {
+        return NotificationApiFp(this.configuration).getNotifiedChannels(options)(this.axios, this.basePath);
     }
     /**
      * ユーザーが通知を入れているチャンネルのリストを取得します
@@ -6055,8 +6045,18 @@ export class NotificationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    usersUserIDNotificationGet(userID, options) {
-        return NotificationApiFp(this.configuration).usersUserIDNotificationGet(userID, options)(this.axios, this.basePath);
+    getUserNotifiedChannels(userID, options) {
+        return NotificationApiFp(this.configuration).getUserNotifiedChannels(userID, options)(this.axios, this.basePath);
+    }
+    /**
+     * FCMデバイスを登録します。
+     * @param {FCMToken} [fCMToken]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NotificationApi
+     */
+    registerNotificationDevice(fCMToken, options) {
+        return NotificationApiFp(this.configuration).registerNotificationDevice(fCMToken, options)(this.axios, this.basePath);
     }
 }
 /**
@@ -6066,15 +6066,53 @@ export class NotificationApi extends BaseAPI {
 export const PinApiAxiosParamCreator = function (configuration) {
     return {
         /**
+         * ピン留めを取得します。
+         * @param {string} pinID 操作の対象となるピン留めID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPinnedMessage(pinID, options = {}) {
+            // verify required parameter 'pinID' is not null or undefined
+            if (pinID === null || pinID === undefined) {
+                throw new RequiredError('pinID', 'Required parameter pinID was null or undefined when calling getPinnedMessage.');
+            }
+            const localVarPath = `/pins/{pinID}`
+                .replace(`{${"pinID"}}`, encodeURIComponent(String(pinID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * チャンネルのピン留め一覧を取得します。
          * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        channelsChannelIDPinsGet(channelID, options = {}) {
+        getPinnedMessages(channelID, options = {}) {
             // verify required parameter 'channelID' is not null or undefined
             if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling channelsChannelIDPinsGet.');
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling getPinnedMessages.');
             }
             const localVarPath = `/channels/{channelID}/pins`
                 .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
@@ -6104,88 +6142,12 @@ export const PinApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * ピン留めを外します。
-         * @param {string} pinID 操作の対象となるピン留めID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        pinsPinIDDelete(pinID, options = {}) {
-            // verify required parameter 'pinID' is not null or undefined
-            if (pinID === null || pinID === undefined) {
-                throw new RequiredError('pinID', 'Required parameter pinID was null or undefined when calling pinsPinIDDelete.');
-            }
-            const localVarPath = `/pins/{pinID}`
-                .replace(`{${"pinID"}}`, encodeURIComponent(String(pinID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["write"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * ピン留めを取得します。
-         * @param {string} pinID 操作の対象となるピン留めID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        pinsPinIDGet(pinID, options = {}) {
-            // verify required parameter 'pinID' is not null or undefined
-            if (pinID === null || pinID === undefined) {
-                throw new RequiredError('pinID', 'Required parameter pinID was null or undefined when calling pinsPinIDGet.');
-            }
-            const localVarPath = `/pins/{pinID}`
-                .replace(`{${"pinID"}}`, encodeURIComponent(String(pinID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * チャンネルにメッセージをピン留めします。
          * @param {MessageIDObject} [messageIDObject]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        pinsPost(messageIDObject, options = {}) {
+        pinMessage(messageIDObject, options = {}) {
             const localVarPath = `/pins`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -6215,6 +6177,44 @@ export const PinApiAxiosParamCreator = function (configuration) {
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * ピン留めを外します。
+         * @param {string} pinID 操作の対象となるピン留めID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unpinMessage(pinID, options = {}) {
+            // verify required parameter 'pinID' is not null or undefined
+            if (pinID === null || pinID === undefined) {
+                throw new RequiredError('pinID', 'Required parameter pinID was null or undefined when calling unpinMessage.');
+            }
+            const localVarPath = `/pins/{pinID}`
+                .replace(`{${"pinID"}}`, encodeURIComponent(String(pinID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["write"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     };
 };
 /**
@@ -6224,39 +6224,26 @@ export const PinApiAxiosParamCreator = function (configuration) {
 export const PinApiFp = function (configuration) {
     return {
         /**
-         * チャンネルのピン留め一覧を取得します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDPinsGet(channelID, options) {
-            const localVarAxiosArgs = PinApiAxiosParamCreator(configuration).channelsChannelIDPinsGet(channelID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * ピン留めを外します。
-         * @param {string} pinID 操作の対象となるピン留めID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        pinsPinIDDelete(pinID, options) {
-            const localVarAxiosArgs = PinApiAxiosParamCreator(configuration).pinsPinIDDelete(pinID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
          * ピン留めを取得します。
          * @param {string} pinID 操作の対象となるピン留めID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        pinsPinIDGet(pinID, options) {
-            const localVarAxiosArgs = PinApiAxiosParamCreator(configuration).pinsPinIDGet(pinID, options);
+        getPinnedMessage(pinID, options) {
+            const localVarAxiosArgs = PinApiAxiosParamCreator(configuration).getPinnedMessage(pinID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * チャンネルのピン留め一覧を取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPinnedMessages(channelID, options) {
+            const localVarAxiosArgs = PinApiAxiosParamCreator(configuration).getPinnedMessages(channelID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -6268,8 +6255,21 @@ export const PinApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        pinsPost(messageIDObject, options) {
-            const localVarAxiosArgs = PinApiAxiosParamCreator(configuration).pinsPost(messageIDObject, options);
+        pinMessage(messageIDObject, options) {
+            const localVarAxiosArgs = PinApiAxiosParamCreator(configuration).pinMessage(messageIDObject, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * ピン留めを外します。
+         * @param {string} pinID 操作の対象となるピン留めID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unpinMessage(pinID, options) {
+            const localVarAxiosArgs = PinApiAxiosParamCreator(configuration).unpinMessage(pinID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -6284,31 +6284,22 @@ export const PinApiFp = function (configuration) {
 export const PinApiFactory = function (configuration, basePath, axios) {
     return {
         /**
-         * チャンネルのピン留め一覧を取得します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        channelsChannelIDPinsGet(channelID, options) {
-            return PinApiFp(configuration).channelsChannelIDPinsGet(channelID, options)(axios, basePath);
-        },
-        /**
-         * ピン留めを外します。
-         * @param {string} pinID 操作の対象となるピン留めID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        pinsPinIDDelete(pinID, options) {
-            return PinApiFp(configuration).pinsPinIDDelete(pinID, options)(axios, basePath);
-        },
-        /**
          * ピン留めを取得します。
          * @param {string} pinID 操作の対象となるピン留めID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        pinsPinIDGet(pinID, options) {
-            return PinApiFp(configuration).pinsPinIDGet(pinID, options)(axios, basePath);
+        getPinnedMessage(pinID, options) {
+            return PinApiFp(configuration).getPinnedMessage(pinID, options)(axios, basePath);
+        },
+        /**
+         * チャンネルのピン留め一覧を取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPinnedMessages(channelID, options) {
+            return PinApiFp(configuration).getPinnedMessages(channelID, options)(axios, basePath);
         },
         /**
          * チャンネルにメッセージをピン留めします。
@@ -6316,8 +6307,17 @@ export const PinApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        pinsPost(messageIDObject, options) {
-            return PinApiFp(configuration).pinsPost(messageIDObject, options)(axios, basePath);
+        pinMessage(messageIDObject, options) {
+            return PinApiFp(configuration).pinMessage(messageIDObject, options)(axios, basePath);
+        },
+        /**
+         * ピン留めを外します。
+         * @param {string} pinID 操作の対象となるピン留めID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unpinMessage(pinID, options) {
+            return PinApiFp(configuration).unpinMessage(pinID, options)(axios, basePath);
         },
     };
 };
@@ -6329,34 +6329,24 @@ export const PinApiFactory = function (configuration, basePath, axios) {
  */
 export class PinApi extends BaseAPI {
     /**
-     * チャンネルのピン留め一覧を取得します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof PinApi
-     */
-    channelsChannelIDPinsGet(channelID, options) {
-        return PinApiFp(this.configuration).channelsChannelIDPinsGet(channelID, options)(this.axios, this.basePath);
-    }
-    /**
-     * ピン留めを外します。
-     * @param {string} pinID 操作の対象となるピン留めID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof PinApi
-     */
-    pinsPinIDDelete(pinID, options) {
-        return PinApiFp(this.configuration).pinsPinIDDelete(pinID, options)(this.axios, this.basePath);
-    }
-    /**
      * ピン留めを取得します。
      * @param {string} pinID 操作の対象となるピン留めID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PinApi
      */
-    pinsPinIDGet(pinID, options) {
-        return PinApiFp(this.configuration).pinsPinIDGet(pinID, options)(this.axios, this.basePath);
+    getPinnedMessage(pinID, options) {
+        return PinApiFp(this.configuration).getPinnedMessage(pinID, options)(this.axios, this.basePath);
+    }
+    /**
+     * チャンネルのピン留め一覧を取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PinApi
+     */
+    getPinnedMessages(channelID, options) {
+        return PinApiFp(this.configuration).getPinnedMessages(channelID, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルにメッセージをピン留めします。
@@ -6365,8 +6355,18 @@ export class PinApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PinApi
      */
-    pinsPost(messageIDObject, options) {
-        return PinApiFp(this.configuration).pinsPost(messageIDObject, options)(this.axios, this.basePath);
+    pinMessage(messageIDObject, options) {
+        return PinApiFp(this.configuration).pinMessage(messageIDObject, options)(this.axios, this.basePath);
+    }
+    /**
+     * ピン留めを外します。
+     * @param {string} pinID 操作の対象となるピン留めID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PinApi
+     */
+    unpinMessage(pinID, options) {
+        return PinApiFp(this.configuration).unpinMessage(pinID, options)(this.axios, this.basePath);
     }
 }
 /**
@@ -6381,10 +6381,10 @@ export const PublicApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publicIconUsernameGet(username, options = {}) {
+        getPublicUserIcon(username, options = {}) {
             // verify required parameter 'username' is not null or undefined
             if (username === null || username === undefined) {
-                throw new RequiredError('username', 'Required parameter username was null or undefined when calling publicIconUsernameGet.');
+                throw new RequiredError('username', 'Required parameter username was null or undefined when calling getPublicUserIcon.');
             }
             const localVarPath = `/public/icon/{username}`
                 .replace(`{${"username"}}`, encodeURIComponent(String(username)));
@@ -6419,8 +6419,8 @@ export const PublicApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publicIconUsernameGet(username, options) {
-            const localVarAxiosArgs = PublicApiAxiosParamCreator(configuration).publicIconUsernameGet(username, options);
+        getPublicUserIcon(username, options) {
+            const localVarAxiosArgs = PublicApiAxiosParamCreator(configuration).getPublicUserIcon(username, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -6440,8 +6440,8 @@ export const PublicApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publicIconUsernameGet(username, options) {
-            return PublicApiFp(configuration).publicIconUsernameGet(username, options)(axios, basePath);
+        getPublicUserIcon(username, options) {
+            return PublicApiFp(configuration).getPublicUserIcon(username, options)(axios, basePath);
         },
     };
 };
@@ -6459,8 +6459,8 @@ export class PublicApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PublicApi
      */
-    publicIconUsernameGet(username, options) {
-        return PublicApiFp(this.configuration).publicIconUsernameGet(username, options)(this.axios, this.basePath);
+    getPublicUserIcon(username, options) {
+        return PublicApiFp(this.configuration).getPublicUserIcon(username, options)(this.axios, this.basePath);
     }
 }
 /**
@@ -6470,65 +6470,15 @@ export class PublicApi extends BaseAPI {
 export const SessionsApiAxiosParamCreator = function (configuration) {
     return {
         /**
-         * 自分のログインセッションを全てログアウトします。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeSessionsDelete(options = {}) {
-            const localVarPath = `/users/me/sessions`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication cookieAuth required
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 自分のログインセッションリストを取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeSessionsGet(options = {}) {
-            const localVarPath = `/users/me/sessions`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication cookieAuth required
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * 対象のセッションをログアウトします。
          * @param {string} referenceID 操作の対象となるセッションの参照ID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeSessionsReferenceIDDelete(referenceID, options = {}) {
+        deleteSession(referenceID, options = {}) {
             // verify required parameter 'referenceID' is not null or undefined
             if (referenceID === null || referenceID === undefined) {
-                throw new RequiredError('referenceID', 'Required parameter referenceID was null or undefined when calling usersMeSessionsReferenceIDDelete.');
+                throw new RequiredError('referenceID', 'Required parameter referenceID was null or undefined when calling deleteSession.');
             }
             const localVarPath = `/users/me/sessions/{referenceID}`
                 .replace(`{${"referenceID"}}`, encodeURIComponent(String(referenceID)));
@@ -6550,6 +6500,56 @@ export const SessionsApiAxiosParamCreator = function (configuration) {
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 自分のログインセッションを全てログアウトします。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteSessions(options = {}) {
+            const localVarPath = `/users/me/sessions`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication cookieAuth required
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 自分のログインセッションリストを取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSessions(options = {}) {
+            const localVarPath = `/users/me/sessions`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication cookieAuth required
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     };
 };
 /**
@@ -6559,12 +6559,25 @@ export const SessionsApiAxiosParamCreator = function (configuration) {
 export const SessionsApiFp = function (configuration) {
     return {
         /**
+         * 対象のセッションをログアウトします。
+         * @param {string} referenceID 操作の対象となるセッションの参照ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteSession(referenceID, options) {
+            const localVarAxiosArgs = SessionsApiAxiosParamCreator(configuration).deleteSession(referenceID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
          * 自分のログインセッションを全てログアウトします。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeSessionsDelete(options) {
-            const localVarAxiosArgs = SessionsApiAxiosParamCreator(configuration).usersMeSessionsDelete(options);
+        deleteSessions(options) {
+            const localVarAxiosArgs = SessionsApiAxiosParamCreator(configuration).deleteSessions(options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -6575,21 +6588,8 @@ export const SessionsApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeSessionsGet(options) {
-            const localVarAxiosArgs = SessionsApiAxiosParamCreator(configuration).usersMeSessionsGet(options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 対象のセッションをログアウトします。
-         * @param {string} referenceID 操作の対象となるセッションの参照ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeSessionsReferenceIDDelete(referenceID, options) {
-            const localVarAxiosArgs = SessionsApiAxiosParamCreator(configuration).usersMeSessionsReferenceIDDelete(referenceID, options);
+        getSessions(options) {
+            const localVarAxiosArgs = SessionsApiAxiosParamCreator(configuration).getSessions(options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -6604,29 +6604,29 @@ export const SessionsApiFp = function (configuration) {
 export const SessionsApiFactory = function (configuration, basePath, axios) {
     return {
         /**
+         * 対象のセッションをログアウトします。
+         * @param {string} referenceID 操作の対象となるセッションの参照ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteSession(referenceID, options) {
+            return SessionsApiFp(configuration).deleteSession(referenceID, options)(axios, basePath);
+        },
+        /**
          * 自分のログインセッションを全てログアウトします。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeSessionsDelete(options) {
-            return SessionsApiFp(configuration).usersMeSessionsDelete(options)(axios, basePath);
+        deleteSessions(options) {
+            return SessionsApiFp(configuration).deleteSessions(options)(axios, basePath);
         },
         /**
          * 自分のログインセッションリストを取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeSessionsGet(options) {
-            return SessionsApiFp(configuration).usersMeSessionsGet(options)(axios, basePath);
-        },
-        /**
-         * 対象のセッションをログアウトします。
-         * @param {string} referenceID 操作の対象となるセッションの参照ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeSessionsReferenceIDDelete(referenceID, options) {
-            return SessionsApiFp(configuration).usersMeSessionsReferenceIDDelete(referenceID, options)(axios, basePath);
+        getSessions(options) {
+            return SessionsApiFp(configuration).getSessions(options)(axios, basePath);
         },
     };
 };
@@ -6638,13 +6638,23 @@ export const SessionsApiFactory = function (configuration, basePath, axios) {
  */
 export class SessionsApi extends BaseAPI {
     /**
+     * 対象のセッションをログアウトします。
+     * @param {string} referenceID 操作の対象となるセッションの参照ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SessionsApi
+     */
+    deleteSession(referenceID, options) {
+        return SessionsApiFp(this.configuration).deleteSession(referenceID, options)(this.axios, this.basePath);
+    }
+    /**
      * 自分のログインセッションを全てログアウトします。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SessionsApi
      */
-    usersMeSessionsDelete(options) {
-        return SessionsApiFp(this.configuration).usersMeSessionsDelete(options)(this.axios, this.basePath);
+    deleteSessions(options) {
+        return SessionsApiFp(this.configuration).deleteSessions(options)(this.axios, this.basePath);
     }
     /**
      * 自分のログインセッションリストを取得します。
@@ -6652,18 +6662,8 @@ export class SessionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SessionsApi
      */
-    usersMeSessionsGet(options) {
-        return SessionsApiFp(this.configuration).usersMeSessionsGet(options)(this.axios, this.basePath);
-    }
-    /**
-     * 対象のセッションをログアウトします。
-     * @param {string} referenceID 操作の対象となるセッションの参照ID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SessionsApi
-     */
-    usersMeSessionsReferenceIDDelete(referenceID, options) {
-        return SessionsApiFp(this.configuration).usersMeSessionsReferenceIDDelete(referenceID, options)(this.axios, this.basePath);
+    getSessions(options) {
+        return SessionsApiFp(this.configuration).getSessions(options)(this.axios, this.basePath);
     }
 }
 /**
@@ -6673,178 +6673,20 @@ export class SessionsApi extends BaseAPI {
 export const StampApiAxiosParamCreator = function (configuration) {
     return {
         /**
-         * 指定したメッセージに押されているスタンプを全て取得します。
-         * @param {string} messageID 操作の対象となるメッセージID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesMessageIDStampsGet(messageID, options = {}) {
-            // verify required parameter 'messageID' is not null or undefined
-            if (messageID === null || messageID === undefined) {
-                throw new RequiredError('messageID', 'Required parameter messageID was null or undefined when calling messagesMessageIDStampsGet.');
-            }
-            const localVarPath = `/messages/{messageID}/stamps`
-                .replace(`{${"messageID"}}`, encodeURIComponent(String(messageID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 指定したメッセージから指定したスタンプを外します。
-         * @param {string} messageID 操作の対象となるメッセージID
-         * @param {string} stampID 操作の対象となるスタンプID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesMessageIDStampsStampIDDelete(messageID, stampID, options = {}) {
-            // verify required parameter 'messageID' is not null or undefined
-            if (messageID === null || messageID === undefined) {
-                throw new RequiredError('messageID', 'Required parameter messageID was null or undefined when calling messagesMessageIDStampsStampIDDelete.');
-            }
-            // verify required parameter 'stampID' is not null or undefined
-            if (stampID === null || stampID === undefined) {
-                throw new RequiredError('stampID', 'Required parameter stampID was null or undefined when calling messagesMessageIDStampsStampIDDelete.');
-            }
-            const localVarPath = `/messages/{messageID}/stamps/{stampID}`
-                .replace(`{${"messageID"}}`, encodeURIComponent(String(messageID)))
-                .replace(`{${"stampID"}}`, encodeURIComponent(String(stampID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["write"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 指定したメッセージに指定したスタンプを押します。
-         * @param {string} messageID 操作の対象となるメッセージID
-         * @param {string} stampID 操作の対象となるスタンプID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesMessageIDStampsStampIDPost(messageID, stampID, options = {}) {
-            // verify required parameter 'messageID' is not null or undefined
-            if (messageID === null || messageID === undefined) {
-                throw new RequiredError('messageID', 'Required parameter messageID was null or undefined when calling messagesMessageIDStampsStampIDPost.');
-            }
-            // verify required parameter 'stampID' is not null or undefined
-            if (stampID === null || stampID === undefined) {
-                throw new RequiredError('stampID', 'Required parameter stampID was null or undefined when calling messagesMessageIDStampsStampIDPost.');
-            }
-            const localVarPath = `/messages/{messageID}/stamps/{stampID}`
-                .replace(`{${"messageID"}}`, encodeURIComponent(String(messageID)))
-                .replace(`{${"stampID"}}`, encodeURIComponent(String(stampID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["write"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 全スタンプのリストを取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        stampsGet(options = {}) {
-            const localVarPath = `/stamps`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * スタンプを新規作成します。
          * @param {string} name スタンプ名(半角英数字と-+_のみを含む32文字以内の文字列)
          * @param {any} file 1MBまでのpng, jpeg, gif, svg
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        stampsPost(name, file, options = {}) {
+        createStamp(name, file, options = {}) {
             // verify required parameter 'name' is not null or undefined
             if (name === null || name === undefined) {
-                throw new RequiredError('name', 'Required parameter name was null or undefined when calling stampsPost.');
+                throw new RequiredError('name', 'Required parameter name was null or undefined when calling createStamp.');
             }
             // verify required parameter 'file' is not null or undefined
             if (file === null || file === undefined) {
-                throw new RequiredError('file', 'Required parameter file was null or undefined when calling stampsPost.');
+                throw new RequiredError('file', 'Required parameter file was null or undefined when calling createStamp.');
             }
             const localVarPath = `/stamps`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
@@ -6886,10 +6728,10 @@ export const StampApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        stampsStampIDDelete(stampID, options = {}) {
+        deleteStamp(stampID, options = {}) {
             // verify required parameter 'stampID' is not null or undefined
             if (stampID === null || stampID === undefined) {
-                throw new RequiredError('stampID', 'Required parameter stampID was null or undefined when calling stampsStampIDDelete.');
+                throw new RequiredError('stampID', 'Required parameter stampID was null or undefined when calling deleteStamp.');
             }
             const localVarPath = `/stamps/{stampID}`
                 .replace(`{${"stampID"}}`, encodeURIComponent(String(stampID)));
@@ -6912,44 +6754,6 @@ export const StampApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * スタンプの情報を取得します。
-         * @param {string} stampID 操作の対象となるスタンプID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        stampsStampIDGet(stampID, options = {}) {
-            // verify required parameter 'stampID' is not null or undefined
-            if (stampID === null || stampID === undefined) {
-                throw new RequiredError('stampID', 'Required parameter stampID was null or undefined when calling stampsStampIDGet.');
-            }
-            const localVarPath = `/stamps/{stampID}`
-                .replace(`{${"stampID"}}`, encodeURIComponent(String(stampID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * スタンプを修正します。
          * @param {string} stampID 操作の対象となるスタンプID
          * @param {string} [name] スタンプ名(半角英数字と-+_のみを含む32文字以内の文字列)
@@ -6957,10 +6761,10 @@ export const StampApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        stampsStampIDPatch(stampID, name, file, options = {}) {
+        editStamp(stampID, name, file, options = {}) {
             // verify required parameter 'stampID' is not null or undefined
             if (stampID === null || stampID === undefined) {
-                throw new RequiredError('stampID', 'Required parameter stampID was null or undefined when calling stampsStampIDPatch.');
+                throw new RequiredError('stampID', 'Required parameter stampID was null or undefined when calling editStamp.');
             }
             const localVarPath = `/stamps/{stampID}`
                 .replace(`{${"stampID"}}`, encodeURIComponent(String(stampID)));
@@ -6998,11 +6802,87 @@ export const StampApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
+         * 指定したメッセージに押されているスタンプを全て取得します。
+         * @param {string} messageID 操作の対象となるメッセージID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMessageStamps(messageID, options = {}) {
+            // verify required parameter 'messageID' is not null or undefined
+            if (messageID === null || messageID === undefined) {
+                throw new RequiredError('messageID', 'Required parameter messageID was null or undefined when calling getMessageStamps.');
+            }
+            const localVarPath = `/messages/{messageID}/stamps`
+                .replace(`{${"messageID"}}`, encodeURIComponent(String(messageID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * スタンプの情報を取得します。
+         * @param {string} stampID 操作の対象となるスタンプID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getStamp(stampID, options = {}) {
+            // verify required parameter 'stampID' is not null or undefined
+            if (stampID === null || stampID === undefined) {
+                throw new RequiredError('stampID', 'Required parameter stampID was null or undefined when calling getStamp.');
+            }
+            const localVarPath = `/stamps/{stampID}`
+                .replace(`{${"stampID"}}`, encodeURIComponent(String(stampID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * 自分のスタンプ履歴を最大50件取得します。結果は降順で返されます。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeStampHistoryGet(options = {}) {
+        getStampHistory(options = {}) {
             const localVarPath = `/users/me/stamp-history`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -7029,348 +6909,101 @@ export const StampApiAxiosParamCreator = function (configuration) {
                 options: localVarRequestOptions,
             };
         },
-    };
-};
-/**
- * StampApi - functional programming interface
- * @export
- */
-export const StampApiFp = function (configuration) {
-    return {
-        /**
-         * 指定したメッセージに押されているスタンプを全て取得します。
-         * @param {string} messageID 操作の対象となるメッセージID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesMessageIDStampsGet(messageID, options) {
-            const localVarAxiosArgs = StampApiAxiosParamCreator(configuration).messagesMessageIDStampsGet(messageID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 指定したメッセージから指定したスタンプを外します。
-         * @param {string} messageID 操作の対象となるメッセージID
-         * @param {string} stampID 操作の対象となるスタンプID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesMessageIDStampsStampIDDelete(messageID, stampID, options) {
-            const localVarAxiosArgs = StampApiAxiosParamCreator(configuration).messagesMessageIDStampsStampIDDelete(messageID, stampID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 指定したメッセージに指定したスタンプを押します。
-         * @param {string} messageID 操作の対象となるメッセージID
-         * @param {string} stampID 操作の対象となるスタンプID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesMessageIDStampsStampIDPost(messageID, stampID, options) {
-            const localVarAxiosArgs = StampApiAxiosParamCreator(configuration).messagesMessageIDStampsStampIDPost(messageID, stampID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
         /**
          * 全スタンプのリストを取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        stampsGet(options) {
-            const localVarAxiosArgs = StampApiAxiosParamCreator(configuration).stampsGet(options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * スタンプを新規作成します。
-         * @param {string} name スタンプ名(半角英数字と-+_のみを含む32文字以内の文字列)
-         * @param {any} file 1MBまでのpng, jpeg, gif, svg
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        stampsPost(name, file, options) {
-            const localVarAxiosArgs = StampApiAxiosParamCreator(configuration).stampsPost(name, file, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * スタンプを削除します。
-         * @param {string} stampID 操作の対象となるスタンプID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        stampsStampIDDelete(stampID, options) {
-            const localVarAxiosArgs = StampApiAxiosParamCreator(configuration).stampsStampIDDelete(stampID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * スタンプの情報を取得します。
-         * @param {string} stampID 操作の対象となるスタンプID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        stampsStampIDGet(stampID, options) {
-            const localVarAxiosArgs = StampApiAxiosParamCreator(configuration).stampsStampIDGet(stampID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * スタンプを修正します。
-         * @param {string} stampID 操作の対象となるスタンプID
-         * @param {string} [name] スタンプ名(半角英数字と-+_のみを含む32文字以内の文字列)
-         * @param {any} [file] 1MBまでのpng, jpeg, gif, svg
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        stampsStampIDPatch(stampID, name, file, options) {
-            const localVarAxiosArgs = StampApiAxiosParamCreator(configuration).stampsStampIDPatch(stampID, name, file, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 自分のスタンプ履歴を最大50件取得します。結果は降順で返されます。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeStampHistoryGet(options) {
-            const localVarAxiosArgs = StampApiAxiosParamCreator(configuration).usersMeStampHistoryGet(options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-    };
-};
-/**
- * StampApi - factory interface
- * @export
- */
-export const StampApiFactory = function (configuration, basePath, axios) {
-    return {
-        /**
-         * 指定したメッセージに押されているスタンプを全て取得します。
-         * @param {string} messageID 操作の対象となるメッセージID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesMessageIDStampsGet(messageID, options) {
-            return StampApiFp(configuration).messagesMessageIDStampsGet(messageID, options)(axios, basePath);
-        },
-        /**
-         * 指定したメッセージから指定したスタンプを外します。
-         * @param {string} messageID 操作の対象となるメッセージID
-         * @param {string} stampID 操作の対象となるスタンプID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesMessageIDStampsStampIDDelete(messageID, stampID, options) {
-            return StampApiFp(configuration).messagesMessageIDStampsStampIDDelete(messageID, stampID, options)(axios, basePath);
-        },
-        /**
-         * 指定したメッセージに指定したスタンプを押します。
-         * @param {string} messageID 操作の対象となるメッセージID
-         * @param {string} stampID 操作の対象となるスタンプID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesMessageIDStampsStampIDPost(messageID, stampID, options) {
-            return StampApiFp(configuration).messagesMessageIDStampsStampIDPost(messageID, stampID, options)(axios, basePath);
-        },
-        /**
-         * 全スタンプのリストを取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        stampsGet(options) {
-            return StampApiFp(configuration).stampsGet(options)(axios, basePath);
-        },
-        /**
-         * スタンプを新規作成します。
-         * @param {string} name スタンプ名(半角英数字と-+_のみを含む32文字以内の文字列)
-         * @param {any} file 1MBまでのpng, jpeg, gif, svg
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        stampsPost(name, file, options) {
-            return StampApiFp(configuration).stampsPost(name, file, options)(axios, basePath);
-        },
-        /**
-         * スタンプを削除します。
-         * @param {string} stampID 操作の対象となるスタンプID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        stampsStampIDDelete(stampID, options) {
-            return StampApiFp(configuration).stampsStampIDDelete(stampID, options)(axios, basePath);
-        },
-        /**
-         * スタンプの情報を取得します。
-         * @param {string} stampID 操作の対象となるスタンプID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        stampsStampIDGet(stampID, options) {
-            return StampApiFp(configuration).stampsStampIDGet(stampID, options)(axios, basePath);
-        },
-        /**
-         * スタンプを修正します。
-         * @param {string} stampID 操作の対象となるスタンプID
-         * @param {string} [name] スタンプ名(半角英数字と-+_のみを含む32文字以内の文字列)
-         * @param {any} [file] 1MBまでのpng, jpeg, gif, svg
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        stampsStampIDPatch(stampID, name, file, options) {
-            return StampApiFp(configuration).stampsStampIDPatch(stampID, name, file, options)(axios, basePath);
-        },
-        /**
-         * 自分のスタンプ履歴を最大50件取得します。結果は降順で返されます。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeStampHistoryGet(options) {
-            return StampApiFp(configuration).usersMeStampHistoryGet(options)(axios, basePath);
-        },
-    };
-};
-/**
- * StampApi - object-oriented interface
- * @export
- * @class StampApi
- * @extends {BaseAPI}
- */
-export class StampApi extends BaseAPI {
-    /**
-     * 指定したメッセージに押されているスタンプを全て取得します。
-     * @param {string} messageID 操作の対象となるメッセージID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof StampApi
-     */
-    messagesMessageIDStampsGet(messageID, options) {
-        return StampApiFp(this.configuration).messagesMessageIDStampsGet(messageID, options)(this.axios, this.basePath);
-    }
-    /**
-     * 指定したメッセージから指定したスタンプを外します。
-     * @param {string} messageID 操作の対象となるメッセージID
-     * @param {string} stampID 操作の対象となるスタンプID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof StampApi
-     */
-    messagesMessageIDStampsStampIDDelete(messageID, stampID, options) {
-        return StampApiFp(this.configuration).messagesMessageIDStampsStampIDDelete(messageID, stampID, options)(this.axios, this.basePath);
-    }
-    /**
-     * 指定したメッセージに指定したスタンプを押します。
-     * @param {string} messageID 操作の対象となるメッセージID
-     * @param {string} stampID 操作の対象となるスタンプID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof StampApi
-     */
-    messagesMessageIDStampsStampIDPost(messageID, stampID, options) {
-        return StampApiFp(this.configuration).messagesMessageIDStampsStampIDPost(messageID, stampID, options)(this.axios, this.basePath);
-    }
-    /**
-     * 全スタンプのリストを取得します。
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof StampApi
-     */
-    stampsGet(options) {
-        return StampApiFp(this.configuration).stampsGet(options)(this.axios, this.basePath);
-    }
-    /**
-     * スタンプを新規作成します。
-     * @param {string} name スタンプ名(半角英数字と-+_のみを含む32文字以内の文字列)
-     * @param {any} file 1MBまでのpng, jpeg, gif, svg
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof StampApi
-     */
-    stampsPost(name, file, options) {
-        return StampApiFp(this.configuration).stampsPost(name, file, options)(this.axios, this.basePath);
-    }
-    /**
-     * スタンプを削除します。
-     * @param {string} stampID 操作の対象となるスタンプID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof StampApi
-     */
-    stampsStampIDDelete(stampID, options) {
-        return StampApiFp(this.configuration).stampsStampIDDelete(stampID, options)(this.axios, this.basePath);
-    }
-    /**
-     * スタンプの情報を取得します。
-     * @param {string} stampID 操作の対象となるスタンプID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof StampApi
-     */
-    stampsStampIDGet(stampID, options) {
-        return StampApiFp(this.configuration).stampsStampIDGet(stampID, options)(this.axios, this.basePath);
-    }
-    /**
-     * スタンプを修正します。
-     * @param {string} stampID 操作の対象となるスタンプID
-     * @param {string} [name] スタンプ名(半角英数字と-+_のみを含む32文字以内の文字列)
-     * @param {any} [file] 1MBまでのpng, jpeg, gif, svg
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof StampApi
-     */
-    stampsStampIDPatch(stampID, name, file, options) {
-        return StampApiFp(this.configuration).stampsStampIDPatch(stampID, name, file, options)(this.axios, this.basePath);
-    }
-    /**
-     * 自分のスタンプ履歴を最大50件取得します。結果は降順で返されます。
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof StampApi
-     */
-    usersMeStampHistoryGet(options) {
-        return StampApiFp(this.configuration).usersMeStampHistoryGet(options)(this.axios, this.basePath);
-    }
-}
-/**
- * StarApi - axios parameter creator
- * @export
- */
-export const StarApiAxiosParamCreator = function (configuration) {
-    return {
-        /**
-         * +| お気に入りチャンネルリストから削除します。 既にお気に入りチャンネルリストに無いチャンネルを指定した場合は無視されます(204)。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeStarsChannelIDDelete(channelID, options = {}) {
-            // verify required parameter 'channelID' is not null or undefined
-            if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling usersMeStarsChannelIDDelete.');
+        getStamps(options = {}) {
+            const localVarPath = `/stamps`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
             }
-            const localVarPath = `/users/me/stars/{channelID}`
-                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 指定したメッセージに指定したスタンプを押します。
+         * @param {string} messageID 操作の対象となるメッセージID
+         * @param {string} stampID 操作の対象となるスタンプID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        stampMessage(messageID, stampID, options = {}) {
+            // verify required parameter 'messageID' is not null or undefined
+            if (messageID === null || messageID === undefined) {
+                throw new RequiredError('messageID', 'Required parameter messageID was null or undefined when calling stampMessage.');
+            }
+            // verify required parameter 'stampID' is not null or undefined
+            if (stampID === null || stampID === undefined) {
+                throw new RequiredError('stampID', 'Required parameter stampID was null or undefined when calling stampMessage.');
+            }
+            const localVarPath = `/messages/{messageID}/stamps/{stampID}`
+                .replace(`{${"messageID"}}`, encodeURIComponent(String(messageID)))
+                .replace(`{${"stampID"}}`, encodeURIComponent(String(stampID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["write"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 指定したメッセージから指定したスタンプを外します。
+         * @param {string} messageID 操作の対象となるメッセージID
+         * @param {string} stampID 操作の対象となるスタンプID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unstampMessage(messageID, stampID, options = {}) {
+            // verify required parameter 'messageID' is not null or undefined
+            if (messageID === null || messageID === undefined) {
+                throw new RequiredError('messageID', 'Required parameter messageID was null or undefined when calling unstampMessage.');
+            }
+            // verify required parameter 'stampID' is not null or undefined
+            if (stampID === null || stampID === undefined) {
+                throw new RequiredError('stampID', 'Required parameter stampID was null or undefined when calling unstampMessage.');
+            }
+            const localVarPath = `/messages/{messageID}/stamps/{stampID}`
+                .replace(`{${"messageID"}}`, encodeURIComponent(String(messageID)))
+                .replace(`{${"stampID"}}`, encodeURIComponent(String(stampID)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -7396,16 +7029,377 @@ export const StarApiAxiosParamCreator = function (configuration) {
                 options: localVarRequestOptions,
             };
         },
+    };
+};
+/**
+ * StampApi - functional programming interface
+ * @export
+ */
+export const StampApiFp = function (configuration) {
+    return {
+        /**
+         * スタンプを新規作成します。
+         * @param {string} name スタンプ名(半角英数字と-+_のみを含む32文字以内の文字列)
+         * @param {any} file 1MBまでのpng, jpeg, gif, svg
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createStamp(name, file, options) {
+            const localVarAxiosArgs = StampApiAxiosParamCreator(configuration).createStamp(name, file, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * スタンプを削除します。
+         * @param {string} stampID 操作の対象となるスタンプID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteStamp(stampID, options) {
+            const localVarAxiosArgs = StampApiAxiosParamCreator(configuration).deleteStamp(stampID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * スタンプを修正します。
+         * @param {string} stampID 操作の対象となるスタンプID
+         * @param {string} [name] スタンプ名(半角英数字と-+_のみを含む32文字以内の文字列)
+         * @param {any} [file] 1MBまでのpng, jpeg, gif, svg
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        editStamp(stampID, name, file, options) {
+            const localVarAxiosArgs = StampApiAxiosParamCreator(configuration).editStamp(stampID, name, file, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 指定したメッセージに押されているスタンプを全て取得します。
+         * @param {string} messageID 操作の対象となるメッセージID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMessageStamps(messageID, options) {
+            const localVarAxiosArgs = StampApiAxiosParamCreator(configuration).getMessageStamps(messageID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * スタンプの情報を取得します。
+         * @param {string} stampID 操作の対象となるスタンプID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getStamp(stampID, options) {
+            const localVarAxiosArgs = StampApiAxiosParamCreator(configuration).getStamp(stampID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 自分のスタンプ履歴を最大50件取得します。結果は降順で返されます。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getStampHistory(options) {
+            const localVarAxiosArgs = StampApiAxiosParamCreator(configuration).getStampHistory(options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 全スタンプのリストを取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getStamps(options) {
+            const localVarAxiosArgs = StampApiAxiosParamCreator(configuration).getStamps(options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 指定したメッセージに指定したスタンプを押します。
+         * @param {string} messageID 操作の対象となるメッセージID
+         * @param {string} stampID 操作の対象となるスタンプID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        stampMessage(messageID, stampID, options) {
+            const localVarAxiosArgs = StampApiAxiosParamCreator(configuration).stampMessage(messageID, stampID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 指定したメッセージから指定したスタンプを外します。
+         * @param {string} messageID 操作の対象となるメッセージID
+         * @param {string} stampID 操作の対象となるスタンプID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unstampMessage(messageID, stampID, options) {
+            const localVarAxiosArgs = StampApiAxiosParamCreator(configuration).unstampMessage(messageID, stampID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    };
+};
+/**
+ * StampApi - factory interface
+ * @export
+ */
+export const StampApiFactory = function (configuration, basePath, axios) {
+    return {
+        /**
+         * スタンプを新規作成します。
+         * @param {string} name スタンプ名(半角英数字と-+_のみを含む32文字以内の文字列)
+         * @param {any} file 1MBまでのpng, jpeg, gif, svg
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createStamp(name, file, options) {
+            return StampApiFp(configuration).createStamp(name, file, options)(axios, basePath);
+        },
+        /**
+         * スタンプを削除します。
+         * @param {string} stampID 操作の対象となるスタンプID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteStamp(stampID, options) {
+            return StampApiFp(configuration).deleteStamp(stampID, options)(axios, basePath);
+        },
+        /**
+         * スタンプを修正します。
+         * @param {string} stampID 操作の対象となるスタンプID
+         * @param {string} [name] スタンプ名(半角英数字と-+_のみを含む32文字以内の文字列)
+         * @param {any} [file] 1MBまでのpng, jpeg, gif, svg
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        editStamp(stampID, name, file, options) {
+            return StampApiFp(configuration).editStamp(stampID, name, file, options)(axios, basePath);
+        },
+        /**
+         * 指定したメッセージに押されているスタンプを全て取得します。
+         * @param {string} messageID 操作の対象となるメッセージID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMessageStamps(messageID, options) {
+            return StampApiFp(configuration).getMessageStamps(messageID, options)(axios, basePath);
+        },
+        /**
+         * スタンプの情報を取得します。
+         * @param {string} stampID 操作の対象となるスタンプID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getStamp(stampID, options) {
+            return StampApiFp(configuration).getStamp(stampID, options)(axios, basePath);
+        },
+        /**
+         * 自分のスタンプ履歴を最大50件取得します。結果は降順で返されます。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getStampHistory(options) {
+            return StampApiFp(configuration).getStampHistory(options)(axios, basePath);
+        },
+        /**
+         * 全スタンプのリストを取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getStamps(options) {
+            return StampApiFp(configuration).getStamps(options)(axios, basePath);
+        },
+        /**
+         * 指定したメッセージに指定したスタンプを押します。
+         * @param {string} messageID 操作の対象となるメッセージID
+         * @param {string} stampID 操作の対象となるスタンプID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        stampMessage(messageID, stampID, options) {
+            return StampApiFp(configuration).stampMessage(messageID, stampID, options)(axios, basePath);
+        },
+        /**
+         * 指定したメッセージから指定したスタンプを外します。
+         * @param {string} messageID 操作の対象となるメッセージID
+         * @param {string} stampID 操作の対象となるスタンプID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unstampMessage(messageID, stampID, options) {
+            return StampApiFp(configuration).unstampMessage(messageID, stampID, options)(axios, basePath);
+        },
+    };
+};
+/**
+ * StampApi - object-oriented interface
+ * @export
+ * @class StampApi
+ * @extends {BaseAPI}
+ */
+export class StampApi extends BaseAPI {
+    /**
+     * スタンプを新規作成します。
+     * @param {string} name スタンプ名(半角英数字と-+_のみを含む32文字以内の文字列)
+     * @param {any} file 1MBまでのpng, jpeg, gif, svg
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    createStamp(name, file, options) {
+        return StampApiFp(this.configuration).createStamp(name, file, options)(this.axios, this.basePath);
+    }
+    /**
+     * スタンプを削除します。
+     * @param {string} stampID 操作の対象となるスタンプID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    deleteStamp(stampID, options) {
+        return StampApiFp(this.configuration).deleteStamp(stampID, options)(this.axios, this.basePath);
+    }
+    /**
+     * スタンプを修正します。
+     * @param {string} stampID 操作の対象となるスタンプID
+     * @param {string} [name] スタンプ名(半角英数字と-+_のみを含む32文字以内の文字列)
+     * @param {any} [file] 1MBまでのpng, jpeg, gif, svg
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    editStamp(stampID, name, file, options) {
+        return StampApiFp(this.configuration).editStamp(stampID, name, file, options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したメッセージに押されているスタンプを全て取得します。
+     * @param {string} messageID 操作の対象となるメッセージID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    getMessageStamps(messageID, options) {
+        return StampApiFp(this.configuration).getMessageStamps(messageID, options)(this.axios, this.basePath);
+    }
+    /**
+     * スタンプの情報を取得します。
+     * @param {string} stampID 操作の対象となるスタンプID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    getStamp(stampID, options) {
+        return StampApiFp(this.configuration).getStamp(stampID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 自分のスタンプ履歴を最大50件取得します。結果は降順で返されます。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    getStampHistory(options) {
+        return StampApiFp(this.configuration).getStampHistory(options)(this.axios, this.basePath);
+    }
+    /**
+     * 全スタンプのリストを取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    getStamps(options) {
+        return StampApiFp(this.configuration).getStamps(options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したメッセージに指定したスタンプを押します。
+     * @param {string} messageID 操作の対象となるメッセージID
+     * @param {string} stampID 操作の対象となるスタンプID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    stampMessage(messageID, stampID, options) {
+        return StampApiFp(this.configuration).stampMessage(messageID, stampID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したメッセージから指定したスタンプを外します。
+     * @param {string} messageID 操作の対象となるメッセージID
+     * @param {string} stampID 操作の対象となるスタンプID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    unstampMessage(messageID, stampID, options) {
+        return StampApiFp(this.configuration).unstampMessage(messageID, stampID, options)(this.axios, this.basePath);
+    }
+}
+/**
+ * StarApi - axios parameter creator
+ * @export
+ */
+export const StarApiAxiosParamCreator = function (configuration) {
+    return {
+        /**
+         * お気に入りチャンネルリストを取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getStaredChannels(options = {}) {
+            const localVarPath = `/users/me/stars`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * お気に入りチャンネルリストにチャンネルを追加します。
          * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeStarsChannelIDPut(channelID, options = {}) {
+        starChannel(channelID, options = {}) {
             // verify required parameter 'channelID' is not null or undefined
             if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling usersMeStarsChannelIDPut.');
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling starChannel.');
             }
             const localVarPath = `/users/me/stars/{channelID}`
                 .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
@@ -7435,12 +7429,175 @@ export const StarApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
+         * +| お気に入りチャンネルリストから削除します。 既にお気に入りチャンネルリストに無いチャンネルを指定した場合は無視されます(204)。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unstarChannel(channelID, options = {}) {
+            // verify required parameter 'channelID' is not null or undefined
+            if (channelID === null || channelID === undefined) {
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling unstarChannel.');
+            }
+            const localVarPath = `/users/me/stars/{channelID}`
+                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["write"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    };
+};
+/**
+ * StarApi - functional programming interface
+ * @export
+ */
+export const StarApiFp = function (configuration) {
+    return {
+        /**
          * お気に入りチャンネルリストを取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeStarsGet(options = {}) {
-            const localVarPath = `/users/me/stars`;
+        getStaredChannels(options) {
+            const localVarAxiosArgs = StarApiAxiosParamCreator(configuration).getStaredChannels(options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * お気に入りチャンネルリストにチャンネルを追加します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        starChannel(channelID, options) {
+            const localVarAxiosArgs = StarApiAxiosParamCreator(configuration).starChannel(channelID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * +| お気に入りチャンネルリストから削除します。 既にお気に入りチャンネルリストに無いチャンネルを指定した場合は無視されます(204)。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unstarChannel(channelID, options) {
+            const localVarAxiosArgs = StarApiAxiosParamCreator(configuration).unstarChannel(channelID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    };
+};
+/**
+ * StarApi - factory interface
+ * @export
+ */
+export const StarApiFactory = function (configuration, basePath, axios) {
+    return {
+        /**
+         * お気に入りチャンネルリストを取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getStaredChannels(options) {
+            return StarApiFp(configuration).getStaredChannels(options)(axios, basePath);
+        },
+        /**
+         * お気に入りチャンネルリストにチャンネルを追加します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        starChannel(channelID, options) {
+            return StarApiFp(configuration).starChannel(channelID, options)(axios, basePath);
+        },
+        /**
+         * +| お気に入りチャンネルリストから削除します。 既にお気に入りチャンネルリストに無いチャンネルを指定した場合は無視されます(204)。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unstarChannel(channelID, options) {
+            return StarApiFp(configuration).unstarChannel(channelID, options)(axios, basePath);
+        },
+    };
+};
+/**
+ * StarApi - object-oriented interface
+ * @export
+ * @class StarApi
+ * @extends {BaseAPI}
+ */
+export class StarApi extends BaseAPI {
+    /**
+     * お気に入りチャンネルリストを取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StarApi
+     */
+    getStaredChannels(options) {
+        return StarApiFp(this.configuration).getStaredChannels(options)(this.axios, this.basePath);
+    }
+    /**
+     * お気に入りチャンネルリストにチャンネルを追加します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StarApi
+     */
+    starChannel(channelID, options) {
+        return StarApiFp(this.configuration).starChannel(channelID, options)(this.axios, this.basePath);
+    }
+    /**
+     * +| お気に入りチャンネルリストから削除します。 既にお気に入りチャンネルリストに無いチャンネルを指定した場合は無視されます(204)。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StarApi
+     */
+    unstarChannel(channelID, options) {
+        return StarApiFp(this.configuration).unstarChannel(channelID, options)(this.axios, this.basePath);
+    }
+}
+/**
+ * UnreadApi - axios parameter creator
+ * @export
+ */
+export const UnreadApiAxiosParamCreator = function (configuration) {
+    return {
+        /**
+         * 未読チャンネル情報のリストを取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnreadChannels(options = {}) {
+            const localVarPath = `/users/me/unread/channels`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -7466,141 +7623,16 @@ export const StarApiAxiosParamCreator = function (configuration) {
                 options: localVarRequestOptions,
             };
         },
-    };
-};
-/**
- * StarApi - functional programming interface
- * @export
- */
-export const StarApiFp = function (configuration) {
-    return {
-        /**
-         * +| お気に入りチャンネルリストから削除します。 既にお気に入りチャンネルリストに無いチャンネルを指定した場合は無視されます(204)。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeStarsChannelIDDelete(channelID, options) {
-            const localVarAxiosArgs = StarApiAxiosParamCreator(configuration).usersMeStarsChannelIDDelete(channelID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * お気に入りチャンネルリストにチャンネルを追加します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeStarsChannelIDPut(channelID, options) {
-            const localVarAxiosArgs = StarApiAxiosParamCreator(configuration).usersMeStarsChannelIDPut(channelID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * お気に入りチャンネルリストを取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeStarsGet(options) {
-            const localVarAxiosArgs = StarApiAxiosParamCreator(configuration).usersMeStarsGet(options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-    };
-};
-/**
- * StarApi - factory interface
- * @export
- */
-export const StarApiFactory = function (configuration, basePath, axios) {
-    return {
-        /**
-         * +| お気に入りチャンネルリストから削除します。 既にお気に入りチャンネルリストに無いチャンネルを指定した場合は無視されます(204)。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeStarsChannelIDDelete(channelID, options) {
-            return StarApiFp(configuration).usersMeStarsChannelIDDelete(channelID, options)(axios, basePath);
-        },
-        /**
-         * お気に入りチャンネルリストにチャンネルを追加します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeStarsChannelIDPut(channelID, options) {
-            return StarApiFp(configuration).usersMeStarsChannelIDPut(channelID, options)(axios, basePath);
-        },
-        /**
-         * お気に入りチャンネルリストを取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeStarsGet(options) {
-            return StarApiFp(configuration).usersMeStarsGet(options)(axios, basePath);
-        },
-    };
-};
-/**
- * StarApi - object-oriented interface
- * @export
- * @class StarApi
- * @extends {BaseAPI}
- */
-export class StarApi extends BaseAPI {
-    /**
-     * +| お気に入りチャンネルリストから削除します。 既にお気に入りチャンネルリストに無いチャンネルを指定した場合は無視されます(204)。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof StarApi
-     */
-    usersMeStarsChannelIDDelete(channelID, options) {
-        return StarApiFp(this.configuration).usersMeStarsChannelIDDelete(channelID, options)(this.axios, this.basePath);
-    }
-    /**
-     * お気に入りチャンネルリストにチャンネルを追加します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof StarApi
-     */
-    usersMeStarsChannelIDPut(channelID, options) {
-        return StarApiFp(this.configuration).usersMeStarsChannelIDPut(channelID, options)(this.axios, this.basePath);
-    }
-    /**
-     * お気に入りチャンネルリストを取得します。
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof StarApi
-     */
-    usersMeStarsGet(options) {
-        return StarApiFp(this.configuration).usersMeStarsGet(options)(this.axios, this.basePath);
-    }
-}
-/**
- * UnreadApi - axios parameter creator
- * @export
- */
-export const UnreadApiAxiosParamCreator = function (configuration) {
-    return {
         /**
          * 指定されたチャンネルの未読メッセージを既読にします。存在しないチャンネルIDを指定した場合は、無視されます。
          * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeUnreadChannelsChannelIDDelete(channelID, options = {}) {
+        readMessages(channelID, options = {}) {
             // verify required parameter 'channelID' is not null or undefined
             if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling usersMeUnreadChannelsChannelIDDelete.');
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling readMessages.');
             }
             const localVarPath = `/users/me/unread/channels/{channelID}`
                 .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
@@ -7629,38 +7661,6 @@ export const UnreadApiAxiosParamCreator = function (configuration) {
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * 未読チャンネル情報のリストを取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeUnreadChannelsGet(options = {}) {
-            const localVarPath = `/users/me/unread/channels`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     };
 };
 /**
@@ -7670,25 +7670,25 @@ export const UnreadApiAxiosParamCreator = function (configuration) {
 export const UnreadApiFp = function (configuration) {
     return {
         /**
-         * 指定されたチャンネルの未読メッセージを既読にします。存在しないチャンネルIDを指定した場合は、無視されます。
-         * @param {string} channelID 操作の対象となるチャンネルのID
+         * 未読チャンネル情報のリストを取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeUnreadChannelsChannelIDDelete(channelID, options) {
-            const localVarAxiosArgs = UnreadApiAxiosParamCreator(configuration).usersMeUnreadChannelsChannelIDDelete(channelID, options);
+        getUnreadChannels(options) {
+            const localVarAxiosArgs = UnreadApiAxiosParamCreator(configuration).getUnreadChannels(options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
             };
         },
         /**
-         * 未読チャンネル情報のリストを取得します。
+         * 指定されたチャンネルの未読メッセージを既読にします。存在しないチャンネルIDを指定した場合は、無視されます。
+         * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeUnreadChannelsGet(options) {
-            const localVarAxiosArgs = UnreadApiAxiosParamCreator(configuration).usersMeUnreadChannelsGet(options);
+        readMessages(channelID, options) {
+            const localVarAxiosArgs = UnreadApiAxiosParamCreator(configuration).readMessages(channelID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -7703,21 +7703,21 @@ export const UnreadApiFp = function (configuration) {
 export const UnreadApiFactory = function (configuration, basePath, axios) {
     return {
         /**
+         * 未読チャンネル情報のリストを取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnreadChannels(options) {
+            return UnreadApiFp(configuration).getUnreadChannels(options)(axios, basePath);
+        },
+        /**
          * 指定されたチャンネルの未読メッセージを既読にします。存在しないチャンネルIDを指定した場合は、無視されます。
          * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeUnreadChannelsChannelIDDelete(channelID, options) {
-            return UnreadApiFp(configuration).usersMeUnreadChannelsChannelIDDelete(channelID, options)(axios, basePath);
-        },
-        /**
-         * 未読チャンネル情報のリストを取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeUnreadChannelsGet(options) {
-            return UnreadApiFp(configuration).usersMeUnreadChannelsGet(options)(axios, basePath);
+        readMessages(channelID, options) {
+            return UnreadApiFp(configuration).readMessages(channelID, options)(axios, basePath);
         },
     };
 };
@@ -7729,23 +7729,23 @@ export const UnreadApiFactory = function (configuration, basePath, axios) {
  */
 export class UnreadApi extends BaseAPI {
     /**
+     * 未読チャンネル情報のリストを取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UnreadApi
+     */
+    getUnreadChannels(options) {
+        return UnreadApiFp(this.configuration).getUnreadChannels(options)(this.axios, this.basePath);
+    }
+    /**
      * 指定されたチャンネルの未読メッセージを既読にします。存在しないチャンネルIDを指定した場合は、無視されます。
      * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UnreadApi
      */
-    usersMeUnreadChannelsChannelIDDelete(channelID, options) {
-        return UnreadApiFp(this.configuration).usersMeUnreadChannelsChannelIDDelete(channelID, options)(this.axios, this.basePath);
-    }
-    /**
-     * 未読チャンネル情報のリストを取得します。
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UnreadApi
-     */
-    usersMeUnreadChannelsGet(options) {
-        return UnreadApiFp(this.configuration).usersMeUnreadChannelsGet(options)(this.axios, this.basePath);
+    readMessages(channelID, options) {
+        return UnreadApiFp(this.configuration).readMessages(channelID, options)(this.axios, this.basePath);
     }
 }
 /**
@@ -7755,96 +7755,36 @@ export class UnreadApi extends BaseAPI {
 export const UserApiAxiosParamCreator = function (configuration) {
     return {
         /**
-         * 全ユーザーのリストを取得します。
+         * 自分のユーザー情報を変更します。
+         * @param {UserData} [userData]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersGet(options = {}) {
-            const localVarPath = `/users`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read", "manage_bot"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 自分のユーザー情報を取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeGet(options = {}) {
+        changeMe(userData, options = {}) {
             const localVarPath = `/users/me`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
             // authentication traqOAuth2 required
             // oauth required
             if (configuration && configuration.accessToken) {
                 const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read", "manage_bot"])
+                    ? configuration.accessToken("traqOAuth2", ["write"])
                     : configuration.accessToken;
                 localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
             }
+            localVarHeaderParameter['Content-Type'] = 'application/json';
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 自分のアイコン画像を取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeIconGet(options = {}) {
-            const localVarPath = `/users/me/icon`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = ("UserData" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(userData !== undefined ? userData : {}) : (userData || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -7856,7 +7796,7 @@ export const UserApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeIconPut(file, options = {}) {
+        changeMyIcon(file, options = {}) {
             const localVarPath = `/users/me/icon`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -7894,7 +7834,7 @@ export const UserApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMePasswordPut(changePassword, options = {}) {
+        changePassword(changePassword, options = {}) {
             const localVarPath = `/users/me/password`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -7918,36 +7858,64 @@ export const UserApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * 自分のユーザー情報を変更します。
-         * @param {UserData} [userData]
+         * 自分のユーザー情報を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMePatch(userData, options = {}) {
+        getMe(options = {}) {
             const localVarPath = `/users/me`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
             // authentication traqOAuth2 required
             // oauth required
             if (configuration && configuration.accessToken) {
                 const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["write"])
+                    ? configuration.accessToken("traqOAuth2", ["read", "manage_bot"])
                     : configuration.accessToken;
                 localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
             }
-            localVarHeaderParameter['Content-Type'] = 'application/json';
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("UserData" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(userData !== undefined ? userData : {}) : (userData || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 自分のアイコン画像を取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMyIcon(options = {}) {
+            const localVarPath = `/users/me/icon`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -7958,7 +7926,7 @@ export const UserApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeQrCodeGet(options = {}) {
+        getQrCode(options = {}) {
             const localVarPath = `/users/me/qr-code`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -7979,44 +7947,15 @@ export const UserApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * ユーザー登録します
-         * @param {UserRegister} [userRegister]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersPost(userRegister, options = {}) {
-            const localVarPath = `/users`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication cookieAuth required
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("UserRegister" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(userRegister !== undefined ? userRegister : {}) : (userRegister || "");
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * ユーザーの詳細を取得します。
          * @param {string} userID 操作の対象となるユーザーID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDGet(userID, options = {}) {
+        getUser(userID, options = {}) {
             // verify required parameter 'userID' is not null or undefined
             if (userID === null || userID === undefined) {
-                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling usersUserIDGet.');
+                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling getUser.');
             }
             const localVarPath = `/users/{userID}`
                 .replace(`{${"userID"}}`, encodeURIComponent(String(userID)));
@@ -8051,10 +7990,10 @@ export const UserApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDIconGet(userID, options = {}) {
+        getUserIcon(userID, options = {}) {
             // verify required parameter 'userID' is not null or undefined
             if (userID === null || userID === undefined) {
-                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling usersUserIDIconGet.');
+                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling getUserIcon.');
             }
             const localVarPath = `/users/{userID}/icon`
                 .replace(`{${"userID"}}`, encodeURIComponent(String(userID)));
@@ -8083,6 +8022,67 @@ export const UserApiAxiosParamCreator = function (configuration) {
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 全ユーザーのリストを取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUsers(options = {}) {
+            const localVarPath = `/users`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read", "manage_bot"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * ユーザー登録します
+         * @param {UserRegister} [userRegister]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        registerUser(userRegister, options = {}) {
+            const localVarPath = `/users`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication cookieAuth required
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = ("UserRegister" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(userRegister !== undefined ? userRegister : {}) : (userRegister || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     };
 };
 /**
@@ -8092,36 +8092,13 @@ export const UserApiAxiosParamCreator = function (configuration) {
 export const UserApiFp = function (configuration) {
     return {
         /**
-         * 全ユーザーのリストを取得します。
+         * 自分のユーザー情報を変更します。
+         * @param {UserData} [userData]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersGet(options) {
-            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).usersGet(options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 自分のユーザー情報を取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeGet(options) {
-            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).usersMeGet(options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 自分のアイコン画像を取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeIconGet(options) {
-            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).usersMeIconGet(options);
+        changeMe(userData, options) {
+            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).changeMe(userData, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -8133,8 +8110,8 @@ export const UserApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeIconPut(file, options) {
-            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).usersMeIconPut(file, options);
+        changeMyIcon(file, options) {
+            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).changeMyIcon(file, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -8146,21 +8123,32 @@ export const UserApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMePasswordPut(changePassword, options) {
-            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).usersMePasswordPut(changePassword, options);
+        changePassword(changePassword, options) {
+            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).changePassword(changePassword, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
             };
         },
         /**
-         * 自分のユーザー情報を変更します。
-         * @param {UserData} [userData]
+         * 自分のユーザー情報を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMePatch(userData, options) {
-            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).usersMePatch(userData, options);
+        getMe(options) {
+            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).getMe(options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 自分のアイコン画像を取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMyIcon(options) {
+            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).getMyIcon(options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -8171,21 +8159,8 @@ export const UserApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeQrCodeGet(options) {
-            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).usersMeQrCodeGet(options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * ユーザー登録します
-         * @param {UserRegister} [userRegister]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersPost(userRegister, options) {
-            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).usersPost(userRegister, options);
+        getQrCode(options) {
+            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).getQrCode(options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -8197,8 +8172,8 @@ export const UserApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDGet(userID, options) {
-            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).usersUserIDGet(userID, options);
+        getUser(userID, options) {
+            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).getUser(userID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -8210,8 +8185,33 @@ export const UserApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDIconGet(userID, options) {
-            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).usersUserIDIconGet(userID, options);
+        getUserIcon(userID, options) {
+            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).getUserIcon(userID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 全ユーザーのリストを取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUsers(options) {
+            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).getUsers(options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * ユーザー登録します
+         * @param {UserRegister} [userRegister]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        registerUser(userRegister, options) {
+            const localVarAxiosArgs = UserApiAxiosParamCreator(configuration).registerUser(userRegister, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -8226,28 +8226,13 @@ export const UserApiFp = function (configuration) {
 export const UserApiFactory = function (configuration, basePath, axios) {
     return {
         /**
-         * 全ユーザーのリストを取得します。
+         * 自分のユーザー情報を変更します。
+         * @param {UserData} [userData]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersGet(options) {
-            return UserApiFp(configuration).usersGet(options)(axios, basePath);
-        },
-        /**
-         * 自分のユーザー情報を取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeGet(options) {
-            return UserApiFp(configuration).usersMeGet(options)(axios, basePath);
-        },
-        /**
-         * 自分のアイコン画像を取得します。
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersMeIconGet(options) {
-            return UserApiFp(configuration).usersMeIconGet(options)(axios, basePath);
+        changeMe(userData, options) {
+            return UserApiFp(configuration).changeMe(userData, options)(axios, basePath);
         },
         /**
          * 自分のアイコンを更新します。
@@ -8255,8 +8240,8 @@ export const UserApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeIconPut(file, options) {
-            return UserApiFp(configuration).usersMeIconPut(file, options)(axios, basePath);
+        changeMyIcon(file, options) {
+            return UserApiFp(configuration).changeMyIcon(file, options)(axios, basePath);
         },
         /**
          * 自分のパスワードを変更します。
@@ -8264,34 +8249,32 @@ export const UserApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMePasswordPut(changePassword, options) {
-            return UserApiFp(configuration).usersMePasswordPut(changePassword, options)(axios, basePath);
+        changePassword(changePassword, options) {
+            return UserApiFp(configuration).changePassword(changePassword, options)(axios, basePath);
         },
         /**
-         * 自分のユーザー情報を変更します。
-         * @param {UserData} [userData]
+         * 自分のユーザー情報を取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMePatch(userData, options) {
-            return UserApiFp(configuration).usersMePatch(userData, options)(axios, basePath);
+        getMe(options) {
+            return UserApiFp(configuration).getMe(options)(axios, basePath);
+        },
+        /**
+         * 自分のアイコン画像を取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMyIcon(options) {
+            return UserApiFp(configuration).getMyIcon(options)(axios, basePath);
         },
         /**
          * 自分のQRコードを取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeQrCodeGet(options) {
-            return UserApiFp(configuration).usersMeQrCodeGet(options)(axios, basePath);
-        },
-        /**
-         * ユーザー登録します
-         * @param {UserRegister} [userRegister]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersPost(userRegister, options) {
-            return UserApiFp(configuration).usersPost(userRegister, options)(axios, basePath);
+        getQrCode(options) {
+            return UserApiFp(configuration).getQrCode(options)(axios, basePath);
         },
         /**
          * ユーザーの詳細を取得します。
@@ -8299,8 +8282,8 @@ export const UserApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDGet(userID, options) {
-            return UserApiFp(configuration).usersUserIDGet(userID, options)(axios, basePath);
+        getUser(userID, options) {
+            return UserApiFp(configuration).getUser(userID, options)(axios, basePath);
         },
         /**
          * ユーザーのアイコン画像を取得します。
@@ -8308,8 +8291,25 @@ export const UserApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDIconGet(userID, options) {
-            return UserApiFp(configuration).usersUserIDIconGet(userID, options)(axios, basePath);
+        getUserIcon(userID, options) {
+            return UserApiFp(configuration).getUserIcon(userID, options)(axios, basePath);
+        },
+        /**
+         * 全ユーザーのリストを取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUsers(options) {
+            return UserApiFp(configuration).getUsers(options)(axios, basePath);
+        },
+        /**
+         * ユーザー登録します
+         * @param {UserRegister} [userRegister]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        registerUser(userRegister, options) {
+            return UserApiFp(configuration).registerUser(userRegister, options)(axios, basePath);
         },
     };
 };
@@ -8321,31 +8321,14 @@ export const UserApiFactory = function (configuration, basePath, axios) {
  */
 export class UserApi extends BaseAPI {
     /**
-     * 全ユーザーのリストを取得します。
+     * 自分のユーザー情報を変更します。
+     * @param {UserData} [userData]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    usersGet(options) {
-        return UserApiFp(this.configuration).usersGet(options)(this.axios, this.basePath);
-    }
-    /**
-     * 自分のユーザー情報を取得します。
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    usersMeGet(options) {
-        return UserApiFp(this.configuration).usersMeGet(options)(this.axios, this.basePath);
-    }
-    /**
-     * 自分のアイコン画像を取得します。
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    usersMeIconGet(options) {
-        return UserApiFp(this.configuration).usersMeIconGet(options)(this.axios, this.basePath);
+    changeMe(userData, options) {
+        return UserApiFp(this.configuration).changeMe(userData, options)(this.axios, this.basePath);
     }
     /**
      * 自分のアイコンを更新します。
@@ -8354,8 +8337,8 @@ export class UserApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    usersMeIconPut(file, options) {
-        return UserApiFp(this.configuration).usersMeIconPut(file, options)(this.axios, this.basePath);
+    changeMyIcon(file, options) {
+        return UserApiFp(this.configuration).changeMyIcon(file, options)(this.axios, this.basePath);
     }
     /**
      * 自分のパスワードを変更します。
@@ -8364,18 +8347,26 @@ export class UserApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    usersMePasswordPut(changePassword, options) {
-        return UserApiFp(this.configuration).usersMePasswordPut(changePassword, options)(this.axios, this.basePath);
+    changePassword(changePassword, options) {
+        return UserApiFp(this.configuration).changePassword(changePassword, options)(this.axios, this.basePath);
     }
     /**
-     * 自分のユーザー情報を変更します。
-     * @param {UserData} [userData]
+     * 自分のユーザー情報を取得します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    usersMePatch(userData, options) {
-        return UserApiFp(this.configuration).usersMePatch(userData, options)(this.axios, this.basePath);
+    getMe(options) {
+        return UserApiFp(this.configuration).getMe(options)(this.axios, this.basePath);
+    }
+    /**
+     * 自分のアイコン画像を取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    getMyIcon(options) {
+        return UserApiFp(this.configuration).getMyIcon(options)(this.axios, this.basePath);
     }
     /**
      * 自分のQRコードを取得します。
@@ -8383,18 +8374,8 @@ export class UserApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    usersMeQrCodeGet(options) {
-        return UserApiFp(this.configuration).usersMeQrCodeGet(options)(this.axios, this.basePath);
-    }
-    /**
-     * ユーザー登録します
-     * @param {UserRegister} [userRegister]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    usersPost(userRegister, options) {
-        return UserApiFp(this.configuration).usersPost(userRegister, options)(this.axios, this.basePath);
+    getQrCode(options) {
+        return UserApiFp(this.configuration).getQrCode(options)(this.axios, this.basePath);
     }
     /**
      * ユーザーの詳細を取得します。
@@ -8403,8 +8384,8 @@ export class UserApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    usersUserIDGet(userID, options) {
-        return UserApiFp(this.configuration).usersUserIDGet(userID, options)(this.axios, this.basePath);
+    getUser(userID, options) {
+        return UserApiFp(this.configuration).getUser(userID, options)(this.axios, this.basePath);
     }
     /**
      * ユーザーのアイコン画像を取得します。
@@ -8413,8 +8394,27 @@ export class UserApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    usersUserIDIconGet(userID, options) {
-        return UserApiFp(this.configuration).usersUserIDIconGet(userID, options)(this.axios, this.basePath);
+    getUserIcon(userID, options) {
+        return UserApiFp(this.configuration).getUserIcon(userID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 全ユーザーのリストを取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    getUsers(options) {
+        return UserApiFp(this.configuration).getUsers(options)(this.axios, this.basePath);
+    }
+    /**
+     * ユーザー登録します
+     * @param {UserRegister} [userRegister]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    registerUser(userRegister, options) {
+        return UserApiFp(this.configuration).registerUser(userRegister, options)(this.axios, this.basePath);
     }
 }
 /**
@@ -8424,162 +8424,16 @@ export class UserApi extends BaseAPI {
 export const UserGroupApiAxiosParamCreator = function (configuration) {
     return {
         /**
-         * 全てのユーザーグループを取得します
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        groupsGet(options = {}) {
-            const localVarPath = `/groups`;
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * ユーザーグループを削除します
-         * @param {string} groupID 操作の対象となるユーザーグループID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        groupsGroupIDDelete(groupID, options = {}) {
-            // verify required parameter 'groupID' is not null or undefined
-            if (groupID === null || groupID === undefined) {
-                throw new RequiredError('groupID', 'Required parameter groupID was null or undefined when calling groupsGroupIDDelete.');
-            }
-            const localVarPath = `/groups/{groupID}`
-                .replace(`{${"groupID"}}`, encodeURIComponent(String(groupID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["write"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * ユーザーグループを取得します
-         * @param {string} groupID 操作の対象となるユーザーグループID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        groupsGroupIDGet(groupID, options = {}) {
-            // verify required parameter 'groupID' is not null or undefined
-            if (groupID === null || groupID === undefined) {
-                throw new RequiredError('groupID', 'Required parameter groupID was null or undefined when calling groupsGroupIDGet.');
-            }
-            const localVarPath = `/groups/{groupID}`
-                .replace(`{${"groupID"}}`, encodeURIComponent(String(groupID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * ユーザーグループのメンバーのIDを取得します
-         * @param {string} groupID 操作の対象となるユーザーグループID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        groupsGroupIDMembersGet(groupID, options = {}) {
-            // verify required parameter 'groupID' is not null or undefined
-            if (groupID === null || groupID === undefined) {
-                throw new RequiredError('groupID', 'Required parameter groupID was null or undefined when calling groupsGroupIDMembersGet.');
-            }
-            const localVarPath = `/groups/{groupID}/members`
-                .replace(`{${"groupID"}}`, encodeURIComponent(String(groupID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * ユーザーグループにメンバーを追加します
          * @param {string} groupID 操作の対象となるユーザーグループID
          * @param {AddUserGroup} [addUserGroup]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsGroupIDMembersPost(groupID, addUserGroup, options = {}) {
+        addGroupMember(groupID, addUserGroup, options = {}) {
             // verify required parameter 'groupID' is not null or undefined
             if (groupID === null || groupID === undefined) {
-                throw new RequiredError('groupID', 'Required parameter groupID was null or undefined when calling groupsGroupIDMembersPost.');
+                throw new RequiredError('groupID', 'Required parameter groupID was null or undefined when calling addGroupMember.');
             }
             const localVarPath = `/groups/{groupID}/members`
                 .replace(`{${"groupID"}}`, encodeURIComponent(String(groupID)));
@@ -8612,20 +8466,94 @@ export const UserGroupApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
+         * ユーザーグループを作成します
+         * @param {PostUserGroup} [postUserGroup]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createGroups(postUserGroup, options = {}) {
+            const localVarPath = `/groups`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["write"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = ("PostUserGroup" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(postUserGroup !== undefined ? postUserGroup : {}) : (postUserGroup || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * ユーザーグループを削除します
+         * @param {string} groupID 操作の対象となるユーザーグループID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteGroup(groupID, options = {}) {
+            // verify required parameter 'groupID' is not null or undefined
+            if (groupID === null || groupID === undefined) {
+                throw new RequiredError('groupID', 'Required parameter groupID was null or undefined when calling deleteGroup.');
+            }
+            const localVarPath = `/groups/{groupID}`
+                .replace(`{${"groupID"}}`, encodeURIComponent(String(groupID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["write"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * ユーザーグループからメンバーを削除します
          * @param {string} groupID 操作の対象となるユーザーグループID
          * @param {string} userID 操作の対象となるユーザーID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsGroupIDMembersUserIDDelete(groupID, userID, options = {}) {
+        deleteGroupMember(groupID, userID, options = {}) {
             // verify required parameter 'groupID' is not null or undefined
             if (groupID === null || groupID === undefined) {
-                throw new RequiredError('groupID', 'Required parameter groupID was null or undefined when calling groupsGroupIDMembersUserIDDelete.');
+                throw new RequiredError('groupID', 'Required parameter groupID was null or undefined when calling deleteGroupMember.');
             }
             // verify required parameter 'userID' is not null or undefined
             if (userID === null || userID === undefined) {
-                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling groupsGroupIDMembersUserIDDelete.');
+                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling deleteGroupMember.');
             }
             const localVarPath = `/groups/{groupID}/members/{userID}`
                 .replace(`{${"groupID"}}`, encodeURIComponent(String(groupID)))
@@ -8662,10 +8590,10 @@ export const UserGroupApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsGroupIDPatch(groupID, patchUserGroup, options = {}) {
+        editGroup(groupID, patchUserGroup, options = {}) {
             // verify required parameter 'groupID' is not null or undefined
             if (groupID === null || groupID === undefined) {
-                throw new RequiredError('groupID', 'Required parameter groupID was null or undefined when calling groupsGroupIDPatch.');
+                throw new RequiredError('groupID', 'Required parameter groupID was null or undefined when calling editGroup.');
             }
             const localVarPath = `/groups/{groupID}`
                 .replace(`{${"groupID"}}`, encodeURIComponent(String(groupID)));
@@ -8698,36 +8626,108 @@ export const UserGroupApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * ユーザーグループを作成します
-         * @param {PostUserGroup} [postUserGroup]
+         * ユーザーグループを取得します
+         * @param {string} groupID 操作の対象となるユーザーグループID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsPost(postUserGroup, options = {}) {
-            const localVarPath = `/groups`;
+        getGroup(groupID, options = {}) {
+            // verify required parameter 'groupID' is not null or undefined
+            if (groupID === null || groupID === undefined) {
+                throw new RequiredError('groupID', 'Required parameter groupID was null or undefined when calling getGroup.');
+            }
+            const localVarPath = `/groups/{groupID}`
+                .replace(`{${"groupID"}}`, encodeURIComponent(String(groupID)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
             // authentication traqOAuth2 required
             // oauth required
             if (configuration && configuration.accessToken) {
                 const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["write"])
+                    ? configuration.accessToken("traqOAuth2", ["read"])
                     : configuration.accessToken;
                 localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
             }
-            localVarHeaderParameter['Content-Type'] = 'application/json';
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("PostUserGroup" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(postUserGroup !== undefined ? postUserGroup : {}) : (postUserGroup || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * ユーザーグループのメンバーのIDを取得します
+         * @param {string} groupID 操作の対象となるユーザーグループID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGroupMembers(groupID, options = {}) {
+            // verify required parameter 'groupID' is not null or undefined
+            if (groupID === null || groupID === undefined) {
+                throw new RequiredError('groupID', 'Required parameter groupID was null or undefined when calling getGroupMembers.');
+            }
+            const localVarPath = `/groups/{groupID}/members`
+                .replace(`{${"groupID"}}`, encodeURIComponent(String(groupID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 全てのユーザーグループを取得します
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGroups(options = {}) {
+            const localVarPath = `/groups`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -8738,7 +8738,7 @@ export const UserGroupApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeGroupsGet(options = {}) {
+        getMyGroups(options = {}) {
             const localVarPath = `/users/me/groups`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -8771,10 +8771,10 @@ export const UserGroupApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDGroupsGet(userID, options = {}) {
+        getUserGroups(userID, options = {}) {
             // verify required parameter 'userID' is not null or undefined
             if (userID === null || userID === undefined) {
-                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling usersUserIDGroupsGet.');
+                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling getUserGroups.');
             }
             const localVarPath = `/users/{userID}/groups`
                 .replace(`{${"userID"}}`, encodeURIComponent(String(userID)));
@@ -8812,12 +8812,27 @@ export const UserGroupApiAxiosParamCreator = function (configuration) {
 export const UserGroupApiFp = function (configuration) {
     return {
         /**
-         * 全てのユーザーグループを取得します
+         * ユーザーグループにメンバーを追加します
+         * @param {string} groupID 操作の対象となるユーザーグループID
+         * @param {AddUserGroup} [addUserGroup]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsGet(options) {
-            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).groupsGet(options);
+        addGroupMember(groupID, addUserGroup, options) {
+            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).addGroupMember(groupID, addUserGroup, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * ユーザーグループを作成します
+         * @param {PostUserGroup} [postUserGroup]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createGroups(postUserGroup, options) {
+            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).createGroups(postUserGroup, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -8829,48 +8844,8 @@ export const UserGroupApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsGroupIDDelete(groupID, options) {
-            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).groupsGroupIDDelete(groupID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * ユーザーグループを取得します
-         * @param {string} groupID 操作の対象となるユーザーグループID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        groupsGroupIDGet(groupID, options) {
-            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).groupsGroupIDGet(groupID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * ユーザーグループのメンバーのIDを取得します
-         * @param {string} groupID 操作の対象となるユーザーグループID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        groupsGroupIDMembersGet(groupID, options) {
-            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).groupsGroupIDMembersGet(groupID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * ユーザーグループにメンバーを追加します
-         * @param {string} groupID 操作の対象となるユーザーグループID
-         * @param {AddUserGroup} [addUserGroup]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        groupsGroupIDMembersPost(groupID, addUserGroup, options) {
-            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).groupsGroupIDMembersPost(groupID, addUserGroup, options);
+        deleteGroup(groupID, options) {
+            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).deleteGroup(groupID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -8883,8 +8858,8 @@ export const UserGroupApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsGroupIDMembersUserIDDelete(groupID, userID, options) {
-            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).groupsGroupIDMembersUserIDDelete(groupID, userID, options);
+        deleteGroupMember(groupID, userID, options) {
+            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).deleteGroupMember(groupID, userID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -8897,21 +8872,46 @@ export const UserGroupApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsGroupIDPatch(groupID, patchUserGroup, options) {
-            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).groupsGroupIDPatch(groupID, patchUserGroup, options);
+        editGroup(groupID, patchUserGroup, options) {
+            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).editGroup(groupID, patchUserGroup, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
             };
         },
         /**
-         * ユーザーグループを作成します
-         * @param {PostUserGroup} [postUserGroup]
+         * ユーザーグループを取得します
+         * @param {string} groupID 操作の対象となるユーザーグループID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsPost(postUserGroup, options) {
-            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).groupsPost(postUserGroup, options);
+        getGroup(groupID, options) {
+            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).getGroup(groupID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * ユーザーグループのメンバーのIDを取得します
+         * @param {string} groupID 操作の対象となるユーザーグループID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGroupMembers(groupID, options) {
+            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).getGroupMembers(groupID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 全てのユーザーグループを取得します
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGroups(options) {
+            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).getGroups(options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -8922,8 +8922,8 @@ export const UserGroupApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeGroupsGet(options) {
-            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).usersMeGroupsGet(options);
+        getMyGroups(options) {
+            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).getMyGroups(options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -8935,8 +8935,8 @@ export const UserGroupApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDGroupsGet(userID, options) {
-            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).usersUserIDGroupsGet(userID, options);
+        getUserGroups(userID, options) {
+            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).getUserGroups(userID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -8951,12 +8951,23 @@ export const UserGroupApiFp = function (configuration) {
 export const UserGroupApiFactory = function (configuration, basePath, axios) {
     return {
         /**
-         * 全てのユーザーグループを取得します
+         * ユーザーグループにメンバーを追加します
+         * @param {string} groupID 操作の対象となるユーザーグループID
+         * @param {AddUserGroup} [addUserGroup]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsGet(options) {
-            return UserGroupApiFp(configuration).groupsGet(options)(axios, basePath);
+        addGroupMember(groupID, addUserGroup, options) {
+            return UserGroupApiFp(configuration).addGroupMember(groupID, addUserGroup, options)(axios, basePath);
+        },
+        /**
+         * ユーザーグループを作成します
+         * @param {PostUserGroup} [postUserGroup]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createGroups(postUserGroup, options) {
+            return UserGroupApiFp(configuration).createGroups(postUserGroup, options)(axios, basePath);
         },
         /**
          * ユーザーグループを削除します
@@ -8964,36 +8975,8 @@ export const UserGroupApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsGroupIDDelete(groupID, options) {
-            return UserGroupApiFp(configuration).groupsGroupIDDelete(groupID, options)(axios, basePath);
-        },
-        /**
-         * ユーザーグループを取得します
-         * @param {string} groupID 操作の対象となるユーザーグループID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        groupsGroupIDGet(groupID, options) {
-            return UserGroupApiFp(configuration).groupsGroupIDGet(groupID, options)(axios, basePath);
-        },
-        /**
-         * ユーザーグループのメンバーのIDを取得します
-         * @param {string} groupID 操作の対象となるユーザーグループID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        groupsGroupIDMembersGet(groupID, options) {
-            return UserGroupApiFp(configuration).groupsGroupIDMembersGet(groupID, options)(axios, basePath);
-        },
-        /**
-         * ユーザーグループにメンバーを追加します
-         * @param {string} groupID 操作の対象となるユーザーグループID
-         * @param {AddUserGroup} [addUserGroup]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        groupsGroupIDMembersPost(groupID, addUserGroup, options) {
-            return UserGroupApiFp(configuration).groupsGroupIDMembersPost(groupID, addUserGroup, options)(axios, basePath);
+        deleteGroup(groupID, options) {
+            return UserGroupApiFp(configuration).deleteGroup(groupID, options)(axios, basePath);
         },
         /**
          * ユーザーグループからメンバーを削除します
@@ -9002,8 +8985,8 @@ export const UserGroupApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsGroupIDMembersUserIDDelete(groupID, userID, options) {
-            return UserGroupApiFp(configuration).groupsGroupIDMembersUserIDDelete(groupID, userID, options)(axios, basePath);
+        deleteGroupMember(groupID, userID, options) {
+            return UserGroupApiFp(configuration).deleteGroupMember(groupID, userID, options)(axios, basePath);
         },
         /**
          * ユーザーグループの情報を変更します
@@ -9012,25 +8995,42 @@ export const UserGroupApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsGroupIDPatch(groupID, patchUserGroup, options) {
-            return UserGroupApiFp(configuration).groupsGroupIDPatch(groupID, patchUserGroup, options)(axios, basePath);
+        editGroup(groupID, patchUserGroup, options) {
+            return UserGroupApiFp(configuration).editGroup(groupID, patchUserGroup, options)(axios, basePath);
         },
         /**
-         * ユーザーグループを作成します
-         * @param {PostUserGroup} [postUserGroup]
+         * ユーザーグループを取得します
+         * @param {string} groupID 操作の対象となるユーザーグループID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        groupsPost(postUserGroup, options) {
-            return UserGroupApiFp(configuration).groupsPost(postUserGroup, options)(axios, basePath);
+        getGroup(groupID, options) {
+            return UserGroupApiFp(configuration).getGroup(groupID, options)(axios, basePath);
+        },
+        /**
+         * ユーザーグループのメンバーのIDを取得します
+         * @param {string} groupID 操作の対象となるユーザーグループID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGroupMembers(groupID, options) {
+            return UserGroupApiFp(configuration).getGroupMembers(groupID, options)(axios, basePath);
+        },
+        /**
+         * 全てのユーザーグループを取得します
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getGroups(options) {
+            return UserGroupApiFp(configuration).getGroups(options)(axios, basePath);
         },
         /**
          * 所属するユーザーグループのIDを取得します
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersMeGroupsGet(options) {
-            return UserGroupApiFp(configuration).usersMeGroupsGet(options)(axios, basePath);
+        getMyGroups(options) {
+            return UserGroupApiFp(configuration).getMyGroups(options)(axios, basePath);
         },
         /**
          * 所属するユーザーグループのIDを取得します
@@ -9038,8 +9038,8 @@ export const UserGroupApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDGroupsGet(userID, options) {
-            return UserGroupApiFp(configuration).usersUserIDGroupsGet(userID, options)(axios, basePath);
+        getUserGroups(userID, options) {
+            return UserGroupApiFp(configuration).getUserGroups(userID, options)(axios, basePath);
         },
     };
 };
@@ -9051,13 +9051,25 @@ export const UserGroupApiFactory = function (configuration, basePath, axios) {
  */
 export class UserGroupApi extends BaseAPI {
     /**
-     * 全てのユーザーグループを取得します
+     * ユーザーグループにメンバーを追加します
+     * @param {string} groupID 操作の対象となるユーザーグループID
+     * @param {AddUserGroup} [addUserGroup]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    groupsGet(options) {
-        return UserGroupApiFp(this.configuration).groupsGet(options)(this.axios, this.basePath);
+    addGroupMember(groupID, addUserGroup, options) {
+        return UserGroupApiFp(this.configuration).addGroupMember(groupID, addUserGroup, options)(this.axios, this.basePath);
+    }
+    /**
+     * ユーザーグループを作成します
+     * @param {PostUserGroup} [postUserGroup]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserGroupApi
+     */
+    createGroups(postUserGroup, options) {
+        return UserGroupApiFp(this.configuration).createGroups(postUserGroup, options)(this.axios, this.basePath);
     }
     /**
      * ユーザーグループを削除します
@@ -9066,39 +9078,8 @@ export class UserGroupApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    groupsGroupIDDelete(groupID, options) {
-        return UserGroupApiFp(this.configuration).groupsGroupIDDelete(groupID, options)(this.axios, this.basePath);
-    }
-    /**
-     * ユーザーグループを取得します
-     * @param {string} groupID 操作の対象となるユーザーグループID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserGroupApi
-     */
-    groupsGroupIDGet(groupID, options) {
-        return UserGroupApiFp(this.configuration).groupsGroupIDGet(groupID, options)(this.axios, this.basePath);
-    }
-    /**
-     * ユーザーグループのメンバーのIDを取得します
-     * @param {string} groupID 操作の対象となるユーザーグループID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserGroupApi
-     */
-    groupsGroupIDMembersGet(groupID, options) {
-        return UserGroupApiFp(this.configuration).groupsGroupIDMembersGet(groupID, options)(this.axios, this.basePath);
-    }
-    /**
-     * ユーザーグループにメンバーを追加します
-     * @param {string} groupID 操作の対象となるユーザーグループID
-     * @param {AddUserGroup} [addUserGroup]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserGroupApi
-     */
-    groupsGroupIDMembersPost(groupID, addUserGroup, options) {
-        return UserGroupApiFp(this.configuration).groupsGroupIDMembersPost(groupID, addUserGroup, options)(this.axios, this.basePath);
+    deleteGroup(groupID, options) {
+        return UserGroupApiFp(this.configuration).deleteGroup(groupID, options)(this.axios, this.basePath);
     }
     /**
      * ユーザーグループからメンバーを削除します
@@ -9108,8 +9089,8 @@ export class UserGroupApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    groupsGroupIDMembersUserIDDelete(groupID, userID, options) {
-        return UserGroupApiFp(this.configuration).groupsGroupIDMembersUserIDDelete(groupID, userID, options)(this.axios, this.basePath);
+    deleteGroupMember(groupID, userID, options) {
+        return UserGroupApiFp(this.configuration).deleteGroupMember(groupID, userID, options)(this.axios, this.basePath);
     }
     /**
      * ユーザーグループの情報を変更します
@@ -9119,18 +9100,37 @@ export class UserGroupApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    groupsGroupIDPatch(groupID, patchUserGroup, options) {
-        return UserGroupApiFp(this.configuration).groupsGroupIDPatch(groupID, patchUserGroup, options)(this.axios, this.basePath);
+    editGroup(groupID, patchUserGroup, options) {
+        return UserGroupApiFp(this.configuration).editGroup(groupID, patchUserGroup, options)(this.axios, this.basePath);
     }
     /**
-     * ユーザーグループを作成します
-     * @param {PostUserGroup} [postUserGroup]
+     * ユーザーグループを取得します
+     * @param {string} groupID 操作の対象となるユーザーグループID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    groupsPost(postUserGroup, options) {
-        return UserGroupApiFp(this.configuration).groupsPost(postUserGroup, options)(this.axios, this.basePath);
+    getGroup(groupID, options) {
+        return UserGroupApiFp(this.configuration).getGroup(groupID, options)(this.axios, this.basePath);
+    }
+    /**
+     * ユーザーグループのメンバーのIDを取得します
+     * @param {string} groupID 操作の対象となるユーザーグループID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserGroupApi
+     */
+    getGroupMembers(groupID, options) {
+        return UserGroupApiFp(this.configuration).getGroupMembers(groupID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 全てのユーザーグループを取得します
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserGroupApi
+     */
+    getGroups(options) {
+        return UserGroupApiFp(this.configuration).getGroups(options)(this.axios, this.basePath);
     }
     /**
      * 所属するユーザーグループのIDを取得します
@@ -9138,8 +9138,8 @@ export class UserGroupApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    usersMeGroupsGet(options) {
-        return UserGroupApiFp(this.configuration).usersMeGroupsGet(options)(this.axios, this.basePath);
+    getMyGroups(options) {
+        return UserGroupApiFp(this.configuration).getMyGroups(options)(this.axios, this.basePath);
     }
     /**
      * 所属するユーザーグループのIDを取得します
@@ -9148,8 +9148,8 @@ export class UserGroupApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    usersUserIDGroupsGet(userID, options) {
-        return UserGroupApiFp(this.configuration).usersUserIDGroupsGet(userID, options)(this.axios, this.basePath);
+    getUserGroups(userID, options) {
+        return UserGroupApiFp(this.configuration).getUserGroups(userID, options)(this.axios, this.basePath);
     }
 }
 /**
@@ -9159,15 +9159,149 @@ export class UserGroupApi extends BaseAPI {
 export const UserTagApiAxiosParamCreator = function (configuration) {
     return {
         /**
+         * ユーザーにタグを追加します。
+         * @param {string} userID 操作の対象となるユーザーID
+         * @param {SetTag} [setTag]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addUserTags(userID, setTag, options = {}) {
+            // verify required parameter 'userID' is not null or undefined
+            if (userID === null || userID === undefined) {
+                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling addUserTags.');
+            }
+            const localVarPath = `/users/{userID}/tags`
+                .replace(`{${"userID"}}`, encodeURIComponent(String(userID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["write"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = ("SetTag" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(setTag !== undefined ? setTag : {}) : (setTag || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * タグのロック、アンロックを変更します。
+         * @param {string} userID 操作の対象となるユーザーID
+         * @param {string} tagID 操作の対象となるタグID
+         * @param {SetTagLock} [setTagLock]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        changeLockUserTag(userID, tagID, setTagLock, options = {}) {
+            // verify required parameter 'userID' is not null or undefined
+            if (userID === null || userID === undefined) {
+                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling changeLockUserTag.');
+            }
+            // verify required parameter 'tagID' is not null or undefined
+            if (tagID === null || tagID === undefined) {
+                throw new RequiredError('tagID', 'Required parameter tagID was null or undefined when calling changeLockUserTag.');
+            }
+            const localVarPath = `/users/{userID}/tags/{tagID}`
+                .replace(`{${"userID"}}`, encodeURIComponent(String(userID)))
+                .replace(`{${"tagID"}}`, encodeURIComponent(String(tagID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["write"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = ("SetTagLock" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(setTagLock !== undefined ? setTagLock : {}) : (setTagLock || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * ユーザーから指定したタグを削除します。既に存在しないタグを削除しようとした場合は無視されます(204)。
+         * @param {string} userID 操作の対象となるユーザーID
+         * @param {string} tagID 操作の対象となるタグID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteUserTag(userID, tagID, options = {}) {
+            // verify required parameter 'userID' is not null or undefined
+            if (userID === null || userID === undefined) {
+                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling deleteUserTag.');
+            }
+            // verify required parameter 'tagID' is not null or undefined
+            if (tagID === null || tagID === undefined) {
+                throw new RequiredError('tagID', 'Required parameter tagID was null or undefined when calling deleteUserTag.');
+            }
+            const localVarPath = `/users/{userID}/tags/{tagID}`
+                .replace(`{${"userID"}}`, encodeURIComponent(String(userID)))
+                .replace(`{${"tagID"}}`, encodeURIComponent(String(tagID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["write"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * 指定されたタグの情報を取得します。
          * @param {string} tagID 操作の対象となるタグID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tagsTagIDGet(tagID, options = {}) {
+        getTag(tagID, options = {}) {
             // verify required parameter 'tagID' is not null or undefined
             if (tagID === null || tagID === undefined) {
-                throw new RequiredError('tagID', 'Required parameter tagID was null or undefined when calling tagsTagIDGet.');
+                throw new RequiredError('tagID', 'Required parameter tagID was null or undefined when calling getTag.');
             }
             const localVarPath = `/tags/{tagID}`
                 .replace(`{${"tagID"}}`, encodeURIComponent(String(tagID)));
@@ -9202,10 +9336,10 @@ export const UserTagApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDTagsGet(userID, options = {}) {
+        getUserTags(userID, options = {}) {
             // verify required parameter 'userID' is not null or undefined
             if (userID === null || userID === undefined) {
-                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling usersUserIDTagsGet.');
+                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling getUserTags.');
             }
             const localVarPath = `/users/{userID}/tags`
                 .replace(`{${"userID"}}`, encodeURIComponent(String(userID)));
@@ -9234,6 +9368,14 @@ export const UserTagApiAxiosParamCreator = function (configuration) {
                 options: localVarRequestOptions,
             };
         },
+    };
+};
+/**
+ * UserTagApi - functional programming interface
+ * @export
+ */
+export const UserTagApiFp = function (configuration) {
+    return {
         /**
          * ユーザーにタグを追加します。
          * @param {string} userID 操作の対象となるユーザーID
@@ -9241,83 +9383,11 @@ export const UserTagApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDTagsPost(userID, setTag, options = {}) {
-            // verify required parameter 'userID' is not null or undefined
-            if (userID === null || userID === undefined) {
-                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling usersUserIDTagsPost.');
-            }
-            const localVarPath = `/users/{userID}/tags`
-                .replace(`{${"userID"}}`, encodeURIComponent(String(userID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["write"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("SetTag" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(setTag !== undefined ? setTag : {}) : (setTag || "");
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * ユーザーから指定したタグを削除します。既に存在しないタグを削除しようとした場合は無視されます(204)。
-         * @param {string} userID 操作の対象となるユーザーID
-         * @param {string} tagID 操作の対象となるタグID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersUserIDTagsTagIDDelete(userID, tagID, options = {}) {
-            // verify required parameter 'userID' is not null or undefined
-            if (userID === null || userID === undefined) {
-                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling usersUserIDTagsTagIDDelete.');
-            }
-            // verify required parameter 'tagID' is not null or undefined
-            if (tagID === null || tagID === undefined) {
-                throw new RequiredError('tagID', 'Required parameter tagID was null or undefined when calling usersUserIDTagsTagIDDelete.');
-            }
-            const localVarPath = `/users/{userID}/tags/{tagID}`
-                .replace(`{${"userID"}}`, encodeURIComponent(String(userID)))
-                .replace(`{${"tagID"}}`, encodeURIComponent(String(tagID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["write"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
+        addUserTags(userID, setTag, options) {
+            const localVarAxiosArgs = UserTagApiAxiosParamCreator(configuration).addUserTags(userID, setTag, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
             };
         },
         /**
@@ -9328,62 +9398,35 @@ export const UserTagApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDTagsTagIDPatch(userID, tagID, setTagLock, options = {}) {
-            // verify required parameter 'userID' is not null or undefined
-            if (userID === null || userID === undefined) {
-                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling usersUserIDTagsTagIDPatch.');
-            }
-            // verify required parameter 'tagID' is not null or undefined
-            if (tagID === null || tagID === undefined) {
-                throw new RequiredError('tagID', 'Required parameter tagID was null or undefined when calling usersUserIDTagsTagIDPatch.');
-            }
-            const localVarPath = `/users/{userID}/tags/{tagID}`
-                .replace(`{${"userID"}}`, encodeURIComponent(String(userID)))
-                .replace(`{${"tagID"}}`, encodeURIComponent(String(tagID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["write"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("SetTagLock" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(setTagLock !== undefined ? setTagLock : {}) : (setTagLock || "");
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
+        changeLockUserTag(userID, tagID, setTagLock, options) {
+            const localVarAxiosArgs = UserTagApiAxiosParamCreator(configuration).changeLockUserTag(userID, tagID, setTagLock, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
             };
         },
-    };
-};
-/**
- * UserTagApi - functional programming interface
- * @export
- */
-export const UserTagApiFp = function (configuration) {
-    return {
+        /**
+         * ユーザーから指定したタグを削除します。既に存在しないタグを削除しようとした場合は無視されます(204)。
+         * @param {string} userID 操作の対象となるユーザーID
+         * @param {string} tagID 操作の対象となるタグID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteUserTag(userID, tagID, options) {
+            const localVarAxiosArgs = UserTagApiAxiosParamCreator(configuration).deleteUserTag(userID, tagID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
         /**
          * 指定されたタグの情報を取得します。
          * @param {string} tagID 操作の対象となるタグID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tagsTagIDGet(tagID, options) {
-            const localVarAxiosArgs = UserTagApiAxiosParamCreator(configuration).tagsTagIDGet(tagID, options);
+        getTag(tagID, options) {
+            const localVarAxiosArgs = UserTagApiAxiosParamCreator(configuration).getTag(tagID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -9395,51 +9438,8 @@ export const UserTagApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDTagsGet(userID, options) {
-            const localVarAxiosArgs = UserTagApiAxiosParamCreator(configuration).usersUserIDTagsGet(userID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * ユーザーにタグを追加します。
-         * @param {string} userID 操作の対象となるユーザーID
-         * @param {SetTag} [setTag]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersUserIDTagsPost(userID, setTag, options) {
-            const localVarAxiosArgs = UserTagApiAxiosParamCreator(configuration).usersUserIDTagsPost(userID, setTag, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * ユーザーから指定したタグを削除します。既に存在しないタグを削除しようとした場合は無視されます(204)。
-         * @param {string} userID 操作の対象となるユーザーID
-         * @param {string} tagID 操作の対象となるタグID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersUserIDTagsTagIDDelete(userID, tagID, options) {
-            const localVarAxiosArgs = UserTagApiAxiosParamCreator(configuration).usersUserIDTagsTagIDDelete(userID, tagID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * タグのロック、アンロックを変更します。
-         * @param {string} userID 操作の対象となるユーザーID
-         * @param {string} tagID 操作の対象となるタグID
-         * @param {SetTagLock} [setTagLock]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersUserIDTagsTagIDPatch(userID, tagID, setTagLock, options) {
-            const localVarAxiosArgs = UserTagApiAxiosParamCreator(configuration).usersUserIDTagsTagIDPatch(userID, tagID, setTagLock, options);
+        getUserTags(userID, options) {
+            const localVarAxiosArgs = UserTagApiAxiosParamCreator(configuration).getUserTags(userID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -9454,42 +9454,14 @@ export const UserTagApiFp = function (configuration) {
 export const UserTagApiFactory = function (configuration, basePath, axios) {
     return {
         /**
-         * 指定されたタグの情報を取得します。
-         * @param {string} tagID 操作の対象となるタグID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        tagsTagIDGet(tagID, options) {
-            return UserTagApiFp(configuration).tagsTagIDGet(tagID, options)(axios, basePath);
-        },
-        /**
-         * ユーザーのタグのリストを取得します。
-         * @param {string} userID 操作の対象となるユーザーID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersUserIDTagsGet(userID, options) {
-            return UserTagApiFp(configuration).usersUserIDTagsGet(userID, options)(axios, basePath);
-        },
-        /**
          * ユーザーにタグを追加します。
          * @param {string} userID 操作の対象となるユーザーID
          * @param {SetTag} [setTag]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDTagsPost(userID, setTag, options) {
-            return UserTagApiFp(configuration).usersUserIDTagsPost(userID, setTag, options)(axios, basePath);
-        },
-        /**
-         * ユーザーから指定したタグを削除します。既に存在しないタグを削除しようとした場合は無視されます(204)。
-         * @param {string} userID 操作の対象となるユーザーID
-         * @param {string} tagID 操作の対象となるタグID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        usersUserIDTagsTagIDDelete(userID, tagID, options) {
-            return UserTagApiFp(configuration).usersUserIDTagsTagIDDelete(userID, tagID, options)(axios, basePath);
+        addUserTags(userID, setTag, options) {
+            return UserTagApiFp(configuration).addUserTags(userID, setTag, options)(axios, basePath);
         },
         /**
          * タグのロック、アンロックを変更します。
@@ -9499,8 +9471,36 @@ export const UserTagApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        usersUserIDTagsTagIDPatch(userID, tagID, setTagLock, options) {
-            return UserTagApiFp(configuration).usersUserIDTagsTagIDPatch(userID, tagID, setTagLock, options)(axios, basePath);
+        changeLockUserTag(userID, tagID, setTagLock, options) {
+            return UserTagApiFp(configuration).changeLockUserTag(userID, tagID, setTagLock, options)(axios, basePath);
+        },
+        /**
+         * ユーザーから指定したタグを削除します。既に存在しないタグを削除しようとした場合は無視されます(204)。
+         * @param {string} userID 操作の対象となるユーザーID
+         * @param {string} tagID 操作の対象となるタグID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteUserTag(userID, tagID, options) {
+            return UserTagApiFp(configuration).deleteUserTag(userID, tagID, options)(axios, basePath);
+        },
+        /**
+         * 指定されたタグの情報を取得します。
+         * @param {string} tagID 操作の対象となるタグID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTag(tagID, options) {
+            return UserTagApiFp(configuration).getTag(tagID, options)(axios, basePath);
+        },
+        /**
+         * ユーザーのタグのリストを取得します。
+         * @param {string} userID 操作の対象となるユーザーID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserTags(userID, options) {
+            return UserTagApiFp(configuration).getUserTags(userID, options)(axios, basePath);
         },
     };
 };
@@ -9512,26 +9512,6 @@ export const UserTagApiFactory = function (configuration, basePath, axios) {
  */
 export class UserTagApi extends BaseAPI {
     /**
-     * 指定されたタグの情報を取得します。
-     * @param {string} tagID 操作の対象となるタグID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserTagApi
-     */
-    tagsTagIDGet(tagID, options) {
-        return UserTagApiFp(this.configuration).tagsTagIDGet(tagID, options)(this.axios, this.basePath);
-    }
-    /**
-     * ユーザーのタグのリストを取得します。
-     * @param {string} userID 操作の対象となるユーザーID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserTagApi
-     */
-    usersUserIDTagsGet(userID, options) {
-        return UserTagApiFp(this.configuration).usersUserIDTagsGet(userID, options)(this.axios, this.basePath);
-    }
-    /**
      * ユーザーにタグを追加します。
      * @param {string} userID 操作の対象となるユーザーID
      * @param {SetTag} [setTag]
@@ -9539,19 +9519,8 @@ export class UserTagApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserTagApi
      */
-    usersUserIDTagsPost(userID, setTag, options) {
-        return UserTagApiFp(this.configuration).usersUserIDTagsPost(userID, setTag, options)(this.axios, this.basePath);
-    }
-    /**
-     * ユーザーから指定したタグを削除します。既に存在しないタグを削除しようとした場合は無視されます(204)。
-     * @param {string} userID 操作の対象となるユーザーID
-     * @param {string} tagID 操作の対象となるタグID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserTagApi
-     */
-    usersUserIDTagsTagIDDelete(userID, tagID, options) {
-        return UserTagApiFp(this.configuration).usersUserIDTagsTagIDDelete(userID, tagID, options)(this.axios, this.basePath);
+    addUserTags(userID, setTag, options) {
+        return UserTagApiFp(this.configuration).addUserTags(userID, setTag, options)(this.axios, this.basePath);
     }
     /**
      * タグのロック、アンロックを変更します。
@@ -9562,8 +9531,39 @@ export class UserTagApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserTagApi
      */
-    usersUserIDTagsTagIDPatch(userID, tagID, setTagLock, options) {
-        return UserTagApiFp(this.configuration).usersUserIDTagsTagIDPatch(userID, tagID, setTagLock, options)(this.axios, this.basePath);
+    changeLockUserTag(userID, tagID, setTagLock, options) {
+        return UserTagApiFp(this.configuration).changeLockUserTag(userID, tagID, setTagLock, options)(this.axios, this.basePath);
+    }
+    /**
+     * ユーザーから指定したタグを削除します。既に存在しないタグを削除しようとした場合は無視されます(204)。
+     * @param {string} userID 操作の対象となるユーザーID
+     * @param {string} tagID 操作の対象となるタグID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserTagApi
+     */
+    deleteUserTag(userID, tagID, options) {
+        return UserTagApiFp(this.configuration).deleteUserTag(userID, tagID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定されたタグの情報を取得します。
+     * @param {string} tagID 操作の対象となるタグID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserTagApi
+     */
+    getTag(tagID, options) {
+        return UserTagApiFp(this.configuration).getTag(tagID, options)(this.axios, this.basePath);
+    }
+    /**
+     * ユーザーのタグのリストを取得します。
+     * @param {string} userID 操作の対象となるユーザーID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserTagApi
+     */
+    getUserTags(userID, options) {
+        return UserTagApiFp(this.configuration).getUserTags(userID, options)(this.axios, this.basePath);
     }
 }
 /**
@@ -9573,32 +9573,44 @@ export class UserTagApi extends BaseAPI {
 export const WebhookApiAxiosParamCreator = function (configuration) {
     return {
         /**
-         * 自分が作成したwebhookの一覧を取得します。
+         * 指定したwebhookのアイコンを変更します。
+         * @param {string} webhookID 操作の対象となるWebhookのID
+         * @param {any} [file] webhookユーザーのアイコン(1MBまでのpng, jpeg, gif)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhooksGet(options = {}) {
-            const localVarPath = `/webhooks`;
+        changeWebhookIcon(webhookID, file, options = {}) {
+            // verify required parameter 'webhookID' is not null or undefined
+            if (webhookID === null || webhookID === undefined) {
+                throw new RequiredError('webhookID', 'Required parameter webhookID was null or undefined when calling changeWebhookIcon.');
+            }
+            const localVarPath = `/webhooks/{webhookID}/icon`
+                .replace(`{${"webhookID"}}`, encodeURIComponent(String(webhookID)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
+            const localVarFormParams = new FormData();
             // authentication traqOAuth2 required
             // oauth required
             if (configuration && configuration.accessToken) {
                 const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read", "manage_bot"])
+                    ? configuration.accessToken("traqOAuth2", ["manage_bot"])
                     : configuration.accessToken;
                 localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            if (file !== undefined) {
+                localVarFormParams.append('file', file);
             }
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            localVarRequestOptions.data = localVarFormParams;
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -9610,7 +9622,7 @@ export const WebhookApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhooksPost(postWebhook, options = {}) {
+        createWebhooks(postWebhook, options = {}) {
             const localVarPath = `/webhooks`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -9646,10 +9658,10 @@ export const WebhookApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhooksWebhookIDDelete(webhookID, options = {}) {
+        deleteWebhook(webhookID, options = {}) {
             // verify required parameter 'webhookID' is not null or undefined
             if (webhookID === null || webhookID === undefined) {
-                throw new RequiredError('webhookID', 'Required parameter webhookID was null or undefined when calling webhooksWebhookIDDelete.');
+                throw new RequiredError('webhookID', 'Required parameter webhookID was null or undefined when calling deleteWebhook.');
             }
             const localVarPath = `/webhooks/{webhookID}`
                 .replace(`{${"webhookID"}}`, encodeURIComponent(String(webhookID)));
@@ -9679,170 +9691,16 @@ export const WebhookApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * webhookの詳細を取得します。
-         * @param {string} webhookID 操作の対象となるWebhookのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        webhooksWebhookIDGet(webhookID, options = {}) {
-            // verify required parameter 'webhookID' is not null or undefined
-            if (webhookID === null || webhookID === undefined) {
-                throw new RequiredError('webhookID', 'Required parameter webhookID was null or undefined when calling webhooksWebhookIDGet.');
-            }
-            const localVarPath = `/webhooks/{webhookID}`
-                .replace(`{${"webhookID"}}`, encodeURIComponent(String(webhookID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read", "manage_bot"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Github-Compatibleなwebhookを送信します。
-         * @param {string} webhookID 操作の対象となるWebhookのID
-         * @param {object} [body]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        webhooksWebhookIDGithubPost(webhookID, body, options = {}) {
-            // verify required parameter 'webhookID' is not null or undefined
-            if (webhookID === null || webhookID === undefined) {
-                throw new RequiredError('webhookID', 'Required parameter webhookID was null or undefined when calling webhooksWebhookIDGithubPost.');
-            }
-            const localVarPath = `/webhooks/{webhookID}/github`
-                .replace(`{${"webhookID"}}`, encodeURIComponent(String(webhookID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("object" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 指定したWebhookのアイコンを取得します。
-         * @param {string} webhookID 操作の対象となるWebhookのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        webhooksWebhookIDIconGet(webhookID, options = {}) {
-            // verify required parameter 'webhookID' is not null or undefined
-            if (webhookID === null || webhookID === undefined) {
-                throw new RequiredError('webhookID', 'Required parameter webhookID was null or undefined when calling webhooksWebhookIDIconGet.');
-            }
-            const localVarPath = `/webhooks/{webhookID}/icon`
-                .replace(`{${"webhookID"}}`, encodeURIComponent(String(webhookID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["read", "manage_bot"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 指定したwebhookのアイコンを変更します。
-         * @param {string} webhookID 操作の対象となるWebhookのID
-         * @param {any} [file] webhookユーザーのアイコン(1MBまでのpng, jpeg, gif)
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        webhooksWebhookIDIconPut(webhookID, file, options = {}) {
-            // verify required parameter 'webhookID' is not null or undefined
-            if (webhookID === null || webhookID === undefined) {
-                throw new RequiredError('webhookID', 'Required parameter webhookID was null or undefined when calling webhooksWebhookIDIconPut.');
-            }
-            const localVarPath = `/webhooks/{webhookID}/icon`
-                .replace(`{${"webhookID"}}`, encodeURIComponent(String(webhookID)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            const localVarFormParams = new FormData();
-            // authentication traqOAuth2 required
-            // oauth required
-            if (configuration && configuration.accessToken) {
-                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
-                    ? configuration.accessToken("traqOAuth2", ["manage_bot"])
-                    : configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
-            }
-            if (file !== undefined) {
-                localVarFormParams.append('file', file);
-            }
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            localVarRequestOptions.data = localVarFormParams;
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * webhookを修正します。
          * @param {string} webhookID 操作の対象となるWebhookのID
          * @param {PatchWebhook} [patchWebhook]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhooksWebhookIDPatch(webhookID, patchWebhook, options = {}) {
+        editWebhook(webhookID, patchWebhook, options = {}) {
             // verify required parameter 'webhookID' is not null or undefined
             if (webhookID === null || webhookID === undefined) {
-                throw new RequiredError('webhookID', 'Required parameter webhookID was null or undefined when calling webhooksWebhookIDPatch.');
+                throw new RequiredError('webhookID', 'Required parameter webhookID was null or undefined when calling editWebhook.');
             }
             const localVarPath = `/webhooks/{webhookID}`
                 .replace(`{${"webhookID"}}`, encodeURIComponent(String(webhookID)));
@@ -9875,6 +9733,148 @@ export const WebhookApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
+         * webhookの詳細を取得します。
+         * @param {string} webhookID 操作の対象となるWebhookのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhook(webhookID, options = {}) {
+            // verify required parameter 'webhookID' is not null or undefined
+            if (webhookID === null || webhookID === undefined) {
+                throw new RequiredError('webhookID', 'Required parameter webhookID was null or undefined when calling getWebhook.');
+            }
+            const localVarPath = `/webhooks/{webhookID}`
+                .replace(`{${"webhookID"}}`, encodeURIComponent(String(webhookID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read", "manage_bot"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 指定したWebhookのアイコンを取得します。
+         * @param {string} webhookID 操作の対象となるWebhookのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhookIcon(webhookID, options = {}) {
+            // verify required parameter 'webhookID' is not null or undefined
+            if (webhookID === null || webhookID === undefined) {
+                throw new RequiredError('webhookID', 'Required parameter webhookID was null or undefined when calling getWebhookIcon.');
+            }
+            const localVarPath = `/webhooks/{webhookID}/icon`
+                .replace(`{${"webhookID"}}`, encodeURIComponent(String(webhookID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read", "manage_bot"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 自分が作成したwebhookの一覧を取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhooks(options = {}) {
+            const localVarPath = `/webhooks`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read", "manage_bot"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Github-Compatibleなwebhookを送信します。
+         * @param {string} webhookID 操作の対象となるWebhookのID
+         * @param {object} [body]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postGitHubWebhook(webhookID, body, options = {}) {
+            // verify required parameter 'webhookID' is not null or undefined
+            if (webhookID === null || webhookID === undefined) {
+                throw new RequiredError('webhookID', 'Required parameter webhookID was null or undefined when calling postGitHubWebhook.');
+            }
+            const localVarPath = `/webhooks/{webhookID}/github`
+                .replace(`{${"webhookID"}}`, encodeURIComponent(String(webhookID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = ("object" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * webhookを送信します。
          * @param {string} webhookID 操作の対象となるWebhookのID
          * @param {string} [xTRAQChannelId] 投稿先のチャンネルID(変更する場合)
@@ -9883,10 +9883,10 @@ export const WebhookApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhooksWebhookIDPost(webhookID, xTRAQChannelId, xTRAQSignature, body, options = {}) {
+        postWebhook(webhookID, xTRAQChannelId, xTRAQSignature, body, options = {}) {
             // verify required parameter 'webhookID' is not null or undefined
             if (webhookID === null || webhookID === undefined) {
-                throw new RequiredError('webhookID', 'Required parameter webhookID was null or undefined when calling webhooksWebhookIDPost.');
+                throw new RequiredError('webhookID', 'Required parameter webhookID was null or undefined when calling postWebhook.');
             }
             const localVarPath = `/webhooks/{webhookID}`
                 .replace(`{${"webhookID"}}`, encodeURIComponent(String(webhookID)));
@@ -9925,12 +9925,14 @@ export const WebhookApiAxiosParamCreator = function (configuration) {
 export const WebhookApiFp = function (configuration) {
     return {
         /**
-         * 自分が作成したwebhookの一覧を取得します。
+         * 指定したwebhookのアイコンを変更します。
+         * @param {string} webhookID 操作の対象となるWebhookのID
+         * @param {any} [file] webhookユーザーのアイコン(1MBまでのpng, jpeg, gif)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhooksGet(options) {
-            const localVarAxiosArgs = WebhookApiAxiosParamCreator(configuration).webhooksGet(options);
+        changeWebhookIcon(webhookID, file, options) {
+            const localVarAxiosArgs = WebhookApiAxiosParamCreator(configuration).changeWebhookIcon(webhookID, file, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -9942,8 +9944,8 @@ export const WebhookApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhooksPost(postWebhook, options) {
-            const localVarAxiosArgs = WebhookApiAxiosParamCreator(configuration).webhooksPost(postWebhook, options);
+        createWebhooks(postWebhook, options) {
+            const localVarAxiosArgs = WebhookApiAxiosParamCreator(configuration).createWebhooks(postWebhook, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -9955,62 +9957,8 @@ export const WebhookApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhooksWebhookIDDelete(webhookID, options) {
-            const localVarAxiosArgs = WebhookApiAxiosParamCreator(configuration).webhooksWebhookIDDelete(webhookID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * webhookの詳細を取得します。
-         * @param {string} webhookID 操作の対象となるWebhookのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        webhooksWebhookIDGet(webhookID, options) {
-            const localVarAxiosArgs = WebhookApiAxiosParamCreator(configuration).webhooksWebhookIDGet(webhookID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * Github-Compatibleなwebhookを送信します。
-         * @param {string} webhookID 操作の対象となるWebhookのID
-         * @param {object} [body]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        webhooksWebhookIDGithubPost(webhookID, body, options) {
-            const localVarAxiosArgs = WebhookApiAxiosParamCreator(configuration).webhooksWebhookIDGithubPost(webhookID, body, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 指定したWebhookのアイコンを取得します。
-         * @param {string} webhookID 操作の対象となるWebhookのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        webhooksWebhookIDIconGet(webhookID, options) {
-            const localVarAxiosArgs = WebhookApiAxiosParamCreator(configuration).webhooksWebhookIDIconGet(webhookID, options);
-            return (axios = globalAxios, basePath = BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 指定したwebhookのアイコンを変更します。
-         * @param {string} webhookID 操作の対象となるWebhookのID
-         * @param {any} [file] webhookユーザーのアイコン(1MBまでのpng, jpeg, gif)
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        webhooksWebhookIDIconPut(webhookID, file, options) {
-            const localVarAxiosArgs = WebhookApiAxiosParamCreator(configuration).webhooksWebhookIDIconPut(webhookID, file, options);
+        deleteWebhook(webhookID, options) {
+            const localVarAxiosArgs = WebhookApiAxiosParamCreator(configuration).deleteWebhook(webhookID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -10023,8 +9971,60 @@ export const WebhookApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhooksWebhookIDPatch(webhookID, patchWebhook, options) {
-            const localVarAxiosArgs = WebhookApiAxiosParamCreator(configuration).webhooksWebhookIDPatch(webhookID, patchWebhook, options);
+        editWebhook(webhookID, patchWebhook, options) {
+            const localVarAxiosArgs = WebhookApiAxiosParamCreator(configuration).editWebhook(webhookID, patchWebhook, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * webhookの詳細を取得します。
+         * @param {string} webhookID 操作の対象となるWebhookのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhook(webhookID, options) {
+            const localVarAxiosArgs = WebhookApiAxiosParamCreator(configuration).getWebhook(webhookID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 指定したWebhookのアイコンを取得します。
+         * @param {string} webhookID 操作の対象となるWebhookのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhookIcon(webhookID, options) {
+            const localVarAxiosArgs = WebhookApiAxiosParamCreator(configuration).getWebhookIcon(webhookID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 自分が作成したwebhookの一覧を取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhooks(options) {
+            const localVarAxiosArgs = WebhookApiAxiosParamCreator(configuration).getWebhooks(options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * Github-Compatibleなwebhookを送信します。
+         * @param {string} webhookID 操作の対象となるWebhookのID
+         * @param {object} [body]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postGitHubWebhook(webhookID, body, options) {
+            const localVarAxiosArgs = WebhookApiAxiosParamCreator(configuration).postGitHubWebhook(webhookID, body, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -10039,8 +10039,8 @@ export const WebhookApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhooksWebhookIDPost(webhookID, xTRAQChannelId, xTRAQSignature, body, options) {
-            const localVarAxiosArgs = WebhookApiAxiosParamCreator(configuration).webhooksWebhookIDPost(webhookID, xTRAQChannelId, xTRAQSignature, body, options);
+        postWebhook(webhookID, xTRAQChannelId, xTRAQSignature, body, options) {
+            const localVarAxiosArgs = WebhookApiAxiosParamCreator(configuration).postWebhook(webhookID, xTRAQChannelId, xTRAQSignature, body, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -10055,12 +10055,14 @@ export const WebhookApiFp = function (configuration) {
 export const WebhookApiFactory = function (configuration, basePath, axios) {
     return {
         /**
-         * 自分が作成したwebhookの一覧を取得します。
+         * 指定したwebhookのアイコンを変更します。
+         * @param {string} webhookID 操作の対象となるWebhookのID
+         * @param {any} [file] webhookユーザーのアイコン(1MBまでのpng, jpeg, gif)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhooksGet(options) {
-            return WebhookApiFp(configuration).webhooksGet(options)(axios, basePath);
+        changeWebhookIcon(webhookID, file, options) {
+            return WebhookApiFp(configuration).changeWebhookIcon(webhookID, file, options)(axios, basePath);
         },
         /**
          * webhookを作成します。
@@ -10068,8 +10070,8 @@ export const WebhookApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhooksPost(postWebhook, options) {
-            return WebhookApiFp(configuration).webhooksPost(postWebhook, options)(axios, basePath);
+        createWebhooks(postWebhook, options) {
+            return WebhookApiFp(configuration).createWebhooks(postWebhook, options)(axios, basePath);
         },
         /**
          * webhookを削除します。
@@ -10077,46 +10079,8 @@ export const WebhookApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhooksWebhookIDDelete(webhookID, options) {
-            return WebhookApiFp(configuration).webhooksWebhookIDDelete(webhookID, options)(axios, basePath);
-        },
-        /**
-         * webhookの詳細を取得します。
-         * @param {string} webhookID 操作の対象となるWebhookのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        webhooksWebhookIDGet(webhookID, options) {
-            return WebhookApiFp(configuration).webhooksWebhookIDGet(webhookID, options)(axios, basePath);
-        },
-        /**
-         * Github-Compatibleなwebhookを送信します。
-         * @param {string} webhookID 操作の対象となるWebhookのID
-         * @param {object} [body]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        webhooksWebhookIDGithubPost(webhookID, body, options) {
-            return WebhookApiFp(configuration).webhooksWebhookIDGithubPost(webhookID, body, options)(axios, basePath);
-        },
-        /**
-         * 指定したWebhookのアイコンを取得します。
-         * @param {string} webhookID 操作の対象となるWebhookのID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        webhooksWebhookIDIconGet(webhookID, options) {
-            return WebhookApiFp(configuration).webhooksWebhookIDIconGet(webhookID, options)(axios, basePath);
-        },
-        /**
-         * 指定したwebhookのアイコンを変更します。
-         * @param {string} webhookID 操作の対象となるWebhookのID
-         * @param {any} [file] webhookユーザーのアイコン(1MBまでのpng, jpeg, gif)
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        webhooksWebhookIDIconPut(webhookID, file, options) {
-            return WebhookApiFp(configuration).webhooksWebhookIDIconPut(webhookID, file, options)(axios, basePath);
+        deleteWebhook(webhookID, options) {
+            return WebhookApiFp(configuration).deleteWebhook(webhookID, options)(axios, basePath);
         },
         /**
          * webhookを修正します。
@@ -10125,8 +10089,44 @@ export const WebhookApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhooksWebhookIDPatch(webhookID, patchWebhook, options) {
-            return WebhookApiFp(configuration).webhooksWebhookIDPatch(webhookID, patchWebhook, options)(axios, basePath);
+        editWebhook(webhookID, patchWebhook, options) {
+            return WebhookApiFp(configuration).editWebhook(webhookID, patchWebhook, options)(axios, basePath);
+        },
+        /**
+         * webhookの詳細を取得します。
+         * @param {string} webhookID 操作の対象となるWebhookのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhook(webhookID, options) {
+            return WebhookApiFp(configuration).getWebhook(webhookID, options)(axios, basePath);
+        },
+        /**
+         * 指定したWebhookのアイコンを取得します。
+         * @param {string} webhookID 操作の対象となるWebhookのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhookIcon(webhookID, options) {
+            return WebhookApiFp(configuration).getWebhookIcon(webhookID, options)(axios, basePath);
+        },
+        /**
+         * 自分が作成したwebhookの一覧を取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhooks(options) {
+            return WebhookApiFp(configuration).getWebhooks(options)(axios, basePath);
+        },
+        /**
+         * Github-Compatibleなwebhookを送信します。
+         * @param {string} webhookID 操作の対象となるWebhookのID
+         * @param {object} [body]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postGitHubWebhook(webhookID, body, options) {
+            return WebhookApiFp(configuration).postGitHubWebhook(webhookID, body, options)(axios, basePath);
         },
         /**
          * webhookを送信します。
@@ -10137,8 +10137,8 @@ export const WebhookApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhooksWebhookIDPost(webhookID, xTRAQChannelId, xTRAQSignature, body, options) {
-            return WebhookApiFp(configuration).webhooksWebhookIDPost(webhookID, xTRAQChannelId, xTRAQSignature, body, options)(axios, basePath);
+        postWebhook(webhookID, xTRAQChannelId, xTRAQSignature, body, options) {
+            return WebhookApiFp(configuration).postWebhook(webhookID, xTRAQChannelId, xTRAQSignature, body, options)(axios, basePath);
         },
     };
 };
@@ -10150,13 +10150,15 @@ export const WebhookApiFactory = function (configuration, basePath, axios) {
  */
 export class WebhookApi extends BaseAPI {
     /**
-     * 自分が作成したwebhookの一覧を取得します。
+     * 指定したwebhookのアイコンを変更します。
+     * @param {string} webhookID 操作の対象となるWebhookのID
+     * @param {any} [file] webhookユーザーのアイコン(1MBまでのpng, jpeg, gif)
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    webhooksGet(options) {
-        return WebhookApiFp(this.configuration).webhooksGet(options)(this.axios, this.basePath);
+    changeWebhookIcon(webhookID, file, options) {
+        return WebhookApiFp(this.configuration).changeWebhookIcon(webhookID, file, options)(this.axios, this.basePath);
     }
     /**
      * webhookを作成します。
@@ -10165,8 +10167,8 @@ export class WebhookApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    webhooksPost(postWebhook, options) {
-        return WebhookApiFp(this.configuration).webhooksPost(postWebhook, options)(this.axios, this.basePath);
+    createWebhooks(postWebhook, options) {
+        return WebhookApiFp(this.configuration).createWebhooks(postWebhook, options)(this.axios, this.basePath);
     }
     /**
      * webhookを削除します。
@@ -10175,50 +10177,8 @@ export class WebhookApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    webhooksWebhookIDDelete(webhookID, options) {
-        return WebhookApiFp(this.configuration).webhooksWebhookIDDelete(webhookID, options)(this.axios, this.basePath);
-    }
-    /**
-     * webhookの詳細を取得します。
-     * @param {string} webhookID 操作の対象となるWebhookのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof WebhookApi
-     */
-    webhooksWebhookIDGet(webhookID, options) {
-        return WebhookApiFp(this.configuration).webhooksWebhookIDGet(webhookID, options)(this.axios, this.basePath);
-    }
-    /**
-     * Github-Compatibleなwebhookを送信します。
-     * @param {string} webhookID 操作の対象となるWebhookのID
-     * @param {object} [body]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof WebhookApi
-     */
-    webhooksWebhookIDGithubPost(webhookID, body, options) {
-        return WebhookApiFp(this.configuration).webhooksWebhookIDGithubPost(webhookID, body, options)(this.axios, this.basePath);
-    }
-    /**
-     * 指定したWebhookのアイコンを取得します。
-     * @param {string} webhookID 操作の対象となるWebhookのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof WebhookApi
-     */
-    webhooksWebhookIDIconGet(webhookID, options) {
-        return WebhookApiFp(this.configuration).webhooksWebhookIDIconGet(webhookID, options)(this.axios, this.basePath);
-    }
-    /**
-     * 指定したwebhookのアイコンを変更します。
-     * @param {string} webhookID 操作の対象となるWebhookのID
-     * @param {any} [file] webhookユーザーのアイコン(1MBまでのpng, jpeg, gif)
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof WebhookApi
-     */
-    webhooksWebhookIDIconPut(webhookID, file, options) {
-        return WebhookApiFp(this.configuration).webhooksWebhookIDIconPut(webhookID, file, options)(this.axios, this.basePath);
+    deleteWebhook(webhookID, options) {
+        return WebhookApiFp(this.configuration).deleteWebhook(webhookID, options)(this.axios, this.basePath);
     }
     /**
      * webhookを修正します。
@@ -10228,8 +10188,48 @@ export class WebhookApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    webhooksWebhookIDPatch(webhookID, patchWebhook, options) {
-        return WebhookApiFp(this.configuration).webhooksWebhookIDPatch(webhookID, patchWebhook, options)(this.axios, this.basePath);
+    editWebhook(webhookID, patchWebhook, options) {
+        return WebhookApiFp(this.configuration).editWebhook(webhookID, patchWebhook, options)(this.axios, this.basePath);
+    }
+    /**
+     * webhookの詳細を取得します。
+     * @param {string} webhookID 操作の対象となるWebhookのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhookApi
+     */
+    getWebhook(webhookID, options) {
+        return WebhookApiFp(this.configuration).getWebhook(webhookID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したWebhookのアイコンを取得します。
+     * @param {string} webhookID 操作の対象となるWebhookのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhookApi
+     */
+    getWebhookIcon(webhookID, options) {
+        return WebhookApiFp(this.configuration).getWebhookIcon(webhookID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 自分が作成したwebhookの一覧を取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhookApi
+     */
+    getWebhooks(options) {
+        return WebhookApiFp(this.configuration).getWebhooks(options)(this.axios, this.basePath);
+    }
+    /**
+     * Github-Compatibleなwebhookを送信します。
+     * @param {string} webhookID 操作の対象となるWebhookのID
+     * @param {object} [body]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhookApi
+     */
+    postGitHubWebhook(webhookID, body, options) {
+        return WebhookApiFp(this.configuration).postGitHubWebhook(webhookID, body, options)(this.axios, this.basePath);
     }
     /**
      * webhookを送信します。
@@ -10241,8 +10241,8 @@ export class WebhookApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    webhooksWebhookIDPost(webhookID, xTRAQChannelId, xTRAQSignature, body, options) {
-        return WebhookApiFp(this.configuration).webhooksWebhookIDPost(webhookID, xTRAQChannelId, xTRAQSignature, body, options)(this.axios, this.basePath);
+    postWebhook(webhookID, xTRAQChannelId, xTRAQSignature, body, options) {
+        return WebhookApiFp(this.configuration).postWebhook(webhookID, xTRAQChannelId, xTRAQSignature, body, options)(this.axios, this.basePath);
     }
 }
 export class Apis extends BaseAPI {
@@ -10254,8 +10254,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ActivityApi
      */
-    activityLatestMessagesGet(limit, subscribe, options) {
-        return ActivityApiFp(this.configuration).activityLatestMessagesGet(limit, subscribe, options)(this.axios, this.basePath);
+    getActivities(limit, subscribe, options) {
+        return ActivityApiFp(this.configuration).getActivities(limit, subscribe, options)(this.axios, this.basePath);
     }
     /**
      * ログインを行います。リダイレクトパラメーターが存在する場合はログイン後にリダイレクトします
@@ -10265,8 +10265,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthenticationApi
      */
-    loginPost(redirect, userLogin, options) {
-        return AuthenticationApiFp(this.configuration).loginPost(redirect, userLogin, options)(this.axios, this.basePath);
+    login(redirect, userLogin, options) {
+        return AuthenticationApiFp(this.configuration).login(redirect, userLogin, options)(this.axios, this.basePath);
     }
     /**
      * ログアウトを行います。リダイレクトパラメーターが存在する場合はログアウト後にリダイレクトします
@@ -10275,8 +10275,44 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthenticationApi
      */
-    logoutPost(redirect, options) {
-        return AuthenticationApiFp(this.configuration).logoutPost(redirect, options)(this.axios, this.basePath);
+    logout(redirect, options) {
+        return AuthenticationApiFp(this.configuration).logout(redirect, options)(this.axios, this.basePath);
+    }
+    /**
+     * OAuth2 認可エンドポイント
+     * @param {OAuth2ResponseType} [responseType]
+     * @param {string} [clientId]
+     * @param {string} [redirectUri]
+     * @param {string} [scope]
+     * @param {string} [state]
+     * @param {string} [codeChallenge]
+     * @param {string} [codeChallengeMethod]
+     * @param {string} [nonce]
+     * @param {OAuth2Prompt} [prompt]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthorizationApi
+     */
+    getOauth2Authorize(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options) {
+        return AuthorizationApiFp(this.configuration).getOauth2Authorize(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options)(this.axios, this.basePath);
+    }
+    /**
+     * OAuth2 認可エンドポイント
+     * @param {OAuth2ResponseType} [responseType]
+     * @param {string} [clientId]
+     * @param {string} [redirectUri]
+     * @param {string} [scope]
+     * @param {string} [state]
+     * @param {string} [codeChallenge]
+     * @param {string} [codeChallengeMethod]
+     * @param {string} [nonce]
+     * @param {OAuth2Prompt} [prompt]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthorizationApi
+     */
+    postOauth2Authorize(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options) {
+        return AuthorizationApiFp(this.configuration).postOauth2Authorize(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options)(this.axios, this.basePath);
     }
     /**
      * OAuth2 認可承諾
@@ -10285,44 +10321,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthorizationApi
      */
-    oauth2AuthorizeDecidePost(submit, options) {
-        return AuthorizationApiFp(this.configuration).oauth2AuthorizeDecidePost(submit, options)(this.axios, this.basePath);
-    }
-    /**
-     * OAuth2 認可エンドポイント
-     * @param {OAuth2ResponseType} [responseType]
-     * @param {string} [clientId]
-     * @param {string} [redirectUri]
-     * @param {string} [scope]
-     * @param {string} [state]
-     * @param {string} [codeChallenge]
-     * @param {string} [codeChallengeMethod]
-     * @param {string} [nonce]
-     * @param {OAuth2Prompt} [prompt]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AuthorizationApi
-     */
-    oauth2AuthorizeGet(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options) {
-        return AuthorizationApiFp(this.configuration).oauth2AuthorizeGet(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options)(this.axios, this.basePath);
-    }
-    /**
-     * OAuth2 認可エンドポイント
-     * @param {OAuth2ResponseType} [responseType]
-     * @param {string} [clientId]
-     * @param {string} [redirectUri]
-     * @param {string} [scope]
-     * @param {string} [state]
-     * @param {string} [codeChallenge]
-     * @param {string} [codeChallengeMethod]
-     * @param {string} [nonce]
-     * @param {OAuth2Prompt} [prompt]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AuthorizationApi
-     */
-    oauth2AuthorizePost(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options) {
-        return AuthorizationApiFp(this.configuration).oauth2AuthorizePost(responseType, clientId, redirectUri, scope, state, codeChallenge, codeChallengeMethod, nonce, prompt, options)(this.axios, this.basePath);
+    postOauth2AuthorizeDecide(submit, options) {
+        return AuthorizationApiFp(this.configuration).postOauth2AuthorizeDecide(submit, options)(this.axios, this.basePath);
     }
     /**
      * OAuth2 トークンエンドポイント
@@ -10340,152 +10340,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthorizationApi
      */
-    oauth2TokenPost(grantType, code, redirectUri, clientId, codeVerifier, username, password, scope, refreshToken, clientSecret, options) {
-        return AuthorizationApiFp(this.configuration).oauth2TokenPost(grantType, code, redirectUri, clientId, codeVerifier, username, password, scope, refreshToken, clientSecret, options)(this.axios, this.basePath);
-    }
-    /**
-     * Botが参加しているチャンネルのUUIDの配列を取得します。
-     * @param {string} botID 操作の対象となるBotのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    botsBotIDChannelsGet(botID, options) {
-        return BotApiFp(this.configuration).botsBotIDChannelsGet(botID, options)(this.axios, this.basePath);
-    }
-    /**
-     * Botを削除します。
-     * @param {string} botID 操作の対象となるBotのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    botsBotIDDelete(botID, options) {
-        return BotApiFp(this.configuration).botsBotIDDelete(botID, options)(this.axios, this.basePath);
-    }
-    /**
-     * Botの詳細を取得します。
-     * @param {string} botID 操作の対象となるBotのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    botsBotIDDetailGet(botID, options) {
-        return BotApiFp(this.configuration).botsBotIDDetailGet(botID, options)(this.axios, this.basePath);
-    }
-    /**
-     * Botの購読イベントを変更します。
-     * @param {string} botID 操作の対象となるBotのID
-     * @param {PutBotEvents} [putBotEvents]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    botsBotIDEventsPut(botID, putBotEvents, options) {
-        return BotApiFp(this.configuration).botsBotIDEventsPut(botID, putBotEvents, options)(this.axios, this.basePath);
-    }
-    /**
-     * Botを取得します。
-     * @param {string} botID 操作の対象となるBotのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    botsBotIDGet(botID, options) {
-        return BotApiFp(this.configuration).botsBotIDGet(botID, options)(this.axios, this.basePath);
-    }
-    /**
-     * 指定したBotのアイコンを取得します。
-     * @param {string} botID 操作の対象となるBotのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    botsBotIDIconGet(botID, options) {
-        return BotApiFp(this.configuration).botsBotIDIconGet(botID, options)(this.axios, this.basePath);
-    }
-    /**
-     * 指定したBotのアイコンを変更します。
-     * @param {string} botID 操作の対象となるBotのID
-     * @param {any} [file] Botユーザーのアイコン(1MBまでのpng, jpeg, gif)
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    botsBotIDIconPut(botID, file, options) {
-        return BotApiFp(this.configuration).botsBotIDIconPut(botID, file, options)(this.axios, this.basePath);
-    }
-    /**
-     * Bot情報を変更します。
-     * @param {string} botID 操作の対象となるBotのID
-     * @param {PatchBot} [patchBot]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    botsBotIDPatch(botID, patchBot, options) {
-        return BotApiFp(this.configuration).botsBotIDPatch(botID, patchBot, options)(this.axios, this.basePath);
-    }
-    /**
-     * Botの各種トークンを再発行します。
-     * @param {string} botID 操作の対象となるBotのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    botsBotIDReissuePost(botID, options) {
-        return BotApiFp(this.configuration).botsBotIDReissuePost(botID, options)(this.axios, this.basePath);
-    }
-    /**
-     * Botの状態を変更します。
-     * @param {string} botID 操作の対象となるBotのID
-     * @param {PutBotState} [putBotState]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    botsBotIDStatePut(botID, putBotState, options) {
-        return BotApiFp(this.configuration).botsBotIDStatePut(botID, putBotState, options)(this.axios, this.basePath);
-    }
-    /**
-     * 自分が作成したBotの一覧を取得します。
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    botsGet(options) {
-        return BotApiFp(this.configuration).botsGet(options)(this.axios, this.basePath);
-    }
-    /**
-     * Botを作成します。
-     * @param {PostBot} [postBot]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    botsPost(postBot, options) {
-        return BotApiFp(this.configuration).botsPost(postBot, options)(this.axios, this.basePath);
-    }
-    /**
-     * Botをチャンネルから退出させます。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {string} botID 操作の対象となるBotのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    channelsChannelIDBotsBotIDDelete(channelID, botID, options) {
-        return BotApiFp(this.configuration).channelsChannelIDBotsBotIDDelete(channelID, botID, options)(this.axios, this.basePath);
-    }
-    /**
-     * チャンネルに参加しているBot一覧を取得します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BotApi
-     */
-    channelsChannelIDBotsGet(channelID, options) {
-        return BotApiFp(this.configuration).channelsChannelIDBotsGet(channelID, options)(this.axios, this.basePath);
+    postOauth2Token(grantType, code, redirectUri, clientId, codeVerifier, username, password, scope, refreshToken, clientSecret, options) {
+        return AuthorizationApiFp(this.configuration).postOauth2Token(grantType, code, redirectUri, clientId, codeVerifier, username, password, scope, refreshToken, clientSecret, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルにBotを参加させます。
@@ -10495,8 +10351,184 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    channelsChannelIDBotsPost(channelID, postBotChannel, options) {
-        return BotApiFp(this.configuration).channelsChannelIDBotsPost(channelID, postBotChannel, options)(this.axios, this.basePath);
+    addChannelBot(channelID, postBotChannel, options) {
+        return BotApiFp(this.configuration).addChannelBot(channelID, postBotChannel, options)(this.axios, this.basePath);
+    }
+    /**
+     * Botの購読イベントを変更します。
+     * @param {string} botID 操作の対象となるBotのID
+     * @param {PutBotEvents} [putBotEvents]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    changeBotEvents(botID, putBotEvents, options) {
+        return BotApiFp(this.configuration).changeBotEvents(botID, putBotEvents, options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したBotのアイコンを変更します。
+     * @param {string} botID 操作の対象となるBotのID
+     * @param {any} [file] Botユーザーのアイコン(1MBまでのpng, jpeg, gif)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    changeBotIcon(botID, file, options) {
+        return BotApiFp(this.configuration).changeBotIcon(botID, file, options)(this.axios, this.basePath);
+    }
+    /**
+     * Botの状態を変更します。
+     * @param {string} botID 操作の対象となるBotのID
+     * @param {PutBotState} [putBotState]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    changeBotState(botID, putBotState, options) {
+        return BotApiFp(this.configuration).changeBotState(botID, putBotState, options)(this.axios, this.basePath);
+    }
+    /**
+     * Botを作成します。
+     * @param {PostBot} [postBot]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    createBots(postBot, options) {
+        return BotApiFp(this.configuration).createBots(postBot, options)(this.axios, this.basePath);
+    }
+    /**
+     * Botを削除します。
+     * @param {string} botID 操作の対象となるBotのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    deleteBot(botID, options) {
+        return BotApiFp(this.configuration).deleteBot(botID, options)(this.axios, this.basePath);
+    }
+    /**
+     * Bot情報を変更します。
+     * @param {string} botID 操作の対象となるBotのID
+     * @param {PatchBot} [patchBot]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    editBot(botID, patchBot, options) {
+        return BotApiFp(this.configuration).editBot(botID, patchBot, options)(this.axios, this.basePath);
+    }
+    /**
+     * Botを取得します。
+     * @param {string} botID 操作の対象となるBotのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    getBot(botID, options) {
+        return BotApiFp(this.configuration).getBot(botID, options)(this.axios, this.basePath);
+    }
+    /**
+     * Botが参加しているチャンネルのUUIDの配列を取得します。
+     * @param {string} botID 操作の対象となるBotのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    getBotChannels(botID, options) {
+        return BotApiFp(this.configuration).getBotChannels(botID, options)(this.axios, this.basePath);
+    }
+    /**
+     * Botの詳細を取得します。
+     * @param {string} botID 操作の対象となるBotのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    getBotDetail(botID, options) {
+        return BotApiFp(this.configuration).getBotDetail(botID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したBotのアイコンを取得します。
+     * @param {string} botID 操作の対象となるBotのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    getBotIcon(botID, options) {
+        return BotApiFp(this.configuration).getBotIcon(botID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 自分が作成したBotの一覧を取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    getBots(options) {
+        return BotApiFp(this.configuration).getBots(options)(this.axios, this.basePath);
+    }
+    /**
+     * チャンネルに参加しているBot一覧を取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    getChannelBots(channelID, options) {
+        return BotApiFp(this.configuration).getChannelBots(channelID, options)(this.axios, this.basePath);
+    }
+    /**
+     * Botの各種トークンを再発行します。
+     * @param {string} botID 操作の対象となるBotのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    reissueBotTokens(botID, options) {
+        return BotApiFp(this.configuration).reissueBotTokens(botID, options)(this.axios, this.basePath);
+    }
+    /**
+     * Botをチャンネルから退出させます。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {string} botID 操作の対象となるBotのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BotApi
+     */
+    removeChannelBot(channelID, botID, options) {
+        return BotApiFp(this.configuration).removeChannelBot(channelID, botID, options)(this.axios, this.basePath);
+    }
+    /**
+     * チャンネルの親チャンネルを変更します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {PutParentChannel} [putParentChannel]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    changeChannelParent(channelID, putParentChannel, options) {
+        return ChannelApiFp(this.configuration).changeChannelParent(channelID, putParentChannel, options)(this.axios, this.basePath);
+    }
+    /**
+     * チャンネルの説明を変更します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {SetChannelTopic} [setChannelTopic]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    changeChannelTopic(channelID, setChannelTopic, options) {
+        return ChannelApiFp(this.configuration).changeChannelTopic(channelID, setChannelTopic, options)(this.axios, this.basePath);
+    }
+    /**
+     * チャンネルを作成します。
+     * @param {CreateChannel} [createChannel]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    createChannel(createChannel, options) {
+        return ChannelApiFp(this.configuration).createChannel(createChannel, options)(this.axios, this.basePath);
     }
     /**
      * 子チャンネルを作成します。
@@ -10506,8 +10538,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDChildrenPost(channelID, createChannelChild, options) {
-        return ChannelApiFp(this.configuration).channelsChannelIDChildrenPost(channelID, createChannelChild, options)(this.axios, this.basePath);
+    createChannelChild(channelID, createChannelChild, options) {
+        return ChannelApiFp(this.configuration).createChannelChild(channelID, createChannelChild, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルを削除します。
@@ -10516,8 +10548,29 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDDelete(channelID, options) {
-        return ChannelApiFp(this.configuration).channelsChannelIDDelete(channelID, options)(this.axios, this.basePath);
+    deleteChannel(channelID, options) {
+        return ChannelApiFp(this.configuration).deleteChannel(channelID, options)(this.axios, this.basePath);
+    }
+    /**
+     * チャンネルの情報を変更します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {PatchChannel} [patchChannel]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    editChannel(channelID, patchChannel, options) {
+        return ChannelApiFp(this.configuration).editChannel(channelID, patchChannel, options)(this.axios, this.basePath);
+    }
+    /**
+     * チャンネルの情報を返します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    getChannel(channelID, options) {
+        return ChannelApiFp(this.configuration).getChannel(channelID, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルイベントのリストを取得します。
@@ -10532,40 +10585,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDEventsGet(channelID, limit, offset, since, until, inclusive, order, options) {
-        return ChannelApiFp(this.configuration).channelsChannelIDEventsGet(channelID, limit, offset, since, until, inclusive, order, options)(this.axios, this.basePath);
-    }
-    /**
-     * チャンネルの情報を返します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ChannelApi
-     */
-    channelsChannelIDGet(channelID, options) {
-        return ChannelApiFp(this.configuration).channelsChannelIDGet(channelID, options)(this.axios, this.basePath);
-    }
-    /**
-     * チャンネルの親チャンネルを変更します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {PutParentChannel} [putParentChannel]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ChannelApi
-     */
-    channelsChannelIDParentPut(channelID, putParentChannel, options) {
-        return ChannelApiFp(this.configuration).channelsChannelIDParentPut(channelID, putParentChannel, options)(this.axios, this.basePath);
-    }
-    /**
-     * チャンネルの情報を変更します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {PatchChannel} [patchChannel]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ChannelApi
-     */
-    channelsChannelIDPatch(channelID, patchChannel, options) {
-        return ChannelApiFp(this.configuration).channelsChannelIDPatch(channelID, patchChannel, options)(this.axios, this.basePath);
+    getChannelEvents(channelID, limit, offset, since, until, inclusive, order, options) {
+        return ChannelApiFp(this.configuration).getChannelEvents(channelID, limit, offset, since, until, inclusive, order, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルの説明を取得します。
@@ -10574,19 +10595,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsChannelIDTopicGet(channelID, options) {
-        return ChannelApiFp(this.configuration).channelsChannelIDTopicGet(channelID, options)(this.axios, this.basePath);
-    }
-    /**
-     * チャンネルの説明を変更します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {SetChannelTopic} [setChannelTopic]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ChannelApi
-     */
-    channelsChannelIDTopicPut(channelID, setChannelTopic, options) {
-        return ChannelApiFp(this.configuration).channelsChannelIDTopicPut(channelID, setChannelTopic, options)(this.axios, this.basePath);
+    getChannelTopic(channelID, options) {
+        return ChannelApiFp(this.configuration).getChannelTopic(channelID, options)(this.axios, this.basePath);
     }
     /**
      * (すべての)チャンネルのリストを取得します。
@@ -10594,18 +10604,18 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    channelsGet(options) {
-        return ChannelApiFp(this.configuration).channelsGet(options)(this.axios, this.basePath);
+    getChannels(options) {
+        return ChannelApiFp(this.configuration).getChannels(options)(this.axios, this.basePath);
     }
     /**
-     * チャンネルを作成します。
-     * @param {CreateChannel} [createChannel]
+     * クライアントを登録します。
+     * @param {PostClient} [postClient]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ChannelApi
+     * @memberof ClientApi
      */
-    channelsPost(createChannel, options) {
-        return ChannelApiFp(this.configuration).channelsPost(createChannel, options)(this.axios, this.basePath);
+    createClient(postClient, options) {
+        return ClientApiFp(this.configuration).createClient(postClient, options)(this.axios, this.basePath);
     }
     /**
      * 指定したクライアントIDのクライアントを削除します。 正常に削除された場合、このクライアントを通じての認可は全て取り消されます。
@@ -10614,18 +10624,18 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    clientsClientIDDelete(clientID, options) {
-        return ClientApiFp(this.configuration).clientsClientIDDelete(clientID, options)(this.axios, this.basePath);
+    deleteClient(clientID, options) {
+        return ClientApiFp(this.configuration).deleteClient(clientID, options)(this.axios, this.basePath);
     }
     /**
-     * クライアントの詳細を取得します。
-     * @param {string} clientID 操作の対象となるclientのID
+     * 指定したトークンの認可を取り消します。
+     * @param {string} oauth2TokenID 操作の対象となるTokenのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    clientsClientIDDetailGet(clientID, options) {
-        return ClientApiFp(this.configuration).clientsClientIDDetailGet(clientID, options)(this.axios, this.basePath);
+    deleteToken(oauth2TokenID, options) {
+        return ClientApiFp(this.configuration).deleteToken(oauth2TokenID, options)(this.axios, this.basePath);
     }
     /**
      * 指定したクライアントIDのクライアントの情報を取得します。
@@ -10634,8 +10644,36 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    clientsClientIDGet(clientID, options) {
-        return ClientApiFp(this.configuration).clientsClientIDGet(clientID, options)(this.axios, this.basePath);
+    getClient(clientID, options) {
+        return ClientApiFp(this.configuration).getClient(clientID, options)(this.axios, this.basePath);
+    }
+    /**
+     * クライアントの詳細を取得します。
+     * @param {string} clientID 操作の対象となるclientのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClientApi
+     */
+    getClientDetail(clientID, options) {
+        return ClientApiFp(this.configuration).getClientDetail(clientID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 自分が登録しているクライアントの一覧を取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClientApi
+     */
+    getClients(options) {
+        return ClientApiFp(this.configuration).getClients(options)(this.axios, this.basePath);
+    }
+    /**
+     * 自分が許可しているクライアントの一覧とトークン情報を取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClientApi
+     */
+    getTokens(options) {
+        return ClientApiFp(this.configuration).getTokens(options)(this.axios, this.basePath);
     }
     /**
      * 指定したクライアントIDのクライアントの情報を変更します。
@@ -10645,66 +10683,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    clientsClientIDPatch(clientID, patchClient, options) {
-        return ClientApiFp(this.configuration).clientsClientIDPatch(clientID, patchClient, options)(this.axios, this.basePath);
-    }
-    /**
-     * 自分が登録しているクライアントの一覧を取得します。
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClientApi
-     */
-    clientsGet(options) {
-        return ClientApiFp(this.configuration).clientsGet(options)(this.axios, this.basePath);
-    }
-    /**
-     * クライアントを登録します。
-     * @param {PostClient} [postClient]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClientApi
-     */
-    clientsPost(postClient, options) {
-        return ClientApiFp(this.configuration).clientsPost(postClient, options)(this.axios, this.basePath);
-    }
-    /**
-     * 自分が許可しているクライアントの一覧とトークン情報を取得します。
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClientApi
-     */
-    usersMeTokensGet(options) {
-        return ClientApiFp(this.configuration).usersMeTokensGet(options)(this.axios, this.basePath);
-    }
-    /**
-     * 指定したトークンの認可を取り消します。
-     * @param {string} oauth2TokenID 操作の対象となるTokenのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClientApi
-     */
-    usersMeTokensOauth2TokenIDDelete(oauth2TokenID, options) {
-        return ClientApiFp(this.configuration).usersMeTokensOauth2TokenIDDelete(oauth2TokenID, options)(this.axios, this.basePath);
-    }
-    /**
-     * 指定したクリップを削除します。
-     * @param {string} clipID 捜査の対象となるクリップのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClipApi
-     */
-    usersMeClipsClipIDDelete(clipID, options) {
-        return ClipApiFp(this.configuration).usersMeClipsClipIDDelete(clipID, options)(this.axios, this.basePath);
-    }
-    /**
-     * 指定したクリップのフォルダ情報を取得します。
-     * @param {string} clipID 捜査の対象となるクリップのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClipApi
-     */
-    usersMeClipsClipIDFolderGet(clipID, options) {
-        return ClipApiFp(this.configuration).usersMeClipsClipIDFolderGet(clipID, options)(this.axios, this.basePath);
+    patchClient(clientID, patchClient, options) {
+        return ClientApiFp(this.configuration).patchClient(clientID, patchClient, options)(this.axios, this.basePath);
     }
     /**
      * 指定したクリップのフォルダを変更します。
@@ -10714,18 +10694,28 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsClipIDFolderPut(clipID, clipsFolderIDObject, options) {
-        return ClipApiFp(this.configuration).usersMeClipsClipIDFolderPut(clipID, clipsFolderIDObject, options)(this.axios, this.basePath);
+    changeClipsFolder(clipID, clipsFolderIDObject, options) {
+        return ClipApiFp(this.configuration).changeClipsFolder(clipID, clipsFolderIDObject, options)(this.axios, this.basePath);
     }
     /**
-     * 指定したクリップのメッセージを取得します。
-     * @param {string} clipID 捜査の対象となるクリップのID
+     * 新しくメッセージをクリップします。
+     * @param {SetClip} [setClip]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsClipIDGet(clipID, options) {
-        return ClipApiFp(this.configuration).usersMeClipsClipIDGet(clipID, options)(this.axios, this.basePath);
+    clipMessage(setClip, options) {
+        return ClipApiFp(this.configuration).clipMessage(setClip, options)(this.axios, this.basePath);
+    }
+    /**
+     * クリップフォルダを作成します。
+     * @param {ClipsFolderNameObject} [clipsFolderNameObject]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClipApi
+     */
+    createClipFolders(clipsFolderNameObject, options) {
+        return ClipApiFp(this.configuration).createClipFolders(clipsFolderNameObject, options)(this.axios, this.basePath);
     }
     /**
      * クリップフォルダを削除します。フォルダ内のクリップは全て削除されます。
@@ -10734,18 +10724,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsFoldersFolderIDDelete(folderID, options) {
-        return ClipApiFp(this.configuration).usersMeClipsFoldersFolderIDDelete(folderID, options)(this.axios, this.basePath);
-    }
-    /**
-     * フォルダ内のクリップ一覧を取得します。
-     * @param {string} folderID 操作の対象となるクリップフォルダのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClipApi
-     */
-    usersMeClipsFoldersFolderIDGet(folderID, options) {
-        return ClipApiFp(this.configuration).usersMeClipsFoldersFolderIDGet(folderID, options)(this.axios, this.basePath);
+    deleteClipFolder(folderID, options) {
+        return ClipApiFp(this.configuration).deleteClipFolder(folderID, options)(this.axios, this.basePath);
     }
     /**
      * クリップフォルダ名を変更します。
@@ -10755,8 +10735,28 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsFoldersFolderIDPatch(folderID, clipsFolderNameObject, options) {
-        return ClipApiFp(this.configuration).usersMeClipsFoldersFolderIDPatch(folderID, clipsFolderNameObject, options)(this.axios, this.basePath);
+    editClipFolder(folderID, clipsFolderNameObject, options) {
+        return ClipApiFp(this.configuration).editClipFolder(folderID, clipsFolderNameObject, options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したクリップのメッセージを取得します。
+     * @param {string} clipID 捜査の対象となるクリップのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClipApi
+     */
+    getClip(clipID, options) {
+        return ClipApiFp(this.configuration).getClip(clipID, options)(this.axios, this.basePath);
+    }
+    /**
+     * フォルダ内のクリップ一覧を取得します。
+     * @param {string} folderID 操作の対象となるクリップフォルダのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClipApi
+     */
+    getClipFolder(folderID, options) {
+        return ClipApiFp(this.configuration).getClipFolder(folderID, options)(this.axios, this.basePath);
     }
     /**
      * クリップフォルダ一覧を取得します。
@@ -10764,18 +10764,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsFoldersGet(options) {
-        return ClipApiFp(this.configuration).usersMeClipsFoldersGet(options)(this.axios, this.basePath);
-    }
-    /**
-     * クリップフォルダを作成します。
-     * @param {ClipsFolderNameObject} [clipsFolderNameObject]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ClipApi
-     */
-    usersMeClipsFoldersPost(clipsFolderNameObject, options) {
-        return ClipApiFp(this.configuration).usersMeClipsFoldersPost(clipsFolderNameObject, options)(this.axios, this.basePath);
+    getClipFolders(options) {
+        return ClipApiFp(this.configuration).getClipFolders(options)(this.axios, this.basePath);
     }
     /**
      * 全てのクリップを取得します。
@@ -10783,18 +10773,28 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsGet(options) {
-        return ClipApiFp(this.configuration).usersMeClipsGet(options)(this.axios, this.basePath);
+    getClips(options) {
+        return ClipApiFp(this.configuration).getClips(options)(this.axios, this.basePath);
     }
     /**
-     * 新しくメッセージをクリップします。
-     * @param {SetClip} [setClip]
+     * 指定したクリップのフォルダ情報を取得します。
+     * @param {string} clipID 捜査の対象となるクリップのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    usersMeClipsPost(setClip, options) {
-        return ClipApiFp(this.configuration).usersMeClipsPost(setClip, options)(this.axios, this.basePath);
+    getClipsFolder(clipID, options) {
+        return ClipApiFp(this.configuration).getClipsFolder(clipID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したクリップを削除します。
+     * @param {string} clipID 捜査の対象となるクリップのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ClipApi
+     */
+    unclipMessage(clipID, options) {
+        return ClipApiFp(this.configuration).unclipMessage(clipID, options)(this.axios, this.basePath);
     }
     /**
      * 指定したファイルを削除します。
@@ -10803,8 +10803,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FileApi
      */
-    filesFileIDDelete(fileID, options) {
-        return FileApiFp(this.configuration).filesFileIDDelete(fileID, options)(this.axios, this.basePath);
+    deleteFile(fileID, options) {
+        return FileApiFp(this.configuration).deleteFile(fileID, options)(this.axios, this.basePath);
     }
     /**
      * 指定したファイルの中身を取得します。
@@ -10814,8 +10814,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FileApi
      */
-    filesFileIDGet(fileID, dl, options) {
-        return FileApiFp(this.configuration).filesFileIDGet(fileID, dl, options)(this.axios, this.basePath);
+    getFile(fileID, dl, options) {
+        return FileApiFp(this.configuration).getFile(fileID, dl, options)(this.axios, this.basePath);
     }
     /**
      * 指定したファイルのメタデータを取得します
@@ -10824,8 +10824,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FileApi
      */
-    filesFileIDMetaGet(fileID, options) {
-        return FileApiFp(this.configuration).filesFileIDMetaGet(fileID, options)(this.axios, this.basePath);
+    getFileMeta(fileID, options) {
+        return FileApiFp(this.configuration).getFileMeta(fileID, options)(this.axios, this.basePath);
     }
     /**
      * 指定したファイルのサムネイルを取得します
@@ -10834,8 +10834,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FileApi
      */
-    filesFileIDThumbnailGet(fileID, options) {
-        return FileApiFp(this.configuration).filesFileIDThumbnailGet(fileID, options)(this.axios, this.basePath);
+    getFileThumbnail(fileID, options) {
+        return FileApiFp(this.configuration).getFileThumbnail(fileID, options)(this.axios, this.basePath);
     }
     /**
      * ファイルをアップロードします
@@ -10845,8 +10845,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FileApi
      */
-    filesPost(file, aclReadable, options) {
-        return FileApiFp(this.configuration).filesPost(file, aclReadable, options)(this.axios, this.basePath);
+    uploadFile(file, aclReadable, options) {
+        return FileApiFp(this.configuration).uploadFile(file, aclReadable, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルを現在見ている人・編集している人を取得します。
@@ -10855,8 +10855,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof HeartbeatApi
      */
-    heartbeatGet(channelId, options) {
-        return HeartbeatApiFp(this.configuration).heartbeatGet(channelId, options)(this.axios, this.basePath);
+    getHeartbeat(channelId, options) {
+        return HeartbeatApiFp(this.configuration).getHeartbeat(channelId, options)(this.axios, this.basePath);
     }
     /**
      * どのチャンネルを見ているか・編集しているかを送信します。
@@ -10865,35 +10865,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof HeartbeatApi
      */
-    heartbeatPost(heartbeat, options) {
-        return HeartbeatApiFp(this.configuration).heartbeatPost(heartbeat, options)(this.axios, this.basePath);
-    }
-    /**
-     * チャンネルに存在するメッセージを取得します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {number} [limit] 取得する件数 1-200
-     * @param {number} [offset] 取得するオフセット
-     * @param {Date} [since] 取得する時間範囲の開始日時
-     * @param {Date} [until] 取得する時間範囲の終了日時
-     * @param {boolean} [inclusive] 範囲の端を含めるかどうか
-     * @param {'asc' | 'desc'} [order] 昇順か降順か
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MessageApi
-     */
-    channelsChannelIDMessagesGet(channelID, limit, offset, since, until, inclusive, order, options) {
-        return MessageApiFp(this.configuration).channelsChannelIDMessagesGet(channelID, limit, offset, since, until, inclusive, order, options)(this.axios, this.basePath);
-    }
-    /**
-     * チャンネルにメッセージを投稿します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {SendMessage} [sendMessage]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MessageApi
-     */
-    channelsChannelIDMessagesPost(channelID, sendMessage, options) {
-        return MessageApiFp(this.configuration).channelsChannelIDMessagesPost(channelID, sendMessage, options)(this.axios, this.basePath);
+    postHeartbeat(heartbeat, options) {
+        return HeartbeatApiFp(this.configuration).postHeartbeat(heartbeat, options)(this.axios, this.basePath);
     }
     /**
      * 指定したメッセージを削除します。
@@ -10902,18 +10875,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    messagesMessageIDDelete(messageID, options) {
-        return MessageApiFp(this.configuration).messagesMessageIDDelete(messageID, options)(this.axios, this.basePath);
-    }
-    /**
-     * 指定したメッセージを取得します。
-     * @param {string} messageID 操作の対象となるメッセージID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MessageApi
-     */
-    messagesMessageIDGet(messageID, options) {
-        return MessageApiFp(this.configuration).messagesMessageIDGet(messageID, options)(this.axios, this.basePath);
+    deleteMessage(messageID, options) {
+        return MessageApiFp(this.configuration).deleteMessage(messageID, options)(this.axios, this.basePath);
     }
     /**
      * 指定したメッセージを編集します。
@@ -10923,29 +10886,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    messagesMessageIDPut(messageID, sendMessage, options) {
-        return MessageApiFp(this.configuration).messagesMessageIDPut(messageID, sendMessage, options)(this.axios, this.basePath);
-    }
-    /**
-     * 指定したメッセージを通報します。
-     * @param {string} messageID 操作の対象となるメッセージID
-     * @param {ReportMessage} [reportMessage]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MessageApi
-     */
-    messagesMessageIDReportPost(messageID, reportMessage, options) {
-        return MessageApiFp(this.configuration).messagesMessageIDReportPost(messageID, reportMessage, options)(this.axios, this.basePath);
-    }
-    /**
-     * メッセージ通報を最大50件取得します。
-     * @param {number} [p] ページ番号(ゼロオリジン)
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MessageApi
-     */
-    messagesReportsGet(p, options) {
-        return MessageApiFp(this.configuration).messagesReportsGet(p, options)(this.axios, this.basePath);
+    editMessage(messageID, sendMessage, options) {
+        return MessageApiFp(this.configuration).editMessage(messageID, sendMessage, options)(this.axios, this.basePath);
     }
     /**
      * DMチャンネルに存在するメッセージを取得します。
@@ -10960,8 +10902,44 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    usersUserIDMessagesGet(userID, limit, offset, since, until, inclusive, order, options) {
-        return MessageApiFp(this.configuration).usersUserIDMessagesGet(userID, limit, offset, since, until, inclusive, order, options)(this.axios, this.basePath);
+    getDirectMessages(userID, limit, offset, since, until, inclusive, order, options) {
+        return MessageApiFp(this.configuration).getDirectMessages(userID, limit, offset, since, until, inclusive, order, options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したメッセージを取得します。
+     * @param {string} messageID 操作の対象となるメッセージID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MessageApi
+     */
+    getMessage(messageID, options) {
+        return MessageApiFp(this.configuration).getMessage(messageID, options)(this.axios, this.basePath);
+    }
+    /**
+     * チャンネルに存在するメッセージを取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {number} [limit] 取得する件数 1-200
+     * @param {number} [offset] 取得するオフセット
+     * @param {Date} [since] 取得する時間範囲の開始日時
+     * @param {Date} [until] 取得する時間範囲の終了日時
+     * @param {boolean} [inclusive] 範囲の端を含めるかどうか
+     * @param {'asc' | 'desc'} [order] 昇順か降順か
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MessageApi
+     */
+    getMessages(channelID, limit, offset, since, until, inclusive, order, options) {
+        return MessageApiFp(this.configuration).getMessages(channelID, limit, offset, since, until, inclusive, order, options)(this.axios, this.basePath);
+    }
+    /**
+     * メッセージ通報を最大50件取得します。
+     * @param {number} [p] ページ番号(ゼロオリジン)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MessageApi
+     */
+    getReports(p, options) {
+        return MessageApiFp(this.configuration).getReports(p, options)(this.axios, this.basePath);
     }
     /**
      * DMチャンネルにメッセージを投稿します。
@@ -10971,18 +10949,39 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    usersUserIDMessagesPost(userID, sendMessage, options) {
-        return MessageApiFp(this.configuration).usersUserIDMessagesPost(userID, sendMessage, options)(this.axios, this.basePath);
+    postDirectMessage(userID, sendMessage, options) {
+        return MessageApiFp(this.configuration).postDirectMessage(userID, sendMessage, options)(this.axios, this.basePath);
     }
     /**
-     * 指定したチャンネルのミュートを解除します。既に解除されていた場合は204を返します。
+     * チャンネルにメッセージを投稿します。
      * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {SendMessage} [sendMessage]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MessageApi
+     */
+    postMessage(channelID, sendMessage, options) {
+        return MessageApiFp(this.configuration).postMessage(channelID, sendMessage, options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したメッセージを通報します。
+     * @param {string} messageID 操作の対象となるメッセージID
+     * @param {ReportMessage} [reportMessage]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MessageApi
+     */
+    reportMessage(messageID, reportMessage, options) {
+        return MessageApiFp(this.configuration).reportMessage(messageID, reportMessage, options)(this.axios, this.basePath);
+    }
+    /**
+     * ミュートしているチャンネルのIDの配列を返します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MuteApi
      */
-    usersMeMuteChannelIDDelete(channelID, options) {
-        return MuteApiFp(this.configuration).usersMeMuteChannelIDDelete(channelID, options)(this.axios, this.basePath);
+    getMutedChannels(options) {
+        return MuteApiFp(this.configuration).getMutedChannels(options)(this.axios, this.basePath);
     }
     /**
      * 指定したチャンネルをミュートします。ただし、強制通知チャンネルはミュートできません。既にミュートしていた場合は204を返します。
@@ -10991,27 +10990,18 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MuteApi
      */
-    usersMeMuteChannelIDPost(channelID, options) {
-        return MuteApiFp(this.configuration).usersMeMuteChannelIDPost(channelID, options)(this.axios, this.basePath);
+    muteChannel(channelID, options) {
+        return MuteApiFp(this.configuration).muteChannel(channelID, options)(this.axios, this.basePath);
     }
     /**
-     * ミュートしているチャンネルのIDの配列を返します。
+     * 指定したチャンネルのミュートを解除します。既に解除されていた場合は204を返します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MuteApi
      */
-    usersMeMuteGet(options) {
-        return MuteApiFp(this.configuration).usersMeMuteGet(options)(this.axios, this.basePath);
-    }
-    /**
-     * 通知を点けているユーザーのIDの配列を取得します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof NotificationApi
-     */
-    channelsChannelIDNotificationGet(channelID, options) {
-        return NotificationApiFp(this.configuration).channelsChannelIDNotificationGet(channelID, options)(this.axios, this.basePath);
+    unmuteChannel(channelID, options) {
+        return MuteApiFp(this.configuration).unmuteChannel(channelID, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルの通知状況を変更します。 リクエストに含めなかったユーザーIDのユーザーの通知状況は変更しません。 また、存在しないユーザーのIDを指定した場合は無視されます。
@@ -11021,18 +11011,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    channelsChannelIDNotificationPut(channelID, notificationUsers, options) {
-        return NotificationApiFp(this.configuration).channelsChannelIDNotificationPut(channelID, notificationUsers, options)(this.axios, this.basePath);
-    }
-    /**
-     * FCMデバイスを登録します。
-     * @param {FCMToken} [fCMToken]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof NotificationApi
-     */
-    notificationDevicePost(fCMToken, options) {
-        return NotificationApiFp(this.configuration).notificationDevicePost(fCMToken, options)(this.axios, this.basePath);
+    changeNotifications(channelID, notificationUsers, options) {
+        return NotificationApiFp(this.configuration).changeNotifications(channelID, notificationUsers, options)(this.axios, this.basePath);
     }
     /**
      * 通知ストリーム(Server Sent Events)に接続します。
@@ -11040,8 +11020,18 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    notificationGet(options) {
-        return NotificationApiFp(this.configuration).notificationGet(options)(this.axios, this.basePath);
+    connectNotification(options) {
+        return NotificationApiFp(this.configuration).connectNotification(options)(this.axios, this.basePath);
+    }
+    /**
+     * 通知を点けているユーザーのIDの配列を取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NotificationApi
+     */
+    getNotifications(channelID, options) {
+        return NotificationApiFp(this.configuration).getNotifications(channelID, options)(this.axios, this.basePath);
     }
     /**
      * 自分が通知を入れているチャンネルのリストを取得します
@@ -11049,8 +11039,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    usersMeNotificationGet(options) {
-        return NotificationApiFp(this.configuration).usersMeNotificationGet(options)(this.axios, this.basePath);
+    getNotifiedChannels(options) {
+        return NotificationApiFp(this.configuration).getNotifiedChannels(options)(this.axios, this.basePath);
     }
     /**
      * ユーザーが通知を入れているチャンネルのリストを取得します
@@ -11059,28 +11049,18 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    usersUserIDNotificationGet(userID, options) {
-        return NotificationApiFp(this.configuration).usersUserIDNotificationGet(userID, options)(this.axios, this.basePath);
+    getUserNotifiedChannels(userID, options) {
+        return NotificationApiFp(this.configuration).getUserNotifiedChannels(userID, options)(this.axios, this.basePath);
     }
     /**
-     * チャンネルのピン留め一覧を取得します。
-     * @param {string} channelID 操作の対象となるチャンネルのID
+     * FCMデバイスを登録します。
+     * @param {FCMToken} [fCMToken]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof PinApi
+     * @memberof NotificationApi
      */
-    channelsChannelIDPinsGet(channelID, options) {
-        return PinApiFp(this.configuration).channelsChannelIDPinsGet(channelID, options)(this.axios, this.basePath);
-    }
-    /**
-     * ピン留めを外します。
-     * @param {string} pinID 操作の対象となるピン留めID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof PinApi
-     */
-    pinsPinIDDelete(pinID, options) {
-        return PinApiFp(this.configuration).pinsPinIDDelete(pinID, options)(this.axios, this.basePath);
+    registerNotificationDevice(fCMToken, options) {
+        return NotificationApiFp(this.configuration).registerNotificationDevice(fCMToken, options)(this.axios, this.basePath);
     }
     /**
      * ピン留めを取得します。
@@ -11089,8 +11069,18 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PinApi
      */
-    pinsPinIDGet(pinID, options) {
-        return PinApiFp(this.configuration).pinsPinIDGet(pinID, options)(this.axios, this.basePath);
+    getPinnedMessage(pinID, options) {
+        return PinApiFp(this.configuration).getPinnedMessage(pinID, options)(this.axios, this.basePath);
+    }
+    /**
+     * チャンネルのピン留め一覧を取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PinApi
+     */
+    getPinnedMessages(channelID, options) {
+        return PinApiFp(this.configuration).getPinnedMessages(channelID, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルにメッセージをピン留めします。
@@ -11099,8 +11089,18 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PinApi
      */
-    pinsPost(messageIDObject, options) {
-        return PinApiFp(this.configuration).pinsPost(messageIDObject, options)(this.axios, this.basePath);
+    pinMessage(messageIDObject, options) {
+        return PinApiFp(this.configuration).pinMessage(messageIDObject, options)(this.axios, this.basePath);
+    }
+    /**
+     * ピン留めを外します。
+     * @param {string} pinID 操作の対象となるピン留めID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PinApi
+     */
+    unpinMessage(pinID, options) {
+        return PinApiFp(this.configuration).unpinMessage(pinID, options)(this.axios, this.basePath);
     }
     /**
      * 指定したユーザーのアイコン画像を取得します。
@@ -11109,26 +11109,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PublicApi
      */
-    publicIconUsernameGet(username, options) {
-        return PublicApiFp(this.configuration).publicIconUsernameGet(username, options)(this.axios, this.basePath);
-    }
-    /**
-     * 自分のログインセッションを全てログアウトします。
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SessionsApi
-     */
-    usersMeSessionsDelete(options) {
-        return SessionsApiFp(this.configuration).usersMeSessionsDelete(options)(this.axios, this.basePath);
-    }
-    /**
-     * 自分のログインセッションリストを取得します。
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SessionsApi
-     */
-    usersMeSessionsGet(options) {
-        return SessionsApiFp(this.configuration).usersMeSessionsGet(options)(this.axios, this.basePath);
+    getPublicUserIcon(username, options) {
+        return PublicApiFp(this.configuration).getPublicUserIcon(username, options)(this.axios, this.basePath);
     }
     /**
      * 対象のセッションをログアウトします。
@@ -11137,49 +11119,26 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SessionsApi
      */
-    usersMeSessionsReferenceIDDelete(referenceID, options) {
-        return SessionsApiFp(this.configuration).usersMeSessionsReferenceIDDelete(referenceID, options)(this.axios, this.basePath);
+    deleteSession(referenceID, options) {
+        return SessionsApiFp(this.configuration).deleteSession(referenceID, options)(this.axios, this.basePath);
     }
     /**
-     * 指定したメッセージに押されているスタンプを全て取得します。
-     * @param {string} messageID 操作の対象となるメッセージID
+     * 自分のログインセッションを全てログアウトします。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof StampApi
+     * @memberof SessionsApi
      */
-    messagesMessageIDStampsGet(messageID, options) {
-        return StampApiFp(this.configuration).messagesMessageIDStampsGet(messageID, options)(this.axios, this.basePath);
+    deleteSessions(options) {
+        return SessionsApiFp(this.configuration).deleteSessions(options)(this.axios, this.basePath);
     }
     /**
-     * 指定したメッセージから指定したスタンプを外します。
-     * @param {string} messageID 操作の対象となるメッセージID
-     * @param {string} stampID 操作の対象となるスタンプID
+     * 自分のログインセッションリストを取得します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof StampApi
+     * @memberof SessionsApi
      */
-    messagesMessageIDStampsStampIDDelete(messageID, stampID, options) {
-        return StampApiFp(this.configuration).messagesMessageIDStampsStampIDDelete(messageID, stampID, options)(this.axios, this.basePath);
-    }
-    /**
-     * 指定したメッセージに指定したスタンプを押します。
-     * @param {string} messageID 操作の対象となるメッセージID
-     * @param {string} stampID 操作の対象となるスタンプID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof StampApi
-     */
-    messagesMessageIDStampsStampIDPost(messageID, stampID, options) {
-        return StampApiFp(this.configuration).messagesMessageIDStampsStampIDPost(messageID, stampID, options)(this.axios, this.basePath);
-    }
-    /**
-     * 全スタンプのリストを取得します。
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof StampApi
-     */
-    stampsGet(options) {
-        return StampApiFp(this.configuration).stampsGet(options)(this.axios, this.basePath);
+    getSessions(options) {
+        return SessionsApiFp(this.configuration).getSessions(options)(this.axios, this.basePath);
     }
     /**
      * スタンプを新規作成します。
@@ -11189,8 +11148,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof StampApi
      */
-    stampsPost(name, file, options) {
-        return StampApiFp(this.configuration).stampsPost(name, file, options)(this.axios, this.basePath);
+    createStamp(name, file, options) {
+        return StampApiFp(this.configuration).createStamp(name, file, options)(this.axios, this.basePath);
     }
     /**
      * スタンプを削除します。
@@ -11199,18 +11158,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof StampApi
      */
-    stampsStampIDDelete(stampID, options) {
-        return StampApiFp(this.configuration).stampsStampIDDelete(stampID, options)(this.axios, this.basePath);
-    }
-    /**
-     * スタンプの情報を取得します。
-     * @param {string} stampID 操作の対象となるスタンプID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof StampApi
-     */
-    stampsStampIDGet(stampID, options) {
-        return StampApiFp(this.configuration).stampsStampIDGet(stampID, options)(this.axios, this.basePath);
+    deleteStamp(stampID, options) {
+        return StampApiFp(this.configuration).deleteStamp(stampID, options)(this.axios, this.basePath);
     }
     /**
      * スタンプを修正します。
@@ -11221,8 +11170,28 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof StampApi
      */
-    stampsStampIDPatch(stampID, name, file, options) {
-        return StampApiFp(this.configuration).stampsStampIDPatch(stampID, name, file, options)(this.axios, this.basePath);
+    editStamp(stampID, name, file, options) {
+        return StampApiFp(this.configuration).editStamp(stampID, name, file, options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したメッセージに押されているスタンプを全て取得します。
+     * @param {string} messageID 操作の対象となるメッセージID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    getMessageStamps(messageID, options) {
+        return StampApiFp(this.configuration).getMessageStamps(messageID, options)(this.axios, this.basePath);
+    }
+    /**
+     * スタンプの情報を取得します。
+     * @param {string} stampID 操作の対象となるスタンプID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    getStamp(stampID, options) {
+        return StampApiFp(this.configuration).getStamp(stampID, options)(this.axios, this.basePath);
     }
     /**
      * 自分のスタンプ履歴を最大50件取得します。結果は降順で返されます。
@@ -11230,18 +11199,48 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof StampApi
      */
-    usersMeStampHistoryGet(options) {
-        return StampApiFp(this.configuration).usersMeStampHistoryGet(options)(this.axios, this.basePath);
+    getStampHistory(options) {
+        return StampApiFp(this.configuration).getStampHistory(options)(this.axios, this.basePath);
     }
     /**
-     * +| お気に入りチャンネルリストから削除します。 既にお気に入りチャンネルリストに無いチャンネルを指定した場合は無視されます(204)。
-     * @param {string} channelID 操作の対象となるチャンネルのID
+     * 全スタンプのリストを取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    getStamps(options) {
+        return StampApiFp(this.configuration).getStamps(options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したメッセージに指定したスタンプを押します。
+     * @param {string} messageID 操作の対象となるメッセージID
+     * @param {string} stampID 操作の対象となるスタンプID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    stampMessage(messageID, stampID, options) {
+        return StampApiFp(this.configuration).stampMessage(messageID, stampID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したメッセージから指定したスタンプを外します。
+     * @param {string} messageID 操作の対象となるメッセージID
+     * @param {string} stampID 操作の対象となるスタンプID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    unstampMessage(messageID, stampID, options) {
+        return StampApiFp(this.configuration).unstampMessage(messageID, stampID, options)(this.axios, this.basePath);
+    }
+    /**
+     * お気に入りチャンネルリストを取得します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StarApi
      */
-    usersMeStarsChannelIDDelete(channelID, options) {
-        return StarApiFp(this.configuration).usersMeStarsChannelIDDelete(channelID, options)(this.axios, this.basePath);
+    getStaredChannels(options) {
+        return StarApiFp(this.configuration).getStaredChannels(options)(this.axios, this.basePath);
     }
     /**
      * お気に入りチャンネルリストにチャンネルを追加します。
@@ -11250,17 +11249,27 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof StarApi
      */
-    usersMeStarsChannelIDPut(channelID, options) {
-        return StarApiFp(this.configuration).usersMeStarsChannelIDPut(channelID, options)(this.axios, this.basePath);
+    starChannel(channelID, options) {
+        return StarApiFp(this.configuration).starChannel(channelID, options)(this.axios, this.basePath);
     }
     /**
-     * お気に入りチャンネルリストを取得します。
+     * +| お気に入りチャンネルリストから削除します。 既にお気に入りチャンネルリストに無いチャンネルを指定した場合は無視されます(204)。
+     * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StarApi
      */
-    usersMeStarsGet(options) {
-        return StarApiFp(this.configuration).usersMeStarsGet(options)(this.axios, this.basePath);
+    unstarChannel(channelID, options) {
+        return StarApiFp(this.configuration).unstarChannel(channelID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 未読チャンネル情報のリストを取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UnreadApi
+     */
+    getUnreadChannels(options) {
+        return UnreadApiFp(this.configuration).getUnreadChannels(options)(this.axios, this.basePath);
     }
     /**
      * 指定されたチャンネルの未読メッセージを既読にします。存在しないチャンネルIDを指定した場合は、無視されます。
@@ -11269,64 +11278,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UnreadApi
      */
-    usersMeUnreadChannelsChannelIDDelete(channelID, options) {
-        return UnreadApiFp(this.configuration).usersMeUnreadChannelsChannelIDDelete(channelID, options)(this.axios, this.basePath);
-    }
-    /**
-     * 未読チャンネル情報のリストを取得します。
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UnreadApi
-     */
-    usersMeUnreadChannelsGet(options) {
-        return UnreadApiFp(this.configuration).usersMeUnreadChannelsGet(options)(this.axios, this.basePath);
-    }
-    /**
-     * 全ユーザーのリストを取得します。
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    usersGet(options) {
-        return UserApiFp(this.configuration).usersGet(options)(this.axios, this.basePath);
-    }
-    /**
-     * 自分のユーザー情報を取得します。
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    usersMeGet(options) {
-        return UserApiFp(this.configuration).usersMeGet(options)(this.axios, this.basePath);
-    }
-    /**
-     * 自分のアイコン画像を取得します。
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    usersMeIconGet(options) {
-        return UserApiFp(this.configuration).usersMeIconGet(options)(this.axios, this.basePath);
-    }
-    /**
-     * 自分のアイコンを更新します。
-     * @param {any} [file] 1MBまでのpng, jpeg, gif
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    usersMeIconPut(file, options) {
-        return UserApiFp(this.configuration).usersMeIconPut(file, options)(this.axios, this.basePath);
-    }
-    /**
-     * 自分のパスワードを変更します。
-     * @param {ChangePassword} [changePassword]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    usersMePasswordPut(changePassword, options) {
-        return UserApiFp(this.configuration).usersMePasswordPut(changePassword, options)(this.axios, this.basePath);
+    readMessages(channelID, options) {
+        return UnreadApiFp(this.configuration).readMessages(channelID, options)(this.axios, this.basePath);
     }
     /**
      * 自分のユーザー情報を変更します。
@@ -11335,8 +11288,46 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    usersMePatch(userData, options) {
-        return UserApiFp(this.configuration).usersMePatch(userData, options)(this.axios, this.basePath);
+    changeMe(userData, options) {
+        return UserApiFp(this.configuration).changeMe(userData, options)(this.axios, this.basePath);
+    }
+    /**
+     * 自分のアイコンを更新します。
+     * @param {any} [file] 1MBまでのpng, jpeg, gif
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    changeMyIcon(file, options) {
+        return UserApiFp(this.configuration).changeMyIcon(file, options)(this.axios, this.basePath);
+    }
+    /**
+     * 自分のパスワードを変更します。
+     * @param {ChangePassword} [changePassword]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    changePassword(changePassword, options) {
+        return UserApiFp(this.configuration).changePassword(changePassword, options)(this.axios, this.basePath);
+    }
+    /**
+     * 自分のユーザー情報を取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    getMe(options) {
+        return UserApiFp(this.configuration).getMe(options)(this.axios, this.basePath);
+    }
+    /**
+     * 自分のアイコン画像を取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    getMyIcon(options) {
+        return UserApiFp(this.configuration).getMyIcon(options)(this.axios, this.basePath);
     }
     /**
      * 自分のQRコードを取得します。
@@ -11344,18 +11335,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    usersMeQrCodeGet(options) {
-        return UserApiFp(this.configuration).usersMeQrCodeGet(options)(this.axios, this.basePath);
-    }
-    /**
-     * ユーザー登録します
-     * @param {UserRegister} [userRegister]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    usersPost(userRegister, options) {
-        return UserApiFp(this.configuration).usersPost(userRegister, options)(this.axios, this.basePath);
+    getQrCode(options) {
+        return UserApiFp(this.configuration).getQrCode(options)(this.axios, this.basePath);
     }
     /**
      * ユーザーの詳細を取得します。
@@ -11364,8 +11345,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    usersUserIDGet(userID, options) {
-        return UserApiFp(this.configuration).usersUserIDGet(userID, options)(this.axios, this.basePath);
+    getUser(userID, options) {
+        return UserApiFp(this.configuration).getUser(userID, options)(this.axios, this.basePath);
     }
     /**
      * ユーザーのアイコン画像を取得します。
@@ -11374,47 +11355,27 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    usersUserIDIconGet(userID, options) {
-        return UserApiFp(this.configuration).usersUserIDIconGet(userID, options)(this.axios, this.basePath);
+    getUserIcon(userID, options) {
+        return UserApiFp(this.configuration).getUserIcon(userID, options)(this.axios, this.basePath);
     }
     /**
-     * 全てのユーザーグループを取得します
+     * 全ユーザーのリストを取得します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UserGroupApi
+     * @memberof UserApi
      */
-    groupsGet(options) {
-        return UserGroupApiFp(this.configuration).groupsGet(options)(this.axios, this.basePath);
+    getUsers(options) {
+        return UserApiFp(this.configuration).getUsers(options)(this.axios, this.basePath);
     }
     /**
-     * ユーザーグループを削除します
-     * @param {string} groupID 操作の対象となるユーザーグループID
+     * ユーザー登録します
+     * @param {UserRegister} [userRegister]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UserGroupApi
+     * @memberof UserApi
      */
-    groupsGroupIDDelete(groupID, options) {
-        return UserGroupApiFp(this.configuration).groupsGroupIDDelete(groupID, options)(this.axios, this.basePath);
-    }
-    /**
-     * ユーザーグループを取得します
-     * @param {string} groupID 操作の対象となるユーザーグループID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserGroupApi
-     */
-    groupsGroupIDGet(groupID, options) {
-        return UserGroupApiFp(this.configuration).groupsGroupIDGet(groupID, options)(this.axios, this.basePath);
-    }
-    /**
-     * ユーザーグループのメンバーのIDを取得します
-     * @param {string} groupID 操作の対象となるユーザーグループID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserGroupApi
-     */
-    groupsGroupIDMembersGet(groupID, options) {
-        return UserGroupApiFp(this.configuration).groupsGroupIDMembersGet(groupID, options)(this.axios, this.basePath);
+    registerUser(userRegister, options) {
+        return UserApiFp(this.configuration).registerUser(userRegister, options)(this.axios, this.basePath);
     }
     /**
      * ユーザーグループにメンバーを追加します
@@ -11424,8 +11385,28 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    groupsGroupIDMembersPost(groupID, addUserGroup, options) {
-        return UserGroupApiFp(this.configuration).groupsGroupIDMembersPost(groupID, addUserGroup, options)(this.axios, this.basePath);
+    addGroupMember(groupID, addUserGroup, options) {
+        return UserGroupApiFp(this.configuration).addGroupMember(groupID, addUserGroup, options)(this.axios, this.basePath);
+    }
+    /**
+     * ユーザーグループを作成します
+     * @param {PostUserGroup} [postUserGroup]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserGroupApi
+     */
+    createGroups(postUserGroup, options) {
+        return UserGroupApiFp(this.configuration).createGroups(postUserGroup, options)(this.axios, this.basePath);
+    }
+    /**
+     * ユーザーグループを削除します
+     * @param {string} groupID 操作の対象となるユーザーグループID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserGroupApi
+     */
+    deleteGroup(groupID, options) {
+        return UserGroupApiFp(this.configuration).deleteGroup(groupID, options)(this.axios, this.basePath);
     }
     /**
      * ユーザーグループからメンバーを削除します
@@ -11435,8 +11416,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    groupsGroupIDMembersUserIDDelete(groupID, userID, options) {
-        return UserGroupApiFp(this.configuration).groupsGroupIDMembersUserIDDelete(groupID, userID, options)(this.axios, this.basePath);
+    deleteGroupMember(groupID, userID, options) {
+        return UserGroupApiFp(this.configuration).deleteGroupMember(groupID, userID, options)(this.axios, this.basePath);
     }
     /**
      * ユーザーグループの情報を変更します
@@ -11446,18 +11427,37 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    groupsGroupIDPatch(groupID, patchUserGroup, options) {
-        return UserGroupApiFp(this.configuration).groupsGroupIDPatch(groupID, patchUserGroup, options)(this.axios, this.basePath);
+    editGroup(groupID, patchUserGroup, options) {
+        return UserGroupApiFp(this.configuration).editGroup(groupID, patchUserGroup, options)(this.axios, this.basePath);
     }
     /**
-     * ユーザーグループを作成します
-     * @param {PostUserGroup} [postUserGroup]
+     * ユーザーグループを取得します
+     * @param {string} groupID 操作の対象となるユーザーグループID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    groupsPost(postUserGroup, options) {
-        return UserGroupApiFp(this.configuration).groupsPost(postUserGroup, options)(this.axios, this.basePath);
+    getGroup(groupID, options) {
+        return UserGroupApiFp(this.configuration).getGroup(groupID, options)(this.axios, this.basePath);
+    }
+    /**
+     * ユーザーグループのメンバーのIDを取得します
+     * @param {string} groupID 操作の対象となるユーザーグループID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserGroupApi
+     */
+    getGroupMembers(groupID, options) {
+        return UserGroupApiFp(this.configuration).getGroupMembers(groupID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 全てのユーザーグループを取得します
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserGroupApi
+     */
+    getGroups(options) {
+        return UserGroupApiFp(this.configuration).getGroups(options)(this.axios, this.basePath);
     }
     /**
      * 所属するユーザーグループのIDを取得します
@@ -11465,8 +11465,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    usersMeGroupsGet(options) {
-        return UserGroupApiFp(this.configuration).usersMeGroupsGet(options)(this.axios, this.basePath);
+    getMyGroups(options) {
+        return UserGroupApiFp(this.configuration).getMyGroups(options)(this.axios, this.basePath);
     }
     /**
      * 所属するユーザーグループのIDを取得します
@@ -11475,28 +11475,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    usersUserIDGroupsGet(userID, options) {
-        return UserGroupApiFp(this.configuration).usersUserIDGroupsGet(userID, options)(this.axios, this.basePath);
-    }
-    /**
-     * 指定されたタグの情報を取得します。
-     * @param {string} tagID 操作の対象となるタグID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserTagApi
-     */
-    tagsTagIDGet(tagID, options) {
-        return UserTagApiFp(this.configuration).tagsTagIDGet(tagID, options)(this.axios, this.basePath);
-    }
-    /**
-     * ユーザーのタグのリストを取得します。
-     * @param {string} userID 操作の対象となるユーザーID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserTagApi
-     */
-    usersUserIDTagsGet(userID, options) {
-        return UserTagApiFp(this.configuration).usersUserIDTagsGet(userID, options)(this.axios, this.basePath);
+    getUserGroups(userID, options) {
+        return UserGroupApiFp(this.configuration).getUserGroups(userID, options)(this.axios, this.basePath);
     }
     /**
      * ユーザーにタグを追加します。
@@ -11506,19 +11486,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserTagApi
      */
-    usersUserIDTagsPost(userID, setTag, options) {
-        return UserTagApiFp(this.configuration).usersUserIDTagsPost(userID, setTag, options)(this.axios, this.basePath);
-    }
-    /**
-     * ユーザーから指定したタグを削除します。既に存在しないタグを削除しようとした場合は無視されます(204)。
-     * @param {string} userID 操作の対象となるユーザーID
-     * @param {string} tagID 操作の対象となるタグID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserTagApi
-     */
-    usersUserIDTagsTagIDDelete(userID, tagID, options) {
-        return UserTagApiFp(this.configuration).usersUserIDTagsTagIDDelete(userID, tagID, options)(this.axios, this.basePath);
+    addUserTags(userID, setTag, options) {
+        return UserTagApiFp(this.configuration).addUserTags(userID, setTag, options)(this.axios, this.basePath);
     }
     /**
      * タグのロック、アンロックを変更します。
@@ -11529,68 +11498,39 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserTagApi
      */
-    usersUserIDTagsTagIDPatch(userID, tagID, setTagLock, options) {
-        return UserTagApiFp(this.configuration).usersUserIDTagsTagIDPatch(userID, tagID, setTagLock, options)(this.axios, this.basePath);
+    changeLockUserTag(userID, tagID, setTagLock, options) {
+        return UserTagApiFp(this.configuration).changeLockUserTag(userID, tagID, setTagLock, options)(this.axios, this.basePath);
     }
     /**
-     * 自分が作成したwebhookの一覧を取得します。
+     * ユーザーから指定したタグを削除します。既に存在しないタグを削除しようとした場合は無視されます(204)。
+     * @param {string} userID 操作の対象となるユーザーID
+     * @param {string} tagID 操作の対象となるタグID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof WebhookApi
+     * @memberof UserTagApi
      */
-    webhooksGet(options) {
-        return WebhookApiFp(this.configuration).webhooksGet(options)(this.axios, this.basePath);
+    deleteUserTag(userID, tagID, options) {
+        return UserTagApiFp(this.configuration).deleteUserTag(userID, tagID, options)(this.axios, this.basePath);
     }
     /**
-     * webhookを作成します。
-     * @param {PostWebhook} [postWebhook]
+     * 指定されたタグの情報を取得します。
+     * @param {string} tagID 操作の対象となるタグID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof WebhookApi
+     * @memberof UserTagApi
      */
-    webhooksPost(postWebhook, options) {
-        return WebhookApiFp(this.configuration).webhooksPost(postWebhook, options)(this.axios, this.basePath);
+    getTag(tagID, options) {
+        return UserTagApiFp(this.configuration).getTag(tagID, options)(this.axios, this.basePath);
     }
     /**
-     * webhookを削除します。
-     * @param {string} webhookID 操作の対象となるWebhookのID
+     * ユーザーのタグのリストを取得します。
+     * @param {string} userID 操作の対象となるユーザーID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof WebhookApi
+     * @memberof UserTagApi
      */
-    webhooksWebhookIDDelete(webhookID, options) {
-        return WebhookApiFp(this.configuration).webhooksWebhookIDDelete(webhookID, options)(this.axios, this.basePath);
-    }
-    /**
-     * webhookの詳細を取得します。
-     * @param {string} webhookID 操作の対象となるWebhookのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof WebhookApi
-     */
-    webhooksWebhookIDGet(webhookID, options) {
-        return WebhookApiFp(this.configuration).webhooksWebhookIDGet(webhookID, options)(this.axios, this.basePath);
-    }
-    /**
-     * Github-Compatibleなwebhookを送信します。
-     * @param {string} webhookID 操作の対象となるWebhookのID
-     * @param {object} [body]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof WebhookApi
-     */
-    webhooksWebhookIDGithubPost(webhookID, body, options) {
-        return WebhookApiFp(this.configuration).webhooksWebhookIDGithubPost(webhookID, body, options)(this.axios, this.basePath);
-    }
-    /**
-     * 指定したWebhookのアイコンを取得します。
-     * @param {string} webhookID 操作の対象となるWebhookのID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof WebhookApi
-     */
-    webhooksWebhookIDIconGet(webhookID, options) {
-        return WebhookApiFp(this.configuration).webhooksWebhookIDIconGet(webhookID, options)(this.axios, this.basePath);
+    getUserTags(userID, options) {
+        return UserTagApiFp(this.configuration).getUserTags(userID, options)(this.axios, this.basePath);
     }
     /**
      * 指定したwebhookのアイコンを変更します。
@@ -11600,8 +11540,28 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    webhooksWebhookIDIconPut(webhookID, file, options) {
-        return WebhookApiFp(this.configuration).webhooksWebhookIDIconPut(webhookID, file, options)(this.axios, this.basePath);
+    changeWebhookIcon(webhookID, file, options) {
+        return WebhookApiFp(this.configuration).changeWebhookIcon(webhookID, file, options)(this.axios, this.basePath);
+    }
+    /**
+     * webhookを作成します。
+     * @param {PostWebhook} [postWebhook]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhookApi
+     */
+    createWebhooks(postWebhook, options) {
+        return WebhookApiFp(this.configuration).createWebhooks(postWebhook, options)(this.axios, this.basePath);
+    }
+    /**
+     * webhookを削除します。
+     * @param {string} webhookID 操作の対象となるWebhookのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhookApi
+     */
+    deleteWebhook(webhookID, options) {
+        return WebhookApiFp(this.configuration).deleteWebhook(webhookID, options)(this.axios, this.basePath);
     }
     /**
      * webhookを修正します。
@@ -11611,8 +11571,48 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    webhooksWebhookIDPatch(webhookID, patchWebhook, options) {
-        return WebhookApiFp(this.configuration).webhooksWebhookIDPatch(webhookID, patchWebhook, options)(this.axios, this.basePath);
+    editWebhook(webhookID, patchWebhook, options) {
+        return WebhookApiFp(this.configuration).editWebhook(webhookID, patchWebhook, options)(this.axios, this.basePath);
+    }
+    /**
+     * webhookの詳細を取得します。
+     * @param {string} webhookID 操作の対象となるWebhookのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhookApi
+     */
+    getWebhook(webhookID, options) {
+        return WebhookApiFp(this.configuration).getWebhook(webhookID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したWebhookのアイコンを取得します。
+     * @param {string} webhookID 操作の対象となるWebhookのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhookApi
+     */
+    getWebhookIcon(webhookID, options) {
+        return WebhookApiFp(this.configuration).getWebhookIcon(webhookID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 自分が作成したwebhookの一覧を取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhookApi
+     */
+    getWebhooks(options) {
+        return WebhookApiFp(this.configuration).getWebhooks(options)(this.axios, this.basePath);
+    }
+    /**
+     * Github-Compatibleなwebhookを送信します。
+     * @param {string} webhookID 操作の対象となるWebhookのID
+     * @param {object} [body]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhookApi
+     */
+    postGitHubWebhook(webhookID, body, options) {
+        return WebhookApiFp(this.configuration).postGitHubWebhook(webhookID, body, options)(this.axios, this.basePath);
     }
     /**
      * webhookを送信します。
@@ -11624,7 +11624,7 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    webhooksWebhookIDPost(webhookID, xTRAQChannelId, xTRAQSignature, body, options) {
-        return WebhookApiFp(this.configuration).webhooksWebhookIDPost(webhookID, xTRAQChannelId, xTRAQSignature, body, options)(this.axios, this.basePath);
+    postWebhook(webhookID, xTRAQChannelId, xTRAQSignature, body, options) {
+        return WebhookApiFp(this.configuration).postWebhook(webhookID, xTRAQChannelId, xTRAQSignature, body, options)(this.axios, this.basePath);
     }
 }
