@@ -35,7 +35,7 @@ jobs:
               echo "PACKAGE SHORT ${VERSION_SHORT}"
 
               if [ $TRAQ_VERSION = $VERSION_SHORT ]; then
-                $((VERSION_ARR[3]++))
+                let VERSION_ARR[3]++
                 NEW_VERSION="${VERSION_ARR[0]}.${VERSION_ARR[1]}.${VERSION_ARR[2]}-${VERSION_ARR[3]}"
               else
                 NEW_VERSION="${TRAQ_VERSION}-0"
