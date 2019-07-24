@@ -44,7 +44,7 @@ jobs:
 
               npm --no-git-tag-version version $NEW_VERSION
 
-              git commit -m "CI: build $NEW_VERSION"
+              git commit -m "CI: build $NEW_VERSION" -m "[ci skip]"
               git push origin master
               git tag $NEW_VERSION
               git push origin $NEW_VERSION
