@@ -26,10 +26,13 @@ jobs:
               git add .
 
               TRAQ_VERSION=$(curl https://api.github.com/repos/traPtitech/traQ/tags | jq '.[0].name' | sed -n s/[\"v]//pg)
+              echo "TRAQ ${TRAQ_VERSION}"
 
               VERSION=$(cat ./package.json | jq .version | sed -n s/\"//pg | sed -n s/-/./p)
+              echo "PACKAGE ${VERSION}"
               VERSION_ARR=($(echo $VERSION | tr -s '.' ' '))
               VERSION_SHORT=${VERSION_ARR[0]}.${VERSION_ARR[1]}.${VERSION_ARR[2]}
+              echo "PACKAGE SHORT ${VERSION_SHORT}"
 
               if [ $TRAQ_VERSION = $VERSION_SHORT ]; then
                 ((VERSION_ARR[3]++))
@@ -37,6 +40,7 @@ jobs:
               else
                 NEW_VERSION="${TRAQ_VERSION}-0"
               fi
+              echo "PACKAGE NEW ${NEW_VERSION}"
 
               npm --no-git-tag-version version $NEW_VERSION
 
