@@ -21,9 +21,6 @@ jobs:
             git diff --unified=0 > ./diff.txt
             if [ -s './diff.txt' ]; then
               rm ./diff.txt
-              git config user.name "sapphi-red+circleci"
-              git config user.email "sapphi-red+circleci@users.noreply.github.com"
-              git add .
 
               TRAQ_VERSION=$(curl -sS https://api.github.com/repos/traPtitech/traQ/tags | jq '.[0].name' | sed -n s/[\"v]//pg)
               echo "TRAQ ${TRAQ_VERSION}"
@@ -44,6 +41,10 @@ jobs:
 
               npm --no-git-tag-version version $NEW_VERSION
 
+              git config user.name "sapphi-red+circleci"
+              git config user.email "sapphi-red+circleci@users.noreply.github.com"
+              
+              git add .
               git commit -m "CI: build $NEW_VERSION" -m "[ci skip]"
               git push origin master
               git tag $NEW_VERSION
