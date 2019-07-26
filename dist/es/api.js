@@ -3353,7 +3353,7 @@ export const ClipApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createClipFolders(clipsFolderNameObject, options = {}) {
+        createClipFolder(clipsFolderNameObject, options = {}) {
             const localVarPath = `/users/me/clips/folders`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -3720,8 +3720,8 @@ export const ClipApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createClipFolders(clipsFolderNameObject, options) {
-            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).createClipFolders(clipsFolderNameObject, options);
+        createClipFolder(clipsFolderNameObject, options) {
+            const localVarAxiosArgs = ClipApiAxiosParamCreator(configuration).createClipFolder(clipsFolderNameObject, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -3863,8 +3863,8 @@ export const ClipApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createClipFolders(clipsFolderNameObject, options) {
-            return ClipApiFp(configuration).createClipFolders(clipsFolderNameObject, options)(axios, basePath);
+        createClipFolder(clipsFolderNameObject, options) {
+            return ClipApiFp(configuration).createClipFolder(clipsFolderNameObject, options)(axios, basePath);
         },
         /**
          * クリップフォルダを削除します。フォルダ内のクリップは全て削除されます。
@@ -3974,8 +3974,8 @@ export class ClipApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    createClipFolders(clipsFolderNameObject, options) {
-        return ClipApiFp(this.configuration).createClipFolders(clipsFolderNameObject, options)(this.axios, this.basePath);
+    createClipFolder(clipsFolderNameObject, options) {
+        return ClipApiFp(this.configuration).createClipFolder(clipsFolderNameObject, options)(this.axios, this.basePath);
     }
     /**
      * クリップフォルダを削除します。フォルダ内のクリップは全て削除されます。
@@ -5633,10 +5633,10 @@ export const NotificationApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        changeNotifications(channelID, notificationUsers, options = {}) {
+        changeSubscribers(channelID, notificationUsers, options = {}) {
             // verify required parameter 'channelID' is not null or undefined
             if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling changeNotifications.');
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling changeSubscribers.');
             }
             const localVarPath = `/channels/{channelID}/notification`
                 .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
@@ -5701,18 +5701,12 @@ export const NotificationApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * 通知を点けているユーザーのIDの配列を取得します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
+         * 自分が通知を入れているチャンネルのリストを取得します
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNotifications(channelID, options = {}) {
-            // verify required parameter 'channelID' is not null or undefined
-            if (channelID === null || channelID === undefined) {
-                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling getNotifications.');
-            }
-            const localVarPath = `/channels/{channelID}/notification`
-                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
+        getMySubscribeChannels(options = {}) {
+            const localVarPath = `/users/me/notification`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -5739,12 +5733,18 @@ export const NotificationApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * 自分が通知を入れているチャンネルのリストを取得します
+         * 通知を点けているユーザーのIDの配列を取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNotifiedChannels(options = {}) {
-            const localVarPath = `/users/me/notification`;
+        getSubscribers(channelID, options = {}) {
+            // verify required parameter 'channelID' is not null or undefined
+            if (channelID === null || channelID === undefined) {
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling getSubscribers.');
+            }
+            const localVarPath = `/channels/{channelID}/notification`
+                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -5776,10 +5776,10 @@ export const NotificationApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUserNotifiedChannels(userID, options = {}) {
+        getUserSubscribeChannels(userID, options = {}) {
             // verify required parameter 'userID' is not null or undefined
             if (userID === null || userID === undefined) {
-                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling getUserNotifiedChannels.');
+                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling getUserSubscribeChannels.');
             }
             const localVarPath = `/users/{userID}/notification`
                 .replace(`{${"userID"}}`, encodeURIComponent(String(userID)));
@@ -5859,8 +5859,8 @@ export const NotificationApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        changeNotifications(channelID, notificationUsers, options) {
-            const localVarAxiosArgs = NotificationApiAxiosParamCreator(configuration).changeNotifications(channelID, notificationUsers, options);
+        changeSubscribers(channelID, notificationUsers, options) {
+            const localVarAxiosArgs = NotificationApiAxiosParamCreator(configuration).changeSubscribers(channelID, notificationUsers, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -5879,25 +5879,25 @@ export const NotificationApiFp = function (configuration) {
             };
         },
         /**
-         * 通知を点けているユーザーのIDの配列を取得します。
-         * @param {string} channelID 操作の対象となるチャンネルのID
+         * 自分が通知を入れているチャンネルのリストを取得します
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNotifications(channelID, options) {
-            const localVarAxiosArgs = NotificationApiAxiosParamCreator(configuration).getNotifications(channelID, options);
+        getMySubscribeChannels(options) {
+            const localVarAxiosArgs = NotificationApiAxiosParamCreator(configuration).getMySubscribeChannels(options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
             };
         },
         /**
-         * 自分が通知を入れているチャンネルのリストを取得します
+         * 通知を点けているユーザーのIDの配列を取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNotifiedChannels(options) {
-            const localVarAxiosArgs = NotificationApiAxiosParamCreator(configuration).getNotifiedChannels(options);
+        getSubscribers(channelID, options) {
+            const localVarAxiosArgs = NotificationApiAxiosParamCreator(configuration).getSubscribers(channelID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -5909,8 +5909,8 @@ export const NotificationApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUserNotifiedChannels(userID, options) {
-            const localVarAxiosArgs = NotificationApiAxiosParamCreator(configuration).getUserNotifiedChannels(userID, options);
+        getUserSubscribeChannels(userID, options) {
+            const localVarAxiosArgs = NotificationApiAxiosParamCreator(configuration).getUserSubscribeChannels(userID, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -5944,8 +5944,8 @@ export const NotificationApiFactory = function (configuration, basePath, axios) 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        changeNotifications(channelID, notificationUsers, options) {
-            return NotificationApiFp(configuration).changeNotifications(channelID, notificationUsers, options)(axios, basePath);
+        changeSubscribers(channelID, notificationUsers, options) {
+            return NotificationApiFp(configuration).changeSubscribers(channelID, notificationUsers, options)(axios, basePath);
         },
         /**
          * 通知ストリーム(Server Sent Events)に接続します。
@@ -5956,21 +5956,21 @@ export const NotificationApiFactory = function (configuration, basePath, axios) 
             return NotificationApiFp(configuration).connectNotification(options)(axios, basePath);
         },
         /**
+         * 自分が通知を入れているチャンネルのリストを取得します
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMySubscribeChannels(options) {
+            return NotificationApiFp(configuration).getMySubscribeChannels(options)(axios, basePath);
+        },
+        /**
          * 通知を点けているユーザーのIDの配列を取得します。
          * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNotifications(channelID, options) {
-            return NotificationApiFp(configuration).getNotifications(channelID, options)(axios, basePath);
-        },
-        /**
-         * 自分が通知を入れているチャンネルのリストを取得します
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getNotifiedChannels(options) {
-            return NotificationApiFp(configuration).getNotifiedChannels(options)(axios, basePath);
+        getSubscribers(channelID, options) {
+            return NotificationApiFp(configuration).getSubscribers(channelID, options)(axios, basePath);
         },
         /**
          * ユーザーが通知を入れているチャンネルのリストを取得します
@@ -5978,8 +5978,8 @@ export const NotificationApiFactory = function (configuration, basePath, axios) 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUserNotifiedChannels(userID, options) {
-            return NotificationApiFp(configuration).getUserNotifiedChannels(userID, options)(axios, basePath);
+        getUserSubscribeChannels(userID, options) {
+            return NotificationApiFp(configuration).getUserSubscribeChannels(userID, options)(axios, basePath);
         },
         /**
          * FCMデバイスを登録します。
@@ -6007,8 +6007,8 @@ export class NotificationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    changeNotifications(channelID, notificationUsers, options) {
-        return NotificationApiFp(this.configuration).changeNotifications(channelID, notificationUsers, options)(this.axios, this.basePath);
+    changeSubscribers(channelID, notificationUsers, options) {
+        return NotificationApiFp(this.configuration).changeSubscribers(channelID, notificationUsers, options)(this.axios, this.basePath);
     }
     /**
      * 通知ストリーム(Server Sent Events)に接続します。
@@ -6020,23 +6020,23 @@ export class NotificationApi extends BaseAPI {
         return NotificationApiFp(this.configuration).connectNotification(options)(this.axios, this.basePath);
     }
     /**
+     * 自分が通知を入れているチャンネルのリストを取得します
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NotificationApi
+     */
+    getMySubscribeChannels(options) {
+        return NotificationApiFp(this.configuration).getMySubscribeChannels(options)(this.axios, this.basePath);
+    }
+    /**
      * 通知を点けているユーザーのIDの配列を取得します。
      * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    getNotifications(channelID, options) {
-        return NotificationApiFp(this.configuration).getNotifications(channelID, options)(this.axios, this.basePath);
-    }
-    /**
-     * 自分が通知を入れているチャンネルのリストを取得します
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof NotificationApi
-     */
-    getNotifiedChannels(options) {
-        return NotificationApiFp(this.configuration).getNotifiedChannels(options)(this.axios, this.basePath);
+    getSubscribers(channelID, options) {
+        return NotificationApiFp(this.configuration).getSubscribers(channelID, options)(this.axios, this.basePath);
     }
     /**
      * ユーザーが通知を入れているチャンネルのリストを取得します
@@ -6045,8 +6045,8 @@ export class NotificationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    getUserNotifiedChannels(userID, options) {
-        return NotificationApiFp(this.configuration).getUserNotifiedChannels(userID, options)(this.axios, this.basePath);
+    getUserSubscribeChannels(userID, options) {
+        return NotificationApiFp(this.configuration).getUserSubscribeChannels(userID, options)(this.axios, this.basePath);
     }
     /**
      * FCMデバイスを登録します。
@@ -8471,7 +8471,7 @@ export const UserGroupApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createGroups(postUserGroup, options = {}) {
+        createGroup(postUserGroup, options = {}) {
             const localVarPath = `/groups`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -8831,8 +8831,8 @@ export const UserGroupApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createGroups(postUserGroup, options) {
-            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).createGroups(postUserGroup, options);
+        createGroup(postUserGroup, options) {
+            const localVarAxiosArgs = UserGroupApiAxiosParamCreator(configuration).createGroup(postUserGroup, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -8966,8 +8966,8 @@ export const UserGroupApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createGroups(postUserGroup, options) {
-            return UserGroupApiFp(configuration).createGroups(postUserGroup, options)(axios, basePath);
+        createGroup(postUserGroup, options) {
+            return UserGroupApiFp(configuration).createGroup(postUserGroup, options)(axios, basePath);
         },
         /**
          * ユーザーグループを削除します
@@ -9068,8 +9068,8 @@ export class UserGroupApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    createGroups(postUserGroup, options) {
-        return UserGroupApiFp(this.configuration).createGroups(postUserGroup, options)(this.axios, this.basePath);
+    createGroup(postUserGroup, options) {
+        return UserGroupApiFp(this.configuration).createGroup(postUserGroup, options)(this.axios, this.basePath);
     }
     /**
      * ユーザーグループを削除します
@@ -9165,10 +9165,10 @@ export const UserTagApiAxiosParamCreator = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addUserTags(userID, setTag, options = {}) {
+        addUserTag(userID, setTag, options = {}) {
             // verify required parameter 'userID' is not null or undefined
             if (userID === null || userID === undefined) {
-                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling addUserTags.');
+                throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling addUserTag.');
             }
             const localVarPath = `/users/{userID}/tags`
                 .replace(`{${"userID"}}`, encodeURIComponent(String(userID)));
@@ -9383,8 +9383,8 @@ export const UserTagApiFp = function (configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addUserTags(userID, setTag, options) {
-            const localVarAxiosArgs = UserTagApiAxiosParamCreator(configuration).addUserTags(userID, setTag, options);
+        addUserTag(userID, setTag, options) {
+            const localVarAxiosArgs = UserTagApiAxiosParamCreator(configuration).addUserTag(userID, setTag, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -9460,8 +9460,8 @@ export const UserTagApiFactory = function (configuration, basePath, axios) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addUserTags(userID, setTag, options) {
-            return UserTagApiFp(configuration).addUserTags(userID, setTag, options)(axios, basePath);
+        addUserTag(userID, setTag, options) {
+            return UserTagApiFp(configuration).addUserTag(userID, setTag, options)(axios, basePath);
         },
         /**
          * タグのロック、アンロックを変更します。
@@ -9519,8 +9519,8 @@ export class UserTagApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserTagApi
      */
-    addUserTags(userID, setTag, options) {
-        return UserTagApiFp(this.configuration).addUserTags(userID, setTag, options)(this.axios, this.basePath);
+    addUserTag(userID, setTag, options) {
+        return UserTagApiFp(this.configuration).addUserTag(userID, setTag, options)(this.axios, this.basePath);
     }
     /**
      * タグのロック、アンロックを変更します。
@@ -10714,8 +10714,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    createClipFolders(clipsFolderNameObject, options) {
-        return ClipApiFp(this.configuration).createClipFolders(clipsFolderNameObject, options)(this.axios, this.basePath);
+    createClipFolder(clipsFolderNameObject, options) {
+        return ClipApiFp(this.configuration).createClipFolder(clipsFolderNameObject, options)(this.axios, this.basePath);
     }
     /**
      * クリップフォルダを削除します。フォルダ内のクリップは全て削除されます。
@@ -11011,8 +11011,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    changeNotifications(channelID, notificationUsers, options) {
-        return NotificationApiFp(this.configuration).changeNotifications(channelID, notificationUsers, options)(this.axios, this.basePath);
+    changeSubscribers(channelID, notificationUsers, options) {
+        return NotificationApiFp(this.configuration).changeSubscribers(channelID, notificationUsers, options)(this.axios, this.basePath);
     }
     /**
      * 通知ストリーム(Server Sent Events)に接続します。
@@ -11024,23 +11024,23 @@ export class Apis extends BaseAPI {
         return NotificationApiFp(this.configuration).connectNotification(options)(this.axios, this.basePath);
     }
     /**
+     * 自分が通知を入れているチャンネルのリストを取得します
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NotificationApi
+     */
+    getMySubscribeChannels(options) {
+        return NotificationApiFp(this.configuration).getMySubscribeChannels(options)(this.axios, this.basePath);
+    }
+    /**
      * 通知を点けているユーザーのIDの配列を取得します。
      * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    getNotifications(channelID, options) {
-        return NotificationApiFp(this.configuration).getNotifications(channelID, options)(this.axios, this.basePath);
-    }
-    /**
-     * 自分が通知を入れているチャンネルのリストを取得します
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof NotificationApi
-     */
-    getNotifiedChannels(options) {
-        return NotificationApiFp(this.configuration).getNotifiedChannels(options)(this.axios, this.basePath);
+    getSubscribers(channelID, options) {
+        return NotificationApiFp(this.configuration).getSubscribers(channelID, options)(this.axios, this.basePath);
     }
     /**
      * ユーザーが通知を入れているチャンネルのリストを取得します
@@ -11049,8 +11049,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    getUserNotifiedChannels(userID, options) {
-        return NotificationApiFp(this.configuration).getUserNotifiedChannels(userID, options)(this.axios, this.basePath);
+    getUserSubscribeChannels(userID, options) {
+        return NotificationApiFp(this.configuration).getUserSubscribeChannels(userID, options)(this.axios, this.basePath);
     }
     /**
      * FCMデバイスを登録します。
@@ -11395,8 +11395,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    createGroups(postUserGroup, options) {
-        return UserGroupApiFp(this.configuration).createGroups(postUserGroup, options)(this.axios, this.basePath);
+    createGroup(postUserGroup, options) {
+        return UserGroupApiFp(this.configuration).createGroup(postUserGroup, options)(this.axios, this.basePath);
     }
     /**
      * ユーザーグループを削除します
@@ -11486,8 +11486,8 @@ export class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserTagApi
      */
-    addUserTags(userID, setTag, options) {
-        return UserTagApiFp(this.configuration).addUserTags(userID, setTag, options)(this.axios, this.basePath);
+    addUserTag(userID, setTag, options) {
+        return UserTagApiFp(this.configuration).addUserTag(userID, setTag, options)(this.axios, this.basePath);
     }
     /**
      * タグのロック、アンロックを変更します。

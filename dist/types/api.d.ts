@@ -3907,7 +3907,7 @@ export declare const ClipApiAxiosParamCreator: (configuration?: Configuration) =
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createClipFolders(clipsFolderNameObject?: ClipsFolderNameObject, options?: any): RequestArgs;
+    createClipFolder(clipsFolderNameObject?: ClipsFolderNameObject, options?: any): RequestArgs;
     /**
      * クリップフォルダを削除します。フォルダ内のクリップは全て削除されます。
      * @param {string} folderID 操作の対象となるクリップフォルダのID
@@ -3990,7 +3990,7 @@ export declare const ClipApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createClipFolders(clipsFolderNameObject?: ClipsFolderNameObject, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<ClipsFolder>;
+    createClipFolder(clipsFolderNameObject?: ClipsFolderNameObject, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<ClipsFolder>;
     /**
      * クリップフォルダを削除します。フォルダ内のクリップは全て削除されます。
      * @param {string} folderID 操作の対象となるクリップフォルダのID
@@ -4073,7 +4073,7 @@ export declare const ClipApiFactory: (configuration?: Configuration, basePath?: 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createClipFolders(clipsFolderNameObject?: ClipsFolderNameObject, options?: any): AxiosPromise<ClipsFolder>;
+    createClipFolder(clipsFolderNameObject?: ClipsFolderNameObject, options?: any): AxiosPromise<ClipsFolder>;
     /**
      * クリップフォルダを削除します。フォルダ内のクリップは全て削除されます。
      * @param {string} folderID 操作の対象となるクリップフォルダのID
@@ -4161,7 +4161,7 @@ export declare class ClipApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    createClipFolders(clipsFolderNameObject?: ClipsFolderNameObject, options?: any): AxiosPromise<ClipsFolder>;
+    createClipFolder(clipsFolderNameObject?: ClipsFolderNameObject, options?: any): AxiosPromise<ClipsFolder>;
     /**
      * クリップフォルダを削除します。フォルダ内のクリップは全て削除されます。
      * @param {string} folderID 操作の対象となるクリップフォルダのID
@@ -4961,7 +4961,7 @@ export declare const NotificationApiAxiosParamCreator: (configuration?: Configur
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeNotifications(channelID: string, notificationUsers?: NotificationUsers, options?: any): RequestArgs;
+    changeSubscribers(channelID: string, notificationUsers?: NotificationUsers, options?: any): RequestArgs;
     /**
      * 通知ストリーム(Server Sent Events)に接続します。
      * @param {*} [options] Override http request option.
@@ -4969,25 +4969,25 @@ export declare const NotificationApiAxiosParamCreator: (configuration?: Configur
      */
     connectNotification(options?: any): RequestArgs;
     /**
+     * 自分が通知を入れているチャンネルのリストを取得します
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getMySubscribeChannels(options?: any): RequestArgs;
+    /**
      * 通知を点けているユーザーのIDの配列を取得します。
      * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getNotifications(channelID: string, options?: any): RequestArgs;
-    /**
-     * 自分が通知を入れているチャンネルのリストを取得します
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getNotifiedChannels(options?: any): RequestArgs;
+    getSubscribers(channelID: string, options?: any): RequestArgs;
     /**
      * ユーザーが通知を入れているチャンネルのリストを取得します
      * @param {string} userID 操作の対象となるユーザーID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getUserNotifiedChannels(userID: string, options?: any): RequestArgs;
+    getUserSubscribeChannels(userID: string, options?: any): RequestArgs;
     /**
      * FCMデバイスを登録します。
      * @param {FCMToken} [fCMToken]
@@ -5008,7 +5008,7 @@ export declare const NotificationApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeNotifications(channelID: string, notificationUsers?: NotificationUsers, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    changeSubscribers(channelID: string, notificationUsers?: NotificationUsers, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
     /**
      * 通知ストリーム(Server Sent Events)に接続します。
      * @param {*} [options] Override http request option.
@@ -5016,25 +5016,25 @@ export declare const NotificationApiFp: (configuration?: Configuration) => {
      */
     connectNotification(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
     /**
+     * 自分が通知を入れているチャンネルのリストを取得します
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getMySubscribeChannels(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string[]>;
+    /**
      * 通知を点けているユーザーのIDの配列を取得します。
      * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getNotifications(channelID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string[]>;
-    /**
-     * 自分が通知を入れているチャンネルのリストを取得します
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getNotifiedChannels(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string[]>;
+    getSubscribers(channelID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string[]>;
     /**
      * ユーザーが通知を入れているチャンネルのリストを取得します
      * @param {string} userID 操作の対象となるユーザーID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getUserNotifiedChannels(userID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string[]>;
+    getUserSubscribeChannels(userID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string[]>;
     /**
      * FCMデバイスを登録します。
      * @param {FCMToken} [fCMToken]
@@ -5055,7 +5055,7 @@ export declare const NotificationApiFactory: (configuration?: Configuration, bas
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeNotifications(channelID: string, notificationUsers?: NotificationUsers, options?: any): AxiosPromise<Response>;
+    changeSubscribers(channelID: string, notificationUsers?: NotificationUsers, options?: any): AxiosPromise<Response>;
     /**
      * 通知ストリーム(Server Sent Events)に接続します。
      * @param {*} [options] Override http request option.
@@ -5063,25 +5063,25 @@ export declare const NotificationApiFactory: (configuration?: Configuration, bas
      */
     connectNotification(options?: any): AxiosPromise<Response>;
     /**
+     * 自分が通知を入れているチャンネルのリストを取得します
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getMySubscribeChannels(options?: any): AxiosPromise<string[]>;
+    /**
      * 通知を点けているユーザーのIDの配列を取得します。
      * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getNotifications(channelID: string, options?: any): AxiosPromise<string[]>;
-    /**
-     * 自分が通知を入れているチャンネルのリストを取得します
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getNotifiedChannels(options?: any): AxiosPromise<string[]>;
+    getSubscribers(channelID: string, options?: any): AxiosPromise<string[]>;
     /**
      * ユーザーが通知を入れているチャンネルのリストを取得します
      * @param {string} userID 操作の対象となるユーザーID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getUserNotifiedChannels(userID: string, options?: any): AxiosPromise<string[]>;
+    getUserSubscribeChannels(userID: string, options?: any): AxiosPromise<string[]>;
     /**
      * FCMデバイスを登録します。
      * @param {FCMToken} [fCMToken]
@@ -5105,7 +5105,7 @@ export declare class NotificationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    changeNotifications(channelID: string, notificationUsers?: NotificationUsers, options?: any): AxiosPromise<Response>;
+    changeSubscribers(channelID: string, notificationUsers?: NotificationUsers, options?: any): AxiosPromise<Response>;
     /**
      * 通知ストリーム(Server Sent Events)に接続します。
      * @param {*} [options] Override http request option.
@@ -5114,20 +5114,20 @@ export declare class NotificationApi extends BaseAPI {
      */
     connectNotification(options?: any): AxiosPromise<Response>;
     /**
+     * 自分が通知を入れているチャンネルのリストを取得します
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NotificationApi
+     */
+    getMySubscribeChannels(options?: any): AxiosPromise<string[]>;
+    /**
      * 通知を点けているユーザーのIDの配列を取得します。
      * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    getNotifications(channelID: string, options?: any): AxiosPromise<string[]>;
-    /**
-     * 自分が通知を入れているチャンネルのリストを取得します
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof NotificationApi
-     */
-    getNotifiedChannels(options?: any): AxiosPromise<string[]>;
+    getSubscribers(channelID: string, options?: any): AxiosPromise<string[]>;
     /**
      * ユーザーが通知を入れているチャンネルのリストを取得します
      * @param {string} userID 操作の対象となるユーザーID
@@ -5135,7 +5135,7 @@ export declare class NotificationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    getUserNotifiedChannels(userID: string, options?: any): AxiosPromise<string[]>;
+    getUserSubscribeChannels(userID: string, options?: any): AxiosPromise<string[]>;
     /**
      * FCMデバイスを登録します。
      * @param {FCMToken} [fCMToken]
@@ -6254,7 +6254,7 @@ export declare const UserGroupApiAxiosParamCreator: (configuration?: Configurati
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createGroups(postUserGroup?: PostUserGroup, options?: any): RequestArgs;
+    createGroup(postUserGroup?: PostUserGroup, options?: any): RequestArgs;
     /**
      * ユーザーグループを削除します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -6331,7 +6331,7 @@ export declare const UserGroupApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createGroups(postUserGroup?: PostUserGroup, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserGroup>;
+    createGroup(postUserGroup?: PostUserGroup, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserGroup>;
     /**
      * ユーザーグループを削除します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -6408,7 +6408,7 @@ export declare const UserGroupApiFactory: (configuration?: Configuration, basePa
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createGroups(postUserGroup?: PostUserGroup, options?: any): AxiosPromise<UserGroup>;
+    createGroup(postUserGroup?: PostUserGroup, options?: any): AxiosPromise<UserGroup>;
     /**
      * ユーザーグループを削除します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -6489,7 +6489,7 @@ export declare class UserGroupApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    createGroups(postUserGroup?: PostUserGroup, options?: any): AxiosPromise<UserGroup>;
+    createGroup(postUserGroup?: PostUserGroup, options?: any): AxiosPromise<UserGroup>;
     /**
      * ユーザーグループを削除します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -6567,7 +6567,7 @@ export declare const UserTagApiAxiosParamCreator: (configuration?: Configuration
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    addUserTags(userID: string, setTag?: SetTag, options?: any): RequestArgs;
+    addUserTag(userID: string, setTag?: SetTag, options?: any): RequestArgs;
     /**
      * タグのロック、アンロックを変更します。
      * @param {string} userID 操作の対象となるユーザーID
@@ -6612,7 +6612,7 @@ export declare const UserTagApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    addUserTags(userID: string, setTag?: SetTag, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    addUserTag(userID: string, setTag?: SetTag, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
     /**
      * タグのロック、アンロックを変更します。
      * @param {string} userID 操作の対象となるユーザーID
@@ -6657,7 +6657,7 @@ export declare const UserTagApiFactory: (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    addUserTags(userID: string, setTag?: SetTag, options?: any): AxiosPromise<Response>;
+    addUserTag(userID: string, setTag?: SetTag, options?: any): AxiosPromise<Response>;
     /**
      * タグのロック、アンロックを変更します。
      * @param {string} userID 操作の対象となるユーザーID
@@ -6705,7 +6705,7 @@ export declare class UserTagApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserTagApi
      */
-    addUserTags(userID: string, setTag?: SetTag, options?: any): AxiosPromise<Response>;
+    addUserTag(userID: string, setTag?: SetTag, options?: any): AxiosPromise<Response>;
     /**
      * タグのロック、アンロックを変更します。
      * @param {string} userID 操作の対象となるユーザーID
@@ -7434,7 +7434,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClipApi
      */
-    createClipFolders(clipsFolderNameObject?: ClipsFolderNameObject, options?: any): AxiosPromise<ClipsFolder>;
+    createClipFolder(clipsFolderNameObject?: ClipsFolderNameObject, options?: any): AxiosPromise<ClipsFolder>;
     /**
      * クリップフォルダを削除します。フォルダ内のクリップは全て削除されます。
      * @param {string} folderID 操作の対象となるクリップフォルダのID
@@ -7675,7 +7675,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    changeNotifications(channelID: string, notificationUsers?: NotificationUsers, options?: any): AxiosPromise<Response>;
+    changeSubscribers(channelID: string, notificationUsers?: NotificationUsers, options?: any): AxiosPromise<Response>;
     /**
      * 通知ストリーム(Server Sent Events)に接続します。
      * @param {*} [options] Override http request option.
@@ -7684,20 +7684,20 @@ export declare class Apis extends BaseAPI {
      */
     connectNotification(options?: any): AxiosPromise<Response>;
     /**
+     * 自分が通知を入れているチャンネルのリストを取得します
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NotificationApi
+     */
+    getMySubscribeChannels(options?: any): AxiosPromise<string[]>;
+    /**
      * 通知を点けているユーザーのIDの配列を取得します。
      * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    getNotifications(channelID: string, options?: any): AxiosPromise<string[]>;
-    /**
-     * 自分が通知を入れているチャンネルのリストを取得します
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof NotificationApi
-     */
-    getNotifiedChannels(options?: any): AxiosPromise<string[]>;
+    getSubscribers(channelID: string, options?: any): AxiosPromise<string[]>;
     /**
      * ユーザーが通知を入れているチャンネルのリストを取得します
      * @param {string} userID 操作の対象となるユーザーID
@@ -7705,7 +7705,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    getUserNotifiedChannels(userID: string, options?: any): AxiosPromise<string[]>;
+    getUserSubscribeChannels(userID: string, options?: any): AxiosPromise<string[]>;
     /**
      * FCMデバイスを登録します。
      * @param {FCMToken} [fCMToken]
@@ -7981,7 +7981,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    createGroups(postUserGroup?: PostUserGroup, options?: any): AxiosPromise<UserGroup>;
+    createGroup(postUserGroup?: PostUserGroup, options?: any): AxiosPromise<UserGroup>;
     /**
      * ユーザーグループを削除します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -8054,7 +8054,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserTagApi
      */
-    addUserTags(userID: string, setTag?: SetTag, options?: any): AxiosPromise<Response>;
+    addUserTag(userID: string, setTag?: SetTag, options?: any): AxiosPromise<Response>;
     /**
      * タグのロック、アンロックを変更します。
      * @param {string} userID 操作の対象となるユーザーID
