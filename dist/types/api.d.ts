@@ -1268,6 +1268,12 @@ export interface PatchBot {
      * @memberof PatchBot
      */
     webhookUrl?: string;
+    /**
+     * 移譲先のユーザーUUID
+     * @type {string}
+     * @memberof PatchBot
+     */
+    creatorId?: string;
 }
 /**
  *
@@ -1374,6 +1380,12 @@ export interface PatchWebhook {
      * @memberof PatchWebhook
      */
     secret?: string;
+    /**
+     * 移譲先のユーザーUUID
+     * @type {string}
+     * @memberof PatchWebhook
+     */
+    creatorId?: string;
 }
 /**
  *
