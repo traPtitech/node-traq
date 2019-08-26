@@ -1709,6 +1709,25 @@ export interface PutParentChannel {
 /**
  *
  * @export
+ * @interface PutWebRTCState
+ */
+export interface PutWebRTCState {
+    /**
+     * ユーザーの接続先チャンネルUUID(切断はnullを指定)
+     * @type {string}
+     * @memberof PutWebRTCState
+     */
+    channelId?: string;
+    /**
+     * ユーザーの状態の配列(切断は空配列を指定)
+     * @type {Array<string>}
+     * @memberof PutWebRTCState
+     */
+    state?: Array<string>;
+}
+/**
+ *
+ * @export
  * @interface Report
  */
 export interface Report {
@@ -2355,6 +2374,44 @@ export interface VisibilityChangedEvent {
      * @memberof VisibilityChangedEvent
      */
     visibility?: boolean;
+}
+/**
+ *
+ * @export
+ * @interface WebRTCChannelState
+ */
+export interface WebRTCChannelState {
+    /**
+     * 接続ユーザーの状態の配列
+     * @type {Array<WebRTCUserState>}
+     * @memberof WebRTCChannelState
+     */
+    users?: Array<WebRTCUserState>;
+}
+/**
+ *
+ * @export
+ * @interface WebRTCUserState
+ */
+export interface WebRTCUserState {
+    /**
+     * ユーザーUUID
+     * @type {string}
+     * @memberof WebRTCUserState
+     */
+    userId?: string;
+    /**
+     * ユーザーの接続先チャンネルUUID(未接続の場合は00000000-0000-0000-0000-000000000000)
+     * @type {string}
+     * @memberof WebRTCUserState
+     */
+    channelId?: string;
+    /**
+     * ユーザーの状態の配列(未接続の場合は空配列)
+     * @type {Array<string>}
+     * @memberof WebRTCUserState
+     */
+    state?: Array<string>;
 }
 /**
  *
@@ -7061,6 +7118,115 @@ export declare class WebhookApi extends BaseAPI {
      */
     postWebhook(webhookID: string, xTRAQChannelId?: string, xTRAQSignature?: string, body?: string, options?: any): AxiosPromise<Response>;
 }
+/**
+ * WebrtcApi - axios parameter creator
+ * @export
+ */
+export declare const WebrtcApiAxiosParamCreator: (configuration?: Configuration) => {
+    /**
+     * チャンネルのWebRTC状態を取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getChannelWebRTCState(channelID: string, options?: any): RequestArgs;
+    /**
+     * 自身のWebRTCの状態を取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getWebRTCState(options?: any): RequestArgs;
+    /**
+     * 自身のWebRTCの状態を変更します。
+     * @param {PutWebRTCState} [putWebRTCState]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    putWebRTCState(putWebRTCState?: PutWebRTCState, options?: any): RequestArgs;
+};
+/**
+ * WebrtcApi - functional programming interface
+ * @export
+ */
+export declare const WebrtcApiFp: (configuration?: Configuration) => {
+    /**
+     * チャンネルのWebRTC状態を取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getChannelWebRTCState(channelID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebRTCChannelState>;
+    /**
+     * 自身のWebRTCの状態を取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getWebRTCState(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebRTCUserState>;
+    /**
+     * 自身のWebRTCの状態を変更します。
+     * @param {PutWebRTCState} [putWebRTCState]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    putWebRTCState(putWebRTCState?: PutWebRTCState, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+};
+/**
+ * WebrtcApi - factory interface
+ * @export
+ */
+export declare const WebrtcApiFactory: (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) => {
+    /**
+     * チャンネルのWebRTC状態を取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getChannelWebRTCState(channelID: string, options?: any): AxiosPromise<WebRTCChannelState>;
+    /**
+     * 自身のWebRTCの状態を取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getWebRTCState(options?: any): AxiosPromise<WebRTCUserState>;
+    /**
+     * 自身のWebRTCの状態を変更します。
+     * @param {PutWebRTCState} [putWebRTCState]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    putWebRTCState(putWebRTCState?: PutWebRTCState, options?: any): AxiosPromise<Response>;
+};
+/**
+ * WebrtcApi - object-oriented interface
+ * @export
+ * @class WebrtcApi
+ * @extends {BaseAPI}
+ */
+export declare class WebrtcApi extends BaseAPI {
+    /**
+     * チャンネルのWebRTC状態を取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebrtcApi
+     */
+    getChannelWebRTCState(channelID: string, options?: any): AxiosPromise<WebRTCChannelState>;
+    /**
+     * 自身のWebRTCの状態を取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebrtcApi
+     */
+    getWebRTCState(options?: any): AxiosPromise<WebRTCUserState>;
+    /**
+     * 自身のWebRTCの状態を変更します。
+     * @param {PutWebRTCState} [putWebRTCState]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebrtcApi
+     */
+    putWebRTCState(putWebRTCState?: PutWebRTCState, options?: any): AxiosPromise<Response>;
+}
 export declare class Apis extends BaseAPI {
     /**
      * 各チャンネルの最新のメッセージ１件をメッセージ作成日時の降順で取得します。
@@ -8179,4 +8345,27 @@ export declare class Apis extends BaseAPI {
      * @memberof WebhookApi
      */
     postWebhook(webhookID: string, xTRAQChannelId?: string, xTRAQSignature?: string, body?: string, options?: any): AxiosPromise<Response>;
+    /**
+     * チャンネルのWebRTC状態を取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebrtcApi
+     */
+    getChannelWebRTCState(channelID: string, options?: any): AxiosPromise<WebRTCChannelState>;
+    /**
+     * 自身のWebRTCの状態を取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebrtcApi
+     */
+    getWebRTCState(options?: any): AxiosPromise<WebRTCUserState>;
+    /**
+     * 自身のWebRTCの状態を変更します。
+     * @param {PutWebRTCState} [putWebRTCState]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebrtcApi
+     */
+    putWebRTCState(putWebRTCState?: PutWebRTCState, options?: any): AxiosPromise<Response>;
 }

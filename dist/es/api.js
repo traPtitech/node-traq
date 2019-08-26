@@ -10245,6 +10245,237 @@ export class WebhookApi extends BaseAPI {
         return WebhookApiFp(this.configuration).postWebhook(webhookID, xTRAQChannelId, xTRAQSignature, body, options)(this.axios, this.basePath);
     }
 }
+/**
+ * WebrtcApi - axios parameter creator
+ * @export
+ */
+export const WebrtcApiAxiosParamCreator = function (configuration) {
+    return {
+        /**
+         * チャンネルのWebRTC状態を取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getChannelWebRTCState(channelID, options = {}) {
+            // verify required parameter 'channelID' is not null or undefined
+            if (channelID === null || channelID === undefined) {
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling getChannelWebRTCState.');
+            }
+            const localVarPath = `/channels/{channelID}/webrtc/state`
+                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 自身のWebRTCの状態を取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebRTCState(options = {}) {
+            const localVarPath = `/webrtc/state`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 自身のWebRTCの状態を変更します。
+         * @param {PutWebRTCState} [putWebRTCState]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putWebRTCState(putWebRTCState, options = {}) {
+            const localVarPath = `/webrtc/state`;
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["write"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = ("PutWebRTCState" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(putWebRTCState !== undefined ? putWebRTCState : {}) : (putWebRTCState || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    };
+};
+/**
+ * WebrtcApi - functional programming interface
+ * @export
+ */
+export const WebrtcApiFp = function (configuration) {
+    return {
+        /**
+         * チャンネルのWebRTC状態を取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getChannelWebRTCState(channelID, options) {
+            const localVarAxiosArgs = WebrtcApiAxiosParamCreator(configuration).getChannelWebRTCState(channelID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 自身のWebRTCの状態を取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebRTCState(options) {
+            const localVarAxiosArgs = WebrtcApiAxiosParamCreator(configuration).getWebRTCState(options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 自身のWebRTCの状態を変更します。
+         * @param {PutWebRTCState} [putWebRTCState]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putWebRTCState(putWebRTCState, options) {
+            const localVarAxiosArgs = WebrtcApiAxiosParamCreator(configuration).putWebRTCState(putWebRTCState, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    };
+};
+/**
+ * WebrtcApi - factory interface
+ * @export
+ */
+export const WebrtcApiFactory = function (configuration, basePath, axios) {
+    return {
+        /**
+         * チャンネルのWebRTC状態を取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getChannelWebRTCState(channelID, options) {
+            return WebrtcApiFp(configuration).getChannelWebRTCState(channelID, options)(axios, basePath);
+        },
+        /**
+         * 自身のWebRTCの状態を取得します。
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebRTCState(options) {
+            return WebrtcApiFp(configuration).getWebRTCState(options)(axios, basePath);
+        },
+        /**
+         * 自身のWebRTCの状態を変更します。
+         * @param {PutWebRTCState} [putWebRTCState]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putWebRTCState(putWebRTCState, options) {
+            return WebrtcApiFp(configuration).putWebRTCState(putWebRTCState, options)(axios, basePath);
+        },
+    };
+};
+/**
+ * WebrtcApi - object-oriented interface
+ * @export
+ * @class WebrtcApi
+ * @extends {BaseAPI}
+ */
+export class WebrtcApi extends BaseAPI {
+    /**
+     * チャンネルのWebRTC状態を取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebrtcApi
+     */
+    getChannelWebRTCState(channelID, options) {
+        return WebrtcApiFp(this.configuration).getChannelWebRTCState(channelID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 自身のWebRTCの状態を取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebrtcApi
+     */
+    getWebRTCState(options) {
+        return WebrtcApiFp(this.configuration).getWebRTCState(options)(this.axios, this.basePath);
+    }
+    /**
+     * 自身のWebRTCの状態を変更します。
+     * @param {PutWebRTCState} [putWebRTCState]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebrtcApi
+     */
+    putWebRTCState(putWebRTCState, options) {
+        return WebrtcApiFp(this.configuration).putWebRTCState(putWebRTCState, options)(this.axios, this.basePath);
+    }
+}
 export class Apis extends BaseAPI {
     /**
      * 各チャンネルの最新のメッセージ１件をメッセージ作成日時の降順で取得します。
@@ -11626,5 +11857,34 @@ export class Apis extends BaseAPI {
      */
     postWebhook(webhookID, xTRAQChannelId, xTRAQSignature, body, options) {
         return WebhookApiFp(this.configuration).postWebhook(webhookID, xTRAQChannelId, xTRAQSignature, body, options)(this.axios, this.basePath);
+    }
+    /**
+     * チャンネルのWebRTC状態を取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebrtcApi
+     */
+    getChannelWebRTCState(channelID, options) {
+        return WebrtcApiFp(this.configuration).getChannelWebRTCState(channelID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 自身のWebRTCの状態を取得します。
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebrtcApi
+     */
+    getWebRTCState(options) {
+        return WebrtcApiFp(this.configuration).getWebRTCState(options)(this.axios, this.basePath);
+    }
+    /**
+     * 自身のWebRTCの状態を変更します。
+     * @param {PutWebRTCState} [putWebRTCState]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebrtcApi
+     */
+    putWebRTCState(putWebRTCState, options) {
+        return WebrtcApiFp(this.configuration).putWebRTCState(putWebRTCState, options)(this.axios, this.basePath);
     }
 }
