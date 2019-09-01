@@ -6962,10 +6962,11 @@ exports.StampApiAxiosParamCreator = function (configuration) {
          * 指定したメッセージに指定したスタンプを押します。
          * @param {string} messageID 操作の対象となるメッセージID
          * @param {string} stampID 操作の対象となるスタンプID
+         * @param {MessageStampPost} [messageStampPost]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        stampMessage(messageID, stampID, options = {}) {
+        stampMessage(messageID, stampID, messageStampPost, options = {}) {
             // verify required parameter 'messageID' is not null or undefined
             if (messageID === null || messageID === undefined) {
                 throw new base_1.RequiredError('messageID', 'Required parameter messageID was null or undefined when calling stampMessage.');
@@ -6993,10 +6994,13 @@ exports.StampApiAxiosParamCreator = function (configuration) {
                     : configuration.accessToken;
                 localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
             }
+            localVarHeaderParameter['Content-Type'] = 'application/json';
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = ("MessageStampPost" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(messageStampPost !== undefined ? messageStampPost : {}) : (messageStampPost || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -7150,11 +7154,12 @@ exports.StampApiFp = function (configuration) {
          * 指定したメッセージに指定したスタンプを押します。
          * @param {string} messageID 操作の対象となるメッセージID
          * @param {string} stampID 操作の対象となるスタンプID
+         * @param {MessageStampPost} [messageStampPost]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        stampMessage(messageID, stampID, options) {
-            const localVarAxiosArgs = exports.StampApiAxiosParamCreator(configuration).stampMessage(messageID, stampID, options);
+        stampMessage(messageID, stampID, messageStampPost, options) {
+            const localVarAxiosArgs = exports.StampApiAxiosParamCreator(configuration).stampMessage(messageID, stampID, messageStampPost, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -7250,11 +7255,12 @@ exports.StampApiFactory = function (configuration, basePath, axios) {
          * 指定したメッセージに指定したスタンプを押します。
          * @param {string} messageID 操作の対象となるメッセージID
          * @param {string} stampID 操作の対象となるスタンプID
+         * @param {MessageStampPost} [messageStampPost]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        stampMessage(messageID, stampID, options) {
-            return exports.StampApiFp(configuration).stampMessage(messageID, stampID, options)(axios, basePath);
+        stampMessage(messageID, stampID, messageStampPost, options) {
+            return exports.StampApiFp(configuration).stampMessage(messageID, stampID, messageStampPost, options)(axios, basePath);
         },
         /**
          * 指定したメッセージから指定したスタンプを外します。
@@ -7350,12 +7356,13 @@ class StampApi extends base_1.BaseAPI {
      * 指定したメッセージに指定したスタンプを押します。
      * @param {string} messageID 操作の対象となるメッセージID
      * @param {string} stampID 操作の対象となるスタンプID
+     * @param {MessageStampPost} [messageStampPost]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StampApi
      */
-    stampMessage(messageID, stampID, options) {
-        return exports.StampApiFp(this.configuration).stampMessage(messageID, stampID, options)(this.axios, this.basePath);
+    stampMessage(messageID, stampID, messageStampPost, options) {
+        return exports.StampApiFp(this.configuration).stampMessage(messageID, stampID, messageStampPost, options)(this.axios, this.basePath);
     }
     /**
      * 指定したメッセージから指定したスタンプを外します。
@@ -11471,12 +11478,13 @@ class Apis extends base_1.BaseAPI {
      * 指定したメッセージに指定したスタンプを押します。
      * @param {string} messageID 操作の対象となるメッセージID
      * @param {string} stampID 操作の対象となるスタンプID
+     * @param {MessageStampPost} [messageStampPost]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StampApi
      */
-    stampMessage(messageID, stampID, options) {
-        return exports.StampApiFp(this.configuration).stampMessage(messageID, stampID, options)(this.axios, this.basePath);
+    stampMessage(messageID, stampID, messageStampPost, options) {
+        return exports.StampApiFp(this.configuration).stampMessage(messageID, stampID, messageStampPost, options)(this.axios, this.basePath);
     }
     /**
      * 指定したメッセージから指定したスタンプを外します。

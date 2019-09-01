@@ -986,6 +986,19 @@ export interface MessageStamp {
     updatedAt?: Date;
 }
 /**
+ *
+ * @export
+ * @interface MessageStampPost
+ */
+export interface MessageStampPost {
+    /**
+     * 押す個数(1-100)、100より大きい場合は100として受け取ります
+     * @type {number}
+     * @memberof MessageStampPost
+     */
+    count?: number;
+}
+/**
  * NameChanged
  * @export
  * @interface NameChangedEvent
@@ -5575,10 +5588,11 @@ export declare const StampApiAxiosParamCreator: (configuration?: Configuration) 
      * 指定したメッセージに指定したスタンプを押します。
      * @param {string} messageID 操作の対象となるメッセージID
      * @param {string} stampID 操作の対象となるスタンプID
+     * @param {MessageStampPost} [messageStampPost]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    stampMessage(messageID: string, stampID: string, options?: any): RequestArgs;
+    stampMessage(messageID: string, stampID: string, messageStampPost?: MessageStampPost, options?: any): RequestArgs;
     /**
      * 指定したメッセージから指定したスタンプを外します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -5647,10 +5661,11 @@ export declare const StampApiFp: (configuration?: Configuration) => {
      * 指定したメッセージに指定したスタンプを押します。
      * @param {string} messageID 操作の対象となるメッセージID
      * @param {string} stampID 操作の対象となるスタンプID
+     * @param {MessageStampPost} [messageStampPost]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    stampMessage(messageID: string, stampID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    stampMessage(messageID: string, stampID: string, messageStampPost?: MessageStampPost, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
     /**
      * 指定したメッセージから指定したスタンプを外します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -5719,10 +5734,11 @@ export declare const StampApiFactory: (configuration?: Configuration, basePath?:
      * 指定したメッセージに指定したスタンプを押します。
      * @param {string} messageID 操作の対象となるメッセージID
      * @param {string} stampID 操作の対象となるスタンプID
+     * @param {MessageStampPost} [messageStampPost]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    stampMessage(messageID: string, stampID: string, options?: any): AxiosPromise<Response>;
+    stampMessage(messageID: string, stampID: string, messageStampPost?: MessageStampPost, options?: any): AxiosPromise<Response>;
     /**
      * 指定したメッセージから指定したスタンプを外します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -5800,11 +5816,12 @@ export declare class StampApi extends BaseAPI {
      * 指定したメッセージに指定したスタンプを押します。
      * @param {string} messageID 操作の対象となるメッセージID
      * @param {string} stampID 操作の対象となるスタンプID
+     * @param {MessageStampPost} [messageStampPost]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StampApi
      */
-    stampMessage(messageID: string, stampID: string, options?: any): AxiosPromise<Response>;
+    stampMessage(messageID: string, stampID: string, messageStampPost?: MessageStampPost, options?: any): AxiosPromise<Response>;
     /**
      * 指定したメッセージから指定したスタンプを外します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -8015,11 +8032,12 @@ export declare class Apis extends BaseAPI {
      * 指定したメッセージに指定したスタンプを押します。
      * @param {string} messageID 操作の対象となるメッセージID
      * @param {string} stampID 操作の対象となるスタンプID
+     * @param {MessageStampPost} [messageStampPost]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StampApi
      */
-    stampMessage(messageID: string, stampID: string, options?: any): AxiosPromise<Response>;
+    stampMessage(messageID: string, stampID: string, messageStampPost?: MessageStampPost, options?: any): AxiosPromise<Response>;
     /**
      * 指定したメッセージから指定したスタンプを外します。
      * @param {string} messageID 操作の対象となるメッセージID
