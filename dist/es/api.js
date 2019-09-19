@@ -4987,10 +4987,11 @@ export const MessageApiAxiosParamCreator = function (configuration) {
          * DMチャンネルにメッセージを投稿します。
          * @param {string} userID 操作の対象となるユーザーID
          * @param {SendMessage} sendMessage
+         * @param {number} [embed] メンション・チャンネルリンクを自動埋め込みする場合に1を指定する
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postDirectMessage(userID, sendMessage, options = {}) {
+        postDirectMessage(userID, sendMessage, embed, options = {}) {
             // verify required parameter 'userID' is not null or undefined
             if (userID === null || userID === undefined) {
                 throw new RequiredError('userID', 'Required parameter userID was null or undefined when calling postDirectMessage.');
@@ -5017,6 +5018,9 @@ export const MessageApiAxiosParamCreator = function (configuration) {
                     : configuration.accessToken;
                 localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
             }
+            if (embed !== undefined) {
+                localVarQueryParameter['embed'] = embed;
+            }
             localVarHeaderParameter['Content-Type'] = 'application/json';
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
@@ -5033,10 +5037,11 @@ export const MessageApiAxiosParamCreator = function (configuration) {
          * チャンネルにメッセージを投稿します。
          * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {SendMessage} sendMessage
+         * @param {number} [embed] メンション・チャンネルリンクを自動埋め込みする場合に1を指定する
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postMessage(channelID, sendMessage, options = {}) {
+        postMessage(channelID, sendMessage, embed, options = {}) {
             // verify required parameter 'channelID' is not null or undefined
             if (channelID === null || channelID === undefined) {
                 throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling postMessage.');
@@ -5062,6 +5067,9 @@ export const MessageApiAxiosParamCreator = function (configuration) {
                     ? configuration.accessToken("traqOAuth2", ["write"])
                     : configuration.accessToken;
                 localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            if (embed !== undefined) {
+                localVarQueryParameter['embed'] = embed;
             }
             localVarHeaderParameter['Content-Type'] = 'application/json';
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
@@ -5224,11 +5232,12 @@ export const MessageApiFp = function (configuration) {
          * DMチャンネルにメッセージを投稿します。
          * @param {string} userID 操作の対象となるユーザーID
          * @param {SendMessage} sendMessage
+         * @param {number} [embed] メンション・チャンネルリンクを自動埋め込みする場合に1を指定する
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postDirectMessage(userID, sendMessage, options) {
-            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).postDirectMessage(userID, sendMessage, options);
+        postDirectMessage(userID, sendMessage, embed, options) {
+            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).postDirectMessage(userID, sendMessage, embed, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -5238,11 +5247,12 @@ export const MessageApiFp = function (configuration) {
          * チャンネルにメッセージを投稿します。
          * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {SendMessage} sendMessage
+         * @param {number} [embed] メンション・チャンネルリンクを自動埋め込みする場合に1を指定する
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postMessage(channelID, sendMessage, options) {
-            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).postMessage(channelID, sendMessage, options);
+        postMessage(channelID, sendMessage, embed, options) {
+            const localVarAxiosArgs = MessageApiAxiosParamCreator(configuration).postMessage(channelID, sendMessage, embed, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -5341,21 +5351,23 @@ export const MessageApiFactory = function (configuration, basePath, axios) {
          * DMチャンネルにメッセージを投稿します。
          * @param {string} userID 操作の対象となるユーザーID
          * @param {SendMessage} sendMessage
+         * @param {number} [embed] メンション・チャンネルリンクを自動埋め込みする場合に1を指定する
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postDirectMessage(userID, sendMessage, options) {
-            return MessageApiFp(configuration).postDirectMessage(userID, sendMessage, options)(axios, basePath);
+        postDirectMessage(userID, sendMessage, embed, options) {
+            return MessageApiFp(configuration).postDirectMessage(userID, sendMessage, embed, options)(axios, basePath);
         },
         /**
          * チャンネルにメッセージを投稿します。
          * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {SendMessage} sendMessage
+         * @param {number} [embed] メンション・チャンネルリンクを自動埋め込みする場合に1を指定する
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postMessage(channelID, sendMessage, options) {
-            return MessageApiFp(configuration).postMessage(channelID, sendMessage, options)(axios, basePath);
+        postMessage(channelID, sendMessage, embed, options) {
+            return MessageApiFp(configuration).postMessage(channelID, sendMessage, embed, options)(axios, basePath);
         },
         /**
          * 指定したメッセージを通報します。
@@ -5453,23 +5465,25 @@ export class MessageApi extends BaseAPI {
      * DMチャンネルにメッセージを投稿します。
      * @param {string} userID 操作の対象となるユーザーID
      * @param {SendMessage} sendMessage
+     * @param {number} [embed] メンション・チャンネルリンクを自動埋め込みする場合に1を指定する
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    postDirectMessage(userID, sendMessage, options) {
-        return MessageApiFp(this.configuration).postDirectMessage(userID, sendMessage, options)(this.axios, this.basePath);
+    postDirectMessage(userID, sendMessage, embed, options) {
+        return MessageApiFp(this.configuration).postDirectMessage(userID, sendMessage, embed, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルにメッセージを投稿します。
      * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {SendMessage} sendMessage
+     * @param {number} [embed] メンション・チャンネルリンクを自動埋め込みする場合に1を指定する
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    postMessage(channelID, sendMessage, options) {
-        return MessageApiFp(this.configuration).postMessage(channelID, sendMessage, options)(this.axios, this.basePath);
+    postMessage(channelID, sendMessage, embed, options) {
+        return MessageApiFp(this.configuration).postMessage(channelID, sendMessage, embed, options)(this.axios, this.basePath);
     }
     /**
      * 指定したメッセージを通報します。
@@ -10039,10 +10053,11 @@ export const WebhookApiAxiosParamCreator = function (configuration) {
          * @param {string} body
          * @param {string} [xTRAQChannelId] 投稿先のチャンネルID(変更する場合)
          * @param {string} [xTRAQSignature] リクエストボディシグネチャ。Secretが設定されている場合は必須
+         * @param {number} [embed] メンション・チャンネルリンクを自動埋め込みする場合に1を指定する
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postWebhook(webhookID, body, xTRAQChannelId, xTRAQSignature, options = {}) {
+        postWebhook(webhookID, body, xTRAQChannelId, xTRAQSignature, embed, options = {}) {
             // verify required parameter 'webhookID' is not null or undefined
             if (webhookID === null || webhookID === undefined) {
                 throw new RequiredError('webhookID', 'Required parameter webhookID was null or undefined when calling postWebhook.');
@@ -10061,6 +10076,9 @@ export const WebhookApiAxiosParamCreator = function (configuration) {
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
+            if (embed !== undefined) {
+                localVarQueryParameter['embed'] = embed;
+            }
             if (xTRAQChannelId !== undefined && xTRAQChannelId !== null) {
                 localVarHeaderParameter['X-TRAQ-Channel-Id'] = String(xTRAQChannelId);
             }
@@ -10199,11 +10217,12 @@ export const WebhookApiFp = function (configuration) {
          * @param {string} body
          * @param {string} [xTRAQChannelId] 投稿先のチャンネルID(変更する場合)
          * @param {string} [xTRAQSignature] リクエストボディシグネチャ。Secretが設定されている場合は必須
+         * @param {number} [embed] メンション・チャンネルリンクを自動埋め込みする場合に1を指定する
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postWebhook(webhookID, body, xTRAQChannelId, xTRAQSignature, options) {
-            const localVarAxiosArgs = WebhookApiAxiosParamCreator(configuration).postWebhook(webhookID, body, xTRAQChannelId, xTRAQSignature, options);
+        postWebhook(webhookID, body, xTRAQChannelId, xTRAQSignature, embed, options) {
+            const localVarAxiosArgs = WebhookApiAxiosParamCreator(configuration).postWebhook(webhookID, body, xTRAQChannelId, xTRAQSignature, embed, options);
             return (axios = globalAxios, basePath = BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -10297,11 +10316,12 @@ export const WebhookApiFactory = function (configuration, basePath, axios) {
          * @param {string} body
          * @param {string} [xTRAQChannelId] 投稿先のチャンネルID(変更する場合)
          * @param {string} [xTRAQSignature] リクエストボディシグネチャ。Secretが設定されている場合は必須
+         * @param {number} [embed] メンション・チャンネルリンクを自動埋め込みする場合に1を指定する
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        postWebhook(webhookID, body, xTRAQChannelId, xTRAQSignature, options) {
-            return WebhookApiFp(configuration).postWebhook(webhookID, body, xTRAQChannelId, xTRAQSignature, options)(axios, basePath);
+        postWebhook(webhookID, body, xTRAQChannelId, xTRAQSignature, embed, options) {
+            return WebhookApiFp(configuration).postWebhook(webhookID, body, xTRAQChannelId, xTRAQSignature, embed, options)(axios, basePath);
         },
     };
 };
@@ -10400,12 +10420,13 @@ export class WebhookApi extends BaseAPI {
      * @param {string} body
      * @param {string} [xTRAQChannelId] 投稿先のチャンネルID(変更する場合)
      * @param {string} [xTRAQSignature] リクエストボディシグネチャ。Secretが設定されている場合は必須
+     * @param {number} [embed] メンション・チャンネルリンクを自動埋め込みする場合に1を指定する
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    postWebhook(webhookID, body, xTRAQChannelId, xTRAQSignature, options) {
-        return WebhookApiFp(this.configuration).postWebhook(webhookID, body, xTRAQChannelId, xTRAQSignature, options)(this.axios, this.basePath);
+    postWebhook(webhookID, body, xTRAQChannelId, xTRAQSignature, embed, options) {
+        return WebhookApiFp(this.configuration).postWebhook(webhookID, body, xTRAQChannelId, xTRAQSignature, embed, options)(this.axios, this.basePath);
     }
 }
 /**
@@ -11343,23 +11364,25 @@ export class Apis extends BaseAPI {
      * DMチャンネルにメッセージを投稿します。
      * @param {string} userID 操作の対象となるユーザーID
      * @param {SendMessage} sendMessage
+     * @param {number} [embed] メンション・チャンネルリンクを自動埋め込みする場合に1を指定する
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    postDirectMessage(userID, sendMessage, options) {
-        return MessageApiFp(this.configuration).postDirectMessage(userID, sendMessage, options)(this.axios, this.basePath);
+    postDirectMessage(userID, sendMessage, embed, options) {
+        return MessageApiFp(this.configuration).postDirectMessage(userID, sendMessage, embed, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルにメッセージを投稿します。
      * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {SendMessage} sendMessage
+     * @param {number} [embed] メンション・チャンネルリンクを自動埋め込みする場合に1を指定する
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    postMessage(channelID, sendMessage, options) {
-        return MessageApiFp(this.configuration).postMessage(channelID, sendMessage, options)(this.axios, this.basePath);
+    postMessage(channelID, sendMessage, embed, options) {
+        return MessageApiFp(this.configuration).postMessage(channelID, sendMessage, embed, options)(this.axios, this.basePath);
     }
     /**
      * 指定したメッセージを通報します。
@@ -12019,12 +12042,13 @@ export class Apis extends BaseAPI {
      * @param {string} body
      * @param {string} [xTRAQChannelId] 投稿先のチャンネルID(変更する場合)
      * @param {string} [xTRAQSignature] リクエストボディシグネチャ。Secretが設定されている場合は必須
+     * @param {number} [embed] メンション・チャンネルリンクを自動埋め込みする場合に1を指定する
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    postWebhook(webhookID, body, xTRAQChannelId, xTRAQSignature, options) {
-        return WebhookApiFp(this.configuration).postWebhook(webhookID, body, xTRAQChannelId, xTRAQSignature, options)(this.axios, this.basePath);
+    postWebhook(webhookID, body, xTRAQChannelId, xTRAQSignature, embed, options) {
+        return WebhookApiFp(this.configuration).postWebhook(webhookID, body, xTRAQChannelId, xTRAQSignature, embed, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルのWebRTC状態を取得します。
