@@ -401,6 +401,25 @@ export declare enum ChannelEventTypeEnum {
 /**
  *
  * @export
+ * @interface ChannelStats
+ */
+export interface ChannelStats {
+    /**
+     * チャンネルの総投稿メッセージ数(削除されたものも含む)
+     * @type {number}
+     * @memberof ChannelStats
+     */
+    totalMessageCount?: number;
+    /**
+     * 統計情報日時
+     * @type {Date}
+     * @memberof ChannelStats
+     */
+    datetime?: Date;
+}
+/**
+ *
+ * @export
  * @interface ChannelTopic
  */
 export interface ChannelTopic {
@@ -3429,6 +3448,13 @@ export declare const ChannelApiAxiosParamCreator: (configuration?: Configuration
      */
     getChannelEvents(channelID: string, limit?: number, offset?: number, since?: Date, until?: Date, inclusive?: boolean, order?: "desc" | "asc", options?: any): RequestArgs;
     /**
+     * チャンネルの統計情報を取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getChannelStats(channelID: string, options?: any): RequestArgs;
+    /**
      * チャンネルの説明を取得します。
      * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {*} [options] Override http request option.
@@ -3514,6 +3540,13 @@ export declare const ChannelApiFp: (configuration?: Configuration) => {
      */
     getChannelEvents(channelID: string, limit?: number, offset?: number, since?: Date, until?: Date, inclusive?: boolean, order?: "desc" | "asc", options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChannelEvent[]>;
     /**
+     * チャンネルの統計情報を取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getChannelStats(channelID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChannelStats>;
+    /**
      * チャンネルの説明を取得します。
      * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {*} [options] Override http request option.
@@ -3598,6 +3631,13 @@ export declare const ChannelApiFactory: (configuration?: Configuration, basePath
      * @throws {RequiredError}
      */
     getChannelEvents(channelID: string, limit?: number, offset?: number, since?: Date, until?: Date, inclusive?: boolean, order?: "desc" | "asc", options?: any): AxiosPromise<ChannelEvent[]>;
+    /**
+     * チャンネルの統計情報を取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getChannelStats(channelID: string, options?: any): AxiosPromise<ChannelStats>;
     /**
      * チャンネルの説明を取得します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -3693,6 +3733,14 @@ export declare class ChannelApi extends BaseAPI {
      * @memberof ChannelApi
      */
     getChannelEvents(channelID: string, limit?: number, offset?: number, since?: Date, until?: Date, inclusive?: boolean, order?: 'asc' | 'desc', options?: any): AxiosPromise<ChannelEvent[]>;
+    /**
+     * チャンネルの統計情報を取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    getChannelStats(channelID: string, options?: any): AxiosPromise<ChannelStats>;
     /**
      * チャンネルの説明を取得します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -7539,6 +7587,14 @@ export declare class Apis extends BaseAPI {
      * @memberof ChannelApi
      */
     getChannelEvents(channelID: string, limit?: number, offset?: number, since?: Date, until?: Date, inclusive?: boolean, order?: 'asc' | 'desc', options?: any): AxiosPromise<ChannelEvent[]>;
+    /**
+     * チャンネルの統計情報を取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    getChannelStats(channelID: string, options?: any): AxiosPromise<ChannelStats>;
     /**
      * チャンネルの説明を取得します。
      * @param {string} channelID 操作の対象となるチャンネルのID

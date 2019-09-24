@@ -2308,6 +2308,44 @@ export const ChannelApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
+         * チャンネルの統計情報を取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getChannelStats(channelID, options = {}) {
+            // verify required parameter 'channelID' is not null or undefined
+            if (channelID === null || channelID === undefined) {
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling getChannelStats.');
+            }
+            const localVarPath = `/channels/{channelID}/stats`
+                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * チャンネルの説明を取得します。
          * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {*} [options] Override http request option.
@@ -2500,6 +2538,19 @@ export const ChannelApiFp = function (configuration) {
             };
         },
         /**
+         * チャンネルの統計情報を取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getChannelStats(channelID, options) {
+            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).getChannelStats(channelID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
          * チャンネルの説明を取得します。
          * @param {string} channelID 操作の対象となるチャンネルのID
          * @param {*} [options] Override http request option.
@@ -2613,6 +2664,15 @@ export const ChannelApiFactory = function (configuration, basePath, axios) {
          */
         getChannelEvents(channelID, limit, offset, since, until, inclusive, order, options) {
             return ChannelApiFp(configuration).getChannelEvents(channelID, limit, offset, since, until, inclusive, order, options)(axios, basePath);
+        },
+        /**
+         * チャンネルの統計情報を取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getChannelStats(channelID, options) {
+            return ChannelApiFp(configuration).getChannelStats(channelID, options)(axios, basePath);
         },
         /**
          * チャンネルの説明を取得します。
@@ -2729,6 +2789,16 @@ export class ChannelApi extends BaseAPI {
      */
     getChannelEvents(channelID, limit, offset, since, until, inclusive, order, options) {
         return ChannelApiFp(this.configuration).getChannelEvents(channelID, limit, offset, since, until, inclusive, order, options)(this.axios, this.basePath);
+    }
+    /**
+     * チャンネルの統計情報を取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    getChannelStats(channelID, options) {
+        return ChannelApiFp(this.configuration).getChannelStats(channelID, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルの説明を取得します。
@@ -11006,6 +11076,16 @@ export class Apis extends BaseAPI {
      */
     getChannelEvents(channelID, limit, offset, since, until, inclusive, order, options) {
         return ChannelApiFp(this.configuration).getChannelEvents(channelID, limit, offset, since, until, inclusive, order, options)(this.axios, this.basePath);
+    }
+    /**
+     * チャンネルの統計情報を取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    getChannelStats(channelID, options) {
+        return ChannelApiFp(this.configuration).getChannelStats(channelID, options)(this.axios, this.basePath);
     }
     /**
      * チャンネルの説明を取得します。
