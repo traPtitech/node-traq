@@ -31,6 +31,16 @@ export var ChannelEventTypeEnum;
     ChannelEventTypeEnum["ChildCreated"] = "ChildCreated";
 })(ChannelEventTypeEnum || (ChannelEventTypeEnum = {}));
 /**
+    * @export
+    * @enum {string}
+    */
+export var ChannelViewerStateEnum;
+(function (ChannelViewerStateEnum) {
+    ChannelViewerStateEnum["None"] = "none";
+    ChannelViewerStateEnum["Monitoring"] = "monitoring";
+    ChannelViewerStateEnum["Editing"] = "editing";
+})(ChannelViewerStateEnum || (ChannelViewerStateEnum = {}));
+/**
  *
  * @export
  * @enum {string}
@@ -2384,6 +2394,44 @@ export const ChannelApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
+         * 現在のチャンネル閲覧者のリストを取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getChannelViewers(channelID, options = {}) {
+            // verify required parameter 'channelID' is not null or undefined
+            if (channelID === null || channelID === undefined) {
+                throw new RequiredError('channelID', 'Required parameter channelID was null or undefined when calling getChannelViewers.');
+            }
+            const localVarPath = `/channels/{channelID}/viewers`
+                .replace(`{${"channelID"}}`, encodeURIComponent(String(channelID)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            // authentication traqOAuth2 required
+            // oauth required
+            if (configuration && configuration.accessToken) {
+                const localVarAccessTokenValue = typeof configuration.accessToken === 'function'
+                    ? configuration.accessToken("traqOAuth2", ["read"])
+                    : configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + localVarAccessTokenValue;
+            }
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * (すべての)チャンネルのリストを取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2564,6 +2612,19 @@ export const ChannelApiFp = function (configuration) {
             };
         },
         /**
+         * 現在のチャンネル閲覧者のリストを取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getChannelViewers(channelID, options) {
+            const localVarAxiosArgs = ChannelApiAxiosParamCreator(configuration).getChannelViewers(channelID, options);
+            return (axios = globalAxios, basePath = BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
          * (すべての)チャンネルのリストを取得します。
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2682,6 +2743,15 @@ export const ChannelApiFactory = function (configuration, basePath, axios) {
          */
         getChannelTopic(channelID, options) {
             return ChannelApiFp(configuration).getChannelTopic(channelID, options)(axios, basePath);
+        },
+        /**
+         * 現在のチャンネル閲覧者のリストを取得します。
+         * @param {string} channelID 操作の対象となるチャンネルのID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getChannelViewers(channelID, options) {
+            return ChannelApiFp(configuration).getChannelViewers(channelID, options)(axios, basePath);
         },
         /**
          * (すべての)チャンネルのリストを取得します。
@@ -2809,6 +2879,16 @@ export class ChannelApi extends BaseAPI {
      */
     getChannelTopic(channelID, options) {
         return ChannelApiFp(this.configuration).getChannelTopic(channelID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 現在のチャンネル閲覧者のリストを取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    getChannelViewers(channelID, options) {
+        return ChannelApiFp(this.configuration).getChannelViewers(channelID, options)(this.axios, this.basePath);
     }
     /**
      * (すべての)チャンネルのリストを取得します。
@@ -11096,6 +11176,16 @@ export class Apis extends BaseAPI {
      */
     getChannelTopic(channelID, options) {
         return ChannelApiFp(this.configuration).getChannelTopic(channelID, options)(this.axios, this.basePath);
+    }
+    /**
+     * 現在のチャンネル閲覧者のリストを取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    getChannelViewers(channelID, options) {
+        return ChannelApiFp(this.configuration).getChannelViewers(channelID, options)(this.axios, this.basePath);
     }
     /**
      * (すべての)チャンネルのリストを取得します。

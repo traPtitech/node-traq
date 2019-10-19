@@ -431,6 +431,34 @@ export interface ChannelTopic {
     text?: string;
 }
 /**
+ *
+ * @export
+ * @interface ChannelViewer
+ */
+export interface ChannelViewer {
+    /**
+     * ユーザーのUUID
+     * @type {string}
+     * @memberof ChannelViewer
+     */
+    userId?: string;
+    /**
+     * 閲覧状態
+     * @type {string}
+     * @memberof ChannelViewer
+     */
+    state?: ChannelViewerStateEnum;
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export declare enum ChannelViewerStateEnum {
+    None = "none",
+    Monitoring = "monitoring",
+    Editing = "editing"
+}
+/**
  * ChildCreated
  * @export
  * @interface ChildCreatedEvent
@@ -3462,6 +3490,13 @@ export declare const ChannelApiAxiosParamCreator: (configuration?: Configuration
      */
     getChannelTopic(channelID: string, options?: any): RequestArgs;
     /**
+     * 現在のチャンネル閲覧者のリストを取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getChannelViewers(channelID: string, options?: any): RequestArgs;
+    /**
      * (すべての)チャンネルのリストを取得します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -3554,6 +3589,13 @@ export declare const ChannelApiFp: (configuration?: Configuration) => {
      */
     getChannelTopic(channelID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChannelTopic>;
     /**
+     * 現在のチャンネル閲覧者のリストを取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getChannelViewers(channelID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChannelViewer[]>;
+    /**
      * (すべての)チャンネルのリストを取得します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -3645,6 +3687,13 @@ export declare const ChannelApiFactory: (configuration?: Configuration, basePath
      * @throws {RequiredError}
      */
     getChannelTopic(channelID: string, options?: any): AxiosPromise<ChannelTopic>;
+    /**
+     * 現在のチャンネル閲覧者のリストを取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getChannelViewers(channelID: string, options?: any): AxiosPromise<ChannelViewer[]>;
     /**
      * (すべての)チャンネルのリストを取得します。
      * @param {*} [options] Override http request option.
@@ -3749,6 +3798,14 @@ export declare class ChannelApi extends BaseAPI {
      * @memberof ChannelApi
      */
     getChannelTopic(channelID: string, options?: any): AxiosPromise<ChannelTopic>;
+    /**
+     * 現在のチャンネル閲覧者のリストを取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    getChannelViewers(channelID: string, options?: any): AxiosPromise<ChannelViewer[]>;
     /**
      * (すべての)チャンネルのリストを取得します。
      * @param {*} [options] Override http request option.
@@ -7603,6 +7660,14 @@ export declare class Apis extends BaseAPI {
      * @memberof ChannelApi
      */
     getChannelTopic(channelID: string, options?: any): AxiosPromise<ChannelTopic>;
+    /**
+     * 現在のチャンネル閲覧者のリストを取得します。
+     * @param {string} channelID 操作の対象となるチャンネルのID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChannelApi
+     */
+    getChannelViewers(channelID: string, options?: any): AxiosPromise<ChannelViewer[]>;
     /**
      * (すべての)チャンネルのリストを取得します。
      * @param {*} [options] Override http request option.
