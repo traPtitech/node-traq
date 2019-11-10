@@ -645,18 +645,6 @@ export interface ClipsFolderNameObject {
  */
 export interface CreateChannel {
     /**
-     * プライベートチャンネルかどうか
-     * @type {boolean}
-     * @memberof CreateChannel
-     */
-    _private?: boolean;
-    /**
-     * UUIDの配列
-     * @type {Array<string>}
-     * @memberof CreateChannel
-     */
-    member?: Array<string>;
-    /**
      * チャンネル名
      * @type {string}
      * @memberof CreateChannel
