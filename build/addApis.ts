@@ -67,7 +67,7 @@ const generateBaseAPI = async (sourceFile: SourceFile) => {
 
 export default async function(generatedFolder: string) {
   const project = new Project()
-  project.addExistingSourceFiles(`${generatedFolder}/**/*.ts`)
+  project.addSourceFilesAtPaths(`${generatedFolder}/**/*.ts`)
 
   const sourceFile = project.getSourceFileOrThrow("api.ts")
 
