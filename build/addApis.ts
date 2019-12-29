@@ -12,12 +12,20 @@ const generateBaseAPI = async (sourceFile: SourceFile) => {
     if (!baseClass) return false
     return baseClass.getName() === "BaseAPI"
   })
-  const apiMethods = apiClasses.map(c => c.getMethods()).flat()
+
+  // 重複を取り除く
+  const apiMethods = new Map()
+  for (const c of apiClasses) {
+    const methods = c.getMethods()
+    for (const m of methods) {
+      apiMethods.set(m.getName(), m)
+    }
+  }
 
   sourceFile.addClass({
     name: "Apis",
     extends: "BaseAPI",
-    methods: apiMethods.map(
+    methods: [...apiMethods.values()].map(
       m => m.getStructure() as MethodDeclarationStructure
     ),
     isExported: true
