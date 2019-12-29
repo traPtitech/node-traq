@@ -19,6 +19,7 @@ class Configuration {
         this.password = param.password;
         this.accessToken = param.accessToken;
         this.basePath = param.basePath;
+        this.baseOptions = param.baseOptions;
     }
 }
 exports.Configuration = Configuration;

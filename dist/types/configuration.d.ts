@@ -13,7 +13,7 @@ export interface ConfigurationParameters {
     apiKey?: string | ((name: string) => string);
     username?: string;
     password?: string;
-    accessToken?: string | ((name: string, scopes?: string[]) => string);
+    accessToken?: string | ((name?: string, scopes?: string[]) => string);
     basePath?: string;
     baseOptions?: any;
 }
@@ -44,7 +44,7 @@ export declare class Configuration {
      * @param scopes oauth2 scope
      * @memberof Configuration
      */
-    accessToken?: string | ((name: string, scopes?: string[]) => string);
+    accessToken?: string | ((name?: string, scopes?: string[]) => string);
     /**
      * override base path
      *

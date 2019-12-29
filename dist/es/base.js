@@ -1,5 +1,4 @@
 // tslint:disable
-/// <reference path="./custom.d.ts" />
 /**
  * traQ API
  * traQ v2 API
@@ -11,6 +10,8 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+// Some imports not used depending on template conditions
+// @ts-ignore
 import globalAxios from 'axios';
 export const BASE_PATH = "https://q.trap.jp/api/1.0".replace(/\/+$/, "");
 /**

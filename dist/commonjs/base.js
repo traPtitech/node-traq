@@ -1,6 +1,5 @@
 "use strict";
 // tslint:disable
-/// <reference path="./custom.d.ts" />
 /**
  * traQ API
  * traQ v2 API
@@ -13,6 +12,8 @@
  * Do not edit the class manually.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+// Some imports not used depending on template conditions
+// @ts-ignore
 const axios_1 = require("axios");
 exports.BASE_PATH = "https://q.trap.jp/api/1.0".replace(/\/+$/, "");
 /**

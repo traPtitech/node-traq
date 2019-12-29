@@ -1,5 +1,4 @@
 // tslint:disable
-/// <reference path="./custom.d.ts" />
 /**
  * traQ API
  * traQ v2 API
@@ -13,6 +12,8 @@
  */
 import * as globalImportUrl from 'url';
 import globalAxios from 'axios';
+// Some imports not used depending on template conditions
+// @ts-ignore
 import { BASE_PATH, BaseAPI, RequiredError } from './base';
 /**
     * @export
@@ -235,7 +236,7 @@ export const AuthenticationApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("UserLogin" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof userLogin !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(userLogin !== undefined ? userLogin : {}) : (userLogin || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -489,6 +490,7 @@ export const AuthorizationApiAxiosParamCreator = function (configuration) {
             if (prompt !== undefined) {
                 localVarFormParams.set('prompt', prompt);
             }
+            localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
@@ -524,6 +526,7 @@ export const AuthorizationApiAxiosParamCreator = function (configuration) {
             if (submit !== undefined) {
                 localVarFormParams.set('submit', submit);
             }
+            localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
@@ -594,6 +597,7 @@ export const AuthorizationApiAxiosParamCreator = function (configuration) {
             if (clientSecret !== undefined) {
                 localVarFormParams.set('client_secret', clientSecret);
             }
+            localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
@@ -878,7 +882,7 @@ export const BotApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("PostBotChannel" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof postBotChannel !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(postBotChannel !== undefined ? postBotChannel : {}) : (postBotChannel || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -924,7 +928,7 @@ export const BotApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("PutBotEvents" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof putBotEvents !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(putBotEvents !== undefined ? putBotEvents : {}) : (putBotEvents || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -965,6 +969,7 @@ export const BotApiAxiosParamCreator = function (configuration) {
             if (file !== undefined) {
                 localVarFormParams.append('file', file);
             }
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
@@ -1014,7 +1019,7 @@ export const BotApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("PutBotState" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof putBotState !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(putBotState !== undefined ? putBotState : {}) : (putBotState || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -1054,7 +1059,7 @@ export const BotApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("PostBot" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof postBot !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(postBot !== undefined ? postBot : {}) : (postBot || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -1138,7 +1143,7 @@ export const BotApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("PatchBot" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof patchBot !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(patchBot !== undefined ? patchBot : {}) : (patchBot || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -2008,7 +2013,7 @@ export const ChannelApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("PutParentChannel" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof putParentChannel !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(putParentChannel !== undefined ? putParentChannel : {}) : (putParentChannel || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -2054,7 +2059,7 @@ export const ChannelApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("SetChannelTopic" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof setChannelTopic !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(setChannelTopic !== undefined ? setChannelTopic : {}) : (setChannelTopic || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -2094,7 +2099,7 @@ export const ChannelApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("CreateChannel" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof createChannel !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(createChannel !== undefined ? createChannel : {}) : (createChannel || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -2140,7 +2145,7 @@ export const ChannelApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("CreateChannelChild" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof createChannelChild !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(createChannelChild !== undefined ? createChannelChild : {}) : (createChannelChild || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -2210,7 +2215,7 @@ export const ChannelApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("PatchChannel" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof patchChannel !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(patchChannel !== undefined ? patchChannel : {}) : (patchChannel || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -2939,7 +2944,7 @@ export const ClientApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("PostClient" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof postClient !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(postClient !== undefined ? postClient : {}) : (postClient || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -3187,7 +3192,7 @@ export const ClientApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("PatchClient" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof patchClient !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(patchClient !== undefined ? patchClient : {}) : (patchClient || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -3664,6 +3669,7 @@ export const FileApiAxiosParamCreator = function (configuration) {
             if (aclReadable !== undefined) {
                 localVarFormParams.append('acl_readable', aclReadable);
             }
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
@@ -3945,7 +3951,7 @@ export const HeartbeatApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("Heartbeat" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof heartbeat !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(heartbeat !== undefined ? heartbeat : {}) : (heartbeat || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -4125,7 +4131,7 @@ export const MessageApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("SendMessage" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof sendMessage !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(sendMessage !== undefined ? sendMessage : {}) : (sendMessage || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -4366,7 +4372,7 @@ export const MessageApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("SendMessage" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof sendMessage !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(sendMessage !== undefined ? sendMessage : {}) : (sendMessage || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -4416,7 +4422,7 @@ export const MessageApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("SendMessage" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof sendMessage !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(sendMessage !== undefined ? sendMessage : {}) : (sendMessage || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -4462,7 +4468,7 @@ export const MessageApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("ReportMessage" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof reportMessage !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(reportMessage !== undefined ? reportMessage : {}) : (reportMessage || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -4882,7 +4888,7 @@ export const NotificationApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("NotificationUsers" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof notificationUsers !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(notificationUsers !== undefined ? notificationUsers : {}) : (notificationUsers || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -5062,7 +5068,7 @@ export const NotificationApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("FCMToken" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof fCMToken !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(fCMToken !== undefined ? fCMToken : {}) : (fCMToken || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -5399,7 +5405,7 @@ export const PinApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("MessageIDObject" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof messageIDObject !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(messageIDObject !== undefined ? messageIDObject : {}) : (messageIDObject || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -5941,6 +5947,7 @@ export const StampApiAxiosParamCreator = function (configuration) {
             if (file !== undefined) {
                 localVarFormParams.append('file', file);
             }
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
@@ -6020,6 +6027,7 @@ export const StampApiAxiosParamCreator = function (configuration) {
             if (file !== undefined) {
                 localVarFormParams.append('file', file);
             }
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
@@ -6211,7 +6219,7 @@ export const StampApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("MessageStampPost" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof messageStampPost !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(messageStampPost !== undefined ? messageStampPost : {}) : (messageStampPost || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -7023,7 +7031,7 @@ export const UserApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("UserData" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof userData !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(userData !== undefined ? userData : {}) : (userData || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -7058,6 +7066,7 @@ export const UserApiAxiosParamCreator = function (configuration) {
             if (file !== undefined) {
                 localVarFormParams.append('file', file);
             }
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
@@ -7094,7 +7103,7 @@ export const UserApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("ChangePassword" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof changePassword !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(changePassword !== undefined ? changePassword : {}) : (changePassword || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -7324,7 +7333,7 @@ export const UserApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("UserRegister" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof userRegister !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(userRegister !== undefined ? userRegister : {}) : (userRegister || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -7710,7 +7719,7 @@ export const UserGroupApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("AddUserGroup" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof addUserGroup !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(addUserGroup !== undefined ? addUserGroup : {}) : (addUserGroup || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -7750,7 +7759,7 @@ export const UserGroupApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("PostUserGroup" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof postUserGroup !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(postUserGroup !== undefined ? postUserGroup : {}) : (postUserGroup || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -7878,7 +7887,7 @@ export const UserGroupApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("PatchUserGroup" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof patchUserGroup !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(patchUserGroup !== undefined ? patchUserGroup : {}) : (patchUserGroup || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -8457,7 +8466,7 @@ export const UserTagApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("SetTag" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof setTag !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(setTag !== undefined ? setTag : {}) : (setTag || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -8509,7 +8518,7 @@ export const UserTagApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("SetTagLock" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof setTagLock !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(setTagLock !== undefined ? setTagLock : {}) : (setTagLock || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -8874,6 +8883,7 @@ export const WebhookApiAxiosParamCreator = function (configuration) {
             if (file !== undefined) {
                 localVarFormParams.append('file', file);
             }
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
@@ -8917,7 +8927,7 @@ export const WebhookApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("PostWebhook" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof postWebhook !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(postWebhook !== undefined ? postWebhook : {}) : (postWebhook || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -9001,7 +9011,7 @@ export const WebhookApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("PatchWebhook" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof patchWebhook !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(patchWebhook !== undefined ? patchWebhook : {}) : (patchWebhook || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -9147,7 +9157,7 @@ export const WebhookApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("object" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -9187,7 +9197,7 @@ export const WebhookApiAxiosParamCreator = function (configuration) {
                 localVarQueryParameter['embed'] = embed;
             }
             if (xTRAQChannelId !== undefined && xTRAQChannelId !== null) {
-                localVarHeaderParameter['X-TRAQ-Channel-Id'] = String(xTRAQChannelId);
+                localVarHeaderParameter['X-TRAQ-Channel-Id'] = String(JSON.stringify(xTRAQChannelId));
             }
             if (xTRAQSignature !== undefined && xTRAQSignature !== null) {
                 localVarHeaderParameter['X-TRAQ-Signature'] = String(xTRAQSignature);
@@ -9197,7 +9207,7 @@ export const WebhookApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("string" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
@@ -9645,7 +9655,7 @@ export const WebrtcApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = ("PutWebRTCState" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (typeof putWebRTCState !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data = needsSerialization ? JSON.stringify(putWebRTCState !== undefined ? putWebRTCState : {}) : (putWebRTCState || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),

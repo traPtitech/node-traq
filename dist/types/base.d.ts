@@ -9,7 +9,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-/// <reference path="../../bin/generated/custom.d.ts" />
 import { Configuration } from "./configuration";
 import { AxiosInstance } from 'axios';
 export declare const BASE_PATH: string;

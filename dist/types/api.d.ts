@@ -9,7 +9,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-/// <reference path="../../bin/generated/custom.d.ts" />
 import { Configuration } from './configuration';
 import { AxiosPromise, AxiosInstance } from 'axios';
 import { RequestArgs, BaseAPI } from './base';
@@ -372,10 +371,10 @@ export interface ChannelEvent {
     type?: ChannelEventTypeEnum;
     /**
      * イベント詳細
-     * @type {TopicChangedEvent | SubscribersChangedEvent | PinAddedEvent | PinRemovedEvent | NameChangedEvent | ParentChangedEvent | VisibilityChangedEvent | ForcedNotificationChangedEvent | ChildCreatedEvent | Event}
+     * @type {TopicChangedEvent | SubscribersChangedEvent | PinAddedEvent | PinRemovedEvent | NameChangedEvent | ParentChangedEvent | VisibilityChangedEvent | ForcedNotificationChangedEvent | ChildCreatedEvent}
      * @memberof ChannelEvent
      */
-    detail?: TopicChangedEvent | SubscribersChangedEvent | PinAddedEvent | PinRemovedEvent | NameChangedEvent | ParentChangedEvent | VisibilityChangedEvent | ForcedNotificationChangedEvent | ChildCreatedEvent | Event;
+    detail?: TopicChangedEvent | SubscribersChangedEvent | PinAddedEvent | PinRemovedEvent | NameChangedEvent | ParentChangedEvent | VisibilityChangedEvent | ForcedNotificationChangedEvent | ChildCreatedEvent;
     /**
      * イベント発生日
      * @type {Date}
@@ -2475,14 +2474,14 @@ export declare const AuthenticationApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    login(userLogin: UserLogin, redirect?: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    login(userLogin: UserLogin, redirect?: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * ログアウトを行います。リダイレクトパラメーターが存在する場合はログアウト後にリダイレクトします
      * @param {string} [redirect] リダイレクト先
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    logout(redirect?: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    logout(redirect?: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
 };
 /**
  * AuthenticationApi - factory interface
@@ -2496,14 +2495,14 @@ export declare const AuthenticationApiFactory: (configuration?: Configuration, b
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    login(userLogin: UserLogin, redirect?: string, options?: any): AxiosPromise<Response>;
+    login(userLogin: UserLogin, redirect?: string, options?: any): AxiosPromise<void>;
     /**
      * ログアウトを行います。リダイレクトパラメーターが存在する場合はログアウト後にリダイレクトします
      * @param {string} [redirect] リダイレクト先
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    logout(redirect?: string, options?: any): AxiosPromise<Response>;
+    logout(redirect?: string, options?: any): AxiosPromise<void>;
 };
 /**
  * AuthenticationApi - object-oriented interface
@@ -2520,7 +2519,7 @@ export declare class AuthenticationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthenticationApi
      */
-    login(userLogin: UserLogin, redirect?: string, options?: any): AxiosPromise<Response>;
+    login(userLogin: UserLogin, redirect?: string, options?: any): AxiosPromise<void>;
     /**
      * ログアウトを行います。リダイレクトパラメーターが存在する場合はログアウト後にリダイレクトします
      * @param {string} [redirect] リダイレクト先
@@ -2528,7 +2527,7 @@ export declare class AuthenticationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthenticationApi
      */
-    logout(redirect?: string, options?: any): AxiosPromise<Response>;
+    logout(redirect?: string, options?: any): AxiosPromise<void>;
 }
 /**
  * AuthorizationApi - axios parameter creator
@@ -2608,7 +2607,7 @@ export declare const AuthorizationApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getOauth2Authorize(clientId: string, responseType?: OAuth2ResponseType, redirectUri?: string, scope?: string, state?: string, codeChallenge?: string, codeChallengeMethod?: string, nonce?: string, prompt?: OAuth2Prompt, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    getOauth2Authorize(clientId: string, responseType?: OAuth2ResponseType, redirectUri?: string, scope?: string, state?: string, codeChallenge?: string, codeChallengeMethod?: string, nonce?: string, prompt?: OAuth2Prompt, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * OAuth2 認可エンドポイント
      * @param {string} clientId
@@ -2623,14 +2622,14 @@ export declare const AuthorizationApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    postOauth2Authorize(clientId: string, responseType?: OAuth2ResponseType, redirectUri?: string, scope?: string, state?: string, codeChallenge?: string, codeChallengeMethod?: string, nonce?: string, prompt?: OAuth2Prompt, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    postOauth2Authorize(clientId: string, responseType?: OAuth2ResponseType, redirectUri?: string, scope?: string, state?: string, codeChallenge?: string, codeChallengeMethod?: string, nonce?: string, prompt?: OAuth2Prompt, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * OAuth2 認可承諾
      * @param {string} submit 承諾する場合は\\\&quot;approve\\\&quot;
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    postOauth2AuthorizeDecide(submit: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    postOauth2AuthorizeDecide(submit: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * OAuth2 トークンエンドポイント
      * @param {string} grantType
@@ -2667,7 +2666,7 @@ export declare const AuthorizationApiFactory: (configuration?: Configuration, ba
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getOauth2Authorize(clientId: string, responseType?: OAuth2ResponseType, redirectUri?: string, scope?: string, state?: string, codeChallenge?: string, codeChallengeMethod?: string, nonce?: string, prompt?: OAuth2Prompt, options?: any): AxiosPromise<Response>;
+    getOauth2Authorize(clientId: string, responseType?: OAuth2ResponseType, redirectUri?: string, scope?: string, state?: string, codeChallenge?: string, codeChallengeMethod?: string, nonce?: string, prompt?: OAuth2Prompt, options?: any): AxiosPromise<void>;
     /**
      * OAuth2 認可エンドポイント
      * @param {string} clientId
@@ -2682,14 +2681,14 @@ export declare const AuthorizationApiFactory: (configuration?: Configuration, ba
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    postOauth2Authorize(clientId: string, responseType?: OAuth2ResponseType, redirectUri?: string, scope?: string, state?: string, codeChallenge?: string, codeChallengeMethod?: string, nonce?: string, prompt?: OAuth2Prompt, options?: any): AxiosPromise<Response>;
+    postOauth2Authorize(clientId: string, responseType?: OAuth2ResponseType, redirectUri?: string, scope?: string, state?: string, codeChallenge?: string, codeChallengeMethod?: string, nonce?: string, prompt?: OAuth2Prompt, options?: any): AxiosPromise<void>;
     /**
      * OAuth2 認可承諾
      * @param {string} submit 承諾する場合は\\\&quot;approve\\\&quot;
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    postOauth2AuthorizeDecide(submit: string, options?: any): AxiosPromise<Response>;
+    postOauth2AuthorizeDecide(submit: string, options?: any): AxiosPromise<void>;
     /**
      * OAuth2 トークンエンドポイント
      * @param {string} grantType
@@ -2729,7 +2728,7 @@ export declare class AuthorizationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthorizationApi
      */
-    getOauth2Authorize(clientId: string, responseType?: OAuth2ResponseType, redirectUri?: string, scope?: string, state?: string, codeChallenge?: string, codeChallengeMethod?: string, nonce?: string, prompt?: OAuth2Prompt, options?: any): AxiosPromise<Response>;
+    getOauth2Authorize(clientId: string, responseType?: OAuth2ResponseType, redirectUri?: string, scope?: string, state?: string, codeChallenge?: string, codeChallengeMethod?: string, nonce?: string, prompt?: OAuth2Prompt, options?: any): AxiosPromise<void>;
     /**
      * OAuth2 認可エンドポイント
      * @param {string} clientId
@@ -2745,7 +2744,7 @@ export declare class AuthorizationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthorizationApi
      */
-    postOauth2Authorize(clientId: string, responseType?: OAuth2ResponseType, redirectUri?: string, scope?: string, state?: string, codeChallenge?: string, codeChallengeMethod?: string, nonce?: string, prompt?: OAuth2Prompt, options?: any): AxiosPromise<Response>;
+    postOauth2Authorize(clientId: string, responseType?: OAuth2ResponseType, redirectUri?: string, scope?: string, state?: string, codeChallenge?: string, codeChallengeMethod?: string, nonce?: string, prompt?: OAuth2Prompt, options?: any): AxiosPromise<void>;
     /**
      * OAuth2 認可承諾
      * @param {string} submit 承諾する場合は\\\&quot;approve\\\&quot;
@@ -2753,7 +2752,7 @@ export declare class AuthorizationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthorizationApi
      */
-    postOauth2AuthorizeDecide(submit: string, options?: any): AxiosPromise<Response>;
+    postOauth2AuthorizeDecide(submit: string, options?: any): AxiosPromise<void>;
     /**
      * OAuth2 トークンエンドポイント
      * @param {string} grantType
@@ -2908,7 +2907,7 @@ export declare const BotApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeBotEvents(botID: string, putBotEvents: PutBotEvents, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    changeBotEvents(botID: string, putBotEvents: PutBotEvents, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 指定したBotのアイコンを変更します。
      * @param {string} botID 操作の対象となるBotのID
@@ -2916,7 +2915,7 @@ export declare const BotApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeBotIcon(botID: string, file?: any, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    changeBotIcon(botID: string, file?: any, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * Botの状態を変更します。
      * @param {string} botID 操作の対象となるBotのID
@@ -2924,7 +2923,7 @@ export declare const BotApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeBotState(botID: string, putBotState: PutBotState, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    changeBotState(botID: string, putBotState: PutBotState, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * Botを作成します。
      * @param {PostBot} postBot
@@ -2938,7 +2937,7 @@ export declare const BotApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteBot(botID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    deleteBot(botID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * Bot情報を変更します。
      * @param {string} botID 操作の対象となるBotのID
@@ -2946,7 +2945,7 @@ export declare const BotApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editBot(botID: string, patchBot: PatchBot, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    editBot(botID: string, patchBot: PatchBot, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * Botを取得します。
      * @param {string} botID 操作の対象となるBotのID
@@ -3002,7 +3001,7 @@ export declare const BotApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    removeChannelBot(channelID: string, botID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    removeChannelBot(channelID: string, botID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
 };
 /**
  * BotApi - factory interface
@@ -3024,7 +3023,7 @@ export declare const BotApiFactory: (configuration?: Configuration, basePath?: s
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeBotEvents(botID: string, putBotEvents: PutBotEvents, options?: any): AxiosPromise<Response>;
+    changeBotEvents(botID: string, putBotEvents: PutBotEvents, options?: any): AxiosPromise<void>;
     /**
      * 指定したBotのアイコンを変更します。
      * @param {string} botID 操作の対象となるBotのID
@@ -3032,7 +3031,7 @@ export declare const BotApiFactory: (configuration?: Configuration, basePath?: s
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeBotIcon(botID: string, file?: any, options?: any): AxiosPromise<Response>;
+    changeBotIcon(botID: string, file?: any, options?: any): AxiosPromise<void>;
     /**
      * Botの状態を変更します。
      * @param {string} botID 操作の対象となるBotのID
@@ -3040,7 +3039,7 @@ export declare const BotApiFactory: (configuration?: Configuration, basePath?: s
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeBotState(botID: string, putBotState: PutBotState, options?: any): AxiosPromise<Response>;
+    changeBotState(botID: string, putBotState: PutBotState, options?: any): AxiosPromise<void>;
     /**
      * Botを作成します。
      * @param {PostBot} postBot
@@ -3054,7 +3053,7 @@ export declare const BotApiFactory: (configuration?: Configuration, basePath?: s
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteBot(botID: string, options?: any): AxiosPromise<Response>;
+    deleteBot(botID: string, options?: any): AxiosPromise<void>;
     /**
      * Bot情報を変更します。
      * @param {string} botID 操作の対象となるBotのID
@@ -3062,7 +3061,7 @@ export declare const BotApiFactory: (configuration?: Configuration, basePath?: s
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editBot(botID: string, patchBot: PatchBot, options?: any): AxiosPromise<Response>;
+    editBot(botID: string, patchBot: PatchBot, options?: any): AxiosPromise<void>;
     /**
      * Botを取得します。
      * @param {string} botID 操作の対象となるBotのID
@@ -3118,7 +3117,7 @@ export declare const BotApiFactory: (configuration?: Configuration, basePath?: s
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    removeChannelBot(channelID: string, botID: string, options?: any): AxiosPromise<Response>;
+    removeChannelBot(channelID: string, botID: string, options?: any): AxiosPromise<void>;
 };
 /**
  * BotApi - object-oriented interface
@@ -3144,7 +3143,7 @@ export declare class BotApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    changeBotEvents(botID: string, putBotEvents: PutBotEvents, options?: any): AxiosPromise<Response>;
+    changeBotEvents(botID: string, putBotEvents: PutBotEvents, options?: any): AxiosPromise<void>;
     /**
      * 指定したBotのアイコンを変更します。
      * @param {string} botID 操作の対象となるBotのID
@@ -3153,7 +3152,7 @@ export declare class BotApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    changeBotIcon(botID: string, file?: any, options?: any): AxiosPromise<Response>;
+    changeBotIcon(botID: string, file?: any, options?: any): AxiosPromise<void>;
     /**
      * Botの状態を変更します。
      * @param {string} botID 操作の対象となるBotのID
@@ -3162,7 +3161,7 @@ export declare class BotApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    changeBotState(botID: string, putBotState: PutBotState, options?: any): AxiosPromise<Response>;
+    changeBotState(botID: string, putBotState: PutBotState, options?: any): AxiosPromise<void>;
     /**
      * Botを作成します。
      * @param {PostBot} postBot
@@ -3178,7 +3177,7 @@ export declare class BotApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    deleteBot(botID: string, options?: any): AxiosPromise<Response>;
+    deleteBot(botID: string, options?: any): AxiosPromise<void>;
     /**
      * Bot情報を変更します。
      * @param {string} botID 操作の対象となるBotのID
@@ -3187,7 +3186,7 @@ export declare class BotApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    editBot(botID: string, patchBot: PatchBot, options?: any): AxiosPromise<Response>;
+    editBot(botID: string, patchBot: PatchBot, options?: any): AxiosPromise<void>;
     /**
      * Botを取得します。
      * @param {string} botID 操作の対象となるBotのID
@@ -3251,7 +3250,7 @@ export declare class BotApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    removeChannelBot(channelID: string, botID: string, options?: any): AxiosPromise<Response>;
+    removeChannelBot(channelID: string, botID: string, options?: any): AxiosPromise<void>;
 }
 /**
  * ChannelApi - axios parameter creator
@@ -3364,7 +3363,7 @@ export declare const ChannelApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeChannelParent(channelID: string, putParentChannel: PutParentChannel, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    changeChannelParent(channelID: string, putParentChannel: PutParentChannel, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * チャンネルの説明を変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -3372,7 +3371,7 @@ export declare const ChannelApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeChannelTopic(channelID: string, setChannelTopic: SetChannelTopic, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    changeChannelTopic(channelID: string, setChannelTopic: SetChannelTopic, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * チャンネルを作成します。
      * @param {CreateChannel} createChannel
@@ -3394,7 +3393,7 @@ export declare const ChannelApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteChannel(channelID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    deleteChannel(channelID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * チャンネルの情報を変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -3402,7 +3401,7 @@ export declare const ChannelApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editChannel(channelID: string, patchChannel: PatchChannel, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    editChannel(channelID: string, patchChannel: PatchChannel, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * チャンネルの情報を返します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -3463,7 +3462,7 @@ export declare const ChannelApiFactory: (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeChannelParent(channelID: string, putParentChannel: PutParentChannel, options?: any): AxiosPromise<Response>;
+    changeChannelParent(channelID: string, putParentChannel: PutParentChannel, options?: any): AxiosPromise<void>;
     /**
      * チャンネルの説明を変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -3471,7 +3470,7 @@ export declare const ChannelApiFactory: (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeChannelTopic(channelID: string, setChannelTopic: SetChannelTopic, options?: any): AxiosPromise<Response>;
+    changeChannelTopic(channelID: string, setChannelTopic: SetChannelTopic, options?: any): AxiosPromise<void>;
     /**
      * チャンネルを作成します。
      * @param {CreateChannel} createChannel
@@ -3493,7 +3492,7 @@ export declare const ChannelApiFactory: (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteChannel(channelID: string, options?: any): AxiosPromise<Response>;
+    deleteChannel(channelID: string, options?: any): AxiosPromise<void>;
     /**
      * チャンネルの情報を変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -3501,7 +3500,7 @@ export declare const ChannelApiFactory: (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editChannel(channelID: string, patchChannel: PatchChannel, options?: any): AxiosPromise<Response>;
+    editChannel(channelID: string, patchChannel: PatchChannel, options?: any): AxiosPromise<void>;
     /**
      * チャンネルの情報を返します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -3565,7 +3564,7 @@ export declare class ChannelApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    changeChannelParent(channelID: string, putParentChannel: PutParentChannel, options?: any): AxiosPromise<Response>;
+    changeChannelParent(channelID: string, putParentChannel: PutParentChannel, options?: any): AxiosPromise<void>;
     /**
      * チャンネルの説明を変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -3574,7 +3573,7 @@ export declare class ChannelApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    changeChannelTopic(channelID: string, setChannelTopic: SetChannelTopic, options?: any): AxiosPromise<Response>;
+    changeChannelTopic(channelID: string, setChannelTopic: SetChannelTopic, options?: any): AxiosPromise<void>;
     /**
      * チャンネルを作成します。
      * @param {CreateChannel} createChannel
@@ -3599,7 +3598,7 @@ export declare class ChannelApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    deleteChannel(channelID: string, options?: any): AxiosPromise<Response>;
+    deleteChannel(channelID: string, options?: any): AxiosPromise<void>;
     /**
      * チャンネルの情報を変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -3608,7 +3607,7 @@ export declare class ChannelApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    editChannel(channelID: string, patchChannel: PatchChannel, options?: any): AxiosPromise<Response>;
+    editChannel(channelID: string, patchChannel: PatchChannel, options?: any): AxiosPromise<void>;
     /**
      * チャンネルの情報を返します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -3742,14 +3741,14 @@ export declare const ClientApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteClient(clientID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    deleteClient(clientID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 指定したトークンの認可を取り消します。
      * @param {string} oauth2TokenID 操作の対象となるTokenのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteToken(oauth2TokenID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    deleteToken(oauth2TokenID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 指定したクライアントIDのクライアントの情報を取得します。
      * @param {string} clientID 操作の対象となるclientのID
@@ -3783,7 +3782,7 @@ export declare const ClientApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    patchClient(clientID: string, patchClient: PatchClient, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    patchClient(clientID: string, patchClient: PatchClient, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
 };
 /**
  * ClientApi - factory interface
@@ -3803,14 +3802,14 @@ export declare const ClientApiFactory: (configuration?: Configuration, basePath?
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteClient(clientID: string, options?: any): AxiosPromise<Response>;
+    deleteClient(clientID: string, options?: any): AxiosPromise<void>;
     /**
      * 指定したトークンの認可を取り消します。
      * @param {string} oauth2TokenID 操作の対象となるTokenのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteToken(oauth2TokenID: string, options?: any): AxiosPromise<Response>;
+    deleteToken(oauth2TokenID: string, options?: any): AxiosPromise<void>;
     /**
      * 指定したクライアントIDのクライアントの情報を取得します。
      * @param {string} clientID 操作の対象となるclientのID
@@ -3844,7 +3843,7 @@ export declare const ClientApiFactory: (configuration?: Configuration, basePath?
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    patchClient(clientID: string, patchClient: PatchClient, options?: any): AxiosPromise<Response>;
+    patchClient(clientID: string, patchClient: PatchClient, options?: any): AxiosPromise<void>;
 };
 /**
  * ClientApi - object-oriented interface
@@ -3868,7 +3867,7 @@ export declare class ClientApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    deleteClient(clientID: string, options?: any): AxiosPromise<Response>;
+    deleteClient(clientID: string, options?: any): AxiosPromise<void>;
     /**
      * 指定したトークンの認可を取り消します。
      * @param {string} oauth2TokenID 操作の対象となるTokenのID
@@ -3876,7 +3875,7 @@ export declare class ClientApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    deleteToken(oauth2TokenID: string, options?: any): AxiosPromise<Response>;
+    deleteToken(oauth2TokenID: string, options?: any): AxiosPromise<void>;
     /**
      * 指定したクライアントIDのクライアントの情報を取得します。
      * @param {string} clientID 操作の対象となるclientのID
@@ -3915,7 +3914,7 @@ export declare class ClientApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    patchClient(clientID: string, patchClient: PatchClient, options?: any): AxiosPromise<Response>;
+    patchClient(clientID: string, patchClient: PatchClient, options?: any): AxiosPromise<void>;
 }
 /**
  * FileApi - axios parameter creator
@@ -3971,7 +3970,7 @@ export declare const FileApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteFile(fileID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    deleteFile(fileID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 指定したファイルの中身を取得します。
      * @param {string} fileID 操作の対象となるファイルID
@@ -4014,7 +4013,7 @@ export declare const FileApiFactory: (configuration?: Configuration, basePath?: 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteFile(fileID: string, options?: any): AxiosPromise<Response>;
+    deleteFile(fileID: string, options?: any): AxiosPromise<void>;
     /**
      * 指定したファイルの中身を取得します。
      * @param {string} fileID 操作の対象となるファイルID
@@ -4060,7 +4059,7 @@ export declare class FileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FileApi
      */
-    deleteFile(fileID: string, options?: any): AxiosPromise<Response>;
+    deleteFile(fileID: string, options?: any): AxiosPromise<void>;
     /**
      * 指定したファイルの中身を取得します。
      * @param {string} fileID 操作の対象となるファイルID
@@ -4134,7 +4133,7 @@ export declare const HeartbeatApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    postHeartbeat(heartbeat: Heartbeat, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    postHeartbeat(heartbeat: Heartbeat, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
 };
 /**
  * HeartbeatApi - factory interface
@@ -4154,7 +4153,7 @@ export declare const HeartbeatApiFactory: (configuration?: Configuration, basePa
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    postHeartbeat(heartbeat: Heartbeat, options?: any): AxiosPromise<Response>;
+    postHeartbeat(heartbeat: Heartbeat, options?: any): AxiosPromise<void>;
 };
 /**
  * HeartbeatApi - object-oriented interface
@@ -4178,7 +4177,7 @@ export declare class HeartbeatApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof HeartbeatApi
      */
-    postHeartbeat(heartbeat: Heartbeat, options?: any): AxiosPromise<Response>;
+    postHeartbeat(heartbeat: Heartbeat, options?: any): AxiosPromise<void>;
 }
 /**
  * MessageApi - axios parameter creator
@@ -4278,7 +4277,7 @@ export declare const MessageApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteMessage(messageID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    deleteMessage(messageID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 指定したメッセージを編集します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -4286,7 +4285,7 @@ export declare const MessageApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editMessage(messageID: string, sendMessage: SendMessage, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    editMessage(messageID: string, sendMessage: SendMessage, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * DMチャンネルに存在するメッセージを取得します。
      * @param {string} userID 操作の対象となるユーザーID
@@ -4352,7 +4351,7 @@ export declare const MessageApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    reportMessage(messageID: string, reportMessage: ReportMessage, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    reportMessage(messageID: string, reportMessage: ReportMessage, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
 };
 /**
  * MessageApi - factory interface
@@ -4365,7 +4364,7 @@ export declare const MessageApiFactory: (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteMessage(messageID: string, options?: any): AxiosPromise<Response>;
+    deleteMessage(messageID: string, options?: any): AxiosPromise<void>;
     /**
      * 指定したメッセージを編集します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -4373,7 +4372,7 @@ export declare const MessageApiFactory: (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editMessage(messageID: string, sendMessage: SendMessage, options?: any): AxiosPromise<Response>;
+    editMessage(messageID: string, sendMessage: SendMessage, options?: any): AxiosPromise<void>;
     /**
      * DMチャンネルに存在するメッセージを取得します。
      * @param {string} userID 操作の対象となるユーザーID
@@ -4439,7 +4438,7 @@ export declare const MessageApiFactory: (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    reportMessage(messageID: string, reportMessage: ReportMessage, options?: any): AxiosPromise<Response>;
+    reportMessage(messageID: string, reportMessage: ReportMessage, options?: any): AxiosPromise<void>;
 };
 /**
  * MessageApi - object-oriented interface
@@ -4455,7 +4454,7 @@ export declare class MessageApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    deleteMessage(messageID: string, options?: any): AxiosPromise<Response>;
+    deleteMessage(messageID: string, options?: any): AxiosPromise<void>;
     /**
      * 指定したメッセージを編集します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -4464,7 +4463,7 @@ export declare class MessageApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    editMessage(messageID: string, sendMessage: SendMessage, options?: any): AxiosPromise<Response>;
+    editMessage(messageID: string, sendMessage: SendMessage, options?: any): AxiosPromise<void>;
     /**
      * DMチャンネルに存在するメッセージを取得します。
      * @param {string} userID 操作の対象となるユーザーID
@@ -4537,7 +4536,7 @@ export declare class MessageApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    reportMessage(messageID: string, reportMessage: ReportMessage, options?: any): AxiosPromise<Response>;
+    reportMessage(messageID: string, reportMessage: ReportMessage, options?: any): AxiosPromise<void>;
 }
 /**
  * NotificationApi - axios parameter creator
@@ -4598,13 +4597,13 @@ export declare const NotificationApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeSubscribers(channelID: string, notificationUsers: NotificationUsers, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    changeSubscribers(channelID: string, notificationUsers: NotificationUsers, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 通知ストリーム(Server Sent Events)に接続します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    connectNotification(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    connectNotification(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 自分が通知を入れているチャンネルのリストを取得します
      * @param {*} [options] Override http request option.
@@ -4631,7 +4630,7 @@ export declare const NotificationApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    registerNotificationDevice(fCMToken: FCMToken, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    registerNotificationDevice(fCMToken: FCMToken, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
 };
 /**
  * NotificationApi - factory interface
@@ -4645,13 +4644,13 @@ export declare const NotificationApiFactory: (configuration?: Configuration, bas
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeSubscribers(channelID: string, notificationUsers: NotificationUsers, options?: any): AxiosPromise<Response>;
+    changeSubscribers(channelID: string, notificationUsers: NotificationUsers, options?: any): AxiosPromise<void>;
     /**
      * 通知ストリーム(Server Sent Events)に接続します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    connectNotification(options?: any): AxiosPromise<Response>;
+    connectNotification(options?: any): AxiosPromise<void>;
     /**
      * 自分が通知を入れているチャンネルのリストを取得します
      * @param {*} [options] Override http request option.
@@ -4678,7 +4677,7 @@ export declare const NotificationApiFactory: (configuration?: Configuration, bas
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    registerNotificationDevice(fCMToken: FCMToken, options?: any): AxiosPromise<Response>;
+    registerNotificationDevice(fCMToken: FCMToken, options?: any): AxiosPromise<void>;
 };
 /**
  * NotificationApi - object-oriented interface
@@ -4695,14 +4694,14 @@ export declare class NotificationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    changeSubscribers(channelID: string, notificationUsers: NotificationUsers, options?: any): AxiosPromise<Response>;
+    changeSubscribers(channelID: string, notificationUsers: NotificationUsers, options?: any): AxiosPromise<void>;
     /**
      * 通知ストリーム(Server Sent Events)に接続します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    connectNotification(options?: any): AxiosPromise<Response>;
+    connectNotification(options?: any): AxiosPromise<void>;
     /**
      * 自分が通知を入れているチャンネルのリストを取得します
      * @param {*} [options] Override http request option.
@@ -4733,7 +4732,7 @@ export declare class NotificationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    registerNotificationDevice(fCMToken: FCMToken, options?: any): AxiosPromise<Response>;
+    registerNotificationDevice(fCMToken: FCMToken, options?: any): AxiosPromise<void>;
 }
 /**
  * PinApi - axios parameter creator
@@ -4801,7 +4800,7 @@ export declare const PinApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    unpinMessage(pinID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    unpinMessage(pinID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
 };
 /**
  * PinApi - factory interface
@@ -4835,7 +4834,7 @@ export declare const PinApiFactory: (configuration?: Configuration, basePath?: s
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    unpinMessage(pinID: string, options?: any): AxiosPromise<Response>;
+    unpinMessage(pinID: string, options?: any): AxiosPromise<void>;
 };
 /**
  * PinApi - object-oriented interface
@@ -4875,7 +4874,7 @@ export declare class PinApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PinApi
      */
-    unpinMessage(pinID: string, options?: any): AxiosPromise<Response>;
+    unpinMessage(pinID: string, options?: any): AxiosPromise<void>;
 }
 /**
  * PublicApi - axios parameter creator
@@ -4968,13 +4967,13 @@ export declare const SessionsApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteSession(referenceID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    deleteSession(referenceID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 自分のログインセッションを全てログアウトします。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteSessions(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    deleteSessions(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 自分のログインセッションリストを取得します。
      * @param {*} [options] Override http request option.
@@ -4993,13 +4992,13 @@ export declare const SessionsApiFactory: (configuration?: Configuration, basePat
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteSession(referenceID: string, options?: any): AxiosPromise<Response>;
+    deleteSession(referenceID: string, options?: any): AxiosPromise<void>;
     /**
      * 自分のログインセッションを全てログアウトします。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteSessions(options?: any): AxiosPromise<Response>;
+    deleteSessions(options?: any): AxiosPromise<void>;
     /**
      * 自分のログインセッションリストを取得します。
      * @param {*} [options] Override http request option.
@@ -5021,14 +5020,14 @@ export declare class SessionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SessionsApi
      */
-    deleteSession(referenceID: string, options?: any): AxiosPromise<Response>;
+    deleteSession(referenceID: string, options?: any): AxiosPromise<void>;
     /**
      * 自分のログインセッションを全てログアウトします。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SessionsApi
      */
-    deleteSessions(options?: any): AxiosPromise<Response>;
+    deleteSessions(options?: any): AxiosPromise<void>;
     /**
      * 自分のログインセッションリストを取得します。
      * @param {*} [options] Override http request option.
@@ -5129,7 +5128,7 @@ export declare const StampApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteStamp(stampID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    deleteStamp(stampID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * スタンプを修正します。
      * @param {string} stampID 操作の対象となるスタンプID
@@ -5138,7 +5137,7 @@ export declare const StampApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editStamp(stampID: string, name?: string, file?: any, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    editStamp(stampID: string, name?: string, file?: any, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 指定したメッセージに押されているスタンプを全て取得します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -5173,7 +5172,7 @@ export declare const StampApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    stampMessage(messageID: string, stampID: string, messageStampPost?: MessageStampPost, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    stampMessage(messageID: string, stampID: string, messageStampPost?: MessageStampPost, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 指定したメッセージから指定したスタンプを外します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -5181,7 +5180,7 @@ export declare const StampApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    unstampMessage(messageID: string, stampID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    unstampMessage(messageID: string, stampID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
 };
 /**
  * StampApi - factory interface
@@ -5202,7 +5201,7 @@ export declare const StampApiFactory: (configuration?: Configuration, basePath?:
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteStamp(stampID: string, options?: any): AxiosPromise<Response>;
+    deleteStamp(stampID: string, options?: any): AxiosPromise<void>;
     /**
      * スタンプを修正します。
      * @param {string} stampID 操作の対象となるスタンプID
@@ -5211,7 +5210,7 @@ export declare const StampApiFactory: (configuration?: Configuration, basePath?:
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editStamp(stampID: string, name?: string, file?: any, options?: any): AxiosPromise<Response>;
+    editStamp(stampID: string, name?: string, file?: any, options?: any): AxiosPromise<void>;
     /**
      * 指定したメッセージに押されているスタンプを全て取得します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -5246,7 +5245,7 @@ export declare const StampApiFactory: (configuration?: Configuration, basePath?:
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    stampMessage(messageID: string, stampID: string, messageStampPost?: MessageStampPost, options?: any): AxiosPromise<Response>;
+    stampMessage(messageID: string, stampID: string, messageStampPost?: MessageStampPost, options?: any): AxiosPromise<void>;
     /**
      * 指定したメッセージから指定したスタンプを外します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -5254,7 +5253,7 @@ export declare const StampApiFactory: (configuration?: Configuration, basePath?:
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    unstampMessage(messageID: string, stampID: string, options?: any): AxiosPromise<Response>;
+    unstampMessage(messageID: string, stampID: string, options?: any): AxiosPromise<void>;
 };
 /**
  * StampApi - object-oriented interface
@@ -5279,7 +5278,7 @@ export declare class StampApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof StampApi
      */
-    deleteStamp(stampID: string, options?: any): AxiosPromise<Response>;
+    deleteStamp(stampID: string, options?: any): AxiosPromise<void>;
     /**
      * スタンプを修正します。
      * @param {string} stampID 操作の対象となるスタンプID
@@ -5289,7 +5288,7 @@ export declare class StampApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof StampApi
      */
-    editStamp(stampID: string, name?: string, file?: any, options?: any): AxiosPromise<Response>;
+    editStamp(stampID: string, name?: string, file?: any, options?: any): AxiosPromise<void>;
     /**
      * 指定したメッセージに押されているスタンプを全て取得します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -5329,7 +5328,7 @@ export declare class StampApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof StampApi
      */
-    stampMessage(messageID: string, stampID: string, messageStampPost?: MessageStampPost, options?: any): AxiosPromise<Response>;
+    stampMessage(messageID: string, stampID: string, messageStampPost?: MessageStampPost, options?: any): AxiosPromise<void>;
     /**
      * 指定したメッセージから指定したスタンプを外します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -5338,7 +5337,7 @@ export declare class StampApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof StampApi
      */
-    unstampMessage(messageID: string, stampID: string, options?: any): AxiosPromise<Response>;
+    unstampMessage(messageID: string, stampID: string, options?: any): AxiosPromise<void>;
 }
 /**
  * StarApi - axios parameter creator
@@ -5383,14 +5382,14 @@ export declare const StarApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    starChannel(channelID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    starChannel(channelID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * +| お気に入りチャンネルリストから削除します。 既にお気に入りチャンネルリストに無いチャンネルを指定した場合は無視されます(204)。
      * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    unstarChannel(channelID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    unstarChannel(channelID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
 };
 /**
  * StarApi - factory interface
@@ -5409,14 +5408,14 @@ export declare const StarApiFactory: (configuration?: Configuration, basePath?: 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    starChannel(channelID: string, options?: any): AxiosPromise<Response>;
+    starChannel(channelID: string, options?: any): AxiosPromise<void>;
     /**
      * +| お気に入りチャンネルリストから削除します。 既にお気に入りチャンネルリストに無いチャンネルを指定した場合は無視されます(204)。
      * @param {string} channelID 操作の対象となるチャンネルのID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    unstarChannel(channelID: string, options?: any): AxiosPromise<Response>;
+    unstarChannel(channelID: string, options?: any): AxiosPromise<void>;
 };
 /**
  * StarApi - object-oriented interface
@@ -5439,7 +5438,7 @@ export declare class StarApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof StarApi
      */
-    starChannel(channelID: string, options?: any): AxiosPromise<Response>;
+    starChannel(channelID: string, options?: any): AxiosPromise<void>;
     /**
      * +| お気に入りチャンネルリストから削除します。 既にお気に入りチャンネルリストに無いチャンネルを指定した場合は無視されます(204)。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -5447,7 +5446,7 @@ export declare class StarApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof StarApi
      */
-    unstarChannel(channelID: string, options?: any): AxiosPromise<Response>;
+    unstarChannel(channelID: string, options?: any): AxiosPromise<void>;
 }
 /**
  * UnreadApi - axios parameter creator
@@ -5485,7 +5484,7 @@ export declare const UnreadApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    readMessages(channelID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    readMessages(channelID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
 };
 /**
  * UnreadApi - factory interface
@@ -5504,7 +5503,7 @@ export declare const UnreadApiFactory: (configuration?: Configuration, basePath?
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    readMessages(channelID: string, options?: any): AxiosPromise<Response>;
+    readMessages(channelID: string, options?: any): AxiosPromise<void>;
 };
 /**
  * UnreadApi - object-oriented interface
@@ -5527,7 +5526,7 @@ export declare class UnreadApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UnreadApi
      */
-    readMessages(channelID: string, options?: any): AxiosPromise<Response>;
+    readMessages(channelID: string, options?: any): AxiosPromise<void>;
 }
 /**
  * UserApi - axios parameter creator
@@ -5612,21 +5611,21 @@ export declare const UserApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeMe(userData: UserData, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    changeMe(userData: UserData, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 自分のアイコンを更新します。
      * @param {any} [file] 1MBまでのpng, jpeg, gif
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeMyIcon(file?: any, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    changeMyIcon(file?: any, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 自分のパスワードを変更します。
      * @param {ChangePassword} changePassword
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changePassword(changePassword: ChangePassword, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    changePassword(changePassword: ChangePassword, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 自分のユーザー情報を取得します。
      * @param {*} [options] Override http request option.
@@ -5671,7 +5670,7 @@ export declare const UserApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    registerUser(userRegister: UserRegister, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    registerUser(userRegister: UserRegister, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
 };
 /**
  * UserApi - factory interface
@@ -5684,21 +5683,21 @@ export declare const UserApiFactory: (configuration?: Configuration, basePath?: 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeMe(userData: UserData, options?: any): AxiosPromise<Response>;
+    changeMe(userData: UserData, options?: any): AxiosPromise<void>;
     /**
      * 自分のアイコンを更新します。
      * @param {any} [file] 1MBまでのpng, jpeg, gif
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeMyIcon(file?: any, options?: any): AxiosPromise<Response>;
+    changeMyIcon(file?: any, options?: any): AxiosPromise<void>;
     /**
      * 自分のパスワードを変更します。
      * @param {ChangePassword} changePassword
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changePassword(changePassword: ChangePassword, options?: any): AxiosPromise<Response>;
+    changePassword(changePassword: ChangePassword, options?: any): AxiosPromise<void>;
     /**
      * 自分のユーザー情報を取得します。
      * @param {*} [options] Override http request option.
@@ -5743,7 +5742,7 @@ export declare const UserApiFactory: (configuration?: Configuration, basePath?: 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    registerUser(userRegister: UserRegister, options?: any): AxiosPromise<Response>;
+    registerUser(userRegister: UserRegister, options?: any): AxiosPromise<void>;
 };
 /**
  * UserApi - object-oriented interface
@@ -5759,7 +5758,7 @@ export declare class UserApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    changeMe(userData: UserData, options?: any): AxiosPromise<Response>;
+    changeMe(userData: UserData, options?: any): AxiosPromise<void>;
     /**
      * 自分のアイコンを更新します。
      * @param {any} [file] 1MBまでのpng, jpeg, gif
@@ -5767,7 +5766,7 @@ export declare class UserApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    changeMyIcon(file?: any, options?: any): AxiosPromise<Response>;
+    changeMyIcon(file?: any, options?: any): AxiosPromise<void>;
     /**
      * 自分のパスワードを変更します。
      * @param {ChangePassword} changePassword
@@ -5775,7 +5774,7 @@ export declare class UserApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    changePassword(changePassword: ChangePassword, options?: any): AxiosPromise<Response>;
+    changePassword(changePassword: ChangePassword, options?: any): AxiosPromise<void>;
     /**
      * 自分のユーザー情報を取得します。
      * @param {*} [options] Override http request option.
@@ -5827,7 +5826,7 @@ export declare class UserApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    registerUser(userRegister: UserRegister, options?: any): AxiosPromise<Response>;
+    registerUser(userRegister: UserRegister, options?: any): AxiosPromise<void>;
 }
 /**
  * UserGroupApi - axios parameter creator
@@ -5918,7 +5917,7 @@ export declare const UserGroupApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    addGroupMember(groupID: string, addUserGroup: AddUserGroup, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    addGroupMember(groupID: string, addUserGroup: AddUserGroup, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * ユーザーグループを作成します
      * @param {PostUserGroup} postUserGroup
@@ -5932,7 +5931,7 @@ export declare const UserGroupApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteGroup(groupID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    deleteGroup(groupID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * ユーザーグループからメンバーを削除します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -5940,7 +5939,7 @@ export declare const UserGroupApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteGroupMember(groupID: string, userID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    deleteGroupMember(groupID: string, userID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * ユーザーグループの情報を変更します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -5948,7 +5947,7 @@ export declare const UserGroupApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editGroup(groupID: string, patchUserGroup: PatchUserGroup, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    editGroup(groupID: string, patchUserGroup: PatchUserGroup, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * ユーザーグループを取得します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -5995,7 +5994,7 @@ export declare const UserGroupApiFactory: (configuration?: Configuration, basePa
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    addGroupMember(groupID: string, addUserGroup: AddUserGroup, options?: any): AxiosPromise<Response>;
+    addGroupMember(groupID: string, addUserGroup: AddUserGroup, options?: any): AxiosPromise<void>;
     /**
      * ユーザーグループを作成します
      * @param {PostUserGroup} postUserGroup
@@ -6009,7 +6008,7 @@ export declare const UserGroupApiFactory: (configuration?: Configuration, basePa
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteGroup(groupID: string, options?: any): AxiosPromise<Response>;
+    deleteGroup(groupID: string, options?: any): AxiosPromise<void>;
     /**
      * ユーザーグループからメンバーを削除します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -6017,7 +6016,7 @@ export declare const UserGroupApiFactory: (configuration?: Configuration, basePa
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteGroupMember(groupID: string, userID: string, options?: any): AxiosPromise<Response>;
+    deleteGroupMember(groupID: string, userID: string, options?: any): AxiosPromise<void>;
     /**
      * ユーザーグループの情報を変更します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -6025,7 +6024,7 @@ export declare const UserGroupApiFactory: (configuration?: Configuration, basePa
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editGroup(groupID: string, patchUserGroup: PatchUserGroup, options?: any): AxiosPromise<Response>;
+    editGroup(groupID: string, patchUserGroup: PatchUserGroup, options?: any): AxiosPromise<void>;
     /**
      * ユーザーグループを取得します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -6075,7 +6074,7 @@ export declare class UserGroupApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    addGroupMember(groupID: string, addUserGroup: AddUserGroup, options?: any): AxiosPromise<Response>;
+    addGroupMember(groupID: string, addUserGroup: AddUserGroup, options?: any): AxiosPromise<void>;
     /**
      * ユーザーグループを作成します
      * @param {PostUserGroup} postUserGroup
@@ -6091,7 +6090,7 @@ export declare class UserGroupApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    deleteGroup(groupID: string, options?: any): AxiosPromise<Response>;
+    deleteGroup(groupID: string, options?: any): AxiosPromise<void>;
     /**
      * ユーザーグループからメンバーを削除します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -6100,7 +6099,7 @@ export declare class UserGroupApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    deleteGroupMember(groupID: string, userID: string, options?: any): AxiosPromise<Response>;
+    deleteGroupMember(groupID: string, userID: string, options?: any): AxiosPromise<void>;
     /**
      * ユーザーグループの情報を変更します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -6109,7 +6108,7 @@ export declare class UserGroupApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    editGroup(groupID: string, patchUserGroup: PatchUserGroup, options?: any): AxiosPromise<Response>;
+    editGroup(groupID: string, patchUserGroup: PatchUserGroup, options?: any): AxiosPromise<void>;
     /**
      * ユーザーグループを取得します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -6206,7 +6205,7 @@ export declare const UserTagApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    addUserTag(userID: string, setTag: SetTag, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    addUserTag(userID: string, setTag: SetTag, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * タグのロック、アンロックを変更します。
      * @param {string} userID 操作の対象となるユーザーID
@@ -6215,7 +6214,7 @@ export declare const UserTagApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeLockUserTag(userID: string, tagID: string, setTagLock: SetTagLock, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    changeLockUserTag(userID: string, tagID: string, setTagLock: SetTagLock, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * ユーザーから指定したタグを削除します。既に存在しないタグを削除しようとした場合は無視されます(204)。
      * @param {string} userID 操作の対象となるユーザーID
@@ -6223,7 +6222,7 @@ export declare const UserTagApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteUserTag(userID: string, tagID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    deleteUserTag(userID: string, tagID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 指定されたタグの情報を取得します。
      * @param {string} tagID 操作の対象となるタグID
@@ -6251,7 +6250,7 @@ export declare const UserTagApiFactory: (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    addUserTag(userID: string, setTag: SetTag, options?: any): AxiosPromise<Response>;
+    addUserTag(userID: string, setTag: SetTag, options?: any): AxiosPromise<void>;
     /**
      * タグのロック、アンロックを変更します。
      * @param {string} userID 操作の対象となるユーザーID
@@ -6260,7 +6259,7 @@ export declare const UserTagApiFactory: (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeLockUserTag(userID: string, tagID: string, setTagLock: SetTagLock, options?: any): AxiosPromise<Response>;
+    changeLockUserTag(userID: string, tagID: string, setTagLock: SetTagLock, options?: any): AxiosPromise<void>;
     /**
      * ユーザーから指定したタグを削除します。既に存在しないタグを削除しようとした場合は無視されます(204)。
      * @param {string} userID 操作の対象となるユーザーID
@@ -6268,7 +6267,7 @@ export declare const UserTagApiFactory: (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteUserTag(userID: string, tagID: string, options?: any): AxiosPromise<Response>;
+    deleteUserTag(userID: string, tagID: string, options?: any): AxiosPromise<void>;
     /**
      * 指定されたタグの情報を取得します。
      * @param {string} tagID 操作の対象となるタグID
@@ -6299,7 +6298,7 @@ export declare class UserTagApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserTagApi
      */
-    addUserTag(userID: string, setTag: SetTag, options?: any): AxiosPromise<Response>;
+    addUserTag(userID: string, setTag: SetTag, options?: any): AxiosPromise<void>;
     /**
      * タグのロック、アンロックを変更します。
      * @param {string} userID 操作の対象となるユーザーID
@@ -6309,7 +6308,7 @@ export declare class UserTagApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserTagApi
      */
-    changeLockUserTag(userID: string, tagID: string, setTagLock: SetTagLock, options?: any): AxiosPromise<Response>;
+    changeLockUserTag(userID: string, tagID: string, setTagLock: SetTagLock, options?: any): AxiosPromise<void>;
     /**
      * ユーザーから指定したタグを削除します。既に存在しないタグを削除しようとした場合は無視されます(204)。
      * @param {string} userID 操作の対象となるユーザーID
@@ -6318,7 +6317,7 @@ export declare class UserTagApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserTagApi
      */
-    deleteUserTag(userID: string, tagID: string, options?: any): AxiosPromise<Response>;
+    deleteUserTag(userID: string, tagID: string, options?: any): AxiosPromise<void>;
     /**
      * 指定されたタグの情報を取得します。
      * @param {string} tagID 操作の対象となるタグID
@@ -6423,7 +6422,7 @@ export declare const WebhookApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeWebhookIcon(webhookID: string, file?: any, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    changeWebhookIcon(webhookID: string, file?: any, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * webhookを作成します。
      * @param {PostWebhook} postWebhook
@@ -6437,7 +6436,7 @@ export declare const WebhookApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteWebhook(webhookID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    deleteWebhook(webhookID: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * webhookを修正します。
      * @param {string} webhookID 操作の対象となるWebhookのID
@@ -6445,7 +6444,7 @@ export declare const WebhookApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editWebhook(webhookID: string, patchWebhook: PatchWebhook, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    editWebhook(webhookID: string, patchWebhook: PatchWebhook, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * webhookの詳細を取得します。
      * @param {string} webhookID 操作の対象となるWebhookのID
@@ -6473,7 +6472,7 @@ export declare const WebhookApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    postGitHubWebhook(webhookID: string, body: object, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    postGitHubWebhook(webhookID: string, body: object, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * webhookを送信します。
      * @param {string} webhookID 操作の対象となるWebhookのID
@@ -6484,7 +6483,7 @@ export declare const WebhookApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    postWebhook(webhookID: string, body: string, xTRAQChannelId?: string, xTRAQSignature?: string, embed?: number, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    postWebhook(webhookID: string, body: string, xTRAQChannelId?: string, xTRAQSignature?: string, embed?: number, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
 };
 /**
  * WebhookApi - factory interface
@@ -6498,7 +6497,7 @@ export declare const WebhookApiFactory: (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    changeWebhookIcon(webhookID: string, file?: any, options?: any): AxiosPromise<Response>;
+    changeWebhookIcon(webhookID: string, file?: any, options?: any): AxiosPromise<void>;
     /**
      * webhookを作成します。
      * @param {PostWebhook} postWebhook
@@ -6512,7 +6511,7 @@ export declare const WebhookApiFactory: (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    deleteWebhook(webhookID: string, options?: any): AxiosPromise<Response>;
+    deleteWebhook(webhookID: string, options?: any): AxiosPromise<void>;
     /**
      * webhookを修正します。
      * @param {string} webhookID 操作の対象となるWebhookのID
@@ -6520,7 +6519,7 @@ export declare const WebhookApiFactory: (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editWebhook(webhookID: string, patchWebhook: PatchWebhook, options?: any): AxiosPromise<Response>;
+    editWebhook(webhookID: string, patchWebhook: PatchWebhook, options?: any): AxiosPromise<void>;
     /**
      * webhookの詳細を取得します。
      * @param {string} webhookID 操作の対象となるWebhookのID
@@ -6548,7 +6547,7 @@ export declare const WebhookApiFactory: (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    postGitHubWebhook(webhookID: string, body: object, options?: any): AxiosPromise<Response>;
+    postGitHubWebhook(webhookID: string, body: object, options?: any): AxiosPromise<void>;
     /**
      * webhookを送信します。
      * @param {string} webhookID 操作の対象となるWebhookのID
@@ -6559,7 +6558,7 @@ export declare const WebhookApiFactory: (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    postWebhook(webhookID: string, body: string, xTRAQChannelId?: string, xTRAQSignature?: string, embed?: number, options?: any): AxiosPromise<Response>;
+    postWebhook(webhookID: string, body: string, xTRAQChannelId?: string, xTRAQSignature?: string, embed?: number, options?: any): AxiosPromise<void>;
 };
 /**
  * WebhookApi - object-oriented interface
@@ -6576,7 +6575,7 @@ export declare class WebhookApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    changeWebhookIcon(webhookID: string, file?: any, options?: any): AxiosPromise<Response>;
+    changeWebhookIcon(webhookID: string, file?: any, options?: any): AxiosPromise<void>;
     /**
      * webhookを作成します。
      * @param {PostWebhook} postWebhook
@@ -6592,7 +6591,7 @@ export declare class WebhookApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    deleteWebhook(webhookID: string, options?: any): AxiosPromise<Response>;
+    deleteWebhook(webhookID: string, options?: any): AxiosPromise<void>;
     /**
      * webhookを修正します。
      * @param {string} webhookID 操作の対象となるWebhookのID
@@ -6601,7 +6600,7 @@ export declare class WebhookApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    editWebhook(webhookID: string, patchWebhook: PatchWebhook, options?: any): AxiosPromise<Response>;
+    editWebhook(webhookID: string, patchWebhook: PatchWebhook, options?: any): AxiosPromise<void>;
     /**
      * webhookの詳細を取得します。
      * @param {string} webhookID 操作の対象となるWebhookのID
@@ -6633,7 +6632,7 @@ export declare class WebhookApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    postGitHubWebhook(webhookID: string, body: object, options?: any): AxiosPromise<Response>;
+    postGitHubWebhook(webhookID: string, body: object, options?: any): AxiosPromise<void>;
     /**
      * webhookを送信します。
      * @param {string} webhookID 操作の対象となるWebhookのID
@@ -6645,7 +6644,7 @@ export declare class WebhookApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    postWebhook(webhookID: string, body: string, xTRAQChannelId?: string, xTRAQSignature?: string, embed?: number, options?: any): AxiosPromise<Response>;
+    postWebhook(webhookID: string, body: string, xTRAQChannelId?: string, xTRAQSignature?: string, embed?: number, options?: any): AxiosPromise<void>;
 }
 /**
  * WebrtcApi - axios parameter creator
@@ -6697,7 +6696,7 @@ export declare const WebrtcApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    putWebRTCState(putWebRTCState: PutWebRTCState, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Response>;
+    putWebRTCState(putWebRTCState: PutWebRTCState, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
 };
 /**
  * WebrtcApi - factory interface
@@ -6723,7 +6722,7 @@ export declare const WebrtcApiFactory: (configuration?: Configuration, basePath?
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    putWebRTCState(putWebRTCState: PutWebRTCState, options?: any): AxiosPromise<Response>;
+    putWebRTCState(putWebRTCState: PutWebRTCState, options?: any): AxiosPromise<void>;
 };
 /**
  * WebrtcApi - object-oriented interface
@@ -6754,7 +6753,7 @@ export declare class WebrtcApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebrtcApi
      */
-    putWebRTCState(putWebRTCState: PutWebRTCState, options?: any): AxiosPromise<Response>;
+    putWebRTCState(putWebRTCState: PutWebRTCState, options?: any): AxiosPromise<void>;
 }
 export declare class Apis extends BaseAPI {
     /**
@@ -6774,7 +6773,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthenticationApi
      */
-    login(userLogin: UserLogin, redirect?: string, options?: any): AxiosPromise<Response>;
+    login(userLogin: UserLogin, redirect?: string, options?: any): AxiosPromise<void>;
     /**
      * ログアウトを行います。リダイレクトパラメーターが存在する場合はログアウト後にリダイレクトします
      * @param {string} [redirect] リダイレクト先
@@ -6782,7 +6781,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthenticationApi
      */
-    logout(redirect?: string, options?: any): AxiosPromise<Response>;
+    logout(redirect?: string, options?: any): AxiosPromise<void>;
     /**
      * OAuth2 認可エンドポイント
      * @param {string} clientId
@@ -6798,7 +6797,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthorizationApi
      */
-    getOauth2Authorize(clientId: string, responseType?: OAuth2ResponseType, redirectUri?: string, scope?: string, state?: string, codeChallenge?: string, codeChallengeMethod?: string, nonce?: string, prompt?: OAuth2Prompt, options?: any): AxiosPromise<Response>;
+    getOauth2Authorize(clientId: string, responseType?: OAuth2ResponseType, redirectUri?: string, scope?: string, state?: string, codeChallenge?: string, codeChallengeMethod?: string, nonce?: string, prompt?: OAuth2Prompt, options?: any): AxiosPromise<void>;
     /**
      * OAuth2 認可エンドポイント
      * @param {string} clientId
@@ -6814,7 +6813,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthorizationApi
      */
-    postOauth2Authorize(clientId: string, responseType?: OAuth2ResponseType, redirectUri?: string, scope?: string, state?: string, codeChallenge?: string, codeChallengeMethod?: string, nonce?: string, prompt?: OAuth2Prompt, options?: any): AxiosPromise<Response>;
+    postOauth2Authorize(clientId: string, responseType?: OAuth2ResponseType, redirectUri?: string, scope?: string, state?: string, codeChallenge?: string, codeChallengeMethod?: string, nonce?: string, prompt?: OAuth2Prompt, options?: any): AxiosPromise<void>;
     /**
      * OAuth2 認可承諾
      * @param {string} submit 承諾する場合は\\\&quot;approve\\\&quot;
@@ -6822,7 +6821,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthorizationApi
      */
-    postOauth2AuthorizeDecide(submit: string, options?: any): AxiosPromise<Response>;
+    postOauth2AuthorizeDecide(submit: string, options?: any): AxiosPromise<void>;
     /**
      * OAuth2 トークンエンドポイント
      * @param {string} grantType
@@ -6857,7 +6856,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    changeBotEvents(botID: string, putBotEvents: PutBotEvents, options?: any): AxiosPromise<Response>;
+    changeBotEvents(botID: string, putBotEvents: PutBotEvents, options?: any): AxiosPromise<void>;
     /**
      * 指定したBotのアイコンを変更します。
      * @param {string} botID 操作の対象となるBotのID
@@ -6866,7 +6865,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    changeBotIcon(botID: string, file?: any, options?: any): AxiosPromise<Response>;
+    changeBotIcon(botID: string, file?: any, options?: any): AxiosPromise<void>;
     /**
      * Botの状態を変更します。
      * @param {string} botID 操作の対象となるBotのID
@@ -6875,7 +6874,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    changeBotState(botID: string, putBotState: PutBotState, options?: any): AxiosPromise<Response>;
+    changeBotState(botID: string, putBotState: PutBotState, options?: any): AxiosPromise<void>;
     /**
      * Botを作成します。
      * @param {PostBot} postBot
@@ -6891,7 +6890,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    deleteBot(botID: string, options?: any): AxiosPromise<Response>;
+    deleteBot(botID: string, options?: any): AxiosPromise<void>;
     /**
      * Bot情報を変更します。
      * @param {string} botID 操作の対象となるBotのID
@@ -6900,7 +6899,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    editBot(botID: string, patchBot: PatchBot, options?: any): AxiosPromise<Response>;
+    editBot(botID: string, patchBot: PatchBot, options?: any): AxiosPromise<void>;
     /**
      * Botを取得します。
      * @param {string} botID 操作の対象となるBotのID
@@ -6964,7 +6963,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BotApi
      */
-    removeChannelBot(channelID: string, botID: string, options?: any): AxiosPromise<Response>;
+    removeChannelBot(channelID: string, botID: string, options?: any): AxiosPromise<void>;
     /**
      * チャンネルの親チャンネルを変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -6973,7 +6972,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    changeChannelParent(channelID: string, putParentChannel: PutParentChannel, options?: any): AxiosPromise<Response>;
+    changeChannelParent(channelID: string, putParentChannel: PutParentChannel, options?: any): AxiosPromise<void>;
     /**
      * チャンネルの説明を変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -6982,7 +6981,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    changeChannelTopic(channelID: string, setChannelTopic: SetChannelTopic, options?: any): AxiosPromise<Response>;
+    changeChannelTopic(channelID: string, setChannelTopic: SetChannelTopic, options?: any): AxiosPromise<void>;
     /**
      * チャンネルを作成します。
      * @param {CreateChannel} createChannel
@@ -7007,7 +7006,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    deleteChannel(channelID: string, options?: any): AxiosPromise<Response>;
+    deleteChannel(channelID: string, options?: any): AxiosPromise<void>;
     /**
      * チャンネルの情報を変更します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -7016,7 +7015,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    editChannel(channelID: string, patchChannel: PatchChannel, options?: any): AxiosPromise<Response>;
+    editChannel(channelID: string, patchChannel: PatchChannel, options?: any): AxiosPromise<void>;
     /**
      * チャンネルの情報を返します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -7085,7 +7084,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    deleteClient(clientID: string, options?: any): AxiosPromise<Response>;
+    deleteClient(clientID: string, options?: any): AxiosPromise<void>;
     /**
      * 指定したトークンの認可を取り消します。
      * @param {string} oauth2TokenID 操作の対象となるTokenのID
@@ -7093,7 +7092,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    deleteToken(oauth2TokenID: string, options?: any): AxiosPromise<Response>;
+    deleteToken(oauth2TokenID: string, options?: any): AxiosPromise<void>;
     /**
      * 指定したクライアントIDのクライアントの情報を取得します。
      * @param {string} clientID 操作の対象となるclientのID
@@ -7132,7 +7131,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ClientApi
      */
-    patchClient(clientID: string, patchClient: PatchClient, options?: any): AxiosPromise<Response>;
+    patchClient(clientID: string, patchClient: PatchClient, options?: any): AxiosPromise<void>;
     /**
      * 指定したファイルを削除します。
      * @param {string} fileID 操作の対象となるファイルID
@@ -7140,7 +7139,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FileApi
      */
-    deleteFile(fileID: string, options?: any): AxiosPromise<Response>;
+    deleteFile(fileID: string, options?: any): AxiosPromise<void>;
     /**
      * 指定したファイルの中身を取得します。
      * @param {string} fileID 操作の対象となるファイルID
@@ -7190,7 +7189,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof HeartbeatApi
      */
-    postHeartbeat(heartbeat: Heartbeat, options?: any): AxiosPromise<Response>;
+    postHeartbeat(heartbeat: Heartbeat, options?: any): AxiosPromise<void>;
     /**
      * 指定したメッセージを削除します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -7198,7 +7197,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    deleteMessage(messageID: string, options?: any): AxiosPromise<Response>;
+    deleteMessage(messageID: string, options?: any): AxiosPromise<void>;
     /**
      * 指定したメッセージを編集します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -7207,7 +7206,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    editMessage(messageID: string, sendMessage: SendMessage, options?: any): AxiosPromise<Response>;
+    editMessage(messageID: string, sendMessage: SendMessage, options?: any): AxiosPromise<void>;
     /**
      * DMチャンネルに存在するメッセージを取得します。
      * @param {string} userID 操作の対象となるユーザーID
@@ -7280,7 +7279,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    reportMessage(messageID: string, reportMessage: ReportMessage, options?: any): AxiosPromise<Response>;
+    reportMessage(messageID: string, reportMessage: ReportMessage, options?: any): AxiosPromise<void>;
     /**
      * チャンネルの通知状況を変更します。 リクエストに含めなかったユーザーIDのユーザーの通知状況は変更しません。 また、存在しないユーザーのIDを指定した場合は無視されます。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -7289,14 +7288,14 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    changeSubscribers(channelID: string, notificationUsers: NotificationUsers, options?: any): AxiosPromise<Response>;
+    changeSubscribers(channelID: string, notificationUsers: NotificationUsers, options?: any): AxiosPromise<void>;
     /**
      * 通知ストリーム(Server Sent Events)に接続します。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    connectNotification(options?: any): AxiosPromise<Response>;
+    connectNotification(options?: any): AxiosPromise<void>;
     /**
      * 自分が通知を入れているチャンネルのリストを取得します
      * @param {*} [options] Override http request option.
@@ -7327,7 +7326,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    registerNotificationDevice(fCMToken: FCMToken, options?: any): AxiosPromise<Response>;
+    registerNotificationDevice(fCMToken: FCMToken, options?: any): AxiosPromise<void>;
     /**
      * ピン留めを取得します。
      * @param {string} pinID 操作の対象となるピン留めID
@@ -7359,7 +7358,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PinApi
      */
-    unpinMessage(pinID: string, options?: any): AxiosPromise<Response>;
+    unpinMessage(pinID: string, options?: any): AxiosPromise<void>;
     /**
      * 指定したユーザーのアイコン画像を取得します。
      * @param {string} username 画像を取得するユーザーのユーザー名
@@ -7375,14 +7374,14 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SessionsApi
      */
-    deleteSession(referenceID: string, options?: any): AxiosPromise<Response>;
+    deleteSession(referenceID: string, options?: any): AxiosPromise<void>;
     /**
      * 自分のログインセッションを全てログアウトします。
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SessionsApi
      */
-    deleteSessions(options?: any): AxiosPromise<Response>;
+    deleteSessions(options?: any): AxiosPromise<void>;
     /**
      * 自分のログインセッションリストを取得します。
      * @param {*} [options] Override http request option.
@@ -7406,7 +7405,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof StampApi
      */
-    deleteStamp(stampID: string, options?: any): AxiosPromise<Response>;
+    deleteStamp(stampID: string, options?: any): AxiosPromise<void>;
     /**
      * スタンプを修正します。
      * @param {string} stampID 操作の対象となるスタンプID
@@ -7416,7 +7415,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof StampApi
      */
-    editStamp(stampID: string, name?: string, file?: any, options?: any): AxiosPromise<Response>;
+    editStamp(stampID: string, name?: string, file?: any, options?: any): AxiosPromise<void>;
     /**
      * 指定したメッセージに押されているスタンプを全て取得します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -7456,7 +7455,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof StampApi
      */
-    stampMessage(messageID: string, stampID: string, messageStampPost?: MessageStampPost, options?: any): AxiosPromise<Response>;
+    stampMessage(messageID: string, stampID: string, messageStampPost?: MessageStampPost, options?: any): AxiosPromise<void>;
     /**
      * 指定したメッセージから指定したスタンプを外します。
      * @param {string} messageID 操作の対象となるメッセージID
@@ -7465,7 +7464,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof StampApi
      */
-    unstampMessage(messageID: string, stampID: string, options?: any): AxiosPromise<Response>;
+    unstampMessage(messageID: string, stampID: string, options?: any): AxiosPromise<void>;
     /**
      * お気に入りチャンネルリストを取得します。
      * @param {*} [options] Override http request option.
@@ -7480,7 +7479,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof StarApi
      */
-    starChannel(channelID: string, options?: any): AxiosPromise<Response>;
+    starChannel(channelID: string, options?: any): AxiosPromise<void>;
     /**
      * +| お気に入りチャンネルリストから削除します。 既にお気に入りチャンネルリストに無いチャンネルを指定した場合は無視されます(204)。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -7488,7 +7487,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof StarApi
      */
-    unstarChannel(channelID: string, options?: any): AxiosPromise<Response>;
+    unstarChannel(channelID: string, options?: any): AxiosPromise<void>;
     /**
      * 未読チャンネル情報のリストを取得します。
      * @param {*} [options] Override http request option.
@@ -7503,7 +7502,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UnreadApi
      */
-    readMessages(channelID: string, options?: any): AxiosPromise<Response>;
+    readMessages(channelID: string, options?: any): AxiosPromise<void>;
     /**
      * 自分のユーザー情報を変更します。
      * @param {UserData} userData
@@ -7511,7 +7510,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    changeMe(userData: UserData, options?: any): AxiosPromise<Response>;
+    changeMe(userData: UserData, options?: any): AxiosPromise<void>;
     /**
      * 自分のアイコンを更新します。
      * @param {any} [file] 1MBまでのpng, jpeg, gif
@@ -7519,7 +7518,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    changeMyIcon(file?: any, options?: any): AxiosPromise<Response>;
+    changeMyIcon(file?: any, options?: any): AxiosPromise<void>;
     /**
      * 自分のパスワードを変更します。
      * @param {ChangePassword} changePassword
@@ -7527,7 +7526,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    changePassword(changePassword: ChangePassword, options?: any): AxiosPromise<Response>;
+    changePassword(changePassword: ChangePassword, options?: any): AxiosPromise<void>;
     /**
      * 自分のユーザー情報を取得します。
      * @param {*} [options] Override http request option.
@@ -7579,7 +7578,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    registerUser(userRegister: UserRegister, options?: any): AxiosPromise<Response>;
+    registerUser(userRegister: UserRegister, options?: any): AxiosPromise<void>;
     /**
      * ユーザーグループにメンバーを追加します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -7588,7 +7587,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    addGroupMember(groupID: string, addUserGroup: AddUserGroup, options?: any): AxiosPromise<Response>;
+    addGroupMember(groupID: string, addUserGroup: AddUserGroup, options?: any): AxiosPromise<void>;
     /**
      * ユーザーグループを作成します
      * @param {PostUserGroup} postUserGroup
@@ -7604,7 +7603,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    deleteGroup(groupID: string, options?: any): AxiosPromise<Response>;
+    deleteGroup(groupID: string, options?: any): AxiosPromise<void>;
     /**
      * ユーザーグループからメンバーを削除します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -7613,7 +7612,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    deleteGroupMember(groupID: string, userID: string, options?: any): AxiosPromise<Response>;
+    deleteGroupMember(groupID: string, userID: string, options?: any): AxiosPromise<void>;
     /**
      * ユーザーグループの情報を変更します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -7622,7 +7621,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserGroupApi
      */
-    editGroup(groupID: string, patchUserGroup: PatchUserGroup, options?: any): AxiosPromise<Response>;
+    editGroup(groupID: string, patchUserGroup: PatchUserGroup, options?: any): AxiosPromise<void>;
     /**
      * ユーザーグループを取得します
      * @param {string} groupID 操作の対象となるユーザーグループID
@@ -7669,7 +7668,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserTagApi
      */
-    addUserTag(userID: string, setTag: SetTag, options?: any): AxiosPromise<Response>;
+    addUserTag(userID: string, setTag: SetTag, options?: any): AxiosPromise<void>;
     /**
      * タグのロック、アンロックを変更します。
      * @param {string} userID 操作の対象となるユーザーID
@@ -7679,7 +7678,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserTagApi
      */
-    changeLockUserTag(userID: string, tagID: string, setTagLock: SetTagLock, options?: any): AxiosPromise<Response>;
+    changeLockUserTag(userID: string, tagID: string, setTagLock: SetTagLock, options?: any): AxiosPromise<void>;
     /**
      * ユーザーから指定したタグを削除します。既に存在しないタグを削除しようとした場合は無視されます(204)。
      * @param {string} userID 操作の対象となるユーザーID
@@ -7688,7 +7687,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserTagApi
      */
-    deleteUserTag(userID: string, tagID: string, options?: any): AxiosPromise<Response>;
+    deleteUserTag(userID: string, tagID: string, options?: any): AxiosPromise<void>;
     /**
      * 指定されたタグの情報を取得します。
      * @param {string} tagID 操作の対象となるタグID
@@ -7713,7 +7712,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    changeWebhookIcon(webhookID: string, file?: any, options?: any): AxiosPromise<Response>;
+    changeWebhookIcon(webhookID: string, file?: any, options?: any): AxiosPromise<void>;
     /**
      * webhookを作成します。
      * @param {PostWebhook} postWebhook
@@ -7729,7 +7728,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    deleteWebhook(webhookID: string, options?: any): AxiosPromise<Response>;
+    deleteWebhook(webhookID: string, options?: any): AxiosPromise<void>;
     /**
      * webhookを修正します。
      * @param {string} webhookID 操作の対象となるWebhookのID
@@ -7738,7 +7737,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    editWebhook(webhookID: string, patchWebhook: PatchWebhook, options?: any): AxiosPromise<Response>;
+    editWebhook(webhookID: string, patchWebhook: PatchWebhook, options?: any): AxiosPromise<void>;
     /**
      * webhookの詳細を取得します。
      * @param {string} webhookID 操作の対象となるWebhookのID
@@ -7770,7 +7769,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    postGitHubWebhook(webhookID: string, body: object, options?: any): AxiosPromise<Response>;
+    postGitHubWebhook(webhookID: string, body: object, options?: any): AxiosPromise<void>;
     /**
      * webhookを送信します。
      * @param {string} webhookID 操作の対象となるWebhookのID
@@ -7782,7 +7781,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    postWebhook(webhookID: string, body: string, xTRAQChannelId?: string, xTRAQSignature?: string, embed?: number, options?: any): AxiosPromise<Response>;
+    postWebhook(webhookID: string, body: string, xTRAQChannelId?: string, xTRAQSignature?: string, embed?: number, options?: any): AxiosPromise<void>;
     /**
      * チャンネルのWebRTC状態を取得します。
      * @param {string} channelID 操作の対象となるチャンネルのID
@@ -7805,5 +7804,5 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebrtcApi
      */
-    putWebRTCState(putWebRTCState: PutWebRTCState, options?: any): AxiosPromise<Response>;
+    putWebRTCState(putWebRTCState: PutWebRTCState, options?: any): AxiosPromise<void>;
 }
