@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // Some imports not used depending on template conditions
 // @ts-ignore
 const axios_1 = require("axios");
-exports.BASE_PATH = "http://localhost:3000/api/v3".replace(/\/+$/, "");
+exports.BASE_PATH = "https://q.trap.jp/api/v3".replace(/\/+$/, "");
 /**
  *
  * @export

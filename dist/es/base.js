@@ -13,7 +13,7 @@
 // Some imports not used depending on template conditions
 // @ts-ignore
 import globalAxios from 'axios';
-export const BASE_PATH = "http://localhost:3000/api/v3".replace(/\/+$/, "");
+export const BASE_PATH = "https://q.trap.jp/api/v3".replace(/\/+$/, "");
 /**
  *
  * @export

@@ -518,27 +518,88 @@ export interface ClippedMessage {
     clippedAt?: Date;
 }
 /**
- * サムネイル情報 サムネイルが存在しない場合はnullになります
+ * ファイル情報
  * @export
- * @interface FileThumbnail
+ * @interface FileInfo
  */
-export interface FileThumbnail {
+export interface FileInfo {
+    /**
+     * ファイルUUID
+     * @type {string}
+     * @memberof FileInfo
+     */
+    id?: string;
+    /**
+     * ファイル名
+     * @type {string}
+     * @memberof FileInfo
+     */
+    name?: string;
     /**
      * MIMEタイプ
      * @type {string}
-     * @memberof FileThumbnail
+     * @memberof FileInfo
+     */
+    mime?: string;
+    /**
+     * ファイルサイズ
+     * @type {number}
+     * @memberof FileInfo
+     */
+    size?: number;
+    /**
+     * MD5ハッシュ
+     * @type {string}
+     * @memberof FileInfo
+     */
+    md5?: string;
+    /**
+     * アップロード日時
+     * @type {Date}
+     * @memberof FileInfo
+     */
+    createdAt?: Date;
+    /**
+     *
+     * @type {FileInfoThumbnail}
+     * @memberof FileInfo
+     */
+    thumbnail?: FileInfoThumbnail | null;
+    /**
+     * 属しているチャンネルUUID
+     * @type {string}
+     * @memberof FileInfo
+     */
+    channelId?: string | null;
+    /**
+     * アップロード者UUID
+     * @type {string}
+     * @memberof FileInfo
+     */
+    uploaderId?: string | null;
+}
+/**
+ * サムネイル情報 サムネイルが存在しない場合はnullになります
+ * @export
+ * @interface FileInfoThumbnail
+ */
+export interface FileInfoThumbnail {
+    /**
+     * MIMEタイプ
+     * @type {string}
+     * @memberof FileInfoThumbnail
      */
     mime?: string;
     /**
      * サムネイル幅
      * @type {number}
-     * @memberof FileThumbnail
+     * @memberof FileInfoThumbnail
      */
     width?: number;
     /**
      * サムネイル高さ
      * @type {number}
-     * @memberof FileThumbnail
+     * @memberof FileInfoThumbnail
      */
     height?: number;
 }
@@ -714,67 +775,6 @@ export interface MessageStamp {
      * @memberof MessageStamp
      */
     updatedAt?: Date;
-}
-/**
- * ファイル情報
- * @export
- * @interface ModelFile
- */
-export interface ModelFile {
-    /**
-     * ファイルUUID
-     * @type {string}
-     * @memberof ModelFile
-     */
-    id?: string;
-    /**
-     * ファイル名
-     * @type {string}
-     * @memberof ModelFile
-     */
-    name?: string;
-    /**
-     * MIMEタイプ
-     * @type {string}
-     * @memberof ModelFile
-     */
-    mime?: string;
-    /**
-     * ファイルサイズ
-     * @type {number}
-     * @memberof ModelFile
-     */
-    size?: number;
-    /**
-     * MD5ハッシュ
-     * @type {string}
-     * @memberof ModelFile
-     */
-    md5?: string;
-    /**
-     * アップロード日時
-     * @type {Date}
-     * @memberof ModelFile
-     */
-    createdAt?: Date;
-    /**
-     *
-     * @type {FileThumbnail}
-     * @memberof ModelFile
-     */
-    thumbnail?: FileThumbnail | null;
-    /**
-     * 属しているチャンネルUUID
-     * @type {string}
-     * @memberof ModelFile
-     */
-    channelId?: string | null;
-    /**
-     * アップロード者UUID
-     * @type {string}
-     * @memberof ModelFile
-     */
-    uploaderId?: string | null;
 }
 /**
  * 自分のユーザー詳細情報
@@ -4255,7 +4255,7 @@ export declare const FileApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getFileMeta(fileId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>;
+    getFileMeta(fileId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<FileInfo>;
     /**
      * 指定したクエリでファイルメタのリストを取得します。
      * @summary ファイルメタのリストを取得
@@ -4271,7 +4271,7 @@ export declare const FileApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getFiles(channelId: string, limit?: number, offset?: number, since?: Date, until?: Date, inclusive?: boolean, order?: "desc" | "asc", mime?: string, uploaderId?: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any[]>;
+    getFiles(channelId: string, limit?: number, offset?: number, since?: Date, until?: Date, inclusive?: boolean, order?: "desc" | "asc", mime?: string, uploaderId?: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<FileInfo[]>;
     /**
      * 指定したファイルのサムネイル画像を取得します。 指定したファイルへのアクセス権限が必要です。
      * @summary サムネイル画像を取得
@@ -4288,7 +4288,7 @@ export declare const FileApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    postFile(file: any, channelId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>;
+    postFile(file: any, channelId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<FileInfo>;
 };
 /**
  * FileApi - factory interface
@@ -4319,7 +4319,7 @@ export declare const FileApiFactory: (configuration?: Configuration, basePath?: 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getFileMeta(fileId: string, options?: any): AxiosPromise<any>;
+    getFileMeta(fileId: string, options?: any): AxiosPromise<FileInfo>;
     /**
      * 指定したクエリでファイルメタのリストを取得します。
      * @summary ファイルメタのリストを取得
@@ -4335,7 +4335,7 @@ export declare const FileApiFactory: (configuration?: Configuration, basePath?: 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getFiles(channelId: string, limit?: number, offset?: number, since?: Date, until?: Date, inclusive?: boolean, order?: "desc" | "asc", mime?: string, uploaderId?: string, options?: any): AxiosPromise<any[]>;
+    getFiles(channelId: string, limit?: number, offset?: number, since?: Date, until?: Date, inclusive?: boolean, order?: "desc" | "asc", mime?: string, uploaderId?: string, options?: any): AxiosPromise<FileInfo[]>;
     /**
      * 指定したファイルのサムネイル画像を取得します。 指定したファイルへのアクセス権限が必要です。
      * @summary サムネイル画像を取得
@@ -4352,7 +4352,7 @@ export declare const FileApiFactory: (configuration?: Configuration, basePath?: 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    postFile(file: any, channelId: string, options?: any): AxiosPromise<any>;
+    postFile(file: any, channelId: string, options?: any): AxiosPromise<FileInfo>;
 };
 /**
  * FileApi - object-oriented interface
@@ -4388,7 +4388,7 @@ export declare class FileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FileApi
      */
-    getFileMeta(fileId: string, options?: any): AxiosPromise<any>;
+    getFileMeta(fileId: string, options?: any): AxiosPromise<FileInfo>;
     /**
      * 指定したクエリでファイルメタのリストを取得します。
      * @summary ファイルメタのリストを取得
@@ -4405,7 +4405,7 @@ export declare class FileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FileApi
      */
-    getFiles(channelId: string, limit?: number, offset?: number, since?: Date, until?: Date, inclusive?: boolean, order?: 'asc' | 'desc', mime?: string, uploaderId?: string, options?: any): AxiosPromise<any[]>;
+    getFiles(channelId: string, limit?: number, offset?: number, since?: Date, until?: Date, inclusive?: boolean, order?: 'asc' | 'desc', mime?: string, uploaderId?: string, options?: any): AxiosPromise<FileInfo[]>;
     /**
      * 指定したファイルのサムネイル画像を取得します。 指定したファイルへのアクセス権限が必要です。
      * @summary サムネイル画像を取得
@@ -4424,7 +4424,7 @@ export declare class FileApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FileApi
      */
-    postFile(file: any, channelId: string, options?: any): AxiosPromise<any>;
+    postFile(file: any, channelId: string, options?: any): AxiosPromise<FileInfo>;
 }
 /**
  * GroupApi - axios parameter creator
@@ -9309,7 +9309,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FileApi
      */
-    getFileMeta(fileId: string, options?: any): AxiosPromise<any>;
+    getFileMeta(fileId: string, options?: any): AxiosPromise<FileInfo>;
     /**
      * 指定したクエリでファイルメタのリストを取得します。
      * @summary ファイルメタのリストを取得
@@ -9326,7 +9326,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FileApi
      */
-    getFiles(channelId: string, limit?: number, offset?: number, since?: Date, until?: Date, inclusive?: boolean, order?: 'asc' | 'desc', mime?: string, uploaderId?: string, options?: any): AxiosPromise<any[]>;
+    getFiles(channelId: string, limit?: number, offset?: number, since?: Date, until?: Date, inclusive?: boolean, order?: 'asc' | 'desc', mime?: string, uploaderId?: string, options?: any): AxiosPromise<FileInfo[]>;
     /**
      * 指定したファイルのサムネイル画像を取得します。 指定したファイルへのアクセス権限が必要です。
      * @summary サムネイル画像を取得
@@ -9345,7 +9345,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FileApi
      */
-    postFile(file: any, channelId: string, options?: any): AxiosPromise<any>;
+    postFile(file: any, channelId: string, options?: any): AxiosPromise<FileInfo>;
     /**
      * 指定したグループにメンバーを追加します。 対象のユーザーグループの管理者権限が必要です。
      * @summary グループメンバーを追加
