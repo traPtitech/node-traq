@@ -836,7 +836,7 @@ exports.BotApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * BOT情報のリストを取得します。
+         * BOT情報のリストを取得します。 allを指定しない場合、自分が開発者のBOTのみを返します。
          * @summary BOTリストを取得
          * @param {boolean} [all] 全てのBOTを取得するかどうか
          * @param {*} [options] Override http request option.
@@ -1153,7 +1153,7 @@ exports.BotApiFp = function (configuration) {
             };
         },
         /**
-         * BOT情報のリストを取得します。
+         * BOT情報のリストを取得します。 allを指定しない場合、自分が開発者のBOTのみを返します。
          * @summary BOTリストを取得
          * @param {boolean} [all] 全てのBOTを取得するかどうか
          * @param {*} [options] Override http request option.
@@ -1332,7 +1332,7 @@ exports.BotApiFactory = function (configuration, basePath, axios) {
             return exports.BotApiFp(configuration).getBotLogs(botId, limit, offset, options)(axios, basePath);
         },
         /**
-         * BOT情報のリストを取得します。
+         * BOT情報のリストを取得します。 allを指定しない場合、自分が開発者のBOTのみを返します。
          * @summary BOTリストを取得
          * @param {boolean} [all] 全てのBOTを取得するかどうか
          * @param {*} [options] Override http request option.
@@ -1496,7 +1496,7 @@ class BotApi extends base_1.BaseAPI {
         return exports.BotApiFp(this.configuration).getBotLogs(botId, limit, offset, options)(this.axios, this.basePath);
     }
     /**
-     * BOT情報のリストを取得します。
+     * BOT情報のリストを取得します。 allを指定しない場合、自分が開発者のBOTのみを返します。
      * @summary BOTリストを取得
      * @param {boolean} [all] 全てのBOTを取得するかどうか
      * @param {*} [options] Override http request option.
@@ -1601,7 +1601,7 @@ exports.ChannelApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * 指定したチャンネルの情報を変更します。 変更には権限が必要です。
+         * 指定したチャンネルの情報を変更します。 変更には権限が必要です。 ルートチャンネルに移動させる場合は、`parent`に`00000000-0000-0000-0000-000000000000`を指定してください。
          * @summary チャンネル情報を変更
          * @param {string} channelId チャンネルUUID
          * @param {PatchChannelRequest} [patchChannelRequest]
@@ -1980,10 +1980,11 @@ exports.ChannelApiAxiosParamCreator = function (configuration) {
         /**
          * チャンネルのリストを取得します。
          * @summary チャンネルリストを取得
+         * @param {boolean} [includeDm] ダイレクトメッセージチャンネルをレスポンスに含めるかどうか
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getChannels(options = {}) {
+        getChannels(includeDm, options = {}) {
             const localVarPath = `/channels`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -1993,6 +1994,9 @@ exports.ChannelApiAxiosParamCreator = function (configuration) {
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
+            if (includeDm !== undefined) {
+                localVarQueryParameter['include-dm'] = includeDm;
+            }
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
@@ -2150,7 +2154,7 @@ exports.ChannelApiFp = function (configuration) {
             };
         },
         /**
-         * 指定したチャンネルの情報を変更します。 変更には権限が必要です。
+         * 指定したチャンネルの情報を変更します。 変更には権限が必要です。 ルートチャンネルに移動させる場合は、`parent`に`00000000-0000-0000-0000-000000000000`を指定してください。
          * @summary チャンネル情報を変更
          * @param {string} channelId チャンネルUUID
          * @param {PatchChannelRequest} [patchChannelRequest]
@@ -2315,11 +2319,12 @@ exports.ChannelApiFp = function (configuration) {
         /**
          * チャンネルのリストを取得します。
          * @summary チャンネルリストを取得
+         * @param {boolean} [includeDm] ダイレクトメッセージチャンネルをレスポンスに含めるかどうか
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getChannels(options) {
-            const localVarAxiosArgs = exports.ChannelApiAxiosParamCreator(configuration).getChannels(options);
+        getChannels(includeDm, options) {
+            const localVarAxiosArgs = exports.ChannelApiAxiosParamCreator(configuration).getChannels(includeDm, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -2394,7 +2399,7 @@ exports.ChannelApiFactory = function (configuration, basePath, axios) {
             return exports.ChannelApiFp(configuration).createChannel(postChannelRequest, options)(axios, basePath);
         },
         /**
-         * 指定したチャンネルの情報を変更します。 変更には権限が必要です。
+         * 指定したチャンネルの情報を変更します。 変更には権限が必要です。 ルートチャンネルに移動させる場合は、`parent`に`00000000-0000-0000-0000-000000000000`を指定してください。
          * @summary チャンネル情報を変更
          * @param {string} channelId チャンネルUUID
          * @param {PatchChannelRequest} [patchChannelRequest]
@@ -2515,11 +2520,12 @@ exports.ChannelApiFactory = function (configuration, basePath, axios) {
         /**
          * チャンネルのリストを取得します。
          * @summary チャンネルリストを取得
+         * @param {boolean} [includeDm] ダイレクトメッセージチャンネルをレスポンスに含めるかどうか
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getChannels(options) {
-            return exports.ChannelApiFp(configuration).getChannels(options)(axios, basePath);
+        getChannels(includeDm, options) {
+            return exports.ChannelApiFp(configuration).getChannels(includeDm, options)(axios, basePath);
         },
         /**
          * 指定したチャンネルのメッセージのリストを取得します。
@@ -2580,7 +2586,7 @@ class ChannelApi extends base_1.BaseAPI {
         return exports.ChannelApiFp(this.configuration).createChannel(postChannelRequest, options)(this.axios, this.basePath);
     }
     /**
-     * 指定したチャンネルの情報を変更します。 変更には権限が必要です。
+     * 指定したチャンネルの情報を変更します。 変更には権限が必要です。 ルートチャンネルに移動させる場合は、`parent`に`00000000-0000-0000-0000-000000000000`を指定してください。
      * @summary チャンネル情報を変更
      * @param {string} channelId チャンネルUUID
      * @param {PatchChannelRequest} [patchChannelRequest]
@@ -2712,12 +2718,13 @@ class ChannelApi extends base_1.BaseAPI {
     /**
      * チャンネルのリストを取得します。
      * @summary チャンネルリストを取得
+     * @param {boolean} [includeDm] ダイレクトメッセージチャンネルをレスポンスに含めるかどうか
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    getChannels(options) {
-        return exports.ChannelApiFp(this.configuration).getChannels(options)(this.axios, this.basePath);
+    getChannels(includeDm, options) {
+        return exports.ChannelApiFp(this.configuration).getChannels(includeDm, options)(this.axios, this.basePath);
     }
     /**
      * 指定したチャンネルのメッセージのリストを取得します。
@@ -3866,6 +3873,41 @@ exports.FileApi = FileApi;
 exports.GroupApiAxiosParamCreator = function (configuration) {
     return {
         /**
+         * 指定したグループに管理者を追加します。 対象のユーザーグループの管理者権限が必要です。
+         * @summary グループ管理者を追加
+         * @param {string} groupId ユーザーグループUUID
+         * @param {PostUserGroupAdminRequest} [postUserGroupAdminRequest]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addUserGroupAdmin(groupId, postUserGroupAdminRequest, options = {}) {
+            // verify required parameter 'groupId' is not null or undefined
+            if (groupId === null || groupId === undefined) {
+                throw new base_1.RequiredError('groupId', 'Required parameter groupId was null or undefined when calling addUserGroupAdmin.');
+            }
+            const localVarPath = `/groups/{groupId}/admins`
+                .replace(`{${"groupId"}}`, encodeURIComponent(String(groupId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = (typeof postUserGroupAdminRequest !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(postUserGroupAdminRequest !== undefined ? postUserGroupAdminRequest : {}) : (postUserGroupAdminRequest || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * 指定したグループにメンバーを追加します。 対象のユーザーグループの管理者権限が必要です。
          * @summary グループメンバーを追加
          * @param {string} groupId ユーザーグループUUID
@@ -3901,7 +3943,7 @@ exports.GroupApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * ユーザーグループを作成します。 作成者は自動的にメンバーに追加され、グループ管理者になります。
+         * ユーザーグループを作成します。 作成者は自動的にグループ管理者になります。
          * @summary ユーザーグループを作成
          * @param {PostUserGroupRequest} [postUserGroupRequest]
          * @param {*} [options] Override http request option.
@@ -4068,6 +4110,37 @@ exports.GroupApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
+         * 指定したグループの管理者のリストを取得します。
+         * @summary グループ管理者を取得
+         * @param {string} groupId ユーザーグループUUID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserGroupAdmins(groupId, options = {}) {
+            // verify required parameter 'groupId' is not null or undefined
+            if (groupId === null || groupId === undefined) {
+                throw new base_1.RequiredError('groupId', 'Required parameter groupId was null or undefined when calling getUserGroupAdmins.');
+            }
+            const localVarPath = `/groups/{groupId}/admins`
+                .replace(`{${"groupId"}}`, encodeURIComponent(String(groupId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * 指定したグループのメンバーのリストを取得します。
          * @summary グループメンバーを取得
          * @param {string} groupId ユーザーグループUUID
@@ -4101,12 +4174,10 @@ exports.GroupApiAxiosParamCreator = function (configuration) {
         /**
          * ユーザーグループのリストを取得します。
          * @summary ユーザーグループのリストを取得
-         * @param {string} [type] グループタイプ
-         * @param {boolean} [admin] 自分が管理者のグループのみを取得するかどうか
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUserGroups(type, admin, options = {}) {
+        getUserGroups(options = {}) {
             const localVarPath = `/groups`;
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -4116,12 +4187,43 @@ exports.GroupApiAxiosParamCreator = function (configuration) {
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
-            if (type !== undefined) {
-                localVarQueryParameter['type'] = type;
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 指定したユーザーグループから指定した管理者を削除します。 対象のユーザーグループの管理者権限が必要です。 グループから管理者が存在しなくなる場合は400エラーを返します。
+         * @summary グループ管理者を削除
+         * @param {string} groupId ユーザーグループUUID
+         * @param {string} userId ユーザーUUID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeUserGroupAdmin(groupId, userId, options = {}) {
+            // verify required parameter 'groupId' is not null or undefined
+            if (groupId === null || groupId === undefined) {
+                throw new base_1.RequiredError('groupId', 'Required parameter groupId was null or undefined when calling removeUserGroupAdmin.');
             }
-            if (admin !== undefined) {
-                localVarQueryParameter['admin'] = admin;
+            // verify required parameter 'userId' is not null or undefined
+            if (userId === null || userId === undefined) {
+                throw new base_1.RequiredError('userId', 'Required parameter userId was null or undefined when calling removeUserGroupAdmin.');
             }
+            const localVarPath = `/groups/{groupId}/admins/{userId}`
+                .replace(`{${"groupId"}}`, encodeURIComponent(String(groupId)))
+                .replace(`{${"userId"}}`, encodeURIComponent(String(userId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
@@ -4168,41 +4270,6 @@ exports.GroupApiAxiosParamCreator = function (configuration) {
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * 指定したグループのメンバーをリクエストのメンバーに置き換えます。 リクエスト内に含まれないメンバーはグループから削除されます。 対象のユーザーグループの管理者権限が必要です。
-         * @summary グループメンバーを設定
-         * @param {string} groupId ユーザーグループUUID
-         * @param {Array<UserGroupMember>} [userGroupMember]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        setUserGroupMembers(groupId, userGroupMember, options = {}) {
-            // verify required parameter 'groupId' is not null or undefined
-            if (groupId === null || groupId === undefined) {
-                throw new base_1.RequiredError('groupId', 'Required parameter groupId was null or undefined when calling setUserGroupMembers.');
-            }
-            const localVarPath = `/groups/{groupId}/members`
-                .replace(`{${"groupId"}}`, encodeURIComponent(String(groupId)));
-            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
-            const localVarHeaderParameter = {};
-            const localVarQueryParameter = {};
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = (typeof userGroupMember !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(userGroupMember !== undefined ? userGroupMember : {}) : (userGroupMember || "");
-            return {
-                url: globalImportUrl.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     };
 };
 /**
@@ -4211,6 +4278,21 @@ exports.GroupApiAxiosParamCreator = function (configuration) {
  */
 exports.GroupApiFp = function (configuration) {
     return {
+        /**
+         * 指定したグループに管理者を追加します。 対象のユーザーグループの管理者権限が必要です。
+         * @summary グループ管理者を追加
+         * @param {string} groupId ユーザーグループUUID
+         * @param {PostUserGroupAdminRequest} [postUserGroupAdminRequest]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addUserGroupAdmin(groupId, postUserGroupAdminRequest, options) {
+            const localVarAxiosArgs = exports.GroupApiAxiosParamCreator(configuration).addUserGroupAdmin(groupId, postUserGroupAdminRequest, options);
+            return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
         /**
          * 指定したグループにメンバーを追加します。 対象のユーザーグループの管理者権限が必要です。
          * @summary グループメンバーを追加
@@ -4227,7 +4309,7 @@ exports.GroupApiFp = function (configuration) {
             };
         },
         /**
-         * ユーザーグループを作成します。 作成者は自動的にメンバーに追加され、グループ管理者になります。
+         * ユーザーグループを作成します。 作成者は自動的にグループ管理者になります。
          * @summary ユーザーグループを作成
          * @param {PostUserGroupRequest} [postUserGroupRequest]
          * @param {*} [options] Override http request option.
@@ -4300,6 +4382,20 @@ exports.GroupApiFp = function (configuration) {
             };
         },
         /**
+         * 指定したグループの管理者のリストを取得します。
+         * @summary グループ管理者を取得
+         * @param {string} groupId ユーザーグループUUID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserGroupAdmins(groupId, options) {
+            const localVarAxiosArgs = exports.GroupApiAxiosParamCreator(configuration).getUserGroupAdmins(groupId, options);
+            return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
          * 指定したグループのメンバーのリストを取得します。
          * @summary グループメンバーを取得
          * @param {string} groupId ユーザーグループUUID
@@ -4316,13 +4412,26 @@ exports.GroupApiFp = function (configuration) {
         /**
          * ユーザーグループのリストを取得します。
          * @summary ユーザーグループのリストを取得
-         * @param {string} [type] グループタイプ
-         * @param {boolean} [admin] 自分が管理者のグループのみを取得するかどうか
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUserGroups(type, admin, options) {
-            const localVarAxiosArgs = exports.GroupApiAxiosParamCreator(configuration).getUserGroups(type, admin, options);
+        getUserGroups(options) {
+            const localVarAxiosArgs = exports.GroupApiAxiosParamCreator(configuration).getUserGroups(options);
+            return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 指定したユーザーグループから指定した管理者を削除します。 対象のユーザーグループの管理者権限が必要です。 グループから管理者が存在しなくなる場合は400エラーを返します。
+         * @summary グループ管理者を削除
+         * @param {string} groupId ユーザーグループUUID
+         * @param {string} userId ユーザーUUID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeUserGroupAdmin(groupId, userId, options) {
+            const localVarAxiosArgs = exports.GroupApiAxiosParamCreator(configuration).removeUserGroupAdmin(groupId, userId, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -4343,21 +4452,6 @@ exports.GroupApiFp = function (configuration) {
                 return axios.request(axiosRequestArgs);
             };
         },
-        /**
-         * 指定したグループのメンバーをリクエストのメンバーに置き換えます。 リクエスト内に含まれないメンバーはグループから削除されます。 対象のユーザーグループの管理者権限が必要です。
-         * @summary グループメンバーを設定
-         * @param {string} groupId ユーザーグループUUID
-         * @param {Array<UserGroupMember>} [userGroupMember]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        setUserGroupMembers(groupId, userGroupMember, options) {
-            const localVarAxiosArgs = exports.GroupApiAxiosParamCreator(configuration).setUserGroupMembers(groupId, userGroupMember, options);
-            return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
-                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-                return axios.request(axiosRequestArgs);
-            };
-        },
     };
 };
 /**
@@ -4366,6 +4460,17 @@ exports.GroupApiFp = function (configuration) {
  */
 exports.GroupApiFactory = function (configuration, basePath, axios) {
     return {
+        /**
+         * 指定したグループに管理者を追加します。 対象のユーザーグループの管理者権限が必要です。
+         * @summary グループ管理者を追加
+         * @param {string} groupId ユーザーグループUUID
+         * @param {PostUserGroupAdminRequest} [postUserGroupAdminRequest]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addUserGroupAdmin(groupId, postUserGroupAdminRequest, options) {
+            return exports.GroupApiFp(configuration).addUserGroupAdmin(groupId, postUserGroupAdminRequest, options)(axios, basePath);
+        },
         /**
          * 指定したグループにメンバーを追加します。 対象のユーザーグループの管理者権限が必要です。
          * @summary グループメンバーを追加
@@ -4378,7 +4483,7 @@ exports.GroupApiFactory = function (configuration, basePath, axios) {
             return exports.GroupApiFp(configuration).addUserGroupMember(groupId, userGroupMember, options)(axios, basePath);
         },
         /**
-         * ユーザーグループを作成します。 作成者は自動的にメンバーに追加され、グループ管理者になります。
+         * ユーザーグループを作成します。 作成者は自動的にグループ管理者になります。
          * @summary ユーザーグループを作成
          * @param {PostUserGroupRequest} [postUserGroupRequest]
          * @param {*} [options] Override http request option.
@@ -4431,6 +4536,16 @@ exports.GroupApiFactory = function (configuration, basePath, axios) {
             return exports.GroupApiFp(configuration).getUserGroup(groupId, options)(axios, basePath);
         },
         /**
+         * 指定したグループの管理者のリストを取得します。
+         * @summary グループ管理者を取得
+         * @param {string} groupId ユーザーグループUUID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserGroupAdmins(groupId, options) {
+            return exports.GroupApiFp(configuration).getUserGroupAdmins(groupId, options)(axios, basePath);
+        },
+        /**
          * 指定したグループのメンバーのリストを取得します。
          * @summary グループメンバーを取得
          * @param {string} groupId ユーザーグループUUID
@@ -4443,13 +4558,22 @@ exports.GroupApiFactory = function (configuration, basePath, axios) {
         /**
          * ユーザーグループのリストを取得します。
          * @summary ユーザーグループのリストを取得
-         * @param {string} [type] グループタイプ
-         * @param {boolean} [admin] 自分が管理者のグループのみを取得するかどうか
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUserGroups(type, admin, options) {
-            return exports.GroupApiFp(configuration).getUserGroups(type, admin, options)(axios, basePath);
+        getUserGroups(options) {
+            return exports.GroupApiFp(configuration).getUserGroups(options)(axios, basePath);
+        },
+        /**
+         * 指定したユーザーグループから指定した管理者を削除します。 対象のユーザーグループの管理者権限が必要です。 グループから管理者が存在しなくなる場合は400エラーを返します。
+         * @summary グループ管理者を削除
+         * @param {string} groupId ユーザーグループUUID
+         * @param {string} userId ユーザーUUID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeUserGroupAdmin(groupId, userId, options) {
+            return exports.GroupApiFp(configuration).removeUserGroupAdmin(groupId, userId, options)(axios, basePath);
         },
         /**
          * 指定したユーザーグループから指定したユーザーを削除します。 対象のユーザーグループの管理者権限が必要です。
@@ -4462,17 +4586,6 @@ exports.GroupApiFactory = function (configuration, basePath, axios) {
         removeUserGroupMember(groupId, userId, options) {
             return exports.GroupApiFp(configuration).removeUserGroupMember(groupId, userId, options)(axios, basePath);
         },
-        /**
-         * 指定したグループのメンバーをリクエストのメンバーに置き換えます。 リクエスト内に含まれないメンバーはグループから削除されます。 対象のユーザーグループの管理者権限が必要です。
-         * @summary グループメンバーを設定
-         * @param {string} groupId ユーザーグループUUID
-         * @param {Array<UserGroupMember>} [userGroupMember]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        setUserGroupMembers(groupId, userGroupMember, options) {
-            return exports.GroupApiFp(configuration).setUserGroupMembers(groupId, userGroupMember, options)(axios, basePath);
-        },
     };
 };
 /**
@@ -4482,6 +4595,18 @@ exports.GroupApiFactory = function (configuration, basePath, axios) {
  * @extends {BaseAPI}
  */
 class GroupApi extends base_1.BaseAPI {
+    /**
+     * 指定したグループに管理者を追加します。 対象のユーザーグループの管理者権限が必要です。
+     * @summary グループ管理者を追加
+     * @param {string} groupId ユーザーグループUUID
+     * @param {PostUserGroupAdminRequest} [postUserGroupAdminRequest]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GroupApi
+     */
+    addUserGroupAdmin(groupId, postUserGroupAdminRequest, options) {
+        return exports.GroupApiFp(this.configuration).addUserGroupAdmin(groupId, postUserGroupAdminRequest, options)(this.axios, this.basePath);
+    }
     /**
      * 指定したグループにメンバーを追加します。 対象のユーザーグループの管理者権限が必要です。
      * @summary グループメンバーを追加
@@ -4495,7 +4620,7 @@ class GroupApi extends base_1.BaseAPI {
         return exports.GroupApiFp(this.configuration).addUserGroupMember(groupId, userGroupMember, options)(this.axios, this.basePath);
     }
     /**
-     * ユーザーグループを作成します。 作成者は自動的にメンバーに追加され、グループ管理者になります。
+     * ユーザーグループを作成します。 作成者は自動的にグループ管理者になります。
      * @summary ユーザーグループを作成
      * @param {PostUserGroupRequest} [postUserGroupRequest]
      * @param {*} [options] Override http request option.
@@ -4553,6 +4678,17 @@ class GroupApi extends base_1.BaseAPI {
         return exports.GroupApiFp(this.configuration).getUserGroup(groupId, options)(this.axios, this.basePath);
     }
     /**
+     * 指定したグループの管理者のリストを取得します。
+     * @summary グループ管理者を取得
+     * @param {string} groupId ユーザーグループUUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GroupApi
+     */
+    getUserGroupAdmins(groupId, options) {
+        return exports.GroupApiFp(this.configuration).getUserGroupAdmins(groupId, options)(this.axios, this.basePath);
+    }
+    /**
      * 指定したグループのメンバーのリストを取得します。
      * @summary グループメンバーを取得
      * @param {string} groupId ユーザーグループUUID
@@ -4566,14 +4702,24 @@ class GroupApi extends base_1.BaseAPI {
     /**
      * ユーザーグループのリストを取得します。
      * @summary ユーザーグループのリストを取得
-     * @param {string} [type] グループタイプ
-     * @param {boolean} [admin] 自分が管理者のグループのみを取得するかどうか
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GroupApi
      */
-    getUserGroups(type, admin, options) {
-        return exports.GroupApiFp(this.configuration).getUserGroups(type, admin, options)(this.axios, this.basePath);
+    getUserGroups(options) {
+        return exports.GroupApiFp(this.configuration).getUserGroups(options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したユーザーグループから指定した管理者を削除します。 対象のユーザーグループの管理者権限が必要です。 グループから管理者が存在しなくなる場合は400エラーを返します。
+     * @summary グループ管理者を削除
+     * @param {string} groupId ユーザーグループUUID
+     * @param {string} userId ユーザーUUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GroupApi
+     */
+    removeUserGroupAdmin(groupId, userId, options) {
+        return exports.GroupApiFp(this.configuration).removeUserGroupAdmin(groupId, userId, options)(this.axios, this.basePath);
     }
     /**
      * 指定したユーザーグループから指定したユーザーを削除します。 対象のユーザーグループの管理者権限が必要です。
@@ -4587,18 +4733,6 @@ class GroupApi extends base_1.BaseAPI {
     removeUserGroupMember(groupId, userId, options) {
         return exports.GroupApiFp(this.configuration).removeUserGroupMember(groupId, userId, options)(this.axios, this.basePath);
     }
-    /**
-     * 指定したグループのメンバーをリクエストのメンバーに置き換えます。 リクエスト内に含まれないメンバーはグループから削除されます。 対象のユーザーグループの管理者権限が必要です。
-     * @summary グループメンバーを設定
-     * @param {string} groupId ユーザーグループUUID
-     * @param {Array<UserGroupMember>} [userGroupMember]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof GroupApi
-     */
-    setUserGroupMembers(groupId, userGroupMember, options) {
-        return exports.GroupApiFp(this.configuration).setUserGroupMembers(groupId, userGroupMember, options)(this.axios, this.basePath);
-    }
 }
 exports.GroupApi = GroupApi;
 /**
@@ -4608,8 +4742,8 @@ exports.GroupApi = GroupApi;
 exports.MeApiAxiosParamCreator = function (configuration) {
     return {
         /**
-         *
-         * @summary チャンネルをスターします
+         * 指定したチャンネルをスターチャンネルに追加します。 不正なチャンネルIDを指定した場合、400を返します。
+         * @summary チャンネルをスターに追加
          * @param {PostStarRequest} [postStarRequest]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4924,7 +5058,7 @@ exports.MeApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * 自分のスタンプ履歴を最大50件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
+         * 自分のスタンプ履歴を最大100件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
          * @summary スタンプ履歴を取得
          * @param {number} [limit] 件数
          * @param {*} [options] Override http request option.
@@ -4953,8 +5087,8 @@ exports.MeApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         *
-         * @summary スターチャンネルリストを取得します
+         * 自分がスターしているチャンネルのUUIDの配列を取得します。
+         * @summary スターチャンネルリストを取得
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -5053,14 +5187,19 @@ exports.MeApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * 既読にするチャンネルUUIDが指定されてない場合は、全てのチャンネルを既読にします。
+         *
          * @summary 未読チャンネルを既読にします
-         * @param {string} [channelId] 既読にするチャンネルUUID
+         * @param {string} channelId チャンネルUUID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        readChannels(channelId, options = {}) {
-            const localVarPath = `/users/me/unread`;
+        readChannel(channelId, options = {}) {
+            // verify required parameter 'channelId' is not null or undefined
+            if (channelId === null || channelId === undefined) {
+                throw new base_1.RequiredError('channelId', 'Required parameter channelId was null or undefined when calling readChannel.');
+            }
+            const localVarPath = `/users/me/unread/{channelId}`
+                .replace(`{${"channelId"}}`, encodeURIComponent(String(channelId)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -5069,9 +5208,6 @@ exports.MeApiAxiosParamCreator = function (configuration) {
             const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
-            if (channelId !== undefined) {
-                localVarQueryParameter['channelId'] = channelId;
-            }
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
@@ -5278,8 +5414,8 @@ exports.MeApiAxiosParamCreator = function (configuration) {
 exports.MeApiFp = function (configuration) {
     return {
         /**
-         *
-         * @summary チャンネルをスターします
+         * 指定したチャンネルをスターチャンネルに追加します。 不正なチャンネルIDを指定した場合、400を返します。
+         * @summary チャンネルをスターに追加
          * @param {PostStarRequest} [postStarRequest]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5429,7 +5565,7 @@ exports.MeApiFp = function (configuration) {
             };
         },
         /**
-         * 自分のスタンプ履歴を最大50件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
+         * 自分のスタンプ履歴を最大100件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
          * @summary スタンプ履歴を取得
          * @param {number} [limit] 件数
          * @param {*} [options] Override http request option.
@@ -5443,8 +5579,8 @@ exports.MeApiFp = function (configuration) {
             };
         },
         /**
-         *
-         * @summary スターチャンネルリストを取得します
+         * 自分がスターしているチャンネルのUUIDの配列を取得します。
+         * @summary スターチャンネルリストを取得
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -5495,14 +5631,14 @@ exports.MeApiFp = function (configuration) {
             };
         },
         /**
-         * 既読にするチャンネルUUIDが指定されてない場合は、全てのチャンネルを既読にします。
+         *
          * @summary 未読チャンネルを既読にします
-         * @param {string} [channelId] 既読にするチャンネルUUID
+         * @param {string} channelId チャンネルUUID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        readChannels(channelId, options) {
-            const localVarAxiosArgs = exports.MeApiAxiosParamCreator(configuration).readChannels(channelId, options);
+        readChannel(channelId, options) {
+            const localVarAxiosArgs = exports.MeApiAxiosParamCreator(configuration).readChannel(channelId, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -5602,8 +5738,8 @@ exports.MeApiFp = function (configuration) {
 exports.MeApiFactory = function (configuration, basePath, axios) {
     return {
         /**
-         *
-         * @summary チャンネルをスターします
+         * 指定したチャンネルをスターチャンネルに追加します。 不正なチャンネルIDを指定した場合、400を返します。
+         * @summary チャンネルをスターに追加
          * @param {PostStarRequest} [postStarRequest]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5709,7 +5845,7 @@ exports.MeApiFactory = function (configuration, basePath, axios) {
             return exports.MeApiFp(configuration).getMySessions(options)(axios, basePath);
         },
         /**
-         * 自分のスタンプ履歴を最大50件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
+         * 自分のスタンプ履歴を最大100件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
          * @summary スタンプ履歴を取得
          * @param {number} [limit] 件数
          * @param {*} [options] Override http request option.
@@ -5719,8 +5855,8 @@ exports.MeApiFactory = function (configuration, basePath, axios) {
             return exports.MeApiFp(configuration).getMyStampHistory(limit, options)(axios, basePath);
         },
         /**
-         *
-         * @summary スターチャンネルリストを取得します
+         * 自分がスターしているチャンネルのUUIDの配列を取得します。
+         * @summary スターチャンネルリストを取得
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -5755,14 +5891,14 @@ exports.MeApiFactory = function (configuration, basePath, axios) {
             return exports.MeApiFp(configuration).getMyUserTags(options)(axios, basePath);
         },
         /**
-         * 既読にするチャンネルUUIDが指定されてない場合は、全てのチャンネルを既読にします。
+         *
          * @summary 未読チャンネルを既読にします
-         * @param {string} [channelId] 既読にするチャンネルUUID
+         * @param {string} channelId チャンネルUUID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        readChannels(channelId, options) {
-            return exports.MeApiFp(configuration).readChannels(channelId, options)(axios, basePath);
+        readChannel(channelId, options) {
+            return exports.MeApiFp(configuration).readChannel(channelId, options)(axios, basePath);
         },
         /**
          * 自身のFCMデバイスを登録します。
@@ -5835,8 +5971,8 @@ exports.MeApiFactory = function (configuration, basePath, axios) {
  */
 class MeApi extends base_1.BaseAPI {
     /**
-     *
-     * @summary チャンネルをスターします
+     * 指定したチャンネルをスターチャンネルに追加します。 不正なチャンネルIDを指定した場合、400を返します。
+     * @summary チャンネルをスターに追加
      * @param {PostStarRequest} [postStarRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -5953,7 +6089,7 @@ class MeApi extends base_1.BaseAPI {
         return exports.MeApiFp(this.configuration).getMySessions(options)(this.axios, this.basePath);
     }
     /**
-     * 自分のスタンプ履歴を最大50件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
+     * 自分のスタンプ履歴を最大100件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
      * @summary スタンプ履歴を取得
      * @param {number} [limit] 件数
      * @param {*} [options] Override http request option.
@@ -5964,8 +6100,8 @@ class MeApi extends base_1.BaseAPI {
         return exports.MeApiFp(this.configuration).getMyStampHistory(limit, options)(this.axios, this.basePath);
     }
     /**
-     *
-     * @summary スターチャンネルリストを取得します
+     * 自分がスターしているチャンネルのUUIDの配列を取得します。
+     * @summary スターチャンネルリストを取得
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MeApi
@@ -6004,15 +6140,15 @@ class MeApi extends base_1.BaseAPI {
         return exports.MeApiFp(this.configuration).getMyUserTags(options)(this.axios, this.basePath);
     }
     /**
-     * 既読にするチャンネルUUIDが指定されてない場合は、全てのチャンネルを既読にします。
+     *
      * @summary 未読チャンネルを既読にします
-     * @param {string} [channelId] 既読にするチャンネルUUID
+     * @param {string} channelId チャンネルUUID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MeApi
      */
-    readChannels(channelId, options) {
-        return exports.MeApiFp(this.configuration).readChannels(channelId, options)(this.axios, this.basePath);
+    readChannel(channelId, options) {
+        return exports.MeApiFp(this.configuration).readChannel(channelId, options)(this.axios, this.basePath);
     }
     /**
      * 自身のFCMデバイスを登録します。
@@ -7227,14 +7363,19 @@ exports.NotificationApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * 既読にするチャンネルUUIDが指定されてない場合は、全てのチャンネルを既読にします。
+         *
          * @summary 未読チャンネルを既読にします
-         * @param {string} [channelId] 既読にするチャンネルUUID
+         * @param {string} channelId チャンネルUUID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        readChannels(channelId, options = {}) {
-            const localVarPath = `/users/me/unread`;
+        readChannel(channelId, options = {}) {
+            // verify required parameter 'channelId' is not null or undefined
+            if (channelId === null || channelId === undefined) {
+                throw new base_1.RequiredError('channelId', 'Required parameter channelId was null or undefined when calling readChannel.');
+            }
+            const localVarPath = `/users/me/unread/{channelId}`
+                .replace(`{${"channelId"}}`, encodeURIComponent(String(channelId)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
             if (configuration) {
@@ -7243,9 +7384,6 @@ exports.NotificationApiAxiosParamCreator = function (configuration) {
             const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
             const localVarHeaderParameter = {};
             const localVarQueryParameter = {};
-            if (channelId !== undefined) {
-                localVarQueryParameter['channelId'] = channelId;
-            }
             localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
@@ -7443,14 +7581,14 @@ exports.NotificationApiFp = function (configuration) {
             };
         },
         /**
-         * 既読にするチャンネルUUIDが指定されてない場合は、全てのチャンネルを既読にします。
+         *
          * @summary 未読チャンネルを既読にします
-         * @param {string} [channelId] 既読にするチャンネルUUID
+         * @param {string} channelId チャンネルUUID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        readChannels(channelId, options) {
-            const localVarAxiosArgs = exports.NotificationApiAxiosParamCreator(configuration).readChannels(channelId, options);
+        readChannel(channelId, options) {
+            const localVarAxiosArgs = exports.NotificationApiAxiosParamCreator(configuration).readChannel(channelId, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -7561,14 +7699,14 @@ exports.NotificationApiFactory = function (configuration, basePath, axios) {
             return exports.NotificationApiFp(configuration).getMyUnreadChannels(options)(axios, basePath);
         },
         /**
-         * 既読にするチャンネルUUIDが指定されてない場合は、全てのチャンネルを既読にします。
+         *
          * @summary 未読チャンネルを既読にします
-         * @param {string} [channelId] 既読にするチャンネルUUID
+         * @param {string} channelId チャンネルUUID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        readChannels(channelId, options) {
-            return exports.NotificationApiFp(configuration).readChannels(channelId, options)(axios, basePath);
+        readChannel(channelId, options) {
+            return exports.NotificationApiFp(configuration).readChannel(channelId, options)(axios, basePath);
         },
         /**
          * 自身のFCMデバイスを登録します。
@@ -7664,15 +7802,15 @@ class NotificationApi extends base_1.BaseAPI {
         return exports.NotificationApiFp(this.configuration).getMyUnreadChannels(options)(this.axios, this.basePath);
     }
     /**
-     * 既読にするチャンネルUUIDが指定されてない場合は、全てのチャンネルを既読にします。
+     *
      * @summary 未読チャンネルを既読にします
-     * @param {string} [channelId] 既読にするチャンネルUUID
+     * @param {string} channelId チャンネルUUID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    readChannels(channelId, options) {
-        return exports.NotificationApiFp(this.configuration).readChannels(channelId, options)(this.axios, this.basePath);
+    readChannel(channelId, options) {
+        return exports.NotificationApiFp(this.configuration).readChannel(channelId, options)(this.axios, this.basePath);
     }
     /**
      * 自身のFCMデバイスを登録します。
@@ -8718,10 +8856,52 @@ exports.StampApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
+         * 指定したスタンプの画像を変更します。
+         * @summary スタンプ画像を変更
+         * @param {string} stampId スタンプUUID
+         * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        changeStampImage(stampId, file, options = {}) {
+            // verify required parameter 'stampId' is not null or undefined
+            if (stampId === null || stampId === undefined) {
+                throw new base_1.RequiredError('stampId', 'Required parameter stampId was null or undefined when calling changeStampImage.');
+            }
+            // verify required parameter 'file' is not null or undefined
+            if (file === null || file === undefined) {
+                throw new base_1.RequiredError('file', 'Required parameter file was null or undefined when calling changeStampImage.');
+            }
+            const localVarPath = `/stamps/{stampId}/image`
+                .replace(`{${"stampId"}}`, encodeURIComponent(String(stampId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            const localVarFormParams = new FormData();
+            if (file !== undefined) {
+                localVarFormParams.append('file', file);
+            }
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            localVarRequestOptions.data = localVarFormParams;
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * スタンプを新規作成します。
          * @summary スタンプを作成
          * @param {string} name スタンプ名
-         * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif, svg)
+         * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -8853,6 +9033,41 @@ exports.StampApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
+         * 指定したスタンプの情報を変更します。
+         * @summary スタンプ情報を変更
+         * @param {string} stampId スタンプUUID
+         * @param {PatchStampRequest} [patchStampRequest]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        editStamp(stampId, patchStampRequest, options = {}) {
+            // verify required parameter 'stampId' is not null or undefined
+            if (stampId === null || stampId === undefined) {
+                throw new base_1.RequiredError('stampId', 'Required parameter stampId was null or undefined when calling editStamp.');
+            }
+            const localVarPath = `/stamps/{stampId}`
+                .replace(`{${"stampId"}}`, encodeURIComponent(String(stampId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            const needsSerialization = (typeof patchStampRequest !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(patchStampRequest !== undefined ? patchStampRequest : {}) : (patchStampRequest || "");
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * 指定したスタンプパレットの情報を変更します。 対象のスタンプパレットの管理権限が必要です。
          * @summary スタンプパレット情報を変更
          * @param {string} paletteId スタンプパレットUUID
@@ -8954,7 +9169,7 @@ exports.StampApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * 自分のスタンプ履歴を最大50件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
+         * 自分のスタンプ履歴を最大100件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
          * @summary スタンプ履歴を取得
          * @param {number} [limit] 件数
          * @param {*} [options] Override http request option.
@@ -8995,6 +9210,37 @@ exports.StampApiAxiosParamCreator = function (configuration) {
                 throw new base_1.RequiredError('stampId', 'Required parameter stampId was null or undefined when calling getStamp.');
             }
             const localVarPath = `/stamps/{stampId}`
+                .replace(`{${"stampId"}}`, encodeURIComponent(String(stampId)));
+            const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+            const localVarHeaderParameter = {};
+            const localVarQueryParameter = {};
+            localVarUrlObj.query = { ...localVarUrlObj.query, ...localVarQueryParameter, ...options.query };
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
+            return {
+                url: globalImportUrl.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 指定したIDのスタンプ画像を返します。
+         * @summary スタンプ画像を取得
+         * @param {string} stampId スタンプUUID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getStampImage(stampId, options = {}) {
+            // verify required parameter 'stampId' is not null or undefined
+            if (stampId === null || stampId === undefined) {
+                throw new base_1.RequiredError('stampId', 'Required parameter stampId was null or undefined when calling getStampImage.');
+            }
+            const localVarPath = `/stamps/{stampId}/image`
                 .replace(`{${"stampId"}}`, encodeURIComponent(String(stampId)));
             const localVarUrlObj = globalImportUrl.parse(localVarPath, true);
             let baseOptions;
@@ -9160,10 +9406,25 @@ exports.StampApiFp = function (configuration) {
             };
         },
         /**
+         * 指定したスタンプの画像を変更します。
+         * @summary スタンプ画像を変更
+         * @param {string} stampId スタンプUUID
+         * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        changeStampImage(stampId, file, options) {
+            const localVarAxiosArgs = exports.StampApiAxiosParamCreator(configuration).changeStampImage(stampId, file, options);
+            return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
          * スタンプを新規作成します。
          * @summary スタンプを作成
          * @param {string} name スタンプ名
-         * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif, svg)
+         * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -9217,6 +9478,21 @@ exports.StampApiFp = function (configuration) {
             };
         },
         /**
+         * 指定したスタンプの情報を変更します。
+         * @summary スタンプ情報を変更
+         * @param {string} stampId スタンプUUID
+         * @param {PatchStampRequest} [patchStampRequest]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        editStamp(stampId, patchStampRequest, options) {
+            const localVarAxiosArgs = exports.StampApiAxiosParamCreator(configuration).editStamp(stampId, patchStampRequest, options);
+            return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
          * 指定したスタンプパレットの情報を変更します。 対象のスタンプパレットの管理権限が必要です。
          * @summary スタンプパレット情報を変更
          * @param {string} paletteId スタンプパレットUUID
@@ -9261,7 +9537,7 @@ exports.StampApiFp = function (configuration) {
             };
         },
         /**
-         * 自分のスタンプ履歴を最大50件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
+         * 自分のスタンプ履歴を最大100件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
          * @summary スタンプ履歴を取得
          * @param {number} [limit] 件数
          * @param {*} [options] Override http request option.
@@ -9283,6 +9559,20 @@ exports.StampApiFp = function (configuration) {
          */
         getStamp(stampId, options) {
             const localVarAxiosArgs = exports.StampApiAxiosParamCreator(configuration).getStamp(stampId, options);
+            return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
+                const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 指定したIDのスタンプ画像を返します。
+         * @summary スタンプ画像を取得
+         * @param {string} stampId スタンプUUID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getStampImage(stampId, options) {
+            const localVarAxiosArgs = exports.StampApiAxiosParamCreator(configuration).getStampImage(stampId, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -9365,10 +9655,21 @@ exports.StampApiFactory = function (configuration, basePath, axios) {
             return exports.StampApiFp(configuration).addMessageStamp(messageId, stampId, postMessageStampRequest, options)(axios, basePath);
         },
         /**
+         * 指定したスタンプの画像を変更します。
+         * @summary スタンプ画像を変更
+         * @param {string} stampId スタンプUUID
+         * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        changeStampImage(stampId, file, options) {
+            return exports.StampApiFp(configuration).changeStampImage(stampId, file, options)(axios, basePath);
+        },
+        /**
          * スタンプを新規作成します。
          * @summary スタンプを作成
          * @param {string} name スタンプ名
-         * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif, svg)
+         * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -9406,6 +9707,17 @@ exports.StampApiFactory = function (configuration, basePath, axios) {
             return exports.StampApiFp(configuration).deleteStampPalette(paletteId, options)(axios, basePath);
         },
         /**
+         * 指定したスタンプの情報を変更します。
+         * @summary スタンプ情報を変更
+         * @param {string} stampId スタンプUUID
+         * @param {PatchStampRequest} [patchStampRequest]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        editStamp(stampId, patchStampRequest, options) {
+            return exports.StampApiFp(configuration).editStamp(stampId, patchStampRequest, options)(axios, basePath);
+        },
+        /**
          * 指定したスタンプパレットの情報を変更します。 対象のスタンプパレットの管理権限が必要です。
          * @summary スタンプパレット情報を変更
          * @param {string} paletteId スタンプパレットUUID
@@ -9438,7 +9750,7 @@ exports.StampApiFactory = function (configuration, basePath, axios) {
             return exports.StampApiFp(configuration).getMessageStamps(messageId, options)(axios, basePath);
         },
         /**
-         * 自分のスタンプ履歴を最大50件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
+         * 自分のスタンプ履歴を最大100件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
          * @summary スタンプ履歴を取得
          * @param {number} [limit] 件数
          * @param {*} [options] Override http request option.
@@ -9456,6 +9768,16 @@ exports.StampApiFactory = function (configuration, basePath, axios) {
          */
         getStamp(stampId, options) {
             return exports.StampApiFp(configuration).getStamp(stampId, options)(axios, basePath);
+        },
+        /**
+         * 指定したIDのスタンプ画像を返します。
+         * @summary スタンプ画像を取得
+         * @param {string} stampId スタンプUUID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getStampImage(stampId, options) {
+            return exports.StampApiFp(configuration).getStampImage(stampId, options)(axios, basePath);
         },
         /**
          * 指定したスタンプパレットの情報を取得します。
@@ -9520,10 +9842,22 @@ class StampApi extends base_1.BaseAPI {
         return exports.StampApiFp(this.configuration).addMessageStamp(messageId, stampId, postMessageStampRequest, options)(this.axios, this.basePath);
     }
     /**
+     * 指定したスタンプの画像を変更します。
+     * @summary スタンプ画像を変更
+     * @param {string} stampId スタンプUUID
+     * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    changeStampImage(stampId, file, options) {
+        return exports.StampApiFp(this.configuration).changeStampImage(stampId, file, options)(this.axios, this.basePath);
+    }
+    /**
      * スタンプを新規作成します。
      * @summary スタンプを作成
      * @param {string} name スタンプ名
-     * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif, svg)
+     * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif)
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StampApi
@@ -9565,6 +9899,18 @@ class StampApi extends base_1.BaseAPI {
         return exports.StampApiFp(this.configuration).deleteStampPalette(paletteId, options)(this.axios, this.basePath);
     }
     /**
+     * 指定したスタンプの情報を変更します。
+     * @summary スタンプ情報を変更
+     * @param {string} stampId スタンプUUID
+     * @param {PatchStampRequest} [patchStampRequest]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    editStamp(stampId, patchStampRequest, options) {
+        return exports.StampApiFp(this.configuration).editStamp(stampId, patchStampRequest, options)(this.axios, this.basePath);
+    }
+    /**
      * 指定したスタンプパレットの情報を変更します。 対象のスタンプパレットの管理権限が必要です。
      * @summary スタンプパレット情報を変更
      * @param {string} paletteId スタンプパレットUUID
@@ -9600,7 +9946,7 @@ class StampApi extends base_1.BaseAPI {
         return exports.StampApiFp(this.configuration).getMessageStamps(messageId, options)(this.axios, this.basePath);
     }
     /**
-     * 自分のスタンプ履歴を最大50件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
+     * 自分のスタンプ履歴を最大100件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
      * @summary スタンプ履歴を取得
      * @param {number} [limit] 件数
      * @param {*} [options] Override http request option.
@@ -9620,6 +9966,17 @@ class StampApi extends base_1.BaseAPI {
      */
     getStamp(stampId, options) {
         return exports.StampApiFp(this.configuration).getStamp(stampId, options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したIDのスタンプ画像を返します。
+     * @summary スタンプ画像を取得
+     * @param {string} stampId スタンプUUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    getStampImage(stampId, options) {
+        return exports.StampApiFp(this.configuration).getStampImage(stampId, options)(this.axios, this.basePath);
     }
     /**
      * 指定したスタンプパレットの情報を取得します。
@@ -9674,8 +10031,8 @@ exports.StampApi = StampApi;
 exports.StarApiAxiosParamCreator = function (configuration) {
     return {
         /**
-         *
-         * @summary チャンネルをスターします
+         * 指定したチャンネルをスターチャンネルに追加します。 不正なチャンネルIDを指定した場合、400を返します。
+         * @summary チャンネルをスターに追加
          * @param {PostStarRequest} [postStarRequest]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -9703,8 +10060,8 @@ exports.StarApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         *
-         * @summary スターチャンネルリストを取得します
+         * 自分がスターしているチャンネルのUUIDの配列を取得します。
+         * @summary スターチャンネルリストを取得
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -9767,8 +10124,8 @@ exports.StarApiAxiosParamCreator = function (configuration) {
 exports.StarApiFp = function (configuration) {
     return {
         /**
-         *
-         * @summary チャンネルをスターします
+         * 指定したチャンネルをスターチャンネルに追加します。 不正なチャンネルIDを指定した場合、400を返します。
+         * @summary チャンネルをスターに追加
          * @param {PostStarRequest} [postStarRequest]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -9781,8 +10138,8 @@ exports.StarApiFp = function (configuration) {
             };
         },
         /**
-         *
-         * @summary スターチャンネルリストを取得します
+         * 自分がスターしているチャンネルのUUIDの配列を取得します。
+         * @summary スターチャンネルリストを取得
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -9816,8 +10173,8 @@ exports.StarApiFp = function (configuration) {
 exports.StarApiFactory = function (configuration, basePath, axios) {
     return {
         /**
-         *
-         * @summary チャンネルをスターします
+         * 指定したチャンネルをスターチャンネルに追加します。 不正なチャンネルIDを指定した場合、400を返します。
+         * @summary チャンネルをスターに追加
          * @param {PostStarRequest} [postStarRequest]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -9826,8 +10183,8 @@ exports.StarApiFactory = function (configuration, basePath, axios) {
             return exports.StarApiFp(configuration).addMyStar(postStarRequest, options)(axios, basePath);
         },
         /**
-         *
-         * @summary スターチャンネルリストを取得します
+         * 自分がスターしているチャンネルのUUIDの配列を取得します。
+         * @summary スターチャンネルリストを取得
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -9854,8 +10211,8 @@ exports.StarApiFactory = function (configuration, basePath, axios) {
  */
 class StarApi extends base_1.BaseAPI {
     /**
-     *
-     * @summary チャンネルをスターします
+     * 指定したチャンネルをスターチャンネルに追加します。 不正なチャンネルIDを指定した場合、400を返します。
+     * @summary チャンネルをスターに追加
      * @param {PostStarRequest} [postStarRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -9865,8 +10222,8 @@ class StarApi extends base_1.BaseAPI {
         return exports.StarApiFp(this.configuration).addMyStar(postStarRequest, options)(this.axios, this.basePath);
     }
     /**
-     *
-     * @summary スターチャンネルリストを取得します
+     * 自分がスターしているチャンネルのUUIDの配列を取得します。
+     * @summary スターチャンネルリストを取得
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StarApi
@@ -10259,7 +10616,7 @@ exports.UserApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * ユーザーのリストを取得します。
+         * ユーザーのリストを取得します。 `include-suspended`を指定しない場合、レスポンスに非アクティブユーザーは含まれません。
          * @summary ユーザーのリストを取得
          * @param {boolean} [includeSuspended] アカウントがアクティブでないユーザーを含めるかどうか
          * @param {*} [options] Override http request option.
@@ -10520,7 +10877,7 @@ exports.UserApiFp = function (configuration) {
             };
         },
         /**
-         * ユーザーのリストを取得します。
+         * ユーザーのリストを取得します。 `include-suspended`を指定しない場合、レスポンスに非アクティブユーザーは含まれません。
          * @summary ユーザーのリストを取得
          * @param {boolean} [includeSuspended] アカウントがアクティブでないユーザーを含めるかどうか
          * @param {*} [options] Override http request option.
@@ -10684,7 +11041,7 @@ exports.UserApiFactory = function (configuration, basePath, axios) {
             return exports.UserApiFp(configuration).getUserTags(userId, options)(axios, basePath);
         },
         /**
-         * ユーザーのリストを取得します。
+         * ユーザーのリストを取得します。 `include-suspended`を指定しない場合、レスポンスに非アクティブユーザーは含まれません。
          * @summary ユーザーのリストを取得
          * @param {boolean} [includeSuspended] アカウントがアクティブでないユーザーを含めるかどうか
          * @param {*} [options] Override http request option.
@@ -10847,7 +11204,7 @@ class UserApi extends base_1.BaseAPI {
         return exports.UserApiFp(this.configuration).getUserTags(userId, options)(this.axios, this.basePath);
     }
     /**
-     * ユーザーのリストを取得します。
+     * ユーザーのリストを取得します。 `include-suspended`を指定しない場合、レスポンスに非アクティブユーザーは含まれません。
      * @summary ユーザーのリストを取得
      * @param {boolean} [includeSuspended] アカウントがアクティブでないユーザーを含めるかどうか
      * @param {*} [options] Override http request option.
@@ -12568,7 +12925,7 @@ class Apis extends base_1.BaseAPI {
         return exports.BotApiFp(this.configuration).getBotLogs(botId, limit, offset, options)(this.axios, this.basePath);
     }
     /**
-     * BOT情報のリストを取得します。
+     * BOT情報のリストを取得します。 allを指定しない場合、自分が開発者のBOTのみを返します。
      * @summary BOTリストを取得
      * @param {boolean} [all] 全てのBOTを取得するかどうか
      * @param {*} [options] Override http request option.
@@ -12647,7 +13004,7 @@ class Apis extends base_1.BaseAPI {
         return exports.ChannelApiFp(this.configuration).createChannel(postChannelRequest, options)(this.axios, this.basePath);
     }
     /**
-     * 指定したチャンネルの情報を変更します。 変更には権限が必要です。
+     * 指定したチャンネルの情報を変更します。 変更には権限が必要です。 ルートチャンネルに移動させる場合は、`parent`に`00000000-0000-0000-0000-000000000000`を指定してください。
      * @summary チャンネル情報を変更
      * @param {string} channelId チャンネルUUID
      * @param {PatchChannelRequest} [patchChannelRequest]
@@ -12768,12 +13125,13 @@ class Apis extends base_1.BaseAPI {
     /**
      * チャンネルのリストを取得します。
      * @summary チャンネルリストを取得
+     * @param {boolean} [includeDm] ダイレクトメッセージチャンネルをレスポンスに含めるかどうか
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    getChannels(options) {
-        return exports.ChannelApiFp(this.configuration).getChannels(options)(this.axios, this.basePath);
+    getChannels(includeDm, options) {
+        return exports.ChannelApiFp(this.configuration).getChannels(includeDm, options)(this.axios, this.basePath);
     }
     /**
      * 指定したチャンネルのメッセージのリストを取得します。
@@ -12985,6 +13343,18 @@ class Apis extends base_1.BaseAPI {
         return exports.FileApiFp(this.configuration).postFile(file, channelId, options)(this.axios, this.basePath);
     }
     /**
+     * 指定したグループに管理者を追加します。 対象のユーザーグループの管理者権限が必要です。
+     * @summary グループ管理者を追加
+     * @param {string} groupId ユーザーグループUUID
+     * @param {PostUserGroupAdminRequest} [postUserGroupAdminRequest]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GroupApi
+     */
+    addUserGroupAdmin(groupId, postUserGroupAdminRequest, options) {
+        return exports.GroupApiFp(this.configuration).addUserGroupAdmin(groupId, postUserGroupAdminRequest, options)(this.axios, this.basePath);
+    }
+    /**
      * 指定したグループにメンバーを追加します。 対象のユーザーグループの管理者権限が必要です。
      * @summary グループメンバーを追加
      * @param {string} groupId ユーザーグループUUID
@@ -12997,7 +13367,7 @@ class Apis extends base_1.BaseAPI {
         return exports.GroupApiFp(this.configuration).addUserGroupMember(groupId, userGroupMember, options)(this.axios, this.basePath);
     }
     /**
-     * ユーザーグループを作成します。 作成者は自動的にメンバーに追加され、グループ管理者になります。
+     * ユーザーグループを作成します。 作成者は自動的にグループ管理者になります。
      * @summary ユーザーグループを作成
      * @param {PostUserGroupRequest} [postUserGroupRequest]
      * @param {*} [options] Override http request option.
@@ -13055,6 +13425,17 @@ class Apis extends base_1.BaseAPI {
         return exports.GroupApiFp(this.configuration).getUserGroup(groupId, options)(this.axios, this.basePath);
     }
     /**
+     * 指定したグループの管理者のリストを取得します。
+     * @summary グループ管理者を取得
+     * @param {string} groupId ユーザーグループUUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GroupApi
+     */
+    getUserGroupAdmins(groupId, options) {
+        return exports.GroupApiFp(this.configuration).getUserGroupAdmins(groupId, options)(this.axios, this.basePath);
+    }
+    /**
      * 指定したグループのメンバーのリストを取得します。
      * @summary グループメンバーを取得
      * @param {string} groupId ユーザーグループUUID
@@ -13068,14 +13449,24 @@ class Apis extends base_1.BaseAPI {
     /**
      * ユーザーグループのリストを取得します。
      * @summary ユーザーグループのリストを取得
-     * @param {string} [type] グループタイプ
-     * @param {boolean} [admin] 自分が管理者のグループのみを取得するかどうか
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GroupApi
      */
-    getUserGroups(type, admin, options) {
-        return exports.GroupApiFp(this.configuration).getUserGroups(type, admin, options)(this.axios, this.basePath);
+    getUserGroups(options) {
+        return exports.GroupApiFp(this.configuration).getUserGroups(options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したユーザーグループから指定した管理者を削除します。 対象のユーザーグループの管理者権限が必要です。 グループから管理者が存在しなくなる場合は400エラーを返します。
+     * @summary グループ管理者を削除
+     * @param {string} groupId ユーザーグループUUID
+     * @param {string} userId ユーザーUUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GroupApi
+     */
+    removeUserGroupAdmin(groupId, userId, options) {
+        return exports.GroupApiFp(this.configuration).removeUserGroupAdmin(groupId, userId, options)(this.axios, this.basePath);
     }
     /**
      * 指定したユーザーグループから指定したユーザーを削除します。 対象のユーザーグループの管理者権限が必要です。
@@ -13090,20 +13481,8 @@ class Apis extends base_1.BaseAPI {
         return exports.GroupApiFp(this.configuration).removeUserGroupMember(groupId, userId, options)(this.axios, this.basePath);
     }
     /**
-     * 指定したグループのメンバーをリクエストのメンバーに置き換えます。 リクエスト内に含まれないメンバーはグループから削除されます。 対象のユーザーグループの管理者権限が必要です。
-     * @summary グループメンバーを設定
-     * @param {string} groupId ユーザーグループUUID
-     * @param {Array<UserGroupMember>} [userGroupMember]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof GroupApi
-     */
-    setUserGroupMembers(groupId, userGroupMember, options) {
-        return exports.GroupApiFp(this.configuration).setUserGroupMembers(groupId, userGroupMember, options)(this.axios, this.basePath);
-    }
-    /**
-     *
-     * @summary チャンネルをスターします
+     * 指定したチャンネルをスターチャンネルに追加します。 不正なチャンネルIDを指定した場合、400を返します。
+     * @summary チャンネルをスターに追加
      * @param {PostStarRequest} [postStarRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -13210,7 +13589,7 @@ class Apis extends base_1.BaseAPI {
         return exports.MeApiFp(this.configuration).getMyQRCode(token, options)(this.axios, this.basePath);
     }
     /**
-     * 自分のスタンプ履歴を最大50件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
+     * 自分のスタンプ履歴を最大100件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
      * @summary スタンプ履歴を取得
      * @param {number} [limit] 件数
      * @param {*} [options] Override http request option.
@@ -13221,8 +13600,8 @@ class Apis extends base_1.BaseAPI {
         return exports.StampApiFp(this.configuration).getMyStampHistory(limit, options)(this.axios, this.basePath);
     }
     /**
-     *
-     * @summary スターチャンネルリストを取得します
+     * 自分がスターしているチャンネルのUUIDの配列を取得します。
+     * @summary スターチャンネルリストを取得
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StarApi
@@ -13261,15 +13640,15 @@ class Apis extends base_1.BaseAPI {
         return exports.UserTagApiFp(this.configuration).getMyUserTags(options)(this.axios, this.basePath);
     }
     /**
-     * 既読にするチャンネルUUIDが指定されてない場合は、全てのチャンネルを既読にします。
+     *
      * @summary 未読チャンネルを既読にします
-     * @param {string} [channelId] 既読にするチャンネルUUID
+     * @param {string} channelId チャンネルUUID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    readChannels(channelId, options) {
-        return exports.NotificationApiFp(this.configuration).readChannels(channelId, options)(this.axios, this.basePath);
+    readChannel(channelId, options) {
+        return exports.NotificationApiFp(this.configuration).readChannel(channelId, options)(this.axios, this.basePath);
     }
     /**
      * 自身のFCMデバイスを登録します。
@@ -13548,10 +13927,22 @@ class Apis extends base_1.BaseAPI {
         return exports.PublicApiFp(this.configuration).getServerVersion(options)(this.axios, this.basePath);
     }
     /**
+     * 指定したスタンプの画像を変更します。
+     * @summary スタンプ画像を変更
+     * @param {string} stampId スタンプUUID
+     * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    changeStampImage(stampId, file, options) {
+        return exports.StampApiFp(this.configuration).changeStampImage(stampId, file, options)(this.axios, this.basePath);
+    }
+    /**
      * スタンプを新規作成します。
      * @summary スタンプを作成
      * @param {string} name スタンプ名
-     * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif, svg)
+     * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif)
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StampApi
@@ -13593,6 +13984,18 @@ class Apis extends base_1.BaseAPI {
         return exports.StampApiFp(this.configuration).deleteStampPalette(paletteId, options)(this.axios, this.basePath);
     }
     /**
+     * 指定したスタンプの情報を変更します。
+     * @summary スタンプ情報を変更
+     * @param {string} stampId スタンプUUID
+     * @param {PatchStampRequest} [patchStampRequest]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    editStamp(stampId, patchStampRequest, options) {
+        return exports.StampApiFp(this.configuration).editStamp(stampId, patchStampRequest, options)(this.axios, this.basePath);
+    }
+    /**
      * 指定したスタンプパレットの情報を変更します。 対象のスタンプパレットの管理権限が必要です。
      * @summary スタンプパレット情報を変更
      * @param {string} paletteId スタンプパレットUUID
@@ -13626,6 +14029,17 @@ class Apis extends base_1.BaseAPI {
      */
     getStamp(stampId, options) {
         return exports.StampApiFp(this.configuration).getStamp(stampId, options)(this.axios, this.basePath);
+    }
+    /**
+     * 指定したIDのスタンプ画像を返します。
+     * @summary スタンプ画像を取得
+     * @param {string} stampId スタンプUUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    getStampImage(stampId, options) {
+        return exports.StampApiFp(this.configuration).getStampImage(stampId, options)(this.axios, this.basePath);
     }
     /**
      * 指定したスタンプパレットの情報を取得します。
@@ -13765,7 +14179,7 @@ class Apis extends base_1.BaseAPI {
         return exports.UserTagApiFp(this.configuration).getUserTags(userId, options)(this.axios, this.basePath);
     }
     /**
-     * ユーザーのリストを取得します。
+     * ユーザーのリストを取得します。 `include-suspended`を指定しない場合、レスポンスに非アクティブユーザーは含まれません。
      * @summary ユーザーのリストを取得
      * @param {boolean} [includeSuspended] アカウントがアクティブでないユーザーを含めるかどうか
      * @param {*} [options] Override http request option.

@@ -360,6 +360,25 @@ export declare enum ChannelEventTypeEnum {
     ChildCreated = "ChildCreated"
 }
 /**
+ * GET /channelsレスポンス
+ * @export
+ * @interface ChannelList
+ */
+export interface ChannelList {
+    /**
+     * パブリックチャンネルの配列
+     * @type {Array<Channel>}
+     * @memberof ChannelList
+     */
+    _public?: Array<Channel>;
+    /**
+     * ダイレクトメッセージチャンネルの配列
+     * @type {Array<DMChannel>}
+     * @memberof ChannelList
+     */
+    dm?: Array<DMChannel>;
+}
+/**
  * チャンネル統計情報
  * @export
  * @interface ChannelStats
@@ -518,6 +537,25 @@ export interface ClippedMessage {
     clippedAt?: Date;
 }
 /**
+ * ダイレクトメッセージチャンネル
+ * @export
+ * @interface DMChannel
+ */
+export interface DMChannel {
+    /**
+     * チャンネルUUID
+     * @type {string}
+     * @memberof DMChannel
+     */
+    id?: string;
+    /**
+     * 送信先相手のUUID
+     * @type {string}
+     * @memberof DMChannel
+     */
+    userId?: string;
+}
+/**
  * ファイル情報
  * @export
  * @interface FileInfo
@@ -625,6 +663,19 @@ export interface ForcedNotificationChangedEvent {
 /**
  *
  * @export
+ * @interface InlineObject
+ */
+export interface InlineObject {
+    /**
+     * スタンプ画像(1MBまでのpng, jpeg, gif)
+     * @type {any}
+     * @memberof InlineObject
+     */
+    file: any;
+}
+/**
+ *
+ * @export
  * @interface InlineResponse200
  */
 export interface InlineResponse200 {
@@ -658,13 +709,13 @@ export interface LoginSession {
      * @type {string}
      * @memberof LoginSession
      */
-    ipAddress?: string;
+    ip?: string;
     /**
      * 最終アクセスユーザーエージェント
      * @type {string}
      * @memberof LoginSession
      */
-    userAgent?: string;
+    ua?: string;
     /**
      * 最終アクセス日時
      * @type {Date}
@@ -676,7 +727,7 @@ export interface LoginSession {
      * @type {Date}
      * @memberof LoginSession
      */
-    createdAt?: Date;
+    issuedAt?: Date;
 }
 /**
  * メッセージ
@@ -738,6 +789,25 @@ export interface Message {
      * @memberof Message
      */
     threadId?: string | null;
+}
+/**
+ * ピン情報
+ * @export
+ * @interface MessagePin
+ */
+export interface MessagePin {
+    /**
+     * ピン留めしたユーザーUUID
+     * @type {string}
+     * @memberof MessagePin
+     */
+    userId?: string;
+    /**
+     * ピン留めされた日時
+     * @type {Date}
+     * @memberof MessagePin
+     */
+    pinnedAt?: Date;
 }
 /**
  * メッセージに押されたスタンプ
@@ -1073,7 +1143,7 @@ export interface PatchChannelRequest {
      * @type {string}
      * @memberof PatchChannelRequest
      */
-    parentId?: string;
+    parent?: string;
 }
 /**
  * チャンネル購読者編集リクエスト
@@ -1151,11 +1221,11 @@ export interface PatchClipFolderRequest {
  */
 export interface PatchGroupMemberRequest {
     /**
-     * グループ管理者かどうか
-     * @type {boolean}
+     * ユーザーの役割
+     * @type {string}
      * @memberof PatchGroupMemberRequest
      */
-    isAdmin?: boolean;
+    role?: string;
 }
 /**
  * 自分のユーザー情報変更リクエスト
@@ -1200,6 +1270,25 @@ export interface PatchStampPaletteRequest {
      * @memberof PatchStampPaletteRequest
      */
     description?: string;
+}
+/**
+ * スタンプ情報変更リクエスト
+ * @export
+ * @interface PatchStampRequest
+ */
+export interface PatchStampRequest {
+    /**
+     * スタンプ名
+     * @type {string}
+     * @memberof PatchStampRequest
+     */
+    name?: string;
+    /**
+     * 作成者UUID
+     * @type {string}
+     * @memberof PatchStampRequest
+     */
+    creatorId?: string;
 }
 /**
  * ユーザーグループ編集リクエスト
@@ -1308,7 +1397,7 @@ export interface PatchWebhookRequest {
     ownerId?: string;
 }
 /**
- * ピン情報
+ * ピン情報(メッセージ本体付き)
  * @export
  * @interface Pin
  */
@@ -1325,12 +1414,6 @@ export interface Pin {
      * @memberof Pin
      */
     pinnedAt?: Date;
-    /**
-     * メッセージUUID
-     * @type {string}
-     * @memberof Pin
-     */
-    messageId?: string;
     /**
      *
      * @type {Message}
@@ -1636,7 +1719,7 @@ export interface PostStampRequest {
      */
     name: string;
     /**
-     * スタンプ画像(1MBまでのpng, jpeg, gif, svg)
+     * スタンプ画像(1MBまでのpng, jpeg, gif)
      * @type {any}
      * @memberof PostStampRequest
      */
@@ -1654,6 +1737,19 @@ export interface PostStarRequest {
      * @memberof PostStarRequest
      */
     channelId: string;
+}
+/**
+ * グループ管理者追加リクエスト
+ * @export
+ * @interface PostUserGroupAdminRequest
+ */
+export interface PostUserGroupAdminRequest {
+    /**
+     * 追加するユーザーのUUID
+     * @type {string}
+     * @memberof PostUserGroupAdminRequest
+     */
+    id: string;
 }
 /**
  * ユーザーグループ作成リクエスト
@@ -2068,7 +2164,7 @@ export interface UnreadChannel {
      * @type {Date}
      * @memberof UnreadChannel
      */
-    until?: Date;
+    updatedAt?: Date;
 }
 /**
  * ユーザー情報
@@ -2256,6 +2352,12 @@ export interface UserGroup {
      * @memberof UserGroup
      */
     updatedAt?: Date;
+    /**
+     * グループ管理者のUUIDの配列
+     * @type {Array<string>}
+     * @memberof UserGroup
+     */
+    admins?: Array<string>;
 }
 /**
  * ユーザーグループメンバー
@@ -2268,13 +2370,13 @@ export interface UserGroupMember {
      * @type {string}
      * @memberof UserGroupMember
      */
-    userId: string;
+    id: string;
     /**
-     * グループ管理者かどうか
-     * @type {boolean}
+     * ユーザーの役割
+     * @type {string}
      * @memberof UserGroupMember
      */
-    isAdmin?: boolean;
+    role?: string;
 }
 /**
  * ユーザーのチャンネル購読状態
@@ -2797,7 +2899,7 @@ export declare const BotApiAxiosParamCreator: (configuration?: Configuration) =>
      */
     getBotLogs(botId: string, limit?: number, offset?: number, options?: any): RequestArgs;
     /**
-     * BOT情報のリストを取得します。
+     * BOT情報のリストを取得します。 allを指定しない場合、自分が開発者のBOTのみを返します。
      * @summary BOTリストを取得
      * @param {boolean} [all] 全てのBOTを取得するかどうか
      * @param {*} [options] Override http request option.
@@ -2922,7 +3024,7 @@ export declare const BotApiFp: (configuration?: Configuration) => {
      */
     getBotLogs(botId: string, limit?: number, offset?: number, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<BotEventLog[]>;
     /**
-     * BOT情報のリストを取得します。
+     * BOT情報のリストを取得します。 allを指定しない場合、自分が開発者のBOTのみを返します。
      * @summary BOTリストを取得
      * @param {boolean} [all] 全てのBOTを取得するかどうか
      * @param {*} [options] Override http request option.
@@ -3047,7 +3149,7 @@ export declare const BotApiFactory: (configuration?: Configuration, basePath?: s
      */
     getBotLogs(botId: string, limit?: number, offset?: number, options?: any): AxiosPromise<BotEventLog[]>;
     /**
-     * BOT情報のリストを取得します。
+     * BOT情報のリストを取得します。 allを指定しない場合、自分が開発者のBOTのみを返します。
      * @summary BOTリストを取得
      * @param {boolean} [all] 全てのBOTを取得するかどうか
      * @param {*} [options] Override http request option.
@@ -3182,7 +3284,7 @@ export declare class BotApi extends BaseAPI {
      */
     getBotLogs(botId: string, limit?: number, offset?: number, options?: any): AxiosPromise<BotEventLog[]>;
     /**
-     * BOT情報のリストを取得します。
+     * BOT情報のリストを取得します。 allを指定しない場合、自分が開発者のBOTのみを返します。
      * @summary BOTリストを取得
      * @param {boolean} [all] 全てのBOTを取得するかどうか
      * @param {*} [options] Override http request option.
@@ -3252,7 +3354,7 @@ export declare const ChannelApiAxiosParamCreator: (configuration?: Configuration
      */
     createChannel(postChannelRequest?: PostChannelRequest, options?: any): RequestArgs;
     /**
-     * 指定したチャンネルの情報を変更します。 変更には権限が必要です。
+     * 指定したチャンネルの情報を変更します。 変更には権限が必要です。 ルートチャンネルに移動させる場合は、`parent`に`00000000-0000-0000-0000-000000000000`を指定してください。
      * @summary チャンネル情報を変更
      * @param {string} channelId チャンネルUUID
      * @param {PatchChannelRequest} [patchChannelRequest]
@@ -3351,10 +3453,11 @@ export declare const ChannelApiAxiosParamCreator: (configuration?: Configuration
     /**
      * チャンネルのリストを取得します。
      * @summary チャンネルリストを取得
+     * @param {boolean} [includeDm] ダイレクトメッセージチャンネルをレスポンスに含めるかどうか
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getChannels(options?: any): RequestArgs;
+    getChannels(includeDm?: boolean, options?: any): RequestArgs;
     /**
      * 指定したチャンネルのメッセージのリストを取得します。
      * @summary チャンネルメッセージのリストを取得
@@ -3402,7 +3505,7 @@ export declare const ChannelApiFp: (configuration?: Configuration) => {
      */
     createChannel(postChannelRequest?: PostChannelRequest, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Channel>;
     /**
-     * 指定したチャンネルの情報を変更します。 変更には権限が必要です。
+     * 指定したチャンネルの情報を変更します。 変更には権限が必要です。 ルートチャンネルに移動させる場合は、`parent`に`00000000-0000-0000-0000-000000000000`を指定してください。
      * @summary チャンネル情報を変更
      * @param {string} channelId チャンネルUUID
      * @param {PatchChannelRequest} [patchChannelRequest]
@@ -3501,10 +3604,11 @@ export declare const ChannelApiFp: (configuration?: Configuration) => {
     /**
      * チャンネルのリストを取得します。
      * @summary チャンネルリストを取得
+     * @param {boolean} [includeDm] ダイレクトメッセージチャンネルをレスポンスに含めるかどうか
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getChannels(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Channel[]>;
+    getChannels(includeDm?: boolean, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChannelList>;
     /**
      * 指定したチャンネルのメッセージのリストを取得します。
      * @summary チャンネルメッセージのリストを取得
@@ -3552,7 +3656,7 @@ export declare const ChannelApiFactory: (configuration?: Configuration, basePath
      */
     createChannel(postChannelRequest?: PostChannelRequest, options?: any): AxiosPromise<Channel>;
     /**
-     * 指定したチャンネルの情報を変更します。 変更には権限が必要です。
+     * 指定したチャンネルの情報を変更します。 変更には権限が必要です。 ルートチャンネルに移動させる場合は、`parent`に`00000000-0000-0000-0000-000000000000`を指定してください。
      * @summary チャンネル情報を変更
      * @param {string} channelId チャンネルUUID
      * @param {PatchChannelRequest} [patchChannelRequest]
@@ -3651,10 +3755,11 @@ export declare const ChannelApiFactory: (configuration?: Configuration, basePath
     /**
      * チャンネルのリストを取得します。
      * @summary チャンネルリストを取得
+     * @param {boolean} [includeDm] ダイレクトメッセージチャンネルをレスポンスに含めるかどうか
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getChannels(options?: any): AxiosPromise<Channel[]>;
+    getChannels(includeDm?: boolean, options?: any): AxiosPromise<ChannelList>;
     /**
      * 指定したチャンネルのメッセージのリストを取得します。
      * @summary チャンネルメッセージのリストを取得
@@ -3705,7 +3810,7 @@ export declare class ChannelApi extends BaseAPI {
      */
     createChannel(postChannelRequest?: PostChannelRequest, options?: any): AxiosPromise<Channel>;
     /**
-     * 指定したチャンネルの情報を変更します。 変更には権限が必要です。
+     * 指定したチャンネルの情報を変更します。 変更には権限が必要です。 ルートチャンネルに移動させる場合は、`parent`に`00000000-0000-0000-0000-000000000000`を指定してください。
      * @summary チャンネル情報を変更
      * @param {string} channelId チャンネルUUID
      * @param {PatchChannelRequest} [patchChannelRequest]
@@ -3815,11 +3920,12 @@ export declare class ChannelApi extends BaseAPI {
     /**
      * チャンネルのリストを取得します。
      * @summary チャンネルリストを取得
+     * @param {boolean} [includeDm] ダイレクトメッセージチャンネルをレスポンスに含めるかどうか
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    getChannels(options?: any): AxiosPromise<Channel[]>;
+    getChannels(includeDm?: boolean, options?: any): AxiosPromise<ChannelList>;
     /**
      * 指定したチャンネルのメッセージのリストを取得します。
      * @summary チャンネルメッセージのリストを取得
@@ -4432,6 +4538,15 @@ export declare class FileApi extends BaseAPI {
  */
 export declare const GroupApiAxiosParamCreator: (configuration?: Configuration) => {
     /**
+     * 指定したグループに管理者を追加します。 対象のユーザーグループの管理者権限が必要です。
+     * @summary グループ管理者を追加
+     * @param {string} groupId ユーザーグループUUID
+     * @param {PostUserGroupAdminRequest} [postUserGroupAdminRequest]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    addUserGroupAdmin(groupId: string, postUserGroupAdminRequest?: PostUserGroupAdminRequest, options?: any): RequestArgs;
+    /**
      * 指定したグループにメンバーを追加します。 対象のユーザーグループの管理者権限が必要です。
      * @summary グループメンバーを追加
      * @param {string} groupId ユーザーグループUUID
@@ -4441,7 +4556,7 @@ export declare const GroupApiAxiosParamCreator: (configuration?: Configuration) 
      */
     addUserGroupMember(groupId: string, userGroupMember?: UserGroupMember, options?: any): RequestArgs;
     /**
-     * ユーザーグループを作成します。 作成者は自動的にメンバーに追加され、グループ管理者になります。
+     * ユーザーグループを作成します。 作成者は自動的にグループ管理者になります。
      * @summary ユーザーグループを作成
      * @param {PostUserGroupRequest} [postUserGroupRequest]
      * @param {*} [options] Override http request option.
@@ -4484,6 +4599,14 @@ export declare const GroupApiAxiosParamCreator: (configuration?: Configuration) 
      */
     getUserGroup(groupId: string, options?: any): RequestArgs;
     /**
+     * 指定したグループの管理者のリストを取得します。
+     * @summary グループ管理者を取得
+     * @param {string} groupId ユーザーグループUUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getUserGroupAdmins(groupId: string, options?: any): RequestArgs;
+    /**
      * 指定したグループのメンバーのリストを取得します。
      * @summary グループメンバーを取得
      * @param {string} groupId ユーザーグループUUID
@@ -4494,12 +4617,19 @@ export declare const GroupApiAxiosParamCreator: (configuration?: Configuration) 
     /**
      * ユーザーグループのリストを取得します。
      * @summary ユーザーグループのリストを取得
-     * @param {string} [type] グループタイプ
-     * @param {boolean} [admin] 自分が管理者のグループのみを取得するかどうか
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getUserGroups(type?: string, admin?: boolean, options?: any): RequestArgs;
+    getUserGroups(options?: any): RequestArgs;
+    /**
+     * 指定したユーザーグループから指定した管理者を削除します。 対象のユーザーグループの管理者権限が必要です。 グループから管理者が存在しなくなる場合は400エラーを返します。
+     * @summary グループ管理者を削除
+     * @param {string} groupId ユーザーグループUUID
+     * @param {string} userId ユーザーUUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    removeUserGroupAdmin(groupId: string, userId: string, options?: any): RequestArgs;
     /**
      * 指定したユーザーグループから指定したユーザーを削除します。 対象のユーザーグループの管理者権限が必要です。
      * @summary ユーザーグループから削除
@@ -4509,21 +4639,21 @@ export declare const GroupApiAxiosParamCreator: (configuration?: Configuration) 
      * @throws {RequiredError}
      */
     removeUserGroupMember(groupId: string, userId: string, options?: any): RequestArgs;
-    /**
-     * 指定したグループのメンバーをリクエストのメンバーに置き換えます。 リクエスト内に含まれないメンバーはグループから削除されます。 対象のユーザーグループの管理者権限が必要です。
-     * @summary グループメンバーを設定
-     * @param {string} groupId ユーザーグループUUID
-     * @param {Array<UserGroupMember>} [userGroupMember]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    setUserGroupMembers(groupId: string, userGroupMember?: UserGroupMember[], options?: any): RequestArgs;
 };
 /**
  * GroupApi - functional programming interface
  * @export
  */
 export declare const GroupApiFp: (configuration?: Configuration) => {
+    /**
+     * 指定したグループに管理者を追加します。 対象のユーザーグループの管理者権限が必要です。
+     * @summary グループ管理者を追加
+     * @param {string} groupId ユーザーグループUUID
+     * @param {PostUserGroupAdminRequest} [postUserGroupAdminRequest]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    addUserGroupAdmin(groupId: string, postUserGroupAdminRequest?: PostUserGroupAdminRequest, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 指定したグループにメンバーを追加します。 対象のユーザーグループの管理者権限が必要です。
      * @summary グループメンバーを追加
@@ -4534,7 +4664,7 @@ export declare const GroupApiFp: (configuration?: Configuration) => {
      */
     addUserGroupMember(groupId: string, userGroupMember?: UserGroupMember, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
-     * ユーザーグループを作成します。 作成者は自動的にメンバーに追加され、グループ管理者になります。
+     * ユーザーグループを作成します。 作成者は自動的にグループ管理者になります。
      * @summary ユーザーグループを作成
      * @param {PostUserGroupRequest} [postUserGroupRequest]
      * @param {*} [options] Override http request option.
@@ -4557,7 +4687,7 @@ export declare const GroupApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editUserGroup(groupId: string, patchUserGroupRequest?: PatchUserGroupRequest, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserGroup>;
+    editUserGroup(groupId: string, patchUserGroupRequest?: PatchUserGroupRequest, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 指定したユーザーグループ内の指定したユーザーの属性を編集します。 対象のユーザーグループの管理者権限が必要です。
      * @summary ユーザーグループメンバーを編集
@@ -4577,6 +4707,14 @@ export declare const GroupApiFp: (configuration?: Configuration) => {
      */
     getUserGroup(groupId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserGroup>;
     /**
+     * 指定したグループの管理者のリストを取得します。
+     * @summary グループ管理者を取得
+     * @param {string} groupId ユーザーグループUUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getUserGroupAdmins(groupId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string[]>;
+    /**
      * 指定したグループのメンバーのリストを取得します。
      * @summary グループメンバーを取得
      * @param {string} groupId ユーザーグループUUID
@@ -4587,12 +4725,19 @@ export declare const GroupApiFp: (configuration?: Configuration) => {
     /**
      * ユーザーグループのリストを取得します。
      * @summary ユーザーグループのリストを取得
-     * @param {string} [type] グループタイプ
-     * @param {boolean} [admin] 自分が管理者のグループのみを取得するかどうか
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getUserGroups(type?: string, admin?: boolean, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserGroup[]>;
+    getUserGroups(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserGroup[]>;
+    /**
+     * 指定したユーザーグループから指定した管理者を削除します。 対象のユーザーグループの管理者権限が必要です。 グループから管理者が存在しなくなる場合は400エラーを返します。
+     * @summary グループ管理者を削除
+     * @param {string} groupId ユーザーグループUUID
+     * @param {string} userId ユーザーUUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    removeUserGroupAdmin(groupId: string, userId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 指定したユーザーグループから指定したユーザーを削除します。 対象のユーザーグループの管理者権限が必要です。
      * @summary ユーザーグループから削除
@@ -4602,21 +4747,21 @@ export declare const GroupApiFp: (configuration?: Configuration) => {
      * @throws {RequiredError}
      */
     removeUserGroupMember(groupId: string, userId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
-    /**
-     * 指定したグループのメンバーをリクエストのメンバーに置き換えます。 リクエスト内に含まれないメンバーはグループから削除されます。 対象のユーザーグループの管理者権限が必要です。
-     * @summary グループメンバーを設定
-     * @param {string} groupId ユーザーグループUUID
-     * @param {Array<UserGroupMember>} [userGroupMember]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    setUserGroupMembers(groupId: string, userGroupMember?: UserGroupMember[], options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
 };
 /**
  * GroupApi - factory interface
  * @export
  */
 export declare const GroupApiFactory: (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) => {
+    /**
+     * 指定したグループに管理者を追加します。 対象のユーザーグループの管理者権限が必要です。
+     * @summary グループ管理者を追加
+     * @param {string} groupId ユーザーグループUUID
+     * @param {PostUserGroupAdminRequest} [postUserGroupAdminRequest]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    addUserGroupAdmin(groupId: string, postUserGroupAdminRequest?: PostUserGroupAdminRequest, options?: any): AxiosPromise<void>;
     /**
      * 指定したグループにメンバーを追加します。 対象のユーザーグループの管理者権限が必要です。
      * @summary グループメンバーを追加
@@ -4627,7 +4772,7 @@ export declare const GroupApiFactory: (configuration?: Configuration, basePath?:
      */
     addUserGroupMember(groupId: string, userGroupMember?: UserGroupMember, options?: any): AxiosPromise<void>;
     /**
-     * ユーザーグループを作成します。 作成者は自動的にメンバーに追加され、グループ管理者になります。
+     * ユーザーグループを作成します。 作成者は自動的にグループ管理者になります。
      * @summary ユーザーグループを作成
      * @param {PostUserGroupRequest} [postUserGroupRequest]
      * @param {*} [options] Override http request option.
@@ -4650,7 +4795,7 @@ export declare const GroupApiFactory: (configuration?: Configuration, basePath?:
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editUserGroup(groupId: string, patchUserGroupRequest?: PatchUserGroupRequest, options?: any): AxiosPromise<UserGroup>;
+    editUserGroup(groupId: string, patchUserGroupRequest?: PatchUserGroupRequest, options?: any): AxiosPromise<void>;
     /**
      * 指定したユーザーグループ内の指定したユーザーの属性を編集します。 対象のユーザーグループの管理者権限が必要です。
      * @summary ユーザーグループメンバーを編集
@@ -4670,6 +4815,14 @@ export declare const GroupApiFactory: (configuration?: Configuration, basePath?:
      */
     getUserGroup(groupId: string, options?: any): AxiosPromise<UserGroup>;
     /**
+     * 指定したグループの管理者のリストを取得します。
+     * @summary グループ管理者を取得
+     * @param {string} groupId ユーザーグループUUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getUserGroupAdmins(groupId: string, options?: any): AxiosPromise<string[]>;
+    /**
      * 指定したグループのメンバーのリストを取得します。
      * @summary グループメンバーを取得
      * @param {string} groupId ユーザーグループUUID
@@ -4680,12 +4833,19 @@ export declare const GroupApiFactory: (configuration?: Configuration, basePath?:
     /**
      * ユーザーグループのリストを取得します。
      * @summary ユーザーグループのリストを取得
-     * @param {string} [type] グループタイプ
-     * @param {boolean} [admin] 自分が管理者のグループのみを取得するかどうか
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getUserGroups(type?: string, admin?: boolean, options?: any): AxiosPromise<UserGroup[]>;
+    getUserGroups(options?: any): AxiosPromise<UserGroup[]>;
+    /**
+     * 指定したユーザーグループから指定した管理者を削除します。 対象のユーザーグループの管理者権限が必要です。 グループから管理者が存在しなくなる場合は400エラーを返します。
+     * @summary グループ管理者を削除
+     * @param {string} groupId ユーザーグループUUID
+     * @param {string} userId ユーザーUUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    removeUserGroupAdmin(groupId: string, userId: string, options?: any): AxiosPromise<void>;
     /**
      * 指定したユーザーグループから指定したユーザーを削除します。 対象のユーザーグループの管理者権限が必要です。
      * @summary ユーザーグループから削除
@@ -4695,15 +4855,6 @@ export declare const GroupApiFactory: (configuration?: Configuration, basePath?:
      * @throws {RequiredError}
      */
     removeUserGroupMember(groupId: string, userId: string, options?: any): AxiosPromise<void>;
-    /**
-     * 指定したグループのメンバーをリクエストのメンバーに置き換えます。 リクエスト内に含まれないメンバーはグループから削除されます。 対象のユーザーグループの管理者権限が必要です。
-     * @summary グループメンバーを設定
-     * @param {string} groupId ユーザーグループUUID
-     * @param {Array<UserGroupMember>} [userGroupMember]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    setUserGroupMembers(groupId: string, userGroupMember?: UserGroupMember[], options?: any): AxiosPromise<void>;
 };
 /**
  * GroupApi - object-oriented interface
@@ -4713,6 +4864,16 @@ export declare const GroupApiFactory: (configuration?: Configuration, basePath?:
  */
 export declare class GroupApi extends BaseAPI {
     /**
+     * 指定したグループに管理者を追加します。 対象のユーザーグループの管理者権限が必要です。
+     * @summary グループ管理者を追加
+     * @param {string} groupId ユーザーグループUUID
+     * @param {PostUserGroupAdminRequest} [postUserGroupAdminRequest]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GroupApi
+     */
+    addUserGroupAdmin(groupId: string, postUserGroupAdminRequest?: PostUserGroupAdminRequest, options?: any): AxiosPromise<void>;
+    /**
      * 指定したグループにメンバーを追加します。 対象のユーザーグループの管理者権限が必要です。
      * @summary グループメンバーを追加
      * @param {string} groupId ユーザーグループUUID
@@ -4723,7 +4884,7 @@ export declare class GroupApi extends BaseAPI {
      */
     addUserGroupMember(groupId: string, userGroupMember?: UserGroupMember, options?: any): AxiosPromise<void>;
     /**
-     * ユーザーグループを作成します。 作成者は自動的にメンバーに追加され、グループ管理者になります。
+     * ユーザーグループを作成します。 作成者は自動的にグループ管理者になります。
      * @summary ユーザーグループを作成
      * @param {PostUserGroupRequest} [postUserGroupRequest]
      * @param {*} [options] Override http request option.
@@ -4749,7 +4910,7 @@ export declare class GroupApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GroupApi
      */
-    editUserGroup(groupId: string, patchUserGroupRequest?: PatchUserGroupRequest, options?: any): AxiosPromise<UserGroup>;
+    editUserGroup(groupId: string, patchUserGroupRequest?: PatchUserGroupRequest, options?: any): AxiosPromise<void>;
     /**
      * 指定したユーザーグループ内の指定したユーザーの属性を編集します。 対象のユーザーグループの管理者権限が必要です。
      * @summary ユーザーグループメンバーを編集
@@ -4771,6 +4932,15 @@ export declare class GroupApi extends BaseAPI {
      */
     getUserGroup(groupId: string, options?: any): AxiosPromise<UserGroup>;
     /**
+     * 指定したグループの管理者のリストを取得します。
+     * @summary グループ管理者を取得
+     * @param {string} groupId ユーザーグループUUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GroupApi
+     */
+    getUserGroupAdmins(groupId: string, options?: any): AxiosPromise<string[]>;
+    /**
      * 指定したグループのメンバーのリストを取得します。
      * @summary グループメンバーを取得
      * @param {string} groupId ユーザーグループUUID
@@ -4782,13 +4952,21 @@ export declare class GroupApi extends BaseAPI {
     /**
      * ユーザーグループのリストを取得します。
      * @summary ユーザーグループのリストを取得
-     * @param {string} [type] グループタイプ
-     * @param {boolean} [admin] 自分が管理者のグループのみを取得するかどうか
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GroupApi
      */
-    getUserGroups(type?: string, admin?: boolean, options?: any): AxiosPromise<UserGroup[]>;
+    getUserGroups(options?: any): AxiosPromise<UserGroup[]>;
+    /**
+     * 指定したユーザーグループから指定した管理者を削除します。 対象のユーザーグループの管理者権限が必要です。 グループから管理者が存在しなくなる場合は400エラーを返します。
+     * @summary グループ管理者を削除
+     * @param {string} groupId ユーザーグループUUID
+     * @param {string} userId ユーザーUUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GroupApi
+     */
+    removeUserGroupAdmin(groupId: string, userId: string, options?: any): AxiosPromise<void>;
     /**
      * 指定したユーザーグループから指定したユーザーを削除します。 対象のユーザーグループの管理者権限が必要です。
      * @summary ユーザーグループから削除
@@ -4799,16 +4977,6 @@ export declare class GroupApi extends BaseAPI {
      * @memberof GroupApi
      */
     removeUserGroupMember(groupId: string, userId: string, options?: any): AxiosPromise<void>;
-    /**
-     * 指定したグループのメンバーをリクエストのメンバーに置き換えます。 リクエスト内に含まれないメンバーはグループから削除されます。 対象のユーザーグループの管理者権限が必要です。
-     * @summary グループメンバーを設定
-     * @param {string} groupId ユーザーグループUUID
-     * @param {Array<UserGroupMember>} [userGroupMember]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof GroupApi
-     */
-    setUserGroupMembers(groupId: string, userGroupMember?: Array<UserGroupMember>, options?: any): AxiosPromise<void>;
 }
 /**
  * MeApi - axios parameter creator
@@ -4816,8 +4984,8 @@ export declare class GroupApi extends BaseAPI {
  */
 export declare const MeApiAxiosParamCreator: (configuration?: Configuration) => {
     /**
-     *
-     * @summary チャンネルをスターします
+     * 指定したチャンネルをスターチャンネルに追加します。 不正なチャンネルIDを指定した場合、400を返します。
+     * @summary チャンネルをスターに追加
      * @param {PostStarRequest} [postStarRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -4901,7 +5069,7 @@ export declare const MeApiAxiosParamCreator: (configuration?: Configuration) => 
      */
     getMySessions(options?: any): RequestArgs;
     /**
-     * 自分のスタンプ履歴を最大50件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
+     * 自分のスタンプ履歴を最大100件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
      * @summary スタンプ履歴を取得
      * @param {number} [limit] 件数
      * @param {*} [options] Override http request option.
@@ -4909,8 +5077,8 @@ export declare const MeApiAxiosParamCreator: (configuration?: Configuration) => 
      */
     getMyStampHistory(limit?: number, options?: any): RequestArgs;
     /**
-     *
-     * @summary スターチャンネルリストを取得します
+     * 自分がスターしているチャンネルのUUIDの配列を取得します。
+     * @summary スターチャンネルリストを取得
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -4937,13 +5105,13 @@ export declare const MeApiAxiosParamCreator: (configuration?: Configuration) => 
      */
     getMyUserTags(options?: any): RequestArgs;
     /**
-     * 既読にするチャンネルUUIDが指定されてない場合は、全てのチャンネルを既読にします。
+     *
      * @summary 未読チャンネルを既読にします
-     * @param {string} [channelId] 既読にするチャンネルUUID
+     * @param {string} channelId チャンネルUUID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    readChannels(channelId?: string, options?: any): RequestArgs;
+    readChannel(channelId: string, options?: any): RequestArgs;
     /**
      * 自身のFCMデバイスを登録します。
      * @summary FCMデバイスを登録
@@ -5000,8 +5168,8 @@ export declare const MeApiAxiosParamCreator: (configuration?: Configuration) => 
  */
 export declare const MeApiFp: (configuration?: Configuration) => {
     /**
-     *
-     * @summary チャンネルをスターします
+     * 指定したチャンネルをスターチャンネルに追加します。 不正なチャンネルIDを指定した場合、400を返します。
+     * @summary チャンネルをスターに追加
      * @param {PostStarRequest} [postStarRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -5038,7 +5206,7 @@ export declare const MeApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editMe(patchMeRequest?: PatchMeRequest, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<MyUserDetail>;
+    editMe(patchMeRequest?: PatchMeRequest, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      *
      * @summary 自分のタグを編集します
@@ -5085,7 +5253,7 @@ export declare const MeApiFp: (configuration?: Configuration) => {
      */
     getMySessions(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<LoginSession[]>;
     /**
-     * 自分のスタンプ履歴を最大50件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
+     * 自分のスタンプ履歴を最大100件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
      * @summary スタンプ履歴を取得
      * @param {number} [limit] 件数
      * @param {*} [options] Override http request option.
@@ -5093,8 +5261,8 @@ export declare const MeApiFp: (configuration?: Configuration) => {
      */
     getMyStampHistory(limit?: number, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<StampHistoryEntry[]>;
     /**
-     *
-     * @summary スターチャンネルリストを取得します
+     * 自分がスターしているチャンネルのUUIDの配列を取得します。
+     * @summary スターチャンネルリストを取得
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -5121,13 +5289,13 @@ export declare const MeApiFp: (configuration?: Configuration) => {
      */
     getMyUserTags(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserTag[]>;
     /**
-     * 既読にするチャンネルUUIDが指定されてない場合は、全てのチャンネルを既読にします。
+     *
      * @summary 未読チャンネルを既読にします
-     * @param {string} [channelId] 既読にするチャンネルUUID
+     * @param {string} channelId チャンネルUUID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    readChannels(channelId?: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
+    readChannel(channelId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 自身のFCMデバイスを登録します。
      * @summary FCMデバイスを登録
@@ -5184,8 +5352,8 @@ export declare const MeApiFp: (configuration?: Configuration) => {
  */
 export declare const MeApiFactory: (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) => {
     /**
-     *
-     * @summary チャンネルをスターします
+     * 指定したチャンネルをスターチャンネルに追加します。 不正なチャンネルIDを指定した場合、400を返します。
+     * @summary チャンネルをスターに追加
      * @param {PostStarRequest} [postStarRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -5222,7 +5390,7 @@ export declare const MeApiFactory: (configuration?: Configuration, basePath?: st
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editMe(patchMeRequest?: PatchMeRequest, options?: any): AxiosPromise<MyUserDetail>;
+    editMe(patchMeRequest?: PatchMeRequest, options?: any): AxiosPromise<void>;
     /**
      *
      * @summary 自分のタグを編集します
@@ -5269,7 +5437,7 @@ export declare const MeApiFactory: (configuration?: Configuration, basePath?: st
      */
     getMySessions(options?: any): AxiosPromise<LoginSession[]>;
     /**
-     * 自分のスタンプ履歴を最大50件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
+     * 自分のスタンプ履歴を最大100件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
      * @summary スタンプ履歴を取得
      * @param {number} [limit] 件数
      * @param {*} [options] Override http request option.
@@ -5277,8 +5445,8 @@ export declare const MeApiFactory: (configuration?: Configuration, basePath?: st
      */
     getMyStampHistory(limit?: number, options?: any): AxiosPromise<StampHistoryEntry[]>;
     /**
-     *
-     * @summary スターチャンネルリストを取得します
+     * 自分がスターしているチャンネルのUUIDの配列を取得します。
+     * @summary スターチャンネルリストを取得
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -5305,13 +5473,13 @@ export declare const MeApiFactory: (configuration?: Configuration, basePath?: st
      */
     getMyUserTags(options?: any): AxiosPromise<UserTag[]>;
     /**
-     * 既読にするチャンネルUUIDが指定されてない場合は、全てのチャンネルを既読にします。
+     *
      * @summary 未読チャンネルを既読にします
-     * @param {string} [channelId] 既読にするチャンネルUUID
+     * @param {string} channelId チャンネルUUID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    readChannels(channelId?: string, options?: any): AxiosPromise<void>;
+    readChannel(channelId: string, options?: any): AxiosPromise<void>;
     /**
      * 自身のFCMデバイスを登録します。
      * @summary FCMデバイスを登録
@@ -5370,8 +5538,8 @@ export declare const MeApiFactory: (configuration?: Configuration, basePath?: st
  */
 export declare class MeApi extends BaseAPI {
     /**
-     *
-     * @summary チャンネルをスターします
+     * 指定したチャンネルをスターチャンネルに追加します。 不正なチャンネルIDを指定した場合、400を返します。
+     * @summary チャンネルをスターに追加
      * @param {PostStarRequest} [postStarRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -5413,7 +5581,7 @@ export declare class MeApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MeApi
      */
-    editMe(patchMeRequest?: PatchMeRequest, options?: any): AxiosPromise<MyUserDetail>;
+    editMe(patchMeRequest?: PatchMeRequest, options?: any): AxiosPromise<void>;
     /**
      *
      * @summary 自分のタグを編集します
@@ -5466,7 +5634,7 @@ export declare class MeApi extends BaseAPI {
      */
     getMySessions(options?: any): AxiosPromise<LoginSession[]>;
     /**
-     * 自分のスタンプ履歴を最大50件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
+     * 自分のスタンプ履歴を最大100件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
      * @summary スタンプ履歴を取得
      * @param {number} [limit] 件数
      * @param {*} [options] Override http request option.
@@ -5475,8 +5643,8 @@ export declare class MeApi extends BaseAPI {
      */
     getMyStampHistory(limit?: number, options?: any): AxiosPromise<StampHistoryEntry[]>;
     /**
-     *
-     * @summary スターチャンネルリストを取得します
+     * 自分がスターしているチャンネルのUUIDの配列を取得します。
+     * @summary スターチャンネルリストを取得
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MeApi
@@ -5507,14 +5675,14 @@ export declare class MeApi extends BaseAPI {
      */
     getMyUserTags(options?: any): AxiosPromise<UserTag[]>;
     /**
-     * 既読にするチャンネルUUIDが指定されてない場合は、全てのチャンネルを既読にします。
+     *
      * @summary 未読チャンネルを既読にします
-     * @param {string} [channelId] 既読にするチャンネルUUID
+     * @param {string} channelId チャンネルUUID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MeApi
      */
-    readChannels(channelId?: string, options?: any): AxiosPromise<void>;
+    readChannel(channelId: string, options?: any): AxiosPromise<void>;
     /**
      * 自身のFCMデバイスを登録します。
      * @summary FCMデバイスを登録
@@ -5721,7 +5889,7 @@ export declare const MessageApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createPin(messageId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Pin>;
+    createPin(messageId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessagePin>;
     /**
      * 指定したメッセージを削除します。 自身が投稿したメッセージと自身が管理権限を持つWebhookとBOTが投稿したメッセージのみ削除することができます。
      * @summary メッセージを削除
@@ -5790,7 +5958,7 @@ export declare const MessageApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getPin(messageId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Pin>;
+    getPin(messageId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessagePin>;
     /**
      * 指定したユーザーにダイレクトメッセージを送信します。
      * @summary ダイレクトメッセージを送信
@@ -5849,7 +6017,7 @@ export declare const MessageApiFactory: (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createPin(messageId: string, options?: any): AxiosPromise<Pin>;
+    createPin(messageId: string, options?: any): AxiosPromise<MessagePin>;
     /**
      * 指定したメッセージを削除します。 自身が投稿したメッセージと自身が管理権限を持つWebhookとBOTが投稿したメッセージのみ削除することができます。
      * @summary メッセージを削除
@@ -5918,7 +6086,7 @@ export declare const MessageApiFactory: (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getPin(messageId: string, options?: any): AxiosPromise<Pin>;
+    getPin(messageId: string, options?: any): AxiosPromise<MessagePin>;
     /**
      * 指定したユーザーにダイレクトメッセージを送信します。
      * @summary ダイレクトメッセージを送信
@@ -5981,7 +6149,7 @@ export declare class MessageApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    createPin(messageId: string, options?: any): AxiosPromise<Pin>;
+    createPin(messageId: string, options?: any): AxiosPromise<MessagePin>;
     /**
      * 指定したメッセージを削除します。 自身が投稿したメッセージと自身が管理権限を持つWebhookとBOTが投稿したメッセージのみ削除することができます。
      * @summary メッセージを削除
@@ -6057,7 +6225,7 @@ export declare class MessageApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MessageApi
      */
-    getPin(messageId: string, options?: any): AxiosPromise<Pin>;
+    getPin(messageId: string, options?: any): AxiosPromise<MessagePin>;
     /**
      * 指定したユーザーにダイレクトメッセージを送信します。
      * @summary ダイレクトメッセージを送信
@@ -6135,13 +6303,13 @@ export declare const NotificationApiAxiosParamCreator: (configuration?: Configur
      */
     getMyUnreadChannels(options?: any): RequestArgs;
     /**
-     * 既読にするチャンネルUUIDが指定されてない場合は、全てのチャンネルを既読にします。
+     *
      * @summary 未読チャンネルを既読にします
-     * @param {string} [channelId] 既読にするチャンネルUUID
+     * @param {string} channelId チャンネルUUID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    readChannels(channelId?: string, options?: any): RequestArgs;
+    readChannel(channelId: string, options?: any): RequestArgs;
     /**
      * 自身のFCMデバイスを登録します。
      * @summary FCMデバイスを登録
@@ -6213,13 +6381,13 @@ export declare const NotificationApiFp: (configuration?: Configuration) => {
      */
     getMyUnreadChannels(options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UnreadChannel[]>;
     /**
-     * 既読にするチャンネルUUIDが指定されてない場合は、全てのチャンネルを既読にします。
+     *
      * @summary 未読チャンネルを既読にします
-     * @param {string} [channelId] 既読にするチャンネルUUID
+     * @param {string} channelId チャンネルUUID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    readChannels(channelId?: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
+    readChannel(channelId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 自身のFCMデバイスを登録します。
      * @summary FCMデバイスを登録
@@ -6291,13 +6459,13 @@ export declare const NotificationApiFactory: (configuration?: Configuration, bas
      */
     getMyUnreadChannels(options?: any): AxiosPromise<UnreadChannel[]>;
     /**
-     * 既読にするチャンネルUUIDが指定されてない場合は、全てのチャンネルを既読にします。
+     *
      * @summary 未読チャンネルを既読にします
-     * @param {string} [channelId] 既読にするチャンネルUUID
+     * @param {string} channelId チャンネルUUID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    readChannels(channelId?: string, options?: any): AxiosPromise<void>;
+    readChannel(channelId: string, options?: any): AxiosPromise<void>;
     /**
      * 自身のFCMデバイスを登録します。
      * @summary FCMデバイスを登録
@@ -6375,14 +6543,14 @@ export declare class NotificationApi extends BaseAPI {
      */
     getMyUnreadChannels(options?: any): AxiosPromise<UnreadChannel[]>;
     /**
-     * 既読にするチャンネルUUIDが指定されてない場合は、全てのチャンネルを既読にします。
+     *
      * @summary 未読チャンネルを既読にします
-     * @param {string} [channelId] 既読にするチャンネルUUID
+     * @param {string} channelId チャンネルUUID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    readChannels(channelId?: string, options?: any): AxiosPromise<void>;
+    readChannel(channelId: string, options?: any): AxiosPromise<void>;
     /**
      * 自身のFCMデバイスを登録します。
      * @summary FCMデバイスを登録
@@ -6732,7 +6900,7 @@ export declare const PinApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createPin(messageId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Pin>;
+    createPin(messageId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessagePin>;
     /**
      * 指定したチャンネルにピン留めされているピンメッセージのリストを取得します。
      * @summary チャンネルピンのリストを取得
@@ -6748,7 +6916,7 @@ export declare const PinApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getPin(messageId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Pin>;
+    getPin(messageId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessagePin>;
     /**
      * 指定したメッセージのピン留めを外します。
      * @summary ピン留めを外す
@@ -6770,7 +6938,7 @@ export declare const PinApiFactory: (configuration?: Configuration, basePath?: s
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    createPin(messageId: string, options?: any): AxiosPromise<Pin>;
+    createPin(messageId: string, options?: any): AxiosPromise<MessagePin>;
     /**
      * 指定したチャンネルにピン留めされているピンメッセージのリストを取得します。
      * @summary チャンネルピンのリストを取得
@@ -6786,7 +6954,7 @@ export declare const PinApiFactory: (configuration?: Configuration, basePath?: s
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getPin(messageId: string, options?: any): AxiosPromise<Pin>;
+    getPin(messageId: string, options?: any): AxiosPromise<MessagePin>;
     /**
      * 指定したメッセージのピン留めを外します。
      * @summary ピン留めを外す
@@ -6811,7 +6979,7 @@ export declare class PinApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PinApi
      */
-    createPin(messageId: string, options?: any): AxiosPromise<Pin>;
+    createPin(messageId: string, options?: any): AxiosPromise<MessagePin>;
     /**
      * 指定したチャンネルにピン留めされているピンメッセージのリストを取得します。
      * @summary チャンネルピンのリストを取得
@@ -6829,7 +6997,7 @@ export declare class PinApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PinApi
      */
-    getPin(messageId: string, options?: any): AxiosPromise<Pin>;
+    getPin(messageId: string, options?: any): AxiosPromise<MessagePin>;
     /**
      * 指定したメッセージのピン留めを外します。
      * @summary ピン留めを外す
@@ -6944,10 +7112,19 @@ export declare const StampApiAxiosParamCreator: (configuration?: Configuration) 
      */
     addMessageStamp(messageId: string, stampId: string, postMessageStampRequest?: PostMessageStampRequest, options?: any): RequestArgs;
     /**
+     * 指定したスタンプの画像を変更します。
+     * @summary スタンプ画像を変更
+     * @param {string} stampId スタンプUUID
+     * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    changeStampImage(stampId: string, file: any, options?: any): RequestArgs;
+    /**
      * スタンプを新規作成します。
      * @summary スタンプを作成
      * @param {string} name スタンプ名
-     * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif, svg)
+     * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif)
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -6977,6 +7154,15 @@ export declare const StampApiAxiosParamCreator: (configuration?: Configuration) 
      */
     deleteStampPalette(paletteId: string, options?: any): RequestArgs;
     /**
+     * 指定したスタンプの情報を変更します。
+     * @summary スタンプ情報を変更
+     * @param {string} stampId スタンプUUID
+     * @param {PatchStampRequest} [patchStampRequest]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    editStamp(stampId: string, patchStampRequest?: PatchStampRequest, options?: any): RequestArgs;
+    /**
      * 指定したスタンプパレットの情報を変更します。 対象のスタンプパレットの管理権限が必要です。
      * @summary スタンプパレット情報を変更
      * @param {string} paletteId スタンプパレットUUID
@@ -7003,7 +7189,7 @@ export declare const StampApiAxiosParamCreator: (configuration?: Configuration) 
      */
     getMessageStamps(messageId: string, options?: any): RequestArgs;
     /**
-     * 自分のスタンプ履歴を最大50件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
+     * 自分のスタンプ履歴を最大100件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
      * @summary スタンプ履歴を取得
      * @param {number} [limit] 件数
      * @param {*} [options] Override http request option.
@@ -7018,6 +7204,14 @@ export declare const StampApiAxiosParamCreator: (configuration?: Configuration) 
      * @throws {RequiredError}
      */
     getStamp(stampId: string, options?: any): RequestArgs;
+    /**
+     * 指定したIDのスタンプ画像を返します。
+     * @summary スタンプ画像を取得
+     * @param {string} stampId スタンプUUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getStampImage(stampId: string, options?: any): RequestArgs;
     /**
      * 指定したスタンプパレットの情報を取得します。
      * @summary スタンプパレットを取得
@@ -7067,10 +7261,19 @@ export declare const StampApiFp: (configuration?: Configuration) => {
      */
     addMessageStamp(messageId: string, stampId: string, postMessageStampRequest?: PostMessageStampRequest, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
+     * 指定したスタンプの画像を変更します。
+     * @summary スタンプ画像を変更
+     * @param {string} stampId スタンプUUID
+     * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    changeStampImage(stampId: string, file: any, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
+    /**
      * スタンプを新規作成します。
      * @summary スタンプを作成
      * @param {string} name スタンプ名
-     * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif, svg)
+     * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif)
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -7100,6 +7303,15 @@ export declare const StampApiFp: (configuration?: Configuration) => {
      */
     deleteStampPalette(paletteId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
+     * 指定したスタンプの情報を変更します。
+     * @summary スタンプ情報を変更
+     * @param {string} stampId スタンプUUID
+     * @param {PatchStampRequest} [patchStampRequest]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    editStamp(stampId: string, patchStampRequest?: PatchStampRequest, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
+    /**
      * 指定したスタンプパレットの情報を変更します。 対象のスタンプパレットの管理権限が必要です。
      * @summary スタンプパレット情報を変更
      * @param {string} paletteId スタンプパレットUUID
@@ -7126,7 +7338,7 @@ export declare const StampApiFp: (configuration?: Configuration) => {
      */
     getMessageStamps(messageId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessageStamp[]>;
     /**
-     * 自分のスタンプ履歴を最大50件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
+     * 自分のスタンプ履歴を最大100件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
      * @summary スタンプ履歴を取得
      * @param {number} [limit] 件数
      * @param {*} [options] Override http request option.
@@ -7141,6 +7353,14 @@ export declare const StampApiFp: (configuration?: Configuration) => {
      * @throws {RequiredError}
      */
     getStamp(stampId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Stamp>;
+    /**
+     * 指定したIDのスタンプ画像を返します。
+     * @summary スタンプ画像を取得
+     * @param {string} stampId スタンプUUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getStampImage(stampId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>;
     /**
      * 指定したスタンプパレットの情報を取得します。
      * @summary スタンプパレットを取得
@@ -7190,10 +7410,19 @@ export declare const StampApiFactory: (configuration?: Configuration, basePath?:
      */
     addMessageStamp(messageId: string, stampId: string, postMessageStampRequest?: PostMessageStampRequest, options?: any): AxiosPromise<void>;
     /**
+     * 指定したスタンプの画像を変更します。
+     * @summary スタンプ画像を変更
+     * @param {string} stampId スタンプUUID
+     * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    changeStampImage(stampId: string, file: any, options?: any): AxiosPromise<void>;
+    /**
      * スタンプを新規作成します。
      * @summary スタンプを作成
      * @param {string} name スタンプ名
-     * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif, svg)
+     * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif)
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -7223,6 +7452,15 @@ export declare const StampApiFactory: (configuration?: Configuration, basePath?:
      */
     deleteStampPalette(paletteId: string, options?: any): AxiosPromise<void>;
     /**
+     * 指定したスタンプの情報を変更します。
+     * @summary スタンプ情報を変更
+     * @param {string} stampId スタンプUUID
+     * @param {PatchStampRequest} [patchStampRequest]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    editStamp(stampId: string, patchStampRequest?: PatchStampRequest, options?: any): AxiosPromise<void>;
+    /**
      * 指定したスタンプパレットの情報を変更します。 対象のスタンプパレットの管理権限が必要です。
      * @summary スタンプパレット情報を変更
      * @param {string} paletteId スタンプパレットUUID
@@ -7249,7 +7487,7 @@ export declare const StampApiFactory: (configuration?: Configuration, basePath?:
      */
     getMessageStamps(messageId: string, options?: any): AxiosPromise<MessageStamp[]>;
     /**
-     * 自分のスタンプ履歴を最大50件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
+     * 自分のスタンプ履歴を最大100件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
      * @summary スタンプ履歴を取得
      * @param {number} [limit] 件数
      * @param {*} [options] Override http request option.
@@ -7264,6 +7502,14 @@ export declare const StampApiFactory: (configuration?: Configuration, basePath?:
      * @throws {RequiredError}
      */
     getStamp(stampId: string, options?: any): AxiosPromise<Stamp>;
+    /**
+     * 指定したIDのスタンプ画像を返します。
+     * @summary スタンプ画像を取得
+     * @param {string} stampId スタンプUUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getStampImage(stampId: string, options?: any): AxiosPromise<any>;
     /**
      * 指定したスタンプパレットの情報を取得します。
      * @summary スタンプパレットを取得
@@ -7316,10 +7562,20 @@ export declare class StampApi extends BaseAPI {
      */
     addMessageStamp(messageId: string, stampId: string, postMessageStampRequest?: PostMessageStampRequest, options?: any): AxiosPromise<void>;
     /**
+     * 指定したスタンプの画像を変更します。
+     * @summary スタンプ画像を変更
+     * @param {string} stampId スタンプUUID
+     * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    changeStampImage(stampId: string, file: any, options?: any): AxiosPromise<void>;
+    /**
      * スタンプを新規作成します。
      * @summary スタンプを作成
      * @param {string} name スタンプ名
-     * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif, svg)
+     * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif)
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StampApi
@@ -7353,6 +7609,16 @@ export declare class StampApi extends BaseAPI {
      */
     deleteStampPalette(paletteId: string, options?: any): AxiosPromise<void>;
     /**
+     * 指定したスタンプの情報を変更します。
+     * @summary スタンプ情報を変更
+     * @param {string} stampId スタンプUUID
+     * @param {PatchStampRequest} [patchStampRequest]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    editStamp(stampId: string, patchStampRequest?: PatchStampRequest, options?: any): AxiosPromise<void>;
+    /**
      * 指定したスタンプパレットの情報を変更します。 対象のスタンプパレットの管理権限が必要です。
      * @summary スタンプパレット情報を変更
      * @param {string} paletteId スタンプパレットUUID
@@ -7382,7 +7648,7 @@ export declare class StampApi extends BaseAPI {
      */
     getMessageStamps(messageId: string, options?: any): AxiosPromise<MessageStamp[]>;
     /**
-     * 自分のスタンプ履歴を最大50件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
+     * 自分のスタンプ履歴を最大100件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
      * @summary スタンプ履歴を取得
      * @param {number} [limit] 件数
      * @param {*} [options] Override http request option.
@@ -7399,6 +7665,15 @@ export declare class StampApi extends BaseAPI {
      * @memberof StampApi
      */
     getStamp(stampId: string, options?: any): AxiosPromise<Stamp>;
+    /**
+     * 指定したIDのスタンプ画像を返します。
+     * @summary スタンプ画像を取得
+     * @param {string} stampId スタンプUUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    getStampImage(stampId: string, options?: any): AxiosPromise<any>;
     /**
      * 指定したスタンプパレットの情報を取得します。
      * @summary スタンプパレットを取得
@@ -7442,16 +7717,16 @@ export declare class StampApi extends BaseAPI {
  */
 export declare const StarApiAxiosParamCreator: (configuration?: Configuration) => {
     /**
-     *
-     * @summary チャンネルをスターします
+     * 指定したチャンネルをスターチャンネルに追加します。 不正なチャンネルIDを指定した場合、400を返します。
+     * @summary チャンネルをスターに追加
      * @param {PostStarRequest} [postStarRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     addMyStar(postStarRequest?: PostStarRequest, options?: any): RequestArgs;
     /**
-     *
-     * @summary スターチャンネルリストを取得します
+     * 自分がスターしているチャンネルのUUIDの配列を取得します。
+     * @summary スターチャンネルリストを取得
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -7471,16 +7746,16 @@ export declare const StarApiAxiosParamCreator: (configuration?: Configuration) =
  */
 export declare const StarApiFp: (configuration?: Configuration) => {
     /**
-     *
-     * @summary チャンネルをスターします
+     * 指定したチャンネルをスターチャンネルに追加します。 不正なチャンネルIDを指定した場合、400を返します。
+     * @summary チャンネルをスターに追加
      * @param {PostStarRequest} [postStarRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     addMyStar(postStarRequest?: PostStarRequest, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
-     *
-     * @summary スターチャンネルリストを取得します
+     * 自分がスターしているチャンネルのUUIDの配列を取得します。
+     * @summary スターチャンネルリストを取得
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -7500,16 +7775,16 @@ export declare const StarApiFp: (configuration?: Configuration) => {
  */
 export declare const StarApiFactory: (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) => {
     /**
-     *
-     * @summary チャンネルをスターします
+     * 指定したチャンネルをスターチャンネルに追加します。 不正なチャンネルIDを指定した場合、400を返します。
+     * @summary チャンネルをスターに追加
      * @param {PostStarRequest} [postStarRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     addMyStar(postStarRequest?: PostStarRequest, options?: any): AxiosPromise<void>;
     /**
-     *
-     * @summary スターチャンネルリストを取得します
+     * 自分がスターしているチャンネルのUUIDの配列を取得します。
+     * @summary スターチャンネルリストを取得
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -7531,8 +7806,8 @@ export declare const StarApiFactory: (configuration?: Configuration, basePath?: 
  */
 export declare class StarApi extends BaseAPI {
     /**
-     *
-     * @summary チャンネルをスターします
+     * 指定したチャンネルをスターチャンネルに追加します。 不正なチャンネルIDを指定した場合、400を返します。
+     * @summary チャンネルをスターに追加
      * @param {PostStarRequest} [postStarRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -7540,8 +7815,8 @@ export declare class StarApi extends BaseAPI {
      */
     addMyStar(postStarRequest?: PostStarRequest, options?: any): AxiosPromise<void>;
     /**
-     *
-     * @summary スターチャンネルリストを取得します
+     * 自分がスターしているチャンネルのUUIDの配列を取得します。
+     * @summary スターチャンネルリストを取得
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StarApi
@@ -7655,7 +7930,7 @@ export declare const UserApiAxiosParamCreator: (configuration?: Configuration) =
      */
     getUserTags(userId: string, options?: any): RequestArgs;
     /**
-     * ユーザーのリストを取得します。
+     * ユーザーのリストを取得します。 `include-suspended`を指定しない場合、レスポンスに非アクティブユーザーは含まれません。
      * @summary ユーザーのリストを取得
      * @param {boolean} [includeSuspended] アカウントがアクティブでないユーザーを含めるかどうか
      * @param {*} [options] Override http request option.
@@ -7729,7 +8004,7 @@ export declare const UserApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editUser(userId: string, patchUserRequest?: PatchUserRequest, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserDetail>;
+    editUser(userId: string, patchUserRequest?: PatchUserRequest, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      *
      * @summary ユーザーのタグを編集します
@@ -7779,7 +8054,7 @@ export declare const UserApiFp: (configuration?: Configuration) => {
      */
     getUserTags(userId: string, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserTag[]>;
     /**
-     * ユーザーのリストを取得します。
+     * ユーザーのリストを取得します。 `include-suspended`を指定しない場合、レスポンスに非アクティブユーザーは含まれません。
      * @summary ユーザーのリストを取得
      * @param {boolean} [includeSuspended] アカウントがアクティブでないユーザーを含めるかどうか
      * @param {*} [options] Override http request option.
@@ -7853,7 +8128,7 @@ export declare const UserApiFactory: (configuration?: Configuration, basePath?: 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editUser(userId: string, patchUserRequest?: PatchUserRequest, options?: any): AxiosPromise<UserDetail>;
+    editUser(userId: string, patchUserRequest?: PatchUserRequest, options?: any): AxiosPromise<void>;
     /**
      *
      * @summary ユーザーのタグを編集します
@@ -7903,7 +8178,7 @@ export declare const UserApiFactory: (configuration?: Configuration, basePath?: 
      */
     getUserTags(userId: string, options?: any): AxiosPromise<UserTag[]>;
     /**
-     * ユーザーのリストを取得します。
+     * ユーザーのリストを取得します。 `include-suspended`を指定しない場合、レスポンスに非アクティブユーザーは含まれません。
      * @summary ユーザーのリストを取得
      * @param {boolean} [includeSuspended] アカウントがアクティブでないユーザーを含めるかどうか
      * @param {*} [options] Override http request option.
@@ -7984,7 +8259,7 @@ export declare class UserApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    editUser(userId: string, patchUserRequest?: PatchUserRequest, options?: any): AxiosPromise<UserDetail>;
+    editUser(userId: string, patchUserRequest?: PatchUserRequest, options?: any): AxiosPromise<void>;
     /**
      *
      * @summary ユーザーのタグを編集します
@@ -8039,7 +8314,7 @@ export declare class UserApi extends BaseAPI {
      */
     getUserTags(userId: string, options?: any): AxiosPromise<UserTag[]>;
     /**
-     * ユーザーのリストを取得します。
+     * ユーザーのリストを取得します。 `include-suspended`を指定しない場合、レスポンスに非アクティブユーザーは含まれません。
      * @summary ユーザーのリストを取得
      * @param {boolean} [includeSuspended] アカウントがアクティブでないユーザーを含めるかどうか
      * @param {*} [options] Override http request option.
@@ -9000,7 +9275,7 @@ export declare class Apis extends BaseAPI {
      */
     getBotLogs(botId: string, limit?: number, offset?: number, options?: any): AxiosPromise<BotEventLog[]>;
     /**
-     * BOT情報のリストを取得します。
+     * BOT情報のリストを取得します。 allを指定しない場合、自分が開発者のBOTのみを返します。
      * @summary BOTリストを取得
      * @param {boolean} [all] 全てのBOTを取得するかどうか
      * @param {*} [options] Override http request option.
@@ -9065,7 +9340,7 @@ export declare class Apis extends BaseAPI {
      */
     createChannel(postChannelRequest?: PostChannelRequest, options?: any): AxiosPromise<Channel>;
     /**
-     * 指定したチャンネルの情報を変更します。 変更には権限が必要です。
+     * 指定したチャンネルの情報を変更します。 変更には権限が必要です。 ルートチャンネルに移動させる場合は、`parent`に`00000000-0000-0000-0000-000000000000`を指定してください。
      * @summary チャンネル情報を変更
      * @param {string} channelId チャンネルUUID
      * @param {PatchChannelRequest} [patchChannelRequest]
@@ -9166,11 +9441,12 @@ export declare class Apis extends BaseAPI {
     /**
      * チャンネルのリストを取得します。
      * @summary チャンネルリストを取得
+     * @param {boolean} [includeDm] ダイレクトメッセージチャンネルをレスポンスに含めるかどうか
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    getChannels(options?: any): AxiosPromise<Channel[]>;
+    getChannels(includeDm?: boolean, options?: any): AxiosPromise<ChannelList>;
     /**
      * 指定したチャンネルのメッセージのリストを取得します。
      * @summary チャンネルメッセージのリストを取得
@@ -9347,6 +9623,16 @@ export declare class Apis extends BaseAPI {
      */
     postFile(file: any, channelId: string, options?: any): AxiosPromise<FileInfo>;
     /**
+     * 指定したグループに管理者を追加します。 対象のユーザーグループの管理者権限が必要です。
+     * @summary グループ管理者を追加
+     * @param {string} groupId ユーザーグループUUID
+     * @param {PostUserGroupAdminRequest} [postUserGroupAdminRequest]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GroupApi
+     */
+    addUserGroupAdmin(groupId: string, postUserGroupAdminRequest?: PostUserGroupAdminRequest, options?: any): AxiosPromise<void>;
+    /**
      * 指定したグループにメンバーを追加します。 対象のユーザーグループの管理者権限が必要です。
      * @summary グループメンバーを追加
      * @param {string} groupId ユーザーグループUUID
@@ -9357,7 +9643,7 @@ export declare class Apis extends BaseAPI {
      */
     addUserGroupMember(groupId: string, userGroupMember?: UserGroupMember, options?: any): AxiosPromise<void>;
     /**
-     * ユーザーグループを作成します。 作成者は自動的にメンバーに追加され、グループ管理者になります。
+     * ユーザーグループを作成します。 作成者は自動的にグループ管理者になります。
      * @summary ユーザーグループを作成
      * @param {PostUserGroupRequest} [postUserGroupRequest]
      * @param {*} [options] Override http request option.
@@ -9383,7 +9669,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GroupApi
      */
-    editUserGroup(groupId: string, patchUserGroupRequest?: PatchUserGroupRequest, options?: any): AxiosPromise<UserGroup>;
+    editUserGroup(groupId: string, patchUserGroupRequest?: PatchUserGroupRequest, options?: any): AxiosPromise<void>;
     /**
      * 指定したユーザーグループ内の指定したユーザーの属性を編集します。 対象のユーザーグループの管理者権限が必要です。
      * @summary ユーザーグループメンバーを編集
@@ -9405,6 +9691,15 @@ export declare class Apis extends BaseAPI {
      */
     getUserGroup(groupId: string, options?: any): AxiosPromise<UserGroup>;
     /**
+     * 指定したグループの管理者のリストを取得します。
+     * @summary グループ管理者を取得
+     * @param {string} groupId ユーザーグループUUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GroupApi
+     */
+    getUserGroupAdmins(groupId: string, options?: any): AxiosPromise<string[]>;
+    /**
      * 指定したグループのメンバーのリストを取得します。
      * @summary グループメンバーを取得
      * @param {string} groupId ユーザーグループUUID
@@ -9416,13 +9711,21 @@ export declare class Apis extends BaseAPI {
     /**
      * ユーザーグループのリストを取得します。
      * @summary ユーザーグループのリストを取得
-     * @param {string} [type] グループタイプ
-     * @param {boolean} [admin] 自分が管理者のグループのみを取得するかどうか
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof GroupApi
      */
-    getUserGroups(type?: string, admin?: boolean, options?: any): AxiosPromise<UserGroup[]>;
+    getUserGroups(options?: any): AxiosPromise<UserGroup[]>;
+    /**
+     * 指定したユーザーグループから指定した管理者を削除します。 対象のユーザーグループの管理者権限が必要です。 グループから管理者が存在しなくなる場合は400エラーを返します。
+     * @summary グループ管理者を削除
+     * @param {string} groupId ユーザーグループUUID
+     * @param {string} userId ユーザーUUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof GroupApi
+     */
+    removeUserGroupAdmin(groupId: string, userId: string, options?: any): AxiosPromise<void>;
     /**
      * 指定したユーザーグループから指定したユーザーを削除します。 対象のユーザーグループの管理者権限が必要です。
      * @summary ユーザーグループから削除
@@ -9434,18 +9737,8 @@ export declare class Apis extends BaseAPI {
      */
     removeUserGroupMember(groupId: string, userId: string, options?: any): AxiosPromise<void>;
     /**
-     * 指定したグループのメンバーをリクエストのメンバーに置き換えます。 リクエスト内に含まれないメンバーはグループから削除されます。 対象のユーザーグループの管理者権限が必要です。
-     * @summary グループメンバーを設定
-     * @param {string} groupId ユーザーグループUUID
-     * @param {Array<UserGroupMember>} [userGroupMember]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof GroupApi
-     */
-    setUserGroupMembers(groupId: string, userGroupMember?: Array<UserGroupMember>, options?: any): AxiosPromise<void>;
-    /**
-     *
-     * @summary チャンネルをスターします
+     * 指定したチャンネルをスターチャンネルに追加します。 不正なチャンネルIDを指定した場合、400を返します。
+     * @summary チャンネルをスターに追加
      * @param {PostStarRequest} [postStarRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -9487,7 +9780,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MeApi
      */
-    editMe(patchMeRequest?: PatchMeRequest, options?: any): AxiosPromise<MyUserDetail>;
+    editMe(patchMeRequest?: PatchMeRequest, options?: any): AxiosPromise<void>;
     /**
      *
      * @summary 自分のタグを編集します
@@ -9532,7 +9825,7 @@ export declare class Apis extends BaseAPI {
      */
     getMyQRCode(token?: boolean, options?: any): AxiosPromise<any>;
     /**
-     * 自分のスタンプ履歴を最大50件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
+     * 自分のスタンプ履歴を最大100件まで取得します。 結果は降順で返されます。  このAPIが返すスタンプ履歴は厳密な履歴ではありません。
      * @summary スタンプ履歴を取得
      * @param {number} [limit] 件数
      * @param {*} [options] Override http request option.
@@ -9541,8 +9834,8 @@ export declare class Apis extends BaseAPI {
      */
     getMyStampHistory(limit?: number, options?: any): AxiosPromise<StampHistoryEntry[]>;
     /**
-     *
-     * @summary スターチャンネルリストを取得します
+     * 自分がスターしているチャンネルのUUIDの配列を取得します。
+     * @summary スターチャンネルリストを取得
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StarApi
@@ -9573,14 +9866,14 @@ export declare class Apis extends BaseAPI {
      */
     getMyUserTags(options?: any): AxiosPromise<UserTag[]>;
     /**
-     * 既読にするチャンネルUUIDが指定されてない場合は、全てのチャンネルを既読にします。
+     *
      * @summary 未読チャンネルを既読にします
-     * @param {string} [channelId] 既読にするチャンネルUUID
+     * @param {string} channelId チャンネルUUID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    readChannels(channelId?: string, options?: any): AxiosPromise<void>;
+    readChannel(channelId: string, options?: any): AxiosPromise<void>;
     /**
      * 自身のFCMデバイスを登録します。
      * @summary FCMデバイスを登録
@@ -9646,7 +9939,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PinApi
      */
-    createPin(messageId: string, options?: any): AxiosPromise<Pin>;
+    createPin(messageId: string, options?: any): AxiosPromise<MessagePin>;
     /**
      * 指定したメッセージを削除します。 自身が投稿したメッセージと自身が管理権限を持つWebhookとBOTが投稿したメッセージのみ削除することができます。
      * @summary メッセージを削除
@@ -9707,7 +10000,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PinApi
      */
-    getPin(messageId: string, options?: any): AxiosPromise<Pin>;
+    getPin(messageId: string, options?: any): AxiosPromise<MessagePin>;
     /**
      * 指定したユーザーにダイレクトメッセージを送信します。
      * @summary ダイレクトメッセージを送信
@@ -9810,10 +10103,20 @@ export declare class Apis extends BaseAPI {
      */
     getServerVersion(options?: any): AxiosPromise<InlineResponse200>;
     /**
+     * 指定したスタンプの画像を変更します。
+     * @summary スタンプ画像を変更
+     * @param {string} stampId スタンプUUID
+     * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    changeStampImage(stampId: string, file: any, options?: any): AxiosPromise<void>;
+    /**
      * スタンプを新規作成します。
      * @summary スタンプを作成
      * @param {string} name スタンプ名
-     * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif, svg)
+     * @param {any} file スタンプ画像(1MBまでのpng, jpeg, gif)
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof StampApi
@@ -9847,6 +10150,16 @@ export declare class Apis extends BaseAPI {
      */
     deleteStampPalette(paletteId: string, options?: any): AxiosPromise<void>;
     /**
+     * 指定したスタンプの情報を変更します。
+     * @summary スタンプ情報を変更
+     * @param {string} stampId スタンプUUID
+     * @param {PatchStampRequest} [patchStampRequest]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    editStamp(stampId: string, patchStampRequest?: PatchStampRequest, options?: any): AxiosPromise<void>;
+    /**
      * 指定したスタンプパレットの情報を変更します。 対象のスタンプパレットの管理権限が必要です。
      * @summary スタンプパレット情報を変更
      * @param {string} paletteId スタンプパレットUUID
@@ -9875,6 +10188,15 @@ export declare class Apis extends BaseAPI {
      * @memberof StampApi
      */
     getStamp(stampId: string, options?: any): AxiosPromise<Stamp>;
+    /**
+     * 指定したIDのスタンプ画像を返します。
+     * @summary スタンプ画像を取得
+     * @param {string} stampId スタンプUUID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StampApi
+     */
+    getStampImage(stampId: string, options?: any): AxiosPromise<any>;
     /**
      * 指定したスタンプパレットの情報を取得します。
      * @summary スタンプパレットを取得
@@ -9949,7 +10271,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    editUser(userId: string, patchUserRequest?: PatchUserRequest, options?: any): AxiosPromise<UserDetail>;
+    editUser(userId: string, patchUserRequest?: PatchUserRequest, options?: any): AxiosPromise<void>;
     /**
      *
      * @summary ユーザーのタグを編集します
@@ -9989,7 +10311,7 @@ export declare class Apis extends BaseAPI {
      */
     getUserTags(userId: string, options?: any): AxiosPromise<UserTag[]>;
     /**
-     * ユーザーのリストを取得します。
+     * ユーザーのリストを取得します。 `include-suspended`を指定しない場合、レスポンスに非アクティブユーザーは含まれません。
      * @summary ユーザーのリストを取得
      * @param {boolean} [includeSuspended] アカウントがアクティブでないユーザーを含めるかどうか
      * @param {*} [options] Override http request option.
