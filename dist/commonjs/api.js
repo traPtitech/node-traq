@@ -2100,11 +2100,11 @@ exports.ChannelApiAxiosParamCreator = function (configuration) {
          * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
          * @summary チャンネルの通知購読者を設定
          * @param {string} channelId チャンネルUUID
-         * @param {Array<string>} [requestBody]
+         * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setChannelSubscribers(channelId, requestBody, options = {}) {
+        setChannelSubscribers(channelId, putChannelSubscribersRequest, options = {}) {
             // verify required parameter 'channelId' is not null or undefined
             if (channelId === null || channelId === undefined) {
                 throw new base_1.RequiredError('channelId', 'Required parameter channelId was null or undefined when calling setChannelSubscribers.');
@@ -2124,8 +2124,8 @@ exports.ChannelApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = (typeof requestBody !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(requestBody !== undefined ? requestBody : {}) : (requestBody || "");
+            const needsSerialization = (typeof putChannelSubscribersRequest !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(putChannelSubscribersRequest !== undefined ? putChannelSubscribersRequest : {}) : (putChannelSubscribersRequest || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -2369,12 +2369,12 @@ exports.ChannelApiFp = function (configuration) {
          * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
          * @summary チャンネルの通知購読者を設定
          * @param {string} channelId チャンネルUUID
-         * @param {Array<string>} [requestBody]
+         * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setChannelSubscribers(channelId, requestBody, options) {
-            const localVarAxiosArgs = exports.ChannelApiAxiosParamCreator(configuration).setChannelSubscribers(channelId, requestBody, options);
+        setChannelSubscribers(channelId, putChannelSubscribersRequest, options) {
+            const localVarAxiosArgs = exports.ChannelApiAxiosParamCreator(configuration).setChannelSubscribers(channelId, putChannelSubscribersRequest, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -2558,12 +2558,12 @@ exports.ChannelApiFactory = function (configuration, basePath, axios) {
          * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
          * @summary チャンネルの通知購読者を設定
          * @param {string} channelId チャンネルUUID
-         * @param {Array<string>} [requestBody]
+         * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setChannelSubscribers(channelId, requestBody, options) {
-            return exports.ChannelApiFp(configuration).setChannelSubscribers(channelId, requestBody, options)(axios, basePath);
+        setChannelSubscribers(channelId, putChannelSubscribersRequest, options) {
+            return exports.ChannelApiFp(configuration).setChannelSubscribers(channelId, putChannelSubscribersRequest, options)(axios, basePath);
         },
     };
 };
@@ -2759,13 +2759,13 @@ class ChannelApi extends base_1.BaseAPI {
      * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
      * @summary チャンネルの通知購読者を設定
      * @param {string} channelId チャンネルUUID
-     * @param {Array<string>} [requestBody]
+     * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    setChannelSubscribers(channelId, requestBody, options) {
-        return exports.ChannelApiFp(this.configuration).setChannelSubscribers(channelId, requestBody, options)(this.axios, this.basePath);
+    setChannelSubscribers(channelId, putChannelSubscribersRequest, options) {
+        return exports.ChannelApiFp(this.configuration).setChannelSubscribers(channelId, putChannelSubscribersRequest, options)(this.axios, this.basePath);
     }
 }
 exports.ChannelApi = ChannelApi;
@@ -7461,11 +7461,11 @@ exports.NotificationApiAxiosParamCreator = function (configuration) {
          * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
          * @summary チャンネルの通知購読者を設定
          * @param {string} channelId チャンネルUUID
-         * @param {Array<string>} [requestBody]
+         * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setChannelSubscribers(channelId, requestBody, options = {}) {
+        setChannelSubscribers(channelId, putChannelSubscribersRequest, options = {}) {
             // verify required parameter 'channelId' is not null or undefined
             if (channelId === null || channelId === undefined) {
                 throw new base_1.RequiredError('channelId', 'Required parameter channelId was null or undefined when calling setChannelSubscribers.');
@@ -7485,8 +7485,8 @@ exports.NotificationApiAxiosParamCreator = function (configuration) {
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = { ...localVarHeaderParameter, ...options.headers };
-            const needsSerialization = (typeof requestBody !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data = needsSerialization ? JSON.stringify(requestBody !== undefined ? requestBody : {}) : (requestBody || "");
+            const needsSerialization = (typeof putChannelSubscribersRequest !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data = needsSerialization ? JSON.stringify(putChannelSubscribersRequest !== undefined ? putChannelSubscribersRequest : {}) : (putChannelSubscribersRequest || "");
             return {
                 url: globalImportUrl.format(localVarUrlObj),
                 options: localVarRequestOptions,
@@ -7627,12 +7627,12 @@ exports.NotificationApiFp = function (configuration) {
          * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
          * @summary チャンネルの通知購読者を設定
          * @param {string} channelId チャンネルUUID
-         * @param {Array<string>} [requestBody]
+         * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setChannelSubscribers(channelId, requestBody, options) {
-            const localVarAxiosArgs = exports.NotificationApiAxiosParamCreator(configuration).setChannelSubscribers(channelId, requestBody, options);
+        setChannelSubscribers(channelId, putChannelSubscribersRequest, options) {
+            const localVarAxiosArgs = exports.NotificationApiAxiosParamCreator(configuration).setChannelSubscribers(channelId, putChannelSubscribersRequest, options);
             return (axios = axios_1.default, basePath = base_1.BASE_PATH) => {
                 const axiosRequestArgs = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
                 return axios.request(axiosRequestArgs);
@@ -7733,12 +7733,12 @@ exports.NotificationApiFactory = function (configuration, basePath, axios) {
          * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
          * @summary チャンネルの通知購読者を設定
          * @param {string} channelId チャンネルUUID
-         * @param {Array<string>} [requestBody]
+         * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setChannelSubscribers(channelId, requestBody, options) {
-            return exports.NotificationApiFp(configuration).setChannelSubscribers(channelId, requestBody, options)(axios, basePath);
+        setChannelSubscribers(channelId, putChannelSubscribersRequest, options) {
+            return exports.NotificationApiFp(configuration).setChannelSubscribers(channelId, putChannelSubscribersRequest, options)(axios, basePath);
         },
         /**
          * # WebSocketプロトコル ## 送信 `コマンド:引数1:引数2:...`のような形式のTextMessageをサーバーに送信することで、このWebSocketセッションに対する設定が実行できる。 ### `viewstate`コマンド このWebSocketセッションが見ているチャンネル(イベントを受け取るチャンネル)を設定する。 現時点では1つのセッションに対して1つのチャンネルしか設定できない。  `viewstate:(チャンネルID):(閲覧状態)` + チャンネルID: 対象のチャンネルID + 閲覧状態: `none`, `monitoring`, `editing`  最初の`viewstate`コマンドを送る前、または`viewstate:null`を送信した後は、このセッションはどこのチャンネルも見ていないことになる。  ## 受信 SSEのイベントと同じものがTextMessageとして非同期に送られてくる。 `type`と`body`を持つJSONを受信。`type`はSSEのイベントタイプと同じ、`body`はSSEのデータと同じ。 例:  ```json {\"type\":\"USER_ONLINE\",\"body\":{\"id\":\"7dd8e07f-7f5d-4331-9176-b56a4299768b\"}} ```
@@ -7839,13 +7839,13 @@ class NotificationApi extends base_1.BaseAPI {
      * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
      * @summary チャンネルの通知購読者を設定
      * @param {string} channelId チャンネルUUID
-     * @param {Array<string>} [requestBody]
+     * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    setChannelSubscribers(channelId, requestBody, options) {
-        return exports.NotificationApiFp(this.configuration).setChannelSubscribers(channelId, requestBody, options)(this.axios, this.basePath);
+    setChannelSubscribers(channelId, putChannelSubscribersRequest, options) {
+        return exports.NotificationApiFp(this.configuration).setChannelSubscribers(channelId, putChannelSubscribersRequest, options)(this.axios, this.basePath);
     }
     /**
      * # WebSocketプロトコル ## 送信 `コマンド:引数1:引数2:...`のような形式のTextMessageをサーバーに送信することで、このWebSocketセッションに対する設定が実行できる。 ### `viewstate`コマンド このWebSocketセッションが見ているチャンネル(イベントを受け取るチャンネル)を設定する。 現時点では1つのセッションに対して1つのチャンネルしか設定できない。  `viewstate:(チャンネルID):(閲覧状態)` + チャンネルID: 対象のチャンネルID + 閲覧状態: `none`, `monitoring`, `editing`  最初の`viewstate`コマンドを送る前、または`viewstate:null`を送信した後は、このセッションはどこのチャンネルも見ていないことになる。  ## 受信 SSEのイベントと同じものがTextMessageとして非同期に送られてくる。 `type`と`body`を持つJSONを受信。`type`はSSEのイベントタイプと同じ、`body`はSSEのデータと同じ。 例:  ```json {\"type\":\"USER_ONLINE\",\"body\":{\"id\":\"7dd8e07f-7f5d-4331-9176-b56a4299768b\"}} ```
@@ -13166,13 +13166,13 @@ class Apis extends base_1.BaseAPI {
      * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
      * @summary チャンネルの通知購読者を設定
      * @param {string} channelId チャンネルUUID
-     * @param {Array<string>} [requestBody]
+     * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    setChannelSubscribers(channelId, requestBody, options) {
-        return exports.NotificationApiFp(this.configuration).setChannelSubscribers(channelId, requestBody, options)(this.axios, this.basePath);
+    setChannelSubscribers(channelId, putChannelSubscribersRequest, options) {
+        return exports.NotificationApiFp(this.configuration).setChannelSubscribers(channelId, putChannelSubscribersRequest, options)(this.axios, this.basePath);
     }
     /**
      * 指定したメッセージを指定したクリップフォルダに追加します。

@@ -1870,7 +1870,13 @@ export interface PutChannelSubscribeLevelRequest {
  * @export
  * @interface PutChannelSubscribersRequest
  */
-export interface PutChannelSubscribersRequest extends Array<string> {
+export interface PutChannelSubscribersRequest {
+    /**
+     * 通知をオンにするユーザーのUUID配列
+     * @type {Array<string>}
+     * @memberof PutChannelSubscribersRequest
+     */
+    on: Array<string>;
 }
 /**
  * チャンネルトピック編集リクエスト
@@ -3485,11 +3491,11 @@ export declare const ChannelApiAxiosParamCreator: (configuration?: Configuration
      * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
      * @summary チャンネルの通知購読者を設定
      * @param {string} channelId チャンネルUUID
-     * @param {Array<string>} [requestBody]
+     * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    setChannelSubscribers(channelId: string, requestBody?: string[], options?: any): RequestArgs;
+    setChannelSubscribers(channelId: string, putChannelSubscribersRequest?: PutChannelSubscribersRequest, options?: any): RequestArgs;
 };
 /**
  * ChannelApi - functional programming interface
@@ -3521,7 +3527,7 @@ export declare const ChannelApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editChannelSubscribers(channelId: string, patchChannelSubscribersRequest?: PatchChannelSubscribersRequest, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string[]>;
+    editChannelSubscribers(channelId: string, patchChannelSubscribersRequest?: PatchChannelSubscribersRequest, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 指定したチャンネルのトピックを編集します。
      * @summary チャンネルトピックを編集
@@ -3636,11 +3642,11 @@ export declare const ChannelApiFp: (configuration?: Configuration) => {
      * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
      * @summary チャンネルの通知購読者を設定
      * @param {string} channelId チャンネルUUID
-     * @param {Array<string>} [requestBody]
+     * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    setChannelSubscribers(channelId: string, requestBody?: string[], options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
+    setChannelSubscribers(channelId: string, putChannelSubscribersRequest?: PutChannelSubscribersRequest, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
 };
 /**
  * ChannelApi - factory interface
@@ -3672,7 +3678,7 @@ export declare const ChannelApiFactory: (configuration?: Configuration, basePath
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editChannelSubscribers(channelId: string, patchChannelSubscribersRequest?: PatchChannelSubscribersRequest, options?: any): AxiosPromise<string[]>;
+    editChannelSubscribers(channelId: string, patchChannelSubscribersRequest?: PatchChannelSubscribersRequest, options?: any): AxiosPromise<void>;
     /**
      * 指定したチャンネルのトピックを編集します。
      * @summary チャンネルトピックを編集
@@ -3787,11 +3793,11 @@ export declare const ChannelApiFactory: (configuration?: Configuration, basePath
      * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
      * @summary チャンネルの通知購読者を設定
      * @param {string} channelId チャンネルUUID
-     * @param {Array<string>} [requestBody]
+     * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    setChannelSubscribers(channelId: string, requestBody?: string[], options?: any): AxiosPromise<void>;
+    setChannelSubscribers(channelId: string, putChannelSubscribersRequest?: PutChannelSubscribersRequest, options?: any): AxiosPromise<void>;
 };
 /**
  * ChannelApi - object-oriented interface
@@ -3828,7 +3834,7 @@ export declare class ChannelApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    editChannelSubscribers(channelId: string, patchChannelSubscribersRequest?: PatchChannelSubscribersRequest, options?: any): AxiosPromise<string[]>;
+    editChannelSubscribers(channelId: string, patchChannelSubscribersRequest?: PatchChannelSubscribersRequest, options?: any): AxiosPromise<void>;
     /**
      * 指定したチャンネルのトピックを編集します。
      * @summary チャンネルトピックを編集
@@ -3955,12 +3961,12 @@ export declare class ChannelApi extends BaseAPI {
      * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
      * @summary チャンネルの通知購読者を設定
      * @param {string} channelId チャンネルUUID
-     * @param {Array<string>} [requestBody]
+     * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ChannelApi
      */
-    setChannelSubscribers(channelId: string, requestBody?: Array<string>, options?: any): AxiosPromise<void>;
+    setChannelSubscribers(channelId: string, putChannelSubscribersRequest?: PutChannelSubscribersRequest, options?: any): AxiosPromise<void>;
 }
 /**
  * ClipApi - axios parameter creator
@@ -6331,11 +6337,11 @@ export declare const NotificationApiAxiosParamCreator: (configuration?: Configur
      * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
      * @summary チャンネルの通知購読者を設定
      * @param {string} channelId チャンネルUUID
-     * @param {Array<string>} [requestBody]
+     * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    setChannelSubscribers(channelId: string, requestBody?: string[], options?: any): RequestArgs;
+    setChannelSubscribers(channelId: string, putChannelSubscribersRequest?: PutChannelSubscribersRequest, options?: any): RequestArgs;
     /**
      * # WebSocketプロトコル ## 送信 `コマンド:引数1:引数2:...`のような形式のTextMessageをサーバーに送信することで、このWebSocketセッションに対する設定が実行できる。 ### `viewstate`コマンド このWebSocketセッションが見ているチャンネル(イベントを受け取るチャンネル)を設定する。 現時点では1つのセッションに対して1つのチャンネルしか設定できない。  `viewstate:(チャンネルID):(閲覧状態)` + チャンネルID: 対象のチャンネルID + 閲覧状態: `none`, `monitoring`, `editing`  最初の`viewstate`コマンドを送る前、または`viewstate:null`を送信した後は、このセッションはどこのチャンネルも見ていないことになる。  ## 受信 SSEのイベントと同じものがTextMessageとして非同期に送られてくる。 `type`と`body`を持つJSONを受信。`type`はSSEのイベントタイプと同じ、`body`はSSEのデータと同じ。 例:  ```json {\"type\":\"USER_ONLINE\",\"body\":{\"id\":\"7dd8e07f-7f5d-4331-9176-b56a4299768b\"}} ```
      * @summary WebSocket通知ストリームに接続します
@@ -6357,7 +6363,7 @@ export declare const NotificationApiFp: (configuration?: Configuration) => {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editChannelSubscribers(channelId: string, patchChannelSubscribersRequest?: PatchChannelSubscribersRequest, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<string[]>;
+    editChannelSubscribers(channelId: string, patchChannelSubscribersRequest?: PatchChannelSubscribersRequest, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * 指定したチャンネルを通知購読しているユーザーのUUIDのリストを取得します。
      * @summary チャンネルの通知購読者のリストを取得
@@ -6409,11 +6415,11 @@ export declare const NotificationApiFp: (configuration?: Configuration) => {
      * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
      * @summary チャンネルの通知購読者を設定
      * @param {string} channelId チャンネルUUID
-     * @param {Array<string>} [requestBody]
+     * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    setChannelSubscribers(channelId: string, requestBody?: string[], options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
+    setChannelSubscribers(channelId: string, putChannelSubscribersRequest?: PutChannelSubscribersRequest, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>;
     /**
      * # WebSocketプロトコル ## 送信 `コマンド:引数1:引数2:...`のような形式のTextMessageをサーバーに送信することで、このWebSocketセッションに対する設定が実行できる。 ### `viewstate`コマンド このWebSocketセッションが見ているチャンネル(イベントを受け取るチャンネル)を設定する。 現時点では1つのセッションに対して1つのチャンネルしか設定できない。  `viewstate:(チャンネルID):(閲覧状態)` + チャンネルID: 対象のチャンネルID + 閲覧状態: `none`, `monitoring`, `editing`  最初の`viewstate`コマンドを送る前、または`viewstate:null`を送信した後は、このセッションはどこのチャンネルも見ていないことになる。  ## 受信 SSEのイベントと同じものがTextMessageとして非同期に送られてくる。 `type`と`body`を持つJSONを受信。`type`はSSEのイベントタイプと同じ、`body`はSSEのデータと同じ。 例:  ```json {\"type\":\"USER_ONLINE\",\"body\":{\"id\":\"7dd8e07f-7f5d-4331-9176-b56a4299768b\"}} ```
      * @summary WebSocket通知ストリームに接続します
@@ -6435,7 +6441,7 @@ export declare const NotificationApiFactory: (configuration?: Configuration, bas
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    editChannelSubscribers(channelId: string, patchChannelSubscribersRequest?: PatchChannelSubscribersRequest, options?: any): AxiosPromise<string[]>;
+    editChannelSubscribers(channelId: string, patchChannelSubscribersRequest?: PatchChannelSubscribersRequest, options?: any): AxiosPromise<void>;
     /**
      * 指定したチャンネルを通知購読しているユーザーのUUIDのリストを取得します。
      * @summary チャンネルの通知購読者のリストを取得
@@ -6487,11 +6493,11 @@ export declare const NotificationApiFactory: (configuration?: Configuration, bas
      * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
      * @summary チャンネルの通知購読者を設定
      * @param {string} channelId チャンネルUUID
-     * @param {Array<string>} [requestBody]
+     * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    setChannelSubscribers(channelId: string, requestBody?: string[], options?: any): AxiosPromise<void>;
+    setChannelSubscribers(channelId: string, putChannelSubscribersRequest?: PutChannelSubscribersRequest, options?: any): AxiosPromise<void>;
     /**
      * # WebSocketプロトコル ## 送信 `コマンド:引数1:引数2:...`のような形式のTextMessageをサーバーに送信することで、このWebSocketセッションに対する設定が実行できる。 ### `viewstate`コマンド このWebSocketセッションが見ているチャンネル(イベントを受け取るチャンネル)を設定する。 現時点では1つのセッションに対して1つのチャンネルしか設定できない。  `viewstate:(チャンネルID):(閲覧状態)` + チャンネルID: 対象のチャンネルID + 閲覧状態: `none`, `monitoring`, `editing`  最初の`viewstate`コマンドを送る前、または`viewstate:null`を送信した後は、このセッションはどこのチャンネルも見ていないことになる。  ## 受信 SSEのイベントと同じものがTextMessageとして非同期に送られてくる。 `type`と`body`を持つJSONを受信。`type`はSSEのイベントタイプと同じ、`body`はSSEのデータと同じ。 例:  ```json {\"type\":\"USER_ONLINE\",\"body\":{\"id\":\"7dd8e07f-7f5d-4331-9176-b56a4299768b\"}} ```
      * @summary WebSocket通知ストリームに接続します
@@ -6516,7 +6522,7 @@ export declare class NotificationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    editChannelSubscribers(channelId: string, patchChannelSubscribersRequest?: PatchChannelSubscribersRequest, options?: any): AxiosPromise<string[]>;
+    editChannelSubscribers(channelId: string, patchChannelSubscribersRequest?: PatchChannelSubscribersRequest, options?: any): AxiosPromise<void>;
     /**
      * 指定したチャンネルを通知購読しているユーザーのUUIDのリストを取得します。
      * @summary チャンネルの通知購読者のリストを取得
@@ -6574,12 +6580,12 @@ export declare class NotificationApi extends BaseAPI {
      * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
      * @summary チャンネルの通知購読者を設定
      * @param {string} channelId チャンネルUUID
-     * @param {Array<string>} [requestBody]
+     * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    setChannelSubscribers(channelId: string, requestBody?: Array<string>, options?: any): AxiosPromise<void>;
+    setChannelSubscribers(channelId: string, putChannelSubscribersRequest?: PutChannelSubscribersRequest, options?: any): AxiosPromise<void>;
     /**
      * # WebSocketプロトコル ## 送信 `コマンド:引数1:引数2:...`のような形式のTextMessageをサーバーに送信することで、このWebSocketセッションに対する設定が実行できる。 ### `viewstate`コマンド このWebSocketセッションが見ているチャンネル(イベントを受け取るチャンネル)を設定する。 現時点では1つのセッションに対して1つのチャンネルしか設定できない。  `viewstate:(チャンネルID):(閲覧状態)` + チャンネルID: 対象のチャンネルID + 閲覧状態: `none`, `monitoring`, `editing`  最初の`viewstate`コマンドを送る前、または`viewstate:null`を送信した後は、このセッションはどこのチャンネルも見ていないことになる。  ## 受信 SSEのイベントと同じものがTextMessageとして非同期に送られてくる。 `type`と`body`を持つJSONを受信。`type`はSSEのイベントタイプと同じ、`body`はSSEのデータと同じ。 例:  ```json {\"type\":\"USER_ONLINE\",\"body\":{\"id\":\"7dd8e07f-7f5d-4331-9176-b56a4299768b\"}} ```
      * @summary WebSocket通知ストリームに接続します
@@ -9358,7 +9364,7 @@ export declare class Apis extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    editChannelSubscribers(channelId: string, patchChannelSubscribersRequest?: PatchChannelSubscribersRequest, options?: any): AxiosPromise<string[]>;
+    editChannelSubscribers(channelId: string, patchChannelSubscribersRequest?: PatchChannelSubscribersRequest, options?: any): AxiosPromise<void>;
     /**
      * 指定したチャンネルのトピックを編集します。
      * @summary チャンネルトピックを編集
@@ -9476,12 +9482,12 @@ export declare class Apis extends BaseAPI {
      * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
      * @summary チャンネルの通知購読者を設定
      * @param {string} channelId チャンネルUUID
-     * @param {Array<string>} [requestBody]
+     * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NotificationApi
      */
-    setChannelSubscribers(channelId: string, requestBody?: Array<string>, options?: any): AxiosPromise<void>;
+    setChannelSubscribers(channelId: string, putChannelSubscribersRequest?: PutChannelSubscribersRequest, options?: any): AxiosPromise<void>;
     /**
      * 指定したメッセージを指定したクリップフォルダに追加します。
      * @summary メッセージをクリップフォルダに追加

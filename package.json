@@ -1,6 +1,6 @@
 {
   "name": "traq-api",
-  "version": "3.0.0-2",
+  "version": "3.0.0-3",
   "description": "A client library for the traQ API.",
   "main": "dist/commonjs/index.js",
   "module": "dist/es/index.js",
