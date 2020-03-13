@@ -1631,7 +1631,7 @@ export const ChannelApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * 指定したチャンネルの通知購読者を編集します。 リクエストに含めなかったユーザーの購読状態は変更しません。 また、存在しないユーザーを指定した場合は無視されます。
+         * 指定したチャンネルの通知購読者を編集します。 リクエストに含めなかったユーザーの通知購読状態は変更しません。 また、存在しないユーザーを指定した場合は無視されます。
          * @summary チャンネルの通知購読者を編集
          * @param {string} channelId チャンネルUUID
          * @param {PatchChannelSubscribersRequest} [patchChannelSubscribersRequest]
@@ -2092,7 +2092,7 @@ export const ChannelApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
+         * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの通知購読状態はオフになります。 また、存在しないユーザーを指定した場合は無視されます。
          * @summary チャンネルの通知購読者を設定
          * @param {string} channelId チャンネルUUID
          * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
@@ -2164,7 +2164,7 @@ export const ChannelApiFp = function (configuration) {
             };
         },
         /**
-         * 指定したチャンネルの通知購読者を編集します。 リクエストに含めなかったユーザーの購読状態は変更しません。 また、存在しないユーザーを指定した場合は無視されます。
+         * 指定したチャンネルの通知購読者を編集します。 リクエストに含めなかったユーザーの通知購読状態は変更しません。 また、存在しないユーザーを指定した場合は無視されます。
          * @summary チャンネルの通知購読者を編集
          * @param {string} channelId チャンネルUUID
          * @param {PatchChannelSubscribersRequest} [patchChannelSubscribersRequest]
@@ -2361,7 +2361,7 @@ export const ChannelApiFp = function (configuration) {
             };
         },
         /**
-         * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
+         * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの通知購読状態はオフになります。 また、存在しないユーザーを指定した場合は無視されます。
          * @summary チャンネルの通知購読者を設定
          * @param {string} channelId チャンネルUUID
          * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
@@ -2405,7 +2405,7 @@ export const ChannelApiFactory = function (configuration, basePath, axios) {
             return ChannelApiFp(configuration).editChannel(channelId, patchChannelRequest, options)(axios, basePath);
         },
         /**
-         * 指定したチャンネルの通知購読者を編集します。 リクエストに含めなかったユーザーの購読状態は変更しません。 また、存在しないユーザーを指定した場合は無視されます。
+         * 指定したチャンネルの通知購読者を編集します。 リクエストに含めなかったユーザーの通知購読状態は変更しません。 また、存在しないユーザーを指定した場合は無視されます。
          * @summary チャンネルの通知購読者を編集
          * @param {string} channelId チャンネルUUID
          * @param {PatchChannelSubscribersRequest} [patchChannelSubscribersRequest]
@@ -2550,7 +2550,7 @@ export const ChannelApiFactory = function (configuration, basePath, axios) {
             return ChannelApiFp(configuration).postMessage(channelId, postMessageRequest, options)(axios, basePath);
         },
         /**
-         * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
+         * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの通知購読状態はオフになります。 また、存在しないユーザーを指定した場合は無視されます。
          * @summary チャンネルの通知購読者を設定
          * @param {string} channelId チャンネルUUID
          * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
@@ -2593,7 +2593,7 @@ export class ChannelApi extends BaseAPI {
         return ChannelApiFp(this.configuration).editChannel(channelId, patchChannelRequest, options)(this.axios, this.basePath);
     }
     /**
-     * 指定したチャンネルの通知購読者を編集します。 リクエストに含めなかったユーザーの購読状態は変更しません。 また、存在しないユーザーを指定した場合は無視されます。
+     * 指定したチャンネルの通知購読者を編集します。 リクエストに含めなかったユーザーの通知購読状態は変更しません。 また、存在しないユーザーを指定した場合は無視されます。
      * @summary チャンネルの通知購読者を編集
      * @param {string} channelId チャンネルUUID
      * @param {PatchChannelSubscribersRequest} [patchChannelSubscribersRequest]
@@ -2751,7 +2751,7 @@ export class ChannelApi extends BaseAPI {
         return ChannelApiFp(this.configuration).postMessage(channelId, postMessageRequest, options)(this.axios, this.basePath);
     }
     /**
-     * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
+     * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの通知購読状態はオフになります。 また、存在しないユーザーを指定した場合は無視されます。
      * @summary チャンネルの通知購読者を設定
      * @param {string} channelId チャンネルUUID
      * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
@@ -7236,7 +7236,7 @@ export class MessageApi extends BaseAPI {
 export const NotificationApiAxiosParamCreator = function (configuration) {
     return {
         /**
-         * 指定したチャンネルの通知購読者を編集します。 リクエストに含めなかったユーザーの購読状態は変更しません。 また、存在しないユーザーを指定した場合は無視されます。
+         * 指定したチャンネルの通知購読者を編集します。 リクエストに含めなかったユーザーの通知購読状態は変更しません。 また、存在しないユーザーを指定した場合は無視されます。
          * @summary チャンネルの通知購読者を編集
          * @param {string} channelId チャンネルUUID
          * @param {PatchChannelSubscribersRequest} [patchChannelSubscribersRequest]
@@ -7447,7 +7447,7 @@ export const NotificationApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
+         * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの通知購読状態はオフになります。 また、存在しないユーザーを指定した場合は無視されます。
          * @summary チャンネルの通知購読者を設定
          * @param {string} channelId チャンネルUUID
          * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
@@ -7482,7 +7482,7 @@ export const NotificationApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * # WebSocketプロトコル ## 送信 `コマンド:引数1:引数2:...`のような形式のTextMessageをサーバーに送信することで、このWebSocketセッションに対する設定が実行できる。 ### `viewstate`コマンド このWebSocketセッションが見ているチャンネル(イベントを受け取るチャンネル)を設定する。 現時点では1つのセッションに対して1つのチャンネルしか設定できない。  `viewstate:(チャンネルID):(閲覧状態)` + チャンネルID: 対象のチャンネルID + 閲覧状態: `none`, `monitoring`, `editing`  最初の`viewstate`コマンドを送る前、または`viewstate:null`を送信した後は、このセッションはどこのチャンネルも見ていないことになる。  ## 受信 SSEのイベントと同じものがTextMessageとして非同期に送られてくる。 `type`と`body`を持つJSONを受信。`type`はSSEのイベントタイプと同じ、`body`はSSEのデータと同じ。 例:  ```json {\"type\":\"USER_ONLINE\",\"body\":{\"id\":\"7dd8e07f-7f5d-4331-9176-b56a4299768b\"}} ```
+         * # WebSocketプロトコル ## 送信 `コマンド:引数1:引数2:...`のような形式のTextMessageをサーバーに送信することで、このWebSocketセッションに対する設定が実行できる。 ### `viewstate`コマンド このWebSocketセッションが見ているチャンネル(イベントを受け取るチャンネル)を設定する。 現時点では1つのセッションに対して1つのチャンネルしか設定できない。  `viewstate:(チャンネルID):(閲覧状態)` + チャンネルID: 対象のチャンネルID + 閲覧状態: `none`, `monitoring`, `editing`  最初の`viewstate`コマンドを送る前、または`viewstate:null`を送信した後は、このセッションはどこのチャンネルも見ていないことになる。  ## 受信 TextMessageとして各種イベントが`type`と`body`を持つJSONとして非同期に送られます。  例:  ```json {\"type\":\"USER_ONLINE\",\"body\":{\"id\":\"7dd8e07f-7f5d-4331-9176-b56a4299768b\"}} ```  ## イベント一覧  ### `USER_JOINED` ユーザーが新規登録された。  対象: 全員  + `id`: 登録されたユーザーのId  ### `USER_UPDATED` ユーザーの情報が更新された。  対象: 全員  + `id`: 情報が更新されたユーザーのId  ### `USER_TAGS_UPDATED` ユーザーのタグが更新された。  対象: 全員  + `id`: タグが更新されたユーザーのId  ### `USER_ICON_UPDATED` ユーザーのアイコンが更新された。  対象: 全員  + `id`: アイコンが更新されたユーザーのId  ### `USER_WEBRTC_STATE_CHANGED` ユーザーのWebRTCの状態が変化した  対象: 全員  + `user_id`: 変更があったユーザーのId + `channel_id`: ユーザーの変更後の接続チャンネルのId + `state`: ユーザーの変更後の状態(配列)  ### `USER_ONLINE` ユーザーがオンラインになった。  対象: 全員  + `id`: オンラインになったユーザーのId  ### `USER_OFFLINE` ユーザーがオフラインになった。  対象: 全員  + `id`: オフラインになったユーザーのId  ### `USER_GROUP_CREATED` ユーザーグループが作成された  対象: 全員  + `id`: 作成されたユーザーグループのId  ### `USER_GROUP_UPDATED` ユーザーグループが更新された  対象: 全員  + `id`: 作成されたユーザーグループのId  ### `USER_GROUP_DELETED` ユーザーグループが削除された  対象: 全員  + `id`: 削除されたユーザーグループのId  ### `CHANNEL_CREATED` チャンネルが新規作成された。  対象: 全員  + `id`: 作成されたチャンネルのId  ### `CHANNEL_UPDATED` チャンネルの情報が変更された。  対象: 全員  + `id`: 変更があったチャンネルのId  ### `CHANNEL_DELETED` チャンネルが削除された。  対象: 全員  + `id`: 削除されたチャンネルのId  ### `CHANNEL_STARED` 自分がチャンネルをスターした。  対象: 自分  + `id`: スターしたチャンネルのId  ### `CHANNEL_UNSTARED` 自分がチャンネルのスターを解除した。  対象: 自分  + `id`: スターしたチャンネルのId  ### `MESSAGE_CREATED` メッセージが投稿された。  対象: 投稿チャンネルにハートビートを送信しているユーザー・投稿チャンネルに通知をつけているユーザー・メンションを受けたユーザー  + `id`: 投稿されたメッセージのId  ### `MESSAGE_UPDATED` メッセージが更新された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `id`: 更新されたメッセージのId  ### `MESSAGE_DELETED` メッセージが削除された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `id`: 削除されたメッセージのId  ### `MESSAGE_STAMPED` メッセージにスタンプが押された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `message_id`: メッセージId + `user_id`: スタンプを押したユーザーのId + `stamp_id`: スタンプのId + `count`: そのユーザーが押した数 + `created_at`: そのユーザーがそのスタンプをそのメッセージに最初に押した日時  ### `MESSAGE_UNSTAMPED` メッセージからスタンプが外された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `message_id`: メッセージId + `user_id`: スタンプを押したユーザーのId + `stamp_id`: スタンプのId  ### `MESSAGE_PINNED` メッセージがピン留めされた。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `message_id`: ピンされたメッセージのID + `channel_id`: ピンされたメッセージのチャンネルID  ### `MESSAGE_UNPINNED` ピン留めされたメッセージのピンが外された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `message_id`: ピンが外されたメッセージのID + `channel_id`: ピンが外されたメッセージのチャンネルID  ### `MESSAGE_READ` 自分があるチャンネルのメッセージを読んだ。  対象: 自分  + `id`: 読んだチャンネルId  ### `STAMP_CREATED` スタンプが新しく追加された。  対象: 全員  + `id`: 作成されたスタンプのId  ### `STAMP_UPDATED` スタンプが修正された。  対象: 全員  + `id`: 修正されたスタンプのId  ### `STAMP_DELETED` スタンプが削除された。  対象: 全員  + `id`: 削除されたスタンプのId
          * @summary WebSocket通知ストリームに接続します
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7515,7 +7515,7 @@ export const NotificationApiAxiosParamCreator = function (configuration) {
 export const NotificationApiFp = function (configuration) {
     return {
         /**
-         * 指定したチャンネルの通知購読者を編集します。 リクエストに含めなかったユーザーの購読状態は変更しません。 また、存在しないユーザーを指定した場合は無視されます。
+         * 指定したチャンネルの通知購読者を編集します。 リクエストに含めなかったユーザーの通知購読状態は変更しません。 また、存在しないユーザーを指定した場合は無視されます。
          * @summary チャンネルの通知購読者を編集
          * @param {string} channelId チャンネルUUID
          * @param {PatchChannelSubscribersRequest} [patchChannelSubscribersRequest]
@@ -7613,7 +7613,7 @@ export const NotificationApiFp = function (configuration) {
             };
         },
         /**
-         * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
+         * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの通知購読状態はオフになります。 また、存在しないユーザーを指定した場合は無視されます。
          * @summary チャンネルの通知購読者を設定
          * @param {string} channelId チャンネルUUID
          * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
@@ -7628,7 +7628,7 @@ export const NotificationApiFp = function (configuration) {
             };
         },
         /**
-         * # WebSocketプロトコル ## 送信 `コマンド:引数1:引数2:...`のような形式のTextMessageをサーバーに送信することで、このWebSocketセッションに対する設定が実行できる。 ### `viewstate`コマンド このWebSocketセッションが見ているチャンネル(イベントを受け取るチャンネル)を設定する。 現時点では1つのセッションに対して1つのチャンネルしか設定できない。  `viewstate:(チャンネルID):(閲覧状態)` + チャンネルID: 対象のチャンネルID + 閲覧状態: `none`, `monitoring`, `editing`  最初の`viewstate`コマンドを送る前、または`viewstate:null`を送信した後は、このセッションはどこのチャンネルも見ていないことになる。  ## 受信 SSEのイベントと同じものがTextMessageとして非同期に送られてくる。 `type`と`body`を持つJSONを受信。`type`はSSEのイベントタイプと同じ、`body`はSSEのデータと同じ。 例:  ```json {\"type\":\"USER_ONLINE\",\"body\":{\"id\":\"7dd8e07f-7f5d-4331-9176-b56a4299768b\"}} ```
+         * # WebSocketプロトコル ## 送信 `コマンド:引数1:引数2:...`のような形式のTextMessageをサーバーに送信することで、このWebSocketセッションに対する設定が実行できる。 ### `viewstate`コマンド このWebSocketセッションが見ているチャンネル(イベントを受け取るチャンネル)を設定する。 現時点では1つのセッションに対して1つのチャンネルしか設定できない。  `viewstate:(チャンネルID):(閲覧状態)` + チャンネルID: 対象のチャンネルID + 閲覧状態: `none`, `monitoring`, `editing`  最初の`viewstate`コマンドを送る前、または`viewstate:null`を送信した後は、このセッションはどこのチャンネルも見ていないことになる。  ## 受信 TextMessageとして各種イベントが`type`と`body`を持つJSONとして非同期に送られます。  例:  ```json {\"type\":\"USER_ONLINE\",\"body\":{\"id\":\"7dd8e07f-7f5d-4331-9176-b56a4299768b\"}} ```  ## イベント一覧  ### `USER_JOINED` ユーザーが新規登録された。  対象: 全員  + `id`: 登録されたユーザーのId  ### `USER_UPDATED` ユーザーの情報が更新された。  対象: 全員  + `id`: 情報が更新されたユーザーのId  ### `USER_TAGS_UPDATED` ユーザーのタグが更新された。  対象: 全員  + `id`: タグが更新されたユーザーのId  ### `USER_ICON_UPDATED` ユーザーのアイコンが更新された。  対象: 全員  + `id`: アイコンが更新されたユーザーのId  ### `USER_WEBRTC_STATE_CHANGED` ユーザーのWebRTCの状態が変化した  対象: 全員  + `user_id`: 変更があったユーザーのId + `channel_id`: ユーザーの変更後の接続チャンネルのId + `state`: ユーザーの変更後の状態(配列)  ### `USER_ONLINE` ユーザーがオンラインになった。  対象: 全員  + `id`: オンラインになったユーザーのId  ### `USER_OFFLINE` ユーザーがオフラインになった。  対象: 全員  + `id`: オフラインになったユーザーのId  ### `USER_GROUP_CREATED` ユーザーグループが作成された  対象: 全員  + `id`: 作成されたユーザーグループのId  ### `USER_GROUP_UPDATED` ユーザーグループが更新された  対象: 全員  + `id`: 作成されたユーザーグループのId  ### `USER_GROUP_DELETED` ユーザーグループが削除された  対象: 全員  + `id`: 削除されたユーザーグループのId  ### `CHANNEL_CREATED` チャンネルが新規作成された。  対象: 全員  + `id`: 作成されたチャンネルのId  ### `CHANNEL_UPDATED` チャンネルの情報が変更された。  対象: 全員  + `id`: 変更があったチャンネルのId  ### `CHANNEL_DELETED` チャンネルが削除された。  対象: 全員  + `id`: 削除されたチャンネルのId  ### `CHANNEL_STARED` 自分がチャンネルをスターした。  対象: 自分  + `id`: スターしたチャンネルのId  ### `CHANNEL_UNSTARED` 自分がチャンネルのスターを解除した。  対象: 自分  + `id`: スターしたチャンネルのId  ### `MESSAGE_CREATED` メッセージが投稿された。  対象: 投稿チャンネルにハートビートを送信しているユーザー・投稿チャンネルに通知をつけているユーザー・メンションを受けたユーザー  + `id`: 投稿されたメッセージのId  ### `MESSAGE_UPDATED` メッセージが更新された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `id`: 更新されたメッセージのId  ### `MESSAGE_DELETED` メッセージが削除された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `id`: 削除されたメッセージのId  ### `MESSAGE_STAMPED` メッセージにスタンプが押された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `message_id`: メッセージId + `user_id`: スタンプを押したユーザーのId + `stamp_id`: スタンプのId + `count`: そのユーザーが押した数 + `created_at`: そのユーザーがそのスタンプをそのメッセージに最初に押した日時  ### `MESSAGE_UNSTAMPED` メッセージからスタンプが外された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `message_id`: メッセージId + `user_id`: スタンプを押したユーザーのId + `stamp_id`: スタンプのId  ### `MESSAGE_PINNED` メッセージがピン留めされた。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `message_id`: ピンされたメッセージのID + `channel_id`: ピンされたメッセージのチャンネルID  ### `MESSAGE_UNPINNED` ピン留めされたメッセージのピンが外された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `message_id`: ピンが外されたメッセージのID + `channel_id`: ピンが外されたメッセージのチャンネルID  ### `MESSAGE_READ` 自分があるチャンネルのメッセージを読んだ。  対象: 自分  + `id`: 読んだチャンネルId  ### `STAMP_CREATED` スタンプが新しく追加された。  対象: 全員  + `id`: 作成されたスタンプのId  ### `STAMP_UPDATED` スタンプが修正された。  対象: 全員  + `id`: 修正されたスタンプのId  ### `STAMP_DELETED` スタンプが削除された。  対象: 全員  + `id`: 削除されたスタンプのId
          * @summary WebSocket通知ストリームに接続します
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7649,7 +7649,7 @@ export const NotificationApiFp = function (configuration) {
 export const NotificationApiFactory = function (configuration, basePath, axios) {
     return {
         /**
-         * 指定したチャンネルの通知購読者を編集します。 リクエストに含めなかったユーザーの購読状態は変更しません。 また、存在しないユーザーを指定した場合は無視されます。
+         * 指定したチャンネルの通知購読者を編集します。 リクエストに含めなかったユーザーの通知購読状態は変更しません。 また、存在しないユーザーを指定した場合は無視されます。
          * @summary チャンネルの通知購読者を編集
          * @param {string} channelId チャンネルUUID
          * @param {PatchChannelSubscribersRequest} [patchChannelSubscribersRequest]
@@ -7719,7 +7719,7 @@ export const NotificationApiFactory = function (configuration, basePath, axios) 
             return NotificationApiFp(configuration).setChannelSubscribeLevel(channelId, putChannelSubscribeLevelRequest, options)(axios, basePath);
         },
         /**
-         * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
+         * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの通知購読状態はオフになります。 また、存在しないユーザーを指定した場合は無視されます。
          * @summary チャンネルの通知購読者を設定
          * @param {string} channelId チャンネルUUID
          * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
@@ -7730,7 +7730,7 @@ export const NotificationApiFactory = function (configuration, basePath, axios) 
             return NotificationApiFp(configuration).setChannelSubscribers(channelId, putChannelSubscribersRequest, options)(axios, basePath);
         },
         /**
-         * # WebSocketプロトコル ## 送信 `コマンド:引数1:引数2:...`のような形式のTextMessageをサーバーに送信することで、このWebSocketセッションに対する設定が実行できる。 ### `viewstate`コマンド このWebSocketセッションが見ているチャンネル(イベントを受け取るチャンネル)を設定する。 現時点では1つのセッションに対して1つのチャンネルしか設定できない。  `viewstate:(チャンネルID):(閲覧状態)` + チャンネルID: 対象のチャンネルID + 閲覧状態: `none`, `monitoring`, `editing`  最初の`viewstate`コマンドを送る前、または`viewstate:null`を送信した後は、このセッションはどこのチャンネルも見ていないことになる。  ## 受信 SSEのイベントと同じものがTextMessageとして非同期に送られてくる。 `type`と`body`を持つJSONを受信。`type`はSSEのイベントタイプと同じ、`body`はSSEのデータと同じ。 例:  ```json {\"type\":\"USER_ONLINE\",\"body\":{\"id\":\"7dd8e07f-7f5d-4331-9176-b56a4299768b\"}} ```
+         * # WebSocketプロトコル ## 送信 `コマンド:引数1:引数2:...`のような形式のTextMessageをサーバーに送信することで、このWebSocketセッションに対する設定が実行できる。 ### `viewstate`コマンド このWebSocketセッションが見ているチャンネル(イベントを受け取るチャンネル)を設定する。 現時点では1つのセッションに対して1つのチャンネルしか設定できない。  `viewstate:(チャンネルID):(閲覧状態)` + チャンネルID: 対象のチャンネルID + 閲覧状態: `none`, `monitoring`, `editing`  最初の`viewstate`コマンドを送る前、または`viewstate:null`を送信した後は、このセッションはどこのチャンネルも見ていないことになる。  ## 受信 TextMessageとして各種イベントが`type`と`body`を持つJSONとして非同期に送られます。  例:  ```json {\"type\":\"USER_ONLINE\",\"body\":{\"id\":\"7dd8e07f-7f5d-4331-9176-b56a4299768b\"}} ```  ## イベント一覧  ### `USER_JOINED` ユーザーが新規登録された。  対象: 全員  + `id`: 登録されたユーザーのId  ### `USER_UPDATED` ユーザーの情報が更新された。  対象: 全員  + `id`: 情報が更新されたユーザーのId  ### `USER_TAGS_UPDATED` ユーザーのタグが更新された。  対象: 全員  + `id`: タグが更新されたユーザーのId  ### `USER_ICON_UPDATED` ユーザーのアイコンが更新された。  対象: 全員  + `id`: アイコンが更新されたユーザーのId  ### `USER_WEBRTC_STATE_CHANGED` ユーザーのWebRTCの状態が変化した  対象: 全員  + `user_id`: 変更があったユーザーのId + `channel_id`: ユーザーの変更後の接続チャンネルのId + `state`: ユーザーの変更後の状態(配列)  ### `USER_ONLINE` ユーザーがオンラインになった。  対象: 全員  + `id`: オンラインになったユーザーのId  ### `USER_OFFLINE` ユーザーがオフラインになった。  対象: 全員  + `id`: オフラインになったユーザーのId  ### `USER_GROUP_CREATED` ユーザーグループが作成された  対象: 全員  + `id`: 作成されたユーザーグループのId  ### `USER_GROUP_UPDATED` ユーザーグループが更新された  対象: 全員  + `id`: 作成されたユーザーグループのId  ### `USER_GROUP_DELETED` ユーザーグループが削除された  対象: 全員  + `id`: 削除されたユーザーグループのId  ### `CHANNEL_CREATED` チャンネルが新規作成された。  対象: 全員  + `id`: 作成されたチャンネルのId  ### `CHANNEL_UPDATED` チャンネルの情報が変更された。  対象: 全員  + `id`: 変更があったチャンネルのId  ### `CHANNEL_DELETED` チャンネルが削除された。  対象: 全員  + `id`: 削除されたチャンネルのId  ### `CHANNEL_STARED` 自分がチャンネルをスターした。  対象: 自分  + `id`: スターしたチャンネルのId  ### `CHANNEL_UNSTARED` 自分がチャンネルのスターを解除した。  対象: 自分  + `id`: スターしたチャンネルのId  ### `MESSAGE_CREATED` メッセージが投稿された。  対象: 投稿チャンネルにハートビートを送信しているユーザー・投稿チャンネルに通知をつけているユーザー・メンションを受けたユーザー  + `id`: 投稿されたメッセージのId  ### `MESSAGE_UPDATED` メッセージが更新された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `id`: 更新されたメッセージのId  ### `MESSAGE_DELETED` メッセージが削除された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `id`: 削除されたメッセージのId  ### `MESSAGE_STAMPED` メッセージにスタンプが押された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `message_id`: メッセージId + `user_id`: スタンプを押したユーザーのId + `stamp_id`: スタンプのId + `count`: そのユーザーが押した数 + `created_at`: そのユーザーがそのスタンプをそのメッセージに最初に押した日時  ### `MESSAGE_UNSTAMPED` メッセージからスタンプが外された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `message_id`: メッセージId + `user_id`: スタンプを押したユーザーのId + `stamp_id`: スタンプのId  ### `MESSAGE_PINNED` メッセージがピン留めされた。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `message_id`: ピンされたメッセージのID + `channel_id`: ピンされたメッセージのチャンネルID  ### `MESSAGE_UNPINNED` ピン留めされたメッセージのピンが外された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `message_id`: ピンが外されたメッセージのID + `channel_id`: ピンが外されたメッセージのチャンネルID  ### `MESSAGE_READ` 自分があるチャンネルのメッセージを読んだ。  対象: 自分  + `id`: 読んだチャンネルId  ### `STAMP_CREATED` スタンプが新しく追加された。  対象: 全員  + `id`: 作成されたスタンプのId  ### `STAMP_UPDATED` スタンプが修正された。  対象: 全員  + `id`: 修正されたスタンプのId  ### `STAMP_DELETED` スタンプが削除された。  対象: 全員  + `id`: 削除されたスタンプのId
          * @summary WebSocket通知ストリームに接続します
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7748,7 +7748,7 @@ export const NotificationApiFactory = function (configuration, basePath, axios) 
  */
 export class NotificationApi extends BaseAPI {
     /**
-     * 指定したチャンネルの通知購読者を編集します。 リクエストに含めなかったユーザーの購読状態は変更しません。 また、存在しないユーザーを指定した場合は無視されます。
+     * 指定したチャンネルの通知購読者を編集します。 リクエストに含めなかったユーザーの通知購読状態は変更しません。 また、存在しないユーザーを指定した場合は無視されます。
      * @summary チャンネルの通知購読者を編集
      * @param {string} channelId チャンネルUUID
      * @param {PatchChannelSubscribersRequest} [patchChannelSubscribersRequest]
@@ -7825,7 +7825,7 @@ export class NotificationApi extends BaseAPI {
         return NotificationApiFp(this.configuration).setChannelSubscribeLevel(channelId, putChannelSubscribeLevelRequest, options)(this.axios, this.basePath);
     }
     /**
-     * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
+     * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの通知購読状態はオフになります。 また、存在しないユーザーを指定した場合は無視されます。
      * @summary チャンネルの通知購読者を設定
      * @param {string} channelId チャンネルUUID
      * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
@@ -7837,7 +7837,7 @@ export class NotificationApi extends BaseAPI {
         return NotificationApiFp(this.configuration).setChannelSubscribers(channelId, putChannelSubscribersRequest, options)(this.axios, this.basePath);
     }
     /**
-     * # WebSocketプロトコル ## 送信 `コマンド:引数1:引数2:...`のような形式のTextMessageをサーバーに送信することで、このWebSocketセッションに対する設定が実行できる。 ### `viewstate`コマンド このWebSocketセッションが見ているチャンネル(イベントを受け取るチャンネル)を設定する。 現時点では1つのセッションに対して1つのチャンネルしか設定できない。  `viewstate:(チャンネルID):(閲覧状態)` + チャンネルID: 対象のチャンネルID + 閲覧状態: `none`, `monitoring`, `editing`  最初の`viewstate`コマンドを送る前、または`viewstate:null`を送信した後は、このセッションはどこのチャンネルも見ていないことになる。  ## 受信 SSEのイベントと同じものがTextMessageとして非同期に送られてくる。 `type`と`body`を持つJSONを受信。`type`はSSEのイベントタイプと同じ、`body`はSSEのデータと同じ。 例:  ```json {\"type\":\"USER_ONLINE\",\"body\":{\"id\":\"7dd8e07f-7f5d-4331-9176-b56a4299768b\"}} ```
+     * # WebSocketプロトコル ## 送信 `コマンド:引数1:引数2:...`のような形式のTextMessageをサーバーに送信することで、このWebSocketセッションに対する設定が実行できる。 ### `viewstate`コマンド このWebSocketセッションが見ているチャンネル(イベントを受け取るチャンネル)を設定する。 現時点では1つのセッションに対して1つのチャンネルしか設定できない。  `viewstate:(チャンネルID):(閲覧状態)` + チャンネルID: 対象のチャンネルID + 閲覧状態: `none`, `monitoring`, `editing`  最初の`viewstate`コマンドを送る前、または`viewstate:null`を送信した後は、このセッションはどこのチャンネルも見ていないことになる。  ## 受信 TextMessageとして各種イベントが`type`と`body`を持つJSONとして非同期に送られます。  例:  ```json {\"type\":\"USER_ONLINE\",\"body\":{\"id\":\"7dd8e07f-7f5d-4331-9176-b56a4299768b\"}} ```  ## イベント一覧  ### `USER_JOINED` ユーザーが新規登録された。  対象: 全員  + `id`: 登録されたユーザーのId  ### `USER_UPDATED` ユーザーの情報が更新された。  対象: 全員  + `id`: 情報が更新されたユーザーのId  ### `USER_TAGS_UPDATED` ユーザーのタグが更新された。  対象: 全員  + `id`: タグが更新されたユーザーのId  ### `USER_ICON_UPDATED` ユーザーのアイコンが更新された。  対象: 全員  + `id`: アイコンが更新されたユーザーのId  ### `USER_WEBRTC_STATE_CHANGED` ユーザーのWebRTCの状態が変化した  対象: 全員  + `user_id`: 変更があったユーザーのId + `channel_id`: ユーザーの変更後の接続チャンネルのId + `state`: ユーザーの変更後の状態(配列)  ### `USER_ONLINE` ユーザーがオンラインになった。  対象: 全員  + `id`: オンラインになったユーザーのId  ### `USER_OFFLINE` ユーザーがオフラインになった。  対象: 全員  + `id`: オフラインになったユーザーのId  ### `USER_GROUP_CREATED` ユーザーグループが作成された  対象: 全員  + `id`: 作成されたユーザーグループのId  ### `USER_GROUP_UPDATED` ユーザーグループが更新された  対象: 全員  + `id`: 作成されたユーザーグループのId  ### `USER_GROUP_DELETED` ユーザーグループが削除された  対象: 全員  + `id`: 削除されたユーザーグループのId  ### `CHANNEL_CREATED` チャンネルが新規作成された。  対象: 全員  + `id`: 作成されたチャンネルのId  ### `CHANNEL_UPDATED` チャンネルの情報が変更された。  対象: 全員  + `id`: 変更があったチャンネルのId  ### `CHANNEL_DELETED` チャンネルが削除された。  対象: 全員  + `id`: 削除されたチャンネルのId  ### `CHANNEL_STARED` 自分がチャンネルをスターした。  対象: 自分  + `id`: スターしたチャンネルのId  ### `CHANNEL_UNSTARED` 自分がチャンネルのスターを解除した。  対象: 自分  + `id`: スターしたチャンネルのId  ### `MESSAGE_CREATED` メッセージが投稿された。  対象: 投稿チャンネルにハートビートを送信しているユーザー・投稿チャンネルに通知をつけているユーザー・メンションを受けたユーザー  + `id`: 投稿されたメッセージのId  ### `MESSAGE_UPDATED` メッセージが更新された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `id`: 更新されたメッセージのId  ### `MESSAGE_DELETED` メッセージが削除された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `id`: 削除されたメッセージのId  ### `MESSAGE_STAMPED` メッセージにスタンプが押された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `message_id`: メッセージId + `user_id`: スタンプを押したユーザーのId + `stamp_id`: スタンプのId + `count`: そのユーザーが押した数 + `created_at`: そのユーザーがそのスタンプをそのメッセージに最初に押した日時  ### `MESSAGE_UNSTAMPED` メッセージからスタンプが外された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `message_id`: メッセージId + `user_id`: スタンプを押したユーザーのId + `stamp_id`: スタンプのId  ### `MESSAGE_PINNED` メッセージがピン留めされた。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `message_id`: ピンされたメッセージのID + `channel_id`: ピンされたメッセージのチャンネルID  ### `MESSAGE_UNPINNED` ピン留めされたメッセージのピンが外された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `message_id`: ピンが外されたメッセージのID + `channel_id`: ピンが外されたメッセージのチャンネルID  ### `MESSAGE_READ` 自分があるチャンネルのメッセージを読んだ。  対象: 自分  + `id`: 読んだチャンネルId  ### `STAMP_CREATED` スタンプが新しく追加された。  対象: 全員  + `id`: 作成されたスタンプのId  ### `STAMP_UPDATED` スタンプが修正された。  対象: 全員  + `id`: 修正されたスタンプのId  ### `STAMP_DELETED` スタンプが削除された。  対象: 全員  + `id`: 削除されたスタンプのId
      * @summary WebSocket通知ストリームに接続します
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -12995,7 +12995,7 @@ export class Apis extends BaseAPI {
         return ChannelApiFp(this.configuration).editChannel(channelId, patchChannelRequest, options)(this.axios, this.basePath);
     }
     /**
-     * 指定したチャンネルの通知購読者を編集します。 リクエストに含めなかったユーザーの購読状態は変更しません。 また、存在しないユーザーを指定した場合は無視されます。
+     * 指定したチャンネルの通知購読者を編集します。 リクエストに含めなかったユーザーの通知購読状態は変更しません。 また、存在しないユーザーを指定した場合は無視されます。
      * @summary チャンネルの通知購読者を編集
      * @param {string} channelId チャンネルUUID
      * @param {PatchChannelSubscribersRequest} [patchChannelSubscribersRequest]
@@ -13142,7 +13142,7 @@ export class Apis extends BaseAPI {
         return MessageApiFp(this.configuration).postMessage(channelId, postMessageRequest, options)(this.axios, this.basePath);
     }
     /**
-     * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの購読状態はオフになります。
+     * 指定したチャンネルの通知購読者を設定します。 リクエストに含めなかったユーザーの通知購読状態はオフになります。 また、存在しないユーザーを指定した場合は無視されます。
      * @summary チャンネルの通知購読者を設定
      * @param {string} channelId チャンネルUUID
      * @param {PutChannelSubscribersRequest} [putChannelSubscribersRequest]
@@ -13818,7 +13818,7 @@ export class Apis extends BaseAPI {
         return PinApiFp(this.configuration).removePin(messageId, options)(this.axios, this.basePath);
     }
     /**
-     * # WebSocketプロトコル ## 送信 `コマンド:引数1:引数2:...`のような形式のTextMessageをサーバーに送信することで、このWebSocketセッションに対する設定が実行できる。 ### `viewstate`コマンド このWebSocketセッションが見ているチャンネル(イベントを受け取るチャンネル)を設定する。 現時点では1つのセッションに対して1つのチャンネルしか設定できない。  `viewstate:(チャンネルID):(閲覧状態)` + チャンネルID: 対象のチャンネルID + 閲覧状態: `none`, `monitoring`, `editing`  最初の`viewstate`コマンドを送る前、または`viewstate:null`を送信した後は、このセッションはどこのチャンネルも見ていないことになる。  ## 受信 SSEのイベントと同じものがTextMessageとして非同期に送られてくる。 `type`と`body`を持つJSONを受信。`type`はSSEのイベントタイプと同じ、`body`はSSEのデータと同じ。 例:  ```json {\"type\":\"USER_ONLINE\",\"body\":{\"id\":\"7dd8e07f-7f5d-4331-9176-b56a4299768b\"}} ```
+     * # WebSocketプロトコル ## 送信 `コマンド:引数1:引数2:...`のような形式のTextMessageをサーバーに送信することで、このWebSocketセッションに対する設定が実行できる。 ### `viewstate`コマンド このWebSocketセッションが見ているチャンネル(イベントを受け取るチャンネル)を設定する。 現時点では1つのセッションに対して1つのチャンネルしか設定できない。  `viewstate:(チャンネルID):(閲覧状態)` + チャンネルID: 対象のチャンネルID + 閲覧状態: `none`, `monitoring`, `editing`  最初の`viewstate`コマンドを送る前、または`viewstate:null`を送信した後は、このセッションはどこのチャンネルも見ていないことになる。  ## 受信 TextMessageとして各種イベントが`type`と`body`を持つJSONとして非同期に送られます。  例:  ```json {\"type\":\"USER_ONLINE\",\"body\":{\"id\":\"7dd8e07f-7f5d-4331-9176-b56a4299768b\"}} ```  ## イベント一覧  ### `USER_JOINED` ユーザーが新規登録された。  対象: 全員  + `id`: 登録されたユーザーのId  ### `USER_UPDATED` ユーザーの情報が更新された。  対象: 全員  + `id`: 情報が更新されたユーザーのId  ### `USER_TAGS_UPDATED` ユーザーのタグが更新された。  対象: 全員  + `id`: タグが更新されたユーザーのId  ### `USER_ICON_UPDATED` ユーザーのアイコンが更新された。  対象: 全員  + `id`: アイコンが更新されたユーザーのId  ### `USER_WEBRTC_STATE_CHANGED` ユーザーのWebRTCの状態が変化した  対象: 全員  + `user_id`: 変更があったユーザーのId + `channel_id`: ユーザーの変更後の接続チャンネルのId + `state`: ユーザーの変更後の状態(配列)  ### `USER_ONLINE` ユーザーがオンラインになった。  対象: 全員  + `id`: オンラインになったユーザーのId  ### `USER_OFFLINE` ユーザーがオフラインになった。  対象: 全員  + `id`: オフラインになったユーザーのId  ### `USER_GROUP_CREATED` ユーザーグループが作成された  対象: 全員  + `id`: 作成されたユーザーグループのId  ### `USER_GROUP_UPDATED` ユーザーグループが更新された  対象: 全員  + `id`: 作成されたユーザーグループのId  ### `USER_GROUP_DELETED` ユーザーグループが削除された  対象: 全員  + `id`: 削除されたユーザーグループのId  ### `CHANNEL_CREATED` チャンネルが新規作成された。  対象: 全員  + `id`: 作成されたチャンネルのId  ### `CHANNEL_UPDATED` チャンネルの情報が変更された。  対象: 全員  + `id`: 変更があったチャンネルのId  ### `CHANNEL_DELETED` チャンネルが削除された。  対象: 全員  + `id`: 削除されたチャンネルのId  ### `CHANNEL_STARED` 自分がチャンネルをスターした。  対象: 自分  + `id`: スターしたチャンネルのId  ### `CHANNEL_UNSTARED` 自分がチャンネルのスターを解除した。  対象: 自分  + `id`: スターしたチャンネルのId  ### `MESSAGE_CREATED` メッセージが投稿された。  対象: 投稿チャンネルにハートビートを送信しているユーザー・投稿チャンネルに通知をつけているユーザー・メンションを受けたユーザー  + `id`: 投稿されたメッセージのId  ### `MESSAGE_UPDATED` メッセージが更新された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `id`: 更新されたメッセージのId  ### `MESSAGE_DELETED` メッセージが削除された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `id`: 削除されたメッセージのId  ### `MESSAGE_STAMPED` メッセージにスタンプが押された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `message_id`: メッセージId + `user_id`: スタンプを押したユーザーのId + `stamp_id`: スタンプのId + `count`: そのユーザーが押した数 + `created_at`: そのユーザーがそのスタンプをそのメッセージに最初に押した日時  ### `MESSAGE_UNSTAMPED` メッセージからスタンプが外された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `message_id`: メッセージId + `user_id`: スタンプを押したユーザーのId + `stamp_id`: スタンプのId  ### `MESSAGE_PINNED` メッセージがピン留めされた。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `message_id`: ピンされたメッセージのID + `channel_id`: ピンされたメッセージのチャンネルID  ### `MESSAGE_UNPINNED` ピン留めされたメッセージのピンが外された。  対象: 投稿チャンネルにハートビートを送信しているユーザー  + `message_id`: ピンが外されたメッセージのID + `channel_id`: ピンが外されたメッセージのチャンネルID  ### `MESSAGE_READ` 自分があるチャンネルのメッセージを読んだ。  対象: 自分  + `id`: 読んだチャンネルId  ### `STAMP_CREATED` スタンプが新しく追加された。  対象: 全員  + `id`: 作成されたスタンプのId  ### `STAMP_UPDATED` スタンプが修正された。  対象: 全員  + `id`: 修正されたスタンプのId  ### `STAMP_DELETED` スタンプが削除された。  対象: 全員  + `id`: 削除されたスタンプのId
      * @summary WebSocket通知ストリームに接続します
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
