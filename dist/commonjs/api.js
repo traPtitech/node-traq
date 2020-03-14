@@ -1802,10 +1802,14 @@ exports.ChannelApiAxiosParamCreator = function (configuration) {
                 localVarQueryParameter['offset'] = offset;
             }
             if (since !== undefined) {
-                localVarQueryParameter['since'] = since.toISOString();
+                localVarQueryParameter['since'] = (since instanceof Date) ?
+                    since.toISOString() :
+                    since;
             }
             if (until !== undefined) {
-                localVarQueryParameter['until'] = until.toISOString();
+                localVarQueryParameter['until'] = (until instanceof Date) ?
+                    until.toISOString() :
+                    until;
             }
             if (inclusive !== undefined) {
                 localVarQueryParameter['inclusive'] = inclusive;
@@ -2041,10 +2045,14 @@ exports.ChannelApiAxiosParamCreator = function (configuration) {
                 localVarQueryParameter['offset'] = offset;
             }
             if (since !== undefined) {
-                localVarQueryParameter['since'] = since.toISOString();
+                localVarQueryParameter['since'] = (since instanceof Date) ?
+                    since.toISOString() :
+                    since;
             }
             if (until !== undefined) {
-                localVarQueryParameter['until'] = until.toISOString();
+                localVarQueryParameter['until'] = (until instanceof Date) ?
+                    until.toISOString() :
+                    until;
             }
             if (inclusive !== undefined) {
                 localVarQueryParameter['inclusive'] = inclusive;
@@ -3498,10 +3506,14 @@ exports.FileApiAxiosParamCreator = function (configuration) {
                 localVarQueryParameter['offset'] = offset;
             }
             if (since !== undefined) {
-                localVarQueryParameter['since'] = since.toISOString();
+                localVarQueryParameter['since'] = (since instanceof Date) ?
+                    since.toISOString() :
+                    since;
             }
             if (until !== undefined) {
-                localVarQueryParameter['until'] = until.toISOString();
+                localVarQueryParameter['until'] = (until instanceof Date) ?
+                    until.toISOString() :
+                    until;
             }
             if (inclusive !== undefined) {
                 localVarQueryParameter['inclusive'] = inclusive;
@@ -6398,10 +6410,14 @@ exports.MessageApiAxiosParamCreator = function (configuration) {
                 localVarQueryParameter['offset'] = offset;
             }
             if (since !== undefined) {
-                localVarQueryParameter['since'] = since.toISOString();
+                localVarQueryParameter['since'] = (since instanceof Date) ?
+                    since.toISOString() :
+                    since;
             }
             if (until !== undefined) {
-                localVarQueryParameter['until'] = until.toISOString();
+                localVarQueryParameter['until'] = (until instanceof Date) ?
+                    until.toISOString() :
+                    until;
             }
             if (inclusive !== undefined) {
                 localVarQueryParameter['inclusive'] = inclusive;
@@ -6515,10 +6531,14 @@ exports.MessageApiAxiosParamCreator = function (configuration) {
                 localVarQueryParameter['offset'] = offset;
             }
             if (since !== undefined) {
-                localVarQueryParameter['since'] = since.toISOString();
+                localVarQueryParameter['since'] = (since instanceof Date) ?
+                    since.toISOString() :
+                    since;
             }
             if (until !== undefined) {
-                localVarQueryParameter['until'] = until.toISOString();
+                localVarQueryParameter['until'] = (until instanceof Date) ?
+                    until.toISOString() :
+                    until;
             }
             if (inclusive !== undefined) {
                 localVarQueryParameter['inclusive'] = inclusive;
@@ -10502,10 +10522,14 @@ exports.UserApiAxiosParamCreator = function (configuration) {
                 localVarQueryParameter['offset'] = offset;
             }
             if (since !== undefined) {
-                localVarQueryParameter['since'] = since.toISOString();
+                localVarQueryParameter['since'] = (since instanceof Date) ?
+                    since.toISOString() :
+                    since;
             }
             if (until !== undefined) {
-                localVarQueryParameter['until'] = until.toISOString();
+                localVarQueryParameter['until'] = (until instanceof Date) ?
+                    until.toISOString() :
+                    until;
             }
             if (inclusive !== undefined) {
                 localVarQueryParameter['inclusive'] = inclusive;
@@ -12135,10 +12159,14 @@ exports.WebhookApiAxiosParamCreator = function (configuration) {
                 localVarQueryParameter['offset'] = offset;
             }
             if (since !== undefined) {
-                localVarQueryParameter['since'] = since.toISOString();
+                localVarQueryParameter['since'] = (since instanceof Date) ?
+                    since.toISOString() :
+                    since;
             }
             if (until !== undefined) {
-                localVarQueryParameter['until'] = until.toISOString();
+                localVarQueryParameter['until'] = (until instanceof Date) ?
+                    until.toISOString() :
+                    until;
             }
             if (inclusive !== undefined) {
                 localVarQueryParameter['inclusive'] = inclusive;

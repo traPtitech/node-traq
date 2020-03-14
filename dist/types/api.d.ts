@@ -370,7 +370,7 @@ export interface ChannelList {
      * @type {Array<Channel>}
      * @memberof ChannelList
      */
-    _public?: Array<Channel>;
+    public?: Array<Channel>;
     /**
      * ダイレクトメッセージチャンネルの配列
      * @type {Array<DMChannel>}
