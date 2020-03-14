@@ -7996,7 +7996,7 @@ exports.Oauth2ApiAxiosParamCreator = function (configuration) {
             };
         },
         /**
-         * 自身が開発者のOAuth2クライアントのリストを取得します。 全てのクライアントを取得する場合は、権限が必要です。
+         * 自身が開発者のOAuth2クライアントのリストを取得します。 `all`が`true`の場合、全開発者の全クライアントのリストを返します。
          * @summary OAuth2クライアントのリストを取得
          * @param {boolean} [all] 全てのクライアントを取得するかどうか
          * @param {*} [options] Override http request option.
@@ -8147,7 +8147,7 @@ exports.Oauth2ApiFp = function (configuration) {
             };
         },
         /**
-         * 自身が開発者のOAuth2クライアントのリストを取得します。 全てのクライアントを取得する場合は、権限が必要です。
+         * 自身が開発者のOAuth2クライアントのリストを取得します。 `all`が`true`の場合、全開発者の全クライアントのリストを返します。
          * @summary OAuth2クライアントのリストを取得
          * @param {boolean} [all] 全てのクライアントを取得するかどうか
          * @param {*} [options] Override http request option.
@@ -8238,7 +8238,7 @@ exports.Oauth2ApiFactory = function (configuration, basePath, axios) {
             return exports.Oauth2ApiFp(configuration).getClient(clientId, detail, options)(axios, basePath);
         },
         /**
-         * 自身が開発者のOAuth2クライアントのリストを取得します。 全てのクライアントを取得する場合は、権限が必要です。
+         * 自身が開発者のOAuth2クライアントのリストを取得します。 `all`が`true`の場合、全開発者の全クライアントのリストを返します。
          * @summary OAuth2クライアントのリストを取得
          * @param {boolean} [all] 全てのクライアントを取得するかどうか
          * @param {*} [options] Override http request option.
@@ -8322,7 +8322,7 @@ class Oauth2Api extends base_1.BaseAPI {
         return exports.Oauth2ApiFp(this.configuration).getClient(clientId, detail, options)(this.axios, this.basePath);
     }
     /**
-     * 自身が開発者のOAuth2クライアントのリストを取得します。 全てのクライアントを取得する場合は、権限が必要です。
+     * 自身が開発者のOAuth2クライアントのリストを取得します。 `all`が`true`の場合、全開発者の全クライアントのリストを返します。
      * @summary OAuth2クライアントのリストを取得
      * @param {boolean} [all] 全てのクライアントを取得するかどうか
      * @param {*} [options] Override http request option.
@@ -13895,7 +13895,7 @@ class Apis extends base_1.BaseAPI {
         return exports.Oauth2ApiFp(this.configuration).getClient(clientId, detail, options)(this.axios, this.basePath);
     }
     /**
-     * 自身が開発者のOAuth2クライアントのリストを取得します。 全てのクライアントを取得する場合は、権限が必要です。
+     * 自身が開発者のOAuth2クライアントのリストを取得します。 `all`が`true`の場合、全開発者の全クライアントのリストを返します。
      * @summary OAuth2クライアントのリストを取得
      * @param {boolean} [all] 全てのクライアントを取得するかどうか
      * @param {*} [options] Override http request option.

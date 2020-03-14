@@ -986,6 +986,12 @@ export interface OAuth2Client {
      * @memberof OAuth2Client
      */
     developerId?: string;
+    /**
+     * 要求スコープの配列
+     * @type {Array<OAuth2Scope>}
+     * @memberof OAuth2Client
+     */
+    scopes?: Array<OAuth2Scope>;
 }
 /**
  * OAuth2クライアント詳細情報
@@ -6635,7 +6641,7 @@ export declare const Oauth2ApiAxiosParamCreator: (configuration?: Configuration)
      */
     getClient(clientId: string, detail?: boolean, options?: any): RequestArgs;
     /**
-     * 自身が開発者のOAuth2クライアントのリストを取得します。 全てのクライアントを取得する場合は、権限が必要です。
+     * 自身が開発者のOAuth2クライアントのリストを取得します。 `all`が`true`の場合、全開発者の全クライアントのリストを返します。
      * @summary OAuth2クライアントのリストを取得
      * @param {boolean} [all] 全てのクライアントを取得するかどうか
      * @param {*} [options] Override http request option.
@@ -6698,7 +6704,7 @@ export declare const Oauth2ApiFp: (configuration?: Configuration) => {
      */
     getClient(clientId: string, detail?: boolean, options?: any): (axios?: AxiosInstance, basePath?: string) => AxiosPromise<OAuth2Client | OAuth2ClientDetail>;
     /**
-     * 自身が開発者のOAuth2クライアントのリストを取得します。 全てのクライアントを取得する場合は、権限が必要です。
+     * 自身が開発者のOAuth2クライアントのリストを取得します。 `all`が`true`の場合、全開発者の全クライアントのリストを返します。
      * @summary OAuth2クライアントのリストを取得
      * @param {boolean} [all] 全てのクライアントを取得するかどうか
      * @param {*} [options] Override http request option.
@@ -6761,7 +6767,7 @@ export declare const Oauth2ApiFactory: (configuration?: Configuration, basePath?
      */
     getClient(clientId: string, detail?: boolean, options?: any): AxiosPromise<OAuth2Client | OAuth2ClientDetail>;
     /**
-     * 自身が開発者のOAuth2クライアントのリストを取得します。 全てのクライアントを取得する場合は、権限が必要です。
+     * 自身が開発者のOAuth2クライアントのリストを取得します。 `all`が`true`の場合、全開発者の全クライアントのリストを返します。
      * @summary OAuth2クライアントのリストを取得
      * @param {boolean} [all] 全てのクライアントを取得するかどうか
      * @param {*} [options] Override http request option.
@@ -6830,7 +6836,7 @@ export declare class Oauth2Api extends BaseAPI {
      */
     getClient(clientId: string, detail?: boolean, options?: any): AxiosPromise<OAuth2Client | OAuth2ClientDetail>;
     /**
-     * 自身が開発者のOAuth2クライアントのリストを取得します。 全てのクライアントを取得する場合は、権限が必要です。
+     * 自身が開発者のOAuth2クライアントのリストを取得します。 `all`が`true`の場合、全開発者の全クライアントのリストを返します。
      * @summary OAuth2クライアントのリストを取得
      * @param {boolean} [all] 全てのクライアントを取得するかどうか
      * @param {*} [options] Override http request option.
@@ -10083,7 +10089,7 @@ export declare class Apis extends BaseAPI {
      */
     getClient(clientId: string, detail?: boolean, options?: any): AxiosPromise<OAuth2Client | OAuth2ClientDetail>;
     /**
-     * 自身が開発者のOAuth2クライアントのリストを取得します。 全てのクライアントを取得する場合は、権限が必要です。
+     * 自身が開発者のOAuth2クライアントのリストを取得します。 `all`が`true`の場合、全開発者の全クライアントのリストを返します。
      * @summary OAuth2クライアントのリストを取得
      * @param {boolean} [all] 全てのクライアントを取得するかどうか
      * @param {*} [options] Override http request option.
