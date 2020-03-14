@@ -21,9 +21,10 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: npm ci
         run: npm ci
-      - name: Build, check diff, commit and push
+      - name: build
+        run: npm run build
+      - name: Check diff, commit and push
         run: |
-          npm run build
           git diff --unified=0 > ./diff.txt
           if [ -s './diff.txt' ]; then
             rm ./diff.txt
