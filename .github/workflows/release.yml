@@ -19,6 +19,8 @@ jobs:
         with:
           node-version: 12.x
           registry-url: 'https://registry.npmjs.org'
+      - name: build
+        run: npm run build
       - name: Check diff, commit and push
         run: |
           git diff --unified=0 > ./diff.txt

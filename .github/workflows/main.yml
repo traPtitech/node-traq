@@ -21,4 +21,4 @@ jobs:
       - name: check npm ci
         run: npm ci
       - name: check npm build
-        run: npm build
+        run: npm run build
