@@ -21,7 +21,8 @@ const generateCmd = [
   "-o",
   GENERATED_FOLDER,
   "--skip-validate-spec",
-  "--generate-alias-as-model"
+  "--generate-alias-as-model",
+  "--reserved-words-mappings public=public"
 ];
 
 const baseTscCmd = [
