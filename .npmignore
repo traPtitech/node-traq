@@ -3,5 +3,4 @@ node_modules
 typings
 /.vscode
 /bin
-/dist
-
+/build
