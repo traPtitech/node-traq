@@ -4,10 +4,8 @@ Typescript type definition included.
 
 ## How to use
 ```bash
-npm i @traptitech/traq#version
+npm i @traptitech/traq
 ```
-
- - `version`: ex. `3.0.0-8` => `npm i @traptitech/traq#3.0.0-8`
 
 ```js
 import { Apis } from "@traptitech/traq";
