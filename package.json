@@ -1,5 +1,5 @@
 {
-  "name": "traq-api",
+  "name": "@traptitech/traq",
   "version": "3.0.0-6",
   "description": "A client library for the traQ API.",
   "main": "dist/commonjs/index.js",
