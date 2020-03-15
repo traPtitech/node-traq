@@ -64,6 +64,7 @@ jobs:
           git config user.email "sapphi-red+githubactions@users.noreply.github.com"
 
           npm version $NEW_VERSION -m "CI: update to $NEW_VERSION [ci skip]"
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NEW_VERSION: ${{ env.NEW_VERSION }}
