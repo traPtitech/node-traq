@@ -28,7 +28,16 @@ jobs:
         run: npm ci
       - name: build
         run: npm run build
-      - name: Check diff, commit and push
+      #- name: Check diff
+      #  run: |
+      #    git diff --unified=0 > ./diff.txt
+      #    if [ -s './diff.txt' ]; then
+      #      echo "::set-env name=HAS_DIFF::true"
+      #    else
+      #      echo "::set-env name=HAS_DIFF::false"
+      #    fi
+      - name: Set version name
+        #if: env.HAS_DIFF == true
         run: |
           #TRAQ_VERSION=$(curl -sS https://api.github.com/repos/traPtitech/traQ/tags | jq '.[0].name' | sed -n s/[\"v]//pg)
           TRAQ_VERSION=3.0.0
@@ -47,15 +56,26 @@ jobs:
             NEW_VERSION="${TRAQ_VERSION}-0"
           fi
           echo "PACKAGE NEW ${NEW_VERSION}"
-
+          echo "::set-env name=NEW_VERSION::${NEW_VERSION}"
+      - name: npm version & publish
+        #if: env.HAS_DIFF == true
+        run: |
           git config user.name "sapphi-red+githubactions"
           git config user.email "sapphi-red+githubactions@users.noreply.github.com"
 
           npm version $NEW_VERSION -m "CI: update to $NEW_VERSION\n\n[ci skip]"
           npm publish --access public
-
-          git push origin master
-          git push origin $NEW_VERSION
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NEW_VERSION: ${{ env.NEW_VERSION }}
+      - name: git push master
+        #if: env.HAS_DIFF == true
+        uses: ad-m/github-push-action@master
+        with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: git push tag
+        #if: env.HAS_DIFF == true
+        uses: ad-m/github-push-action@master
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ env.NEW_VERSION }}
