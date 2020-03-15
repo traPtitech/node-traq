@@ -4,14 +4,14 @@ Typescript type definition included.
 
 ## How to use
 ```bash
-npm i traPtitech/node-traq#version
+npm i @traptitech/traq#version
 ```
 
- - `version`: ex. `2.7.2-0` => `npm i traPtitech/node-traq#2.7.2-0`
+ - `version`: ex. `3.0.0-8` => `npm i @traptitech/traq#3.0.0-8`
 
 ```js
-import { Apis } from "traq-api";
-// const { Apis } = require("traq-api");
+import { Apis } from "@traptitech/traq";
+// const { Apis } = require("@traptitech/traq");
 
 const api = new Apis({
   accessToken: "/* your token */"
