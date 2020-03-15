@@ -63,18 +63,18 @@ jobs:
           git config user.name "sapphi-red+githubactions"
           git config user.email "sapphi-red+githubactions@users.noreply.github.com"
 
-          npm version $NEW_VERSION -m "CI: update to $NEW_VERSION\n\n[ci skip]"
+          npm version $NEW_VERSION -m "CI: update to $NEW_VERSION [ci skip]"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NEW_VERSION: ${{ env.NEW_VERSION }}
       - name: git push master
         #if: env.HAS_DIFF == true
-        uses: ad-m/github-push-action@master
+        uses: ad-m/github-push-action@fe38f0a751bf9149f0270cc1fe20bf9156854365
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: git push tag
         #if: env.HAS_DIFF == true
-        uses: ad-m/github-push-action@master
+        uses: ad-m/github-push-action@fe38f0a751bf9149f0270cc1fe20bf9156854365
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ env.NEW_VERSION }}
+          tags: true
