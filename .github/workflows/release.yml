@@ -37,12 +37,12 @@ jobs:
           echo "NEW: ${NEW_SHASUM}"
 
           if [ $OLD_SHASUM = $NEW_SHASUM ]; then
-            echo "::set-env name=HAS_DIFF::false"
+            echo "::set-env name=has_diff::false"
           else
-            echo "::set-env name=HAS_DIFF::true"
+            echo "::set-env name=has_diff::true"
           fi
       - name: Set version name
-        if: env.HAS_DIFF == true
+        if: env.has_diff == true
         run: |
           #TRAQ_VERSION=$(curl -sS https://api.github.com/repos/traPtitech/traQ/tags | jq '.[0].name' | sed -n s/[\"v]//pg)
           TRAQ_VERSION=3.0.0
@@ -63,7 +63,7 @@ jobs:
           echo "PACKAGE NEW ${NEW_VERSION}"
           echo "::set-env name=NEW_VERSION::${NEW_VERSION}"
       - name: npm version & publish
-        if: env.HAS_DIFF == true
+        if: env.has_diff == true
         run: |
           git config user.name "sapphi-red+githubactions"
           git config user.email "sapphi-red+githubactions@users.noreply.github.com"
@@ -74,7 +74,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NEW_VERSION: ${{ env.NEW_VERSION }}
       - name: git push branch and tag
-        if: env.HAS_DIFF == true
+        if: env.has_diff == true
         uses: ad-m/github-push-action@fe38f0a751bf9149f0270cc1fe20bf9156854365
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
