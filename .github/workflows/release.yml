@@ -30,11 +30,16 @@ jobs:
         run: npm run build
       - name: Check diff
         run: |
-          git diff --unified=0 > ./diff.txt
-          if [ -s './diff.txt' ]; then
-            echo "::set-env name=HAS_DIFF::true"
-          else
+          OLD_SHASUM=`npm view | grep -oP "(?<=^\.shasum: ).+(?=$)"`
+          NEW_SHASUM=`npm pack --dry-run 2>&1 >/dev/null | grep -oP "(?<=shasum: ).+(?=$)" | sed "s/^ *//"`
+
+          echo "OLD: ${OLD_SHASUM}"
+          echo "NEW: ${NEW_SHASUM}"
+
+          if [ $OLD_SHASUM = $NEW_SHASUM ]; then
             echo "::set-env name=HAS_DIFF::false"
+          else
+            echo "::set-env name=HAS_DIFF::true"
           fi
       - name: Set version name
         if: env.HAS_DIFF == true
