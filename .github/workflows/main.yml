@@ -1,8 +1,5 @@
 name: check npm ci & build
-on:
-  push:
-    branches:
-      - master
+on: [push, pull_request]
 jobs:
   check:
     name: check npm ci & build
