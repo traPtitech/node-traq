@@ -44,8 +44,7 @@ jobs:
       - name: Set version name
         if: env.HAS_DIFF == 'true'
         run: |
-          #TRAQ_VERSION=$(curl -sS https://api.github.com/repos/traPtitech/traQ/tags | jq '.[0].name' | sed -n s/[\"v]//pg)
-          TRAQ_VERSION=3.0.0
+          TRAQ_VERSION=$(curl -sS https://api.github.com/repos/traPtitech/traQ/tags | jq '.[0].name' | sed -n s/[\"v]//pg)
           echo "TRAQ ${TRAQ_VERSION}"
 
           VERSION=$(cat ./package.json | jq .version | sed -n s/\"//pg | sed -n s/-/./p)
