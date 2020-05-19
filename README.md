@@ -3,8 +3,8 @@ A client library for the traQ API.
 Typescript type definition included.
 
 ## How to use
-```bash
-npm i @traptitech/traq
+```shell
+$ npm i @traptitech/traq
 ```
 
 ```js
@@ -15,7 +15,7 @@ const api = new Apis({
   accessToken: "/* your token */"
 });
 
-api.channelsGet().then(res => {
+api.getChannels().then(res => {
   console.log(res);
 });
 ```
