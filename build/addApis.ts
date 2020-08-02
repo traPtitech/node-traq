@@ -3,7 +3,7 @@ import {
   MethodDeclarationStructure,
   SourceFile
 } from "ts-morph"
-import "array-flat-polyfill"
+import { rewriteToNominalType } from './genNominalType'
 
 const generateBaseAPI = async (sourceFile: SourceFile) => {
   const classes = sourceFile.getClasses()
@@ -40,5 +40,6 @@ export default async function(generatedFolder: string) {
 
   const sourceFile = project.getSourceFileOrThrow("api.ts")
 
+  await rewriteToNominalType(sourceFile)
   await generateBaseAPI(sourceFile)
 }
