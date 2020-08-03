@@ -3,10 +3,18 @@ import {
   ts,
   MethodDeclaration,
   PropertySignature,
-  VariableDeclarationKind
+  VariableDeclarationKind,
+  ParameterDeclaration,
+  Type
 } from "ts-morph"
 
 const isArrayTypeName = (name: string) => name.endsWith('[]')
+
+const stringifyName = (node: ParameterDeclaration | PropertySignature) =>
+  `${node.getParent().getSymbol()?.getName()}内の${node.getSymbol()?.getName()}`
+
+const isStringArray = (type: Type<ts.Type>) =>
+  type.isArray() && type.getArrayElementType()?.isString()
 
 const getNominalTypeJsDocParameters = (method: MethodDeclaration) =>
   method
@@ -35,18 +43,27 @@ const rewriteMethodParamsToNominalType = async (sourceFile: SourceFile) => {
       const paramName = paramDoc.name.getText()
       const paramType = paramDoc.comment!.match(/^&lt;&lt;([\w]+(?:\[\])?)&gt;&gt;/)![1]
 
+      const param = method.getParameter(paramName)!
+
       if (isArrayTypeName(paramType)) {
+        // nullableは対応してない
+        if (!isStringArray(param.getType())) {
+          throw new Error(`${stringifyName(param)}がstring[]でないのにstring[]の型に指定しています。`)
+        }
+
         const itemParamType = paramType.slice(0, -2) // []を消す
         // 実際の引数の型を書き換え
-        // TODO: nullable/optionalのためにstringを置き換える
-        method.getParameter(paramName)!.setType(paramType)
+        param.setType(paramType)
         // TODO: JSDocの書き換え
 
         newNominalTypes.add(itemParamType)
       } else {
+        if (!param.getType().isString()) {
+          throw new Error(`${stringifyName(param)}がstringでないのにstringの型に指定しています。`)
+        }
+
         // 実際の引数の型を書き換え
-        // TODO: nullable/optionalのためにstringを置き換える
-        method.getParameter(paramName)!.setType(paramType)
+        param.setType(paramType)
         // TODO: JSDocの書き換え
 
         newNominalTypes.add(paramType)
@@ -78,18 +95,28 @@ const rewriteInterfacePropertiesToNominalType = async (sourceFile: SourceFile) =
         .find(desc => /^<<\w+(?:\[\])?>>/.test(desc))
       const propType = desc!.match(/^<<(\w+(?:\[\])?)>>/)![1]
 
+      // optionalは`?`がついたままなので処理をしなくても問題ない
+
       if (isArrayTypeName(propType)) {
+        if (!isStringArray(property.getType())) {
+          throw new Error(`${stringifyName(property)}がstring[]でないのにstring[]の型に指定しています。`)
+        }
+
         const itemParamType = propType.slice(0, -2) // []を消す
         // 実際のプロパティの型を書き換え
-        // TODO: nullable/optionalのためにstringを置き換える
-        property.setType(propType)
+        const beforeType = property.getTypeNode()!.getText()
+        property.setType(beforeType.replace('string', propType))
         // TODO: JSDocの書き換え
 
         newNominalTypes.add(itemParamType)
       } else {
+        if (!property.getType().isString()) {
+          throw new Error(`${stringifyName(property)}がstringでないのにstringの型に指定しています。`)
+        }
+
         // 実際のプロパティの型を書き換え
-        // TODO: nullable/optionalのためにstringを置き換える
-        property.setType(propType)
+        const beforeType = property.getTypeNode()!.getText()
+        property.setType(beforeType.replace('string', propType))
         // TODO: JSDocの書き換え
 
         newNominalTypes.add(propType)
@@ -121,11 +148,15 @@ const generateNominalTypes = async (sourceFile: SourceFile, nominalTypes: Set<st
 }
 
 export const rewriteToNominalType = async (sourceFile: SourceFile) => {
-  const newNominalTypesFromParams = await rewriteMethodParamsToNominalType(sourceFile)
-  const newNominalTypesFromProps = await rewriteInterfacePropertiesToNominalType(sourceFile)
+  try {
+    const newNominalTypesFromParams = await rewriteMethodParamsToNominalType(sourceFile)
+    const newNominalTypesFromProps = await rewriteInterfacePropertiesToNominalType(sourceFile)
 
-  const newNominalTypes = new Set([...newNominalTypesFromParams, ...newNominalTypesFromProps])
-  await generateNominalTypes(sourceFile, newNominalTypes)
+    const newNominalTypes = new Set([...newNominalTypesFromParams, ...newNominalTypesFromProps])
+    await generateNominalTypes(sourceFile, newNominalTypes)
 
-  await sourceFile.save()
+    await sourceFile.save()
+  } catch (e) {
+    console.error(e)
+  }
 }
