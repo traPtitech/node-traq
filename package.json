@@ -28,7 +28,6 @@
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "1.0.13-4.3.1",
     "@types/node": "^14.0.6",
-    "array-flat-polyfill": "^1.0.1",
     "rimraf": "^3.0.2",
     "ts-morph": "^7.1.0",
     "typescript": "^3.9.3"

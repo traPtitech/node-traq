@@ -3,7 +3,6 @@ import {
   MethodDeclarationStructure,
   SourceFile
 } from "ts-morph"
-import "array-flat-polyfill"
 
 const generateBaseAPI = async (sourceFile: SourceFile) => {
   const classes = sourceFile.getClasses()
