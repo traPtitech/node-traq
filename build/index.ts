@@ -12,7 +12,7 @@ const DIST_TYPE_FOLDER = "./dist/types";
 const npx = process.platform === "win32" ? "npx.cmd" : "npx";
 
 const generateCmd = [
-  "openapi-generator",
+  "openapi-generator-cli",
   "generate",
   "-i",
   SWAGGER_URL,
