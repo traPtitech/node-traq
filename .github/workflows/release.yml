@@ -37,9 +37,9 @@ jobs:
           echo "NEW: ${NEW_SHASUM}"
 
           if [ $OLD_SHASUM = $NEW_SHASUM ]; then
-            echo "::set-env name=HAS_DIFF::false"
+            echo "HAS_DIFF=false" >> $GITHUB_ENV
           else
-            echo "::set-env name=HAS_DIFF::true"
+            echo "HAS_DIFF=true" >> $GITHUB_ENV
           fi
       - name: Set version name
         if: env.HAS_DIFF == 'true'
@@ -60,7 +60,7 @@ jobs:
             NEW_VERSION="${TRAQ_VERSION}-0"
           fi
           echo "PACKAGE NEW ${NEW_VERSION}"
-          echo "::set-env name=NEW_VERSION::${NEW_VERSION}"
+          echo "NEW_VERSION=${NEW_VERSION}" >> $GITHUB_ENV
       - name: npm version & publish
         if: env.HAS_DIFF == 'true'
         run: |
