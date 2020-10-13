@@ -22,7 +22,9 @@ const generateCmd = [
   GENERATED_FOLDER,
   "--skip-validate-spec",
   "--generate-alias-as-model",
-  "--reserved-words-mappings public=public"
+  "--reserved-words-mappings public=public",
+  "-p",
+  "useSingleRequestParameter=true"
 ];
 
 const baseTscCmd = [
