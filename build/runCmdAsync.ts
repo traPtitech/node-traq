@@ -1,4 +1,4 @@
-import { spawn, SpawnOptionsWithoutStdio, exec } from "child_process";
+import { spawn, SpawnOptionsWithoutStdio } from "child_process";
 
 export default function(
   cmd: string,
