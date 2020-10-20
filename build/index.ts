@@ -65,5 +65,6 @@ const baseTscCmd = [
     console.log("Finished building CommonJS version");
   } catch (e) {
     console.error(e);
+    process.exit(1);
   }
 })();
