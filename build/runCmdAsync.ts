@@ -6,7 +6,7 @@ export default function(
   options?: SpawnOptionsWithoutStdio
 ) {
   const proc = spawn(cmd, args, options);
-  return new Promise((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     proc.stderr.pipe(process.stderr);
     proc.stdout.pipe(process.stdout);
     proc.on("error", reject);
