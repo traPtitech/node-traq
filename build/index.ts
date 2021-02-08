@@ -29,7 +29,7 @@ const baseTscCmd = [
   "tsc",
   `${GENERATED_FOLDER}/index.ts`,
   "-t",
-  "ESNext",
+  "ES2019",
   "--moduleResolution",
   "node"
 ];
