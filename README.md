@@ -31,3 +31,10 @@ api.getChannels().then(res => {
 `x.y.z-n`
 
 - `x.y.z-0`: It is assured that this version is compatible with traQ server version `x.y.z`.
+
+## Diff
+Use [`npm diff`](https://docs.npmjs.com/cli/v7/commands/npm-diff) to check diff between versions.
+
+```shell
+$ npm diff --diff=@traptitech/traq@3.6.1-3 --diff=@traptitech/traq@3.6.1-4
+```
