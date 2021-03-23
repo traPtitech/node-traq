@@ -7,6 +7,8 @@
 A client library for the traQ API.
 Typescript type definition included.
 
+This package is updated automatically.
+
 ## How to use
 ```shell
 $ npm i @traptitech/traq
@@ -24,3 +26,8 @@ api.getChannels().then(res => {
   console.log(res);
 });
 ```
+
+## Versioning
+`x.y.z-n`
+
+- `x.y.z-0`: It is assured that this version is compatible with traQ server version `x.y.z`.
