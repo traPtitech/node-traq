@@ -15,12 +15,12 @@ $ npm i @traptitech/traq
 ```
 
 ```js
-import { Apis } from "@traptitech/traq";
+import { Apis, Configuration } from "@traptitech/traq";
 // const { Apis } = require("@traptitech/traq");
 
-const api = new Apis({
+const api = new Apis(new Configuration({
   accessToken: "/* your token */"
-});
+}));
 
 api.getChannels().then(res => {
   console.log(res);
