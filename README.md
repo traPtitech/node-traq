@@ -1,7 +1,6 @@
 # node-traQ
 [![npm version](https://badge.fury.io/js/%40traptitech%2Ftraq.svg)](https://badge.fury.io/js/%40traptitech%2Ftraq)
 ![check npm ci & build](https://github.com/traPtitech/node-traq/workflows/check%20npm%20ci%20%26%20build/badge.svg)
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=traPtitech/node-traq)](https://dependabot.com)
 
 
 A client library for the traQ API.
