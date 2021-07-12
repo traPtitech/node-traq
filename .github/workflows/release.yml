@@ -15,14 +15,16 @@ jobs:
     if: contains(github.event.head_commit.message, '[skip ci]') == false
     steps:
       - name: checkout
-        uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
+        uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
         with:
-          java-version: '13'
+          distribution: 'adopt'
+          java-version: '8'
       - name: setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: 12.x
+          node-version: 14.x
+          cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
       - name: npm ci
         run: npm ci
@@ -74,6 +76,6 @@ jobs:
           NEW_VERSION: ${{ env.NEW_VERSION }}
       - name: git push branch and tag
         if: env.HAS_DIFF == 'true'
-        uses: ad-m/github-push-action@fe38f0a751bf9149f0270cc1fe20bf9156854365
+        uses: ad-m/github-push-action@65392840bda2e774394d5cd38ca33e5918aec2d3
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
