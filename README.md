@@ -15,7 +15,7 @@ $ npm i @traptitech/traq
 
 ```js
 import { Apis, Configuration } from "@traptitech/traq";
-// const { Apis } = require("@traptitech/traq");
+// const { Apis, Configuration } = require("@traptitech/traq");
 
 const api = new Apis(new Configuration({
   accessToken: "/* your token */"
