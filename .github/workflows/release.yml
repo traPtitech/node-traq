@@ -1,9 +1,11 @@
 name: automatic update
+
 on:
   repository_dispatch:
   push:
     branches:
       - master
+
 jobs:
   skip:
     runs-on: ubuntu-latest
