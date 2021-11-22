@@ -2,6 +2,7 @@ import {
   Project,
   MethodDeclarationStructure,
   SourceFile,
+  MethodDeclaration,
 } from "ts-morph"
 
 const generateBaseAPI = async (sourceFile: SourceFile) => {
@@ -13,7 +14,7 @@ const generateBaseAPI = async (sourceFile: SourceFile) => {
   })
 
   // 重複を取り除く
-  const apiMethods = new Map()
+  const apiMethods = new Map<string, MethodDeclaration>()
   for (const c of apiClasses) {
     const methods = c.getMethods()
     for (const m of methods) {
