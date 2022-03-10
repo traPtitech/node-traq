@@ -2,11 +2,11 @@
   "name": "@traptitech/traq",
   "version": "3.9.1-2",
   "description": "A client library for the traQ API.",
-  "main": "dist/commonjs/index.js",
-  "module": "dist/es/index.js",
-  "types": "dist/types/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsc && node ./bin/build/index.js",
+    "build": "esno build/index.ts && tsup",
     "clean": "rimraf bin dist"
   },
   "files": [
@@ -28,8 +28,10 @@
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.0.3",
     "@types/node": "^16.0.0",
+    "esno": "^0.14.1",
     "rimraf": "^3.0.2",
     "ts-morph": "^14.0.0",
+    "tsup": "^5.12.0",
     "typescript": "^4.0.2"
   },
   "sideEffects": false
