@@ -17,13 +17,13 @@ jobs:
     if: contains(github.event.head_commit.message, '[skip ci]') == false
     steps:
       - name: checkout
-        uses: actions/checkout@v2
-      - uses: actions/setup-java@v2
+        uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
           java-version: '8'
       - name: setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
           cache: 'npm'
@@ -78,6 +78,6 @@ jobs:
           NEW_VERSION: ${{ env.NEW_VERSION }}
       - name: git push branch and tag
         if: env.HAS_DIFF == 'true'
-        uses: ad-m/github-push-action@65392840bda2e774394d5cd38ca33e5918aec2d3
+        uses: ad-m/github-push-action@a3fd843e49cd58d296bdd2431c4853569a1b900f
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
