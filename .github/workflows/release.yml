@@ -68,10 +68,11 @@ jobs:
       - name: npm version & publish
         if: env.HAS_DIFF == 'true'
         run: |
-          git config user.name "sapphi-red+githubactions"
-          git config user.email "sapphi-red+githubactions@users.noreply.github.com"
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
 
           npm version $NEW_VERSION -m "CI: update to $NEW_VERSION [ci skip]"
+          git commit --amend --author="sapphi-red <49056869+sapphi-red@users.noreply.github.com>"
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
