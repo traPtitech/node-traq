@@ -34,7 +34,7 @@
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.0.3",
     "@types/node": "^16.0.0",
-    "esno": "^0.14.1",
+    "esno": "^0.15.0",
     "rimraf": "^3.0.2",
     "ts-morph": "^14.0.0",
     "tsup": "^5.12.0",
