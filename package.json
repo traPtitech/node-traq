@@ -12,7 +12,7 @@
     "types": "./dist/index.d.ts"
   },
   "scripts": {
-    "build": "esmo build/index.ts && tsup",
+    "build": "tsx build/index.ts && tsup",
     "clean": "rimraf bin dist"
   },
   "files": [
@@ -34,10 +34,10 @@
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.0.3",
     "@types/node": "^16.0.0",
-    "esno": "^0.14.1",
     "rimraf": "^3.0.2",
     "ts-morph": "^14.0.0",
     "tsup": "^5.12.0",
+    "tsx": "^2.1.0",
     "typescript": "^4.0.2"
   },
   "sideEffects": false
