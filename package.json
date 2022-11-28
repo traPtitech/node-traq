@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/traPtitech/node-traq#readme",
   "dependencies": {
-    "axios": "^0.27.2"
+    "axios": "^1.2.0"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.0.3",
