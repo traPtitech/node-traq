@@ -29,7 +29,7 @@ const generateCmd = [
       "chown",
       "-R",
       `${process.getuid?.() ?? 1000}:${process.getgid?.() ?? 1000}`,
-      GENERATED_FOLDER,
+      "./bin",
     ]);
 
     console.log("Start adding Apis class...");
