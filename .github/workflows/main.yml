@@ -29,3 +29,16 @@ jobs:
         run: npm run build
       - name: check type
         run: npm run type-check
+      - name: check npm diff
+        run: |
+          npm diff ./dist > dist.diff
+          if [ -s dist.diff ]; then
+            cat << EOF > comment.md
+              # [INFO] dist diff
+              ```diff
+              $(cat dist.diff)
+              ```
+            EOF
+            gh pr comment -F ./comment.md ${{ github.event.pull_request.number }}
+          fi
+
