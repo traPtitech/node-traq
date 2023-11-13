@@ -27,3 +27,5 @@ jobs:
         run: npm ci
       - name: check npm build
         run: npm run build
+      - name: check type
+        run: npm run type-check

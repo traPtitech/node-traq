@@ -13,7 +13,8 @@
   },
   "scripts": {
     "build": "tsx build/index.ts && tsup",
-    "clean": "rimraf bin dist"
+    "clean": "rimraf bin dist",
+    "type-check": "tsc --noEmit --allowJS --project tsconfig.json"
   },
   "files": [
     "dist"
