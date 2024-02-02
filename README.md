@@ -10,7 +10,7 @@ This package is updated automatically.
 
 ## How to use
 
-Node.js v18 or later is required.
+Node.js v20 or later is required.
 
 ```shell
 npm i @traptitech/traq
