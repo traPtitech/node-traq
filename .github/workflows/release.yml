@@ -21,9 +21,9 @@ jobs:
       - name: setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x
-          cache: 'npm'
-          registry-url: 'https://registry.npmjs.org'
+          node-version-file: "package.json"
+          cache: "npm"
+          registry-url: "https://registry.npmjs.org"
       - name: npm ci
         run: npm ci
       - name: build
