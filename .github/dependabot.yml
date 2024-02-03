@@ -6,3 +6,8 @@ updates:
     interval: "monthly"
   reviewers: ["mehm8128", "nokhnaton", "ras0q", "zer0-star"]
   open-pull-requests-limit: 10
+  groups:
+    npm-prod-deps:
+      dependency-type: "production"
+    npm-dev-deps:
+      dependency-type: "development"
