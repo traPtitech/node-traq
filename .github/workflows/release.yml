@@ -75,6 +75,6 @@ jobs:
           NEW_VERSION: ${{ env.NEW_VERSION }}
       - name: git push branch and tag
         if: env.HAS_DIFF == 'true'
-        uses: ad-m/github-push-action@a3fd843e49cd58d296bdd2431c4853569a1b900f
+        uses: ad-m/github-push-action@9870d48124da805820c70ebc6ba563c715551019
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
