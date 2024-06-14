@@ -31,8 +31,8 @@ jobs:
         id: diff
         run: |
           echo -n "$(npm diff ./dist)" > dist.diff
-          echo "DIFF=$(cat dist.diff)" >> $GITHUB_OUTPUT
           [ -n dist.diff ] && exit 0
+          echo "DIFF=true" >> $GITHUB_OUTPUT
           cat << EOF > comment.md
           [INFO] dist diff
           \`\`\`diff
