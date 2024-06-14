@@ -26,8 +26,10 @@ jobs:
       - name: check type
         run: npm run type-check
       - name: check npm diff
+        id: diff
         run: |
           echo -n "$(npm diff ./dist)" > dist.diff
+          echo "DIFF=$(cat dist.diff)" >> $GITHUB_OUTPUT
           [ -n dist.diff ] && exit 0
           cat << EOF > comment.md
           [INFO] dist diff
@@ -36,3 +38,15 @@ jobs:
           \`\`\`
           EOF
           gh pr comment -F ./comment.md ${{ github.event.pull_request.number }}
+      - uses: dependabot/fetch-metadata@v2
+        id: metadata
+        if: |
+          github.event_name == 'pull_request' &&
+          github.event.action == 'opened' &&
+          github.event.pull_request.user.login == 'dependabot[bot]'
+      - name: auto-merge dependabot PR
+        if: |
+          (steps.metadata.outputs.update-type == 'version-update:semver-minor' ||
+          steps.metadata.outputs.update-type == 'version-update:semver-patch') &&
+          steps.diff.outputs.DIFF == ''
+        run: gh pr merge ${{ github.event.pull_request.number }} --auto
