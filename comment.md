@@ -1,4 +1,0 @@
-  [INFO] dist diff
-  ```diff
-  
-  ```
