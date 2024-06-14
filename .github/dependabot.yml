@@ -18,3 +18,8 @@ updates:
       update-types:
       - "minor"
       - "patch"
+- package-ecosystem:
+  directory: "/"
+  schedule:
+    interval: "monthly"
+  reviewers: ["mehm8128", "nokhnaton", "ras0q", "zer0-star"]
