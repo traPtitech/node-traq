@@ -44,7 +44,6 @@ jobs:
         id: metadata
         if: >-
           github.event_name == 'pull_request' &&
-          github.event.action == 'opened' &&
           github.event.pull_request.user.login == 'dependabot[bot]'
       - name: auto-merge dependabot PR
         if: >-
