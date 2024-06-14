@@ -50,4 +50,5 @@ jobs:
           (steps.metadata.outputs.update-type == 'version-update:semver-minor' ||
           steps.metadata.outputs.update-type == 'version-update:semver-patch') &&
           steps.diff.outputs.DIFF == ''
-        run: gh pr merge ${{ github.event.pull_request.number }} --auto
+        run: |
+          gh pr merge ${{ github.event.pull_request.number }} --auto --merge
