@@ -42,12 +42,12 @@ jobs:
           gh pr comment -F ./comment.md ${{ github.event.pull_request.number }}
       - uses: dependabot/fetch-metadata@v2
         id: metadata
-        if: |
+        if: >-
           github.event_name == 'pull_request' &&
           github.event.action == 'opened' &&
           github.event.pull_request.user.login == 'dependabot[bot]'
       - name: auto-merge dependabot PR
-        if: |
+        if: >-
           (steps.metadata.outputs.update-type == 'version-update:semver-minor' ||
           steps.metadata.outputs.update-type == 'version-update:semver-patch') &&
           steps.diff.outputs.DIFF == ''
