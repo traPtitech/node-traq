@@ -68,13 +68,9 @@ jobs:
           git config user.email "actions@github.com"
 
           npm version $NEW_VERSION -m "CI: update to $NEW_VERSION [ci skip]"
-          git commit --amend --no-edit --author="sapphi-red <49056869+sapphi-red@users.noreply.github.com>"
+          git commit --amend --no-edit --author .
           npm publish --access public
+          git push origin
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NEW_VERSION: ${{ env.NEW_VERSION }}
-      - name: git push branch and tag
-        if: env.HAS_DIFF == 'true'
-        uses: ad-m/github-push-action@a3fd843e49cd58d296bdd2431c4853569a1b900f
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
