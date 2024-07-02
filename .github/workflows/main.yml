@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ github.token }}
+    permissions:
+      issues: write
     steps:
       - name: checkout
         uses: actions/checkout@v4
