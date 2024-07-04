@@ -15,6 +15,8 @@ jobs:
     name: release
     runs-on: ubuntu-latest
     if: contains(github.event.head_commit.message, '[skip ci]') == false
+    permissions:
+      contents: write
     steps:
       - name: checkout
         uses: actions/checkout@v4
