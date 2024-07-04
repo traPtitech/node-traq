@@ -68,6 +68,7 @@ jobs:
           git config user.email "actions@github.com"
 
           npm version $NEW_VERSION -m "CI: update to $NEW_VERSION [ci skip]"
+          git add .
           git commit --amend --no-edit --author .
           npm publish --access public
           git push origin
