@@ -32,6 +32,7 @@ jobs:
         run: npm run type-check
       - name: check npm diff
         id: diff
+        if: github.event_name == 'pull_request'
         run: |
           echo -n "$(npm diff ./dist)" > dist.diff
           [ ! -s dist.diff ] && exit 0
