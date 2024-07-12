@@ -64,10 +64,10 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-          npm version $NEW_VERSION --no-commit-hooks
-          git add package.json package-lock.json
-          git commit -m "CI: update to $NEW_VERSION [skip ci]" --author .
-          git push origin
+          npm version $NEW_VERSION -m "CI: update to $NEW_VERSION [ci skip]"
+          git commit --amend --no-edit --author .
+          git push origin master
+          git push --tags
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
