@@ -33,7 +33,7 @@
     "axios": "^1.7.7"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^2.13.4",
+    "@openapitools/openapi-generator-cli": "^2.13.5",
     "@types/node": "^20.14.9",
     "rimraf": "^5.0.7",
     "ts-morph": "^22.0.0",
