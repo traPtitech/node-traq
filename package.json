@@ -33,13 +33,13 @@
     "axios": "^1.7.9"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^2.13.5",
+    "@openapitools/openapi-generator-cli": "^2.16.3",
     "@types/node": "^20.14.9",
     "rimraf": "^5.0.7",
     "ts-morph": "^22.0.0",
-    "tsup": "^8.2.4",
-    "tsx": "^4.19.0",
-    "typescript": "^5.5.4"
+    "tsup": "^8.3.6",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
   },
   "sideEffects": false,
   "engines": {
