@@ -22,6 +22,13 @@ jobs:
           node-version-file: "package.json"
           cache: "npm"
           registry-url: "https://registry.npmjs.org"
+
+      # TODO: temporary workaround
+      # Trusted publishing requires npm CLI version 11.5.1 or later.
+      # see: https://docs.npmjs.com/trusted-publishers
+      - name: update npm
+        run: npm install -g npm@latest
+
       - name: npm ci
         run: npm ci
       - name: build
