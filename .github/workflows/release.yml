@@ -28,8 +28,8 @@ jobs:
         run: npm run build
       - name: Check diff
         run: |
-          OLD_SHASUM=`npm view | grep -oP "(?<=^\.shasum: ).+(?=$)" | sed "s/$(echo -e '\e')\[[0-9][0-9]m//g"`
-          NEW_SHASUM=`npm pack --dry-run 2>&1 >/dev/null | grep -oP "(?<=shasum: ).+(?=$)" | sed "s/^ *//"`
+          OLD_SHASUM=`npm view --json | jq -r '.dist.shasum'`
+          NEW_SHASUM=`npm pack --dry-run --json | jq -r '.[0].shasum'`
 
           echo "OLD: ${OLD_SHASUM}"
           echo "NEW: ${NEW_SHASUM}"
@@ -42,10 +42,10 @@ jobs:
       - name: Set version name
         if: env.HAS_DIFF == 'true'
         run: |
-          TRAQ_VERSION=$(curl -sS https://api.github.com/repos/traPtitech/traQ/tags | jq '.[0].name' | sed -n s/[\"v]//pg)
+          TRAQ_VERSION=$(curl -sS https://api.github.com/repos/traPtitech/traQ/tags | jq -r '.[0].name' | sed -n 's/v//pg')
           echo "TRAQ ${TRAQ_VERSION}"
 
-          VERSION=$(cat ./package.json | jq .version | sed -n s/\"//pg | sed -n s/-/./p)
+          VERSION=$(cat ./package.json | jq -r .version | sed -n 's/-/./p')
           echo "PACKAGE ${VERSION}"
           VERSION_ARR=($(echo $VERSION | tr -s '.' ' '))
           VERSION_SHORT=${VERSION_ARR[0]}.${VERSION_ARR[1]}.${VERSION_ARR[2]}
