@@ -76,6 +76,6 @@ jobs:
           git commit --amend --no-edit --author .
           git push origin master
           git push --tags
-          npm publish --tag "$NEW_VERSION" --access public
+          npm publish --tag latest --access public
         env:
           NEW_VERSION: ${{ env.NEW_VERSION }}
