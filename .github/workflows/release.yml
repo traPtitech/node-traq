@@ -72,10 +72,10 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-          npm version $NEW_VERSION -m "CI: update to $NEW_VERSION [ci skip]"
+          npm version "$NEW_VERSION" -m "CI: update to $NEW_VERSION [ci skip]"
           git commit --amend --no-edit --author .
           git push origin master
           git push --tags
-          npm publish --access public
+          npm publish --tag "$NEW_VERSION" --access public
         env:
           NEW_VERSION: ${{ env.NEW_VERSION }}
