@@ -12,7 +12,7 @@
     "types": "./dist/index.d.ts"
   },
   "scripts": {
-    "build": "tsx build/index.ts && tsup",
+    "build": "tsx build/index.ts && tsdown",
     "clean": "rimraf bin dist",
     "type-check": "tsc --noEmit --allowJS --project tsconfig.json"
   },
@@ -37,7 +37,7 @@
     "@types/node": "^22.15.3",
     "rimraf": "^6.0.1",
     "ts-morph": "^26.0.0",
-    "tsup": "^8.4.0",
+    "tsdown": "^0.15.6",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3"
   },
