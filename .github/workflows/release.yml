@@ -72,9 +72,17 @@ jobs:
           git config user.email "actions@github.com"
 
           npm version "$NEW_VERSION" -m "CI: update to $NEW_VERSION [ci skip]"
-          git commit --amend --no-edit --author .
-          git push origin master
-          git push --tags
+          # Keep the version commit and its tag together, even if a push fails.
+          for attempt in 1 2 3; do
+            if git push --atomic origin HEAD:refs/heads/master "refs/tags/v${NEW_VERSION}:refs/tags/v${NEW_VERSION}"; then
+              break
+            fi
+            if [ "$attempt" -eq 3 ]; then
+              exit 1
+            fi
+            echo "::warning::Release push failed (attempt ${attempt}/3); retrying..."
+            sleep "$((attempt * 5))"
+          done
           npm publish --tag latest --access public
         env:
           NEW_VERSION: ${{ env.NEW_VERSION }}
