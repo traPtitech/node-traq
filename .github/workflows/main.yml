@@ -21,7 +21,7 @@ jobs:
       - name: setup Node
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version-file: "package.json"
+          node-version: "24"
           cache: "npm"
           registry-url: "https://registry.npmjs.org"
       - name: check npm ci
@@ -34,16 +34,26 @@ jobs:
         id: diff
         if: github.event_name == 'pull_request'
         run: |
-          echo -n "$(npm diff ./dist)" > dist.diff
-          [ ! -s dist.diff ] && exit 0
-          echo "DIFF=true" >> $GITHUB_OUTPUT
-          cat << EOF > comment.md
-          [INFO] dist diff
-          \`\`\`diff
-          $(cat dist.diff)
-          \`\`\`
-          EOF
-          gh pr comment -F ./comment.md ${{ github.event.pull_request.number }}
+          npm diff ./dist > dist.diff
+          if [ -s dist.diff ]; then
+            echo "DIFF=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: upload npm diff
+        id: diff-artifact
+        if: steps.diff.outputs.DIFF == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: dist-diff
+          path: dist.diff
+          if-no-files-found: error
+      - name: comment npm diff
+        if: steps.diff.outputs.DIFF == 'true'
+        env:
+          DIFF_ARTIFACT_URL: ${{ steps.diff-artifact.outputs.artifact-url }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          node .github/scripts/create-diff-comment.mjs
+          gh pr comment -F ./comment.md "$PR_NUMBER"
       - uses: dependabot/fetch-metadata@21025c705c08248db411dc16f3619e6b5f9ea21a # v2.5.0
         id: metadata
         if: >-
