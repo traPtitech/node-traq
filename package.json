@@ -1,6 +1,6 @@
 {
   "name": "@traptitech/traq",
-  "version": "3.25.1-4",
+  "version": "3.30.0-4",
   "description": "A client library for the traQ API.",
   "type": "module",
   "main": "./dist/index.js",
@@ -30,16 +30,21 @@
   },
   "homepage": "https://github.com/traPtitech/node-traq#readme",
   "dependencies": {
-    "axios": "^1.12.0"
+    "axios": "1.20.0"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^2.22.0",
-    "@types/node": "^22.15.3",
-    "rimraf": "^6.0.1",
-    "ts-morph": "^26.0.0",
-    "tsdown": "^0.15.6",
-    "tsx": "^4.19.4",
-    "typescript": "^5.8.3"
+    "@openapitools/openapi-generator-cli": "2.41.0",
+    "@types/node": "22.15.3",
+    "rimraf": "6.0.1",
+    "ts-morph": "27.0.2",
+    "tsdown": "0.23.1",
+    "tsx": "4.19.4",
+    "typescript": "5.8.3"
+  },
+  "overrides": {
+    "get-uri@8.0.1": {
+      "basic-ftp": "6.2.3"
+    }
   },
   "sideEffects": false,
   "engines": {
