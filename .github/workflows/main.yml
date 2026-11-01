@@ -30,6 +30,8 @@ jobs:
         run: npm run build
       - name: check type
         run: npm run type-check
+      - name: check Axios header compatibility
+        run: npm test
       - name: check npm diff
         id: diff
         if: github.event_name == 'pull_request'

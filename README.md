@@ -29,6 +29,27 @@ api.getChannels().then(res => {
 });
 ```
 
+### Custom Axios header defaults
+
+When making requests through this SDK, custom class instances in Axios header
+defaults (`headers.common`, `headers.get`, `headers.post`, and other supported
+methods) retain their behavior from Axios 1.20. Their own enumerable properties
+are copied to plain header maps before Axios 1.21 prepares the request. Common
+defaults apply to all methods; method defaults apply only to that method.
+
+This applies to both a supplied Axios instance and headers in
+`Configuration.baseOptions` or per-request options. The original instance and
+default objects are preserved, including request and response interceptors.
+Plain maps, null-prototype maps, `AxiosHeaders`, and literal headers such as
+`Link` remain supported.
+Class instances under these reserved names are treated as defaults; serialize
+a custom object first when it is intended as a literal method-named header.
+
+Direct requests made outside this SDK follow
+[Axios 1.21's header-default rules](https://github.com/axios/axios/releases/tag/v1.21.0).
+For those requests, convert custom class defaults explicitly, for example
+`axios.create({ headers: { get: { ...customDefaults } } })`.
+
 ## Versioning
 
 `x.y.z-n`
