@@ -2,6 +2,15 @@ name: automatic update
 
 on:
   workflow_dispatch:
+    inputs:
+      traq_ref:
+        description: "traQ branch, tag, or commit to generate from"
+        type: string
+        default: master
+      dist_tag:
+        description: "npm dist-tag (use thread or next for a prerelease)"
+        type: string
+        default: latest
   push:
     branches:
       - master
@@ -28,11 +37,34 @@ jobs:
       - name: update npm
         run: npm install -g npm@12
 
+      - name: Resolve traQ ref
+        env:
+          GH_TOKEN: ${{ github.token }}
+          INPUT_TRAQ_REF: ${{ inputs.traq_ref || 'master' }}
+          INPUT_DIST_TAG: ${{ inputs.dist_tag || 'latest' }}
+        run: |
+          if [[ ! "$INPUT_DIST_TAG" =~ ^[a-z][a-z0-9-]*$ || "$INPUT_DIST_TAG" =~ ^v[0-9] ]]; then
+            echo "::error::dist_tag must be a lowercase npm dist-tag, such as thread or next."
+            exit 1
+          fi
+          if [[ "$INPUT_DIST_TAG" == latest && "$INPUT_TRAQ_REF" != master ]]; then
+            echo "::error::Use a prerelease dist_tag when generating from a traQ ref other than master."
+            exit 1
+          fi
+
+          ENCODED_REF=$(node -p 'encodeURIComponent(process.env.INPUT_TRAQ_REF)')
+          TRAQ_REF=$(gh api "repos/traPtitech/traQ/commits/$ENCODED_REF" --jq .sha)
+          echo "TRAQ_REF=$TRAQ_REF" >> "$GITHUB_ENV"
+          echo "DIST_TAG=$INPUT_DIST_TAG" >> "$GITHUB_ENV"
+
       - name: npm ci
         run: npm ci
       - name: build
         run: npm run build
+      - name: type-check
+        run: npm run type-check
       - name: Check diff
+        if: env.DIST_TAG == 'latest'
         run: |
           OLD_SHASUM=$(npm view '@traptitech/traq@latest' dist.shasum)
           NEW_SHASUM=$(npm pack --dry-run --json | jq -er '.[] | .shasum')
@@ -46,7 +78,7 @@ jobs:
             echo "HAS_DIFF=true" >> $GITHUB_ENV
           fi
       - name: Set version name
-        if: env.HAS_DIFF == 'true'
+        if: env.DIST_TAG == 'latest' && env.HAS_DIFF == 'true'
         run: |
           TRAQ_VERSION=$(curl -sS https://api.github.com/repos/traPtitech/traQ/tags | jq -r '.[0].name' | sed -n 's/v//pg')
           echo "TRAQ ${TRAQ_VERSION}"
@@ -66,7 +98,7 @@ jobs:
           echo "PACKAGE NEW ${NEW_VERSION}"
           echo "NEW_VERSION=${NEW_VERSION}" >> $GITHUB_ENV
       - name: npm version & publish
-        if: env.HAS_DIFF == 'true'
+        if: env.DIST_TAG == 'latest' && env.HAS_DIFF == 'true'
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
@@ -78,3 +110,20 @@ jobs:
           npm publish --tag latest --access public
         env:
           NEW_VERSION: ${{ env.NEW_VERSION }}
+
+      - name: Publish prerelease
+        if: env.DIST_TAG != 'latest'
+        run: |
+          NEW_VERSION="0.0.0-${DIST_TAG}.${GITHUB_RUN_ID}.${GITHUB_RUN_ATTEMPT}.g${TRAQ_REF:0:12}"
+          npm version "$NEW_VERSION" --no-git-tag-version
+          npm publish --tag "$DIST_TAG" --access public
+
+          {
+            echo "### Prerelease"
+            echo ""
+            echo "traQ revision: $TRAQ_REF"
+            echo ""
+            echo '```shell'
+            echo "npm install --save-exact @traptitech/traq@$NEW_VERSION"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
