@@ -13,7 +13,7 @@
   },
   "scripts": {
     "build": "tsx build/index.ts && tsdown",
-    "test": "node --test tests/axios-headers.test.mjs",
+    "test": "node --test tests/auth.test.mjs",
     "clean": "rimraf bin dist",
     "type-check": "tsc --noEmit --allowJS --project tsconfig.json"
   },
