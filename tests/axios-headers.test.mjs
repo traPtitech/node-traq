@@ -122,6 +122,7 @@ for (const [format, sdk, axiosBuild, otherAxiosBuild] of formats) {
       new HeaderDefaults({ Authorization: "replaced-secret", "X-Old": "old" }),
     ]) {
       const { client, requests } = captureRequests(axiosBuild, { common: defaults });
+      client.defaults.headers.Common = { Authorization: "case-variant-secret", "X-Alternate": "old" };
       const api = new sdk.Apis(undefined, undefined, client);
       // Plain maps merge; class instances replace the entire bucket in Axios 1.20.
       for (const common of [new HeaderDefaults({ "X-New": "class" }), null]) {
@@ -129,6 +130,7 @@ for (const [format, sdk, axiosBuild, otherAxiosBuild] of formats) {
         const request = requests.at(-1);
         assert.equal(request.headers.has("Authorization"), false);
         assert.equal(request.headers.has("X-Old"), false);
+        assert.equal(request.headers.has("X-Alternate"), false);
         assert.equal(request.headers.has("common"), false);
       }
       assert.equal(client.defaults.headers.common.Authorization, "replaced-secret");

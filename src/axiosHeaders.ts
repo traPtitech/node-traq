@@ -28,13 +28,11 @@ function normalizeHeaderDefaults(headers: RequestHeaders, defaults: RequestHeade
   for (const [name, value] of Object.entries(headers)) {
     if (defaultHeaderNames.has(name.toLowerCase()) && isClassHeaderDefaults(value)) {
       normalized ??= { ...headers };
-      const previous = Object.entries(defaults ?? {}).find(([key]) =>
-        key.toLowerCase() === name.toLowerCase()
-      )?.[1];
       // Axios merges defaults once more in request(). Clear fields replaced by a class bucket.
-      const cleared = previous && typeof previous === "object"
-        ? Object.fromEntries(Object.keys(previous).map(key => [key, undefined]))
-        : {};
+      const previousKeys = Object.entries(defaults ?? {})
+        .filter(([key]) => key.toLowerCase() === name.toLowerCase())
+        .flatMap(([, previous]) => previous && typeof previous === "object" ? Object.keys(previous) : []);
+      const cleared = Object.fromEntries(previousKeys.map(key => [key, undefined]));
       normalized[name] = { ...cleared, ...value };
     }
   }
