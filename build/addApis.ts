@@ -41,11 +41,20 @@ export default async function(generatedFolder: string) {
 
   // Use Promise<AxiosResponse<T>> to avoid Axios' non-exported types in declarations.
   const commonFile = project.getSourceFileOrThrow("common.ts")
+  commonFile.addImportDeclaration({
+    namedImports: ["normalizeAxiosRequestHeaders"],
+    moduleSpecifier: "../../src/axiosHeaders",
+  })
   const request = commonFile.getVariableDeclarationOrThrow("createRequestFunction")
     .getInitializerIfKindOrThrow(SyntaxKind.FunctionExpression)
     .getFirstDescendantByKindOrThrow(SyntaxKind.ArrowFunction)
   request.getTypeParameterOrThrow("R").remove()
   request.setReturnType("Promise<AxiosResponse<T>>")
+  request.getVariableDeclarationOrThrow("axiosRequestArgs").setInitializer(`{
+    ...axiosArgs.options,
+    url: (configuration?.basePath || basePath) + axiosArgs.url,
+    headers: normalizeAxiosRequestHeaders(axios, axiosArgs.options.headers),
+  }`)
   const response = request.getFirstDescendantByKindOrThrow(SyntaxKind.ReturnStatement)
     .getExpressionOrThrow()
     .asKindOrThrow(SyntaxKind.CallExpression)
