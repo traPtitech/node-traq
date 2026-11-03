@@ -16,15 +16,22 @@ on:
       - master
 
 jobs:
-  release:
-    name: release
+  build:
+    name: build release package
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      id-token: write
+      contents: read
+    outputs:
+      traq_ref: ${{ steps.ref.outputs.traq_ref }}
+      dist_tag: ${{ steps.ref.outputs.dist_tag }}
+      version: ${{ steps.package.outputs.version }}
+
     steps:
       - name: checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
       - name: setup Node
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
@@ -38,6 +45,7 @@ jobs:
         run: npm install -g npm@12
 
       - name: Resolve traQ ref
+        id: ref
         env:
           GH_TOKEN: ${{ github.token }}
           INPUT_TRAQ_REF: ${{ inputs.traq_ref || 'master' }}
@@ -56,13 +64,18 @@ jobs:
           TRAQ_REF=$(gh api "repos/traPtitech/traQ/commits/$ENCODED_REF" --jq .sha)
           echo "TRAQ_REF=$TRAQ_REF" >> "$GITHUB_ENV"
           echo "DIST_TAG=$INPUT_DIST_TAG" >> "$GITHUB_ENV"
+          echo "traq_ref=$TRAQ_REF" >> "$GITHUB_OUTPUT"
+          echo "dist_tag=$INPUT_DIST_TAG" >> "$GITHUB_OUTPUT"
 
       - name: npm ci
         run: npm ci
+
       - name: build
         run: npm run build
+
       - name: type-check
         run: npm run type-check
+
       - name: Check diff
         if: env.DIST_TAG == 'latest'
         run: |
@@ -77,6 +90,7 @@ jobs:
           else
             echo "HAS_DIFF=true" >> $GITHUB_ENV
           fi
+
       - name: Set version name
         if: env.DIST_TAG == 'latest' && env.HAS_DIFF == 'true'
         run: |
@@ -97,27 +111,134 @@ jobs:
           fi
           echo "PACKAGE NEW ${NEW_VERSION}"
           echo "NEW_VERSION=${NEW_VERSION}" >> $GITHUB_ENV
-      - name: npm version & publish
-        if: env.DIST_TAG == 'latest' && env.HAS_DIFF == 'true'
+
+      - name: Prepare release package
+        id: package
+        if: env.DIST_TAG != 'latest' || env.HAS_DIFF == 'true'
         run: |
+          if [ "$DIST_TAG" != latest ]; then
+            NEW_VERSION="0.0.0-${DIST_TAG}.${GITHUB_RUN_ID}.${GITHUB_RUN_ATTEMPT}.g${TRAQ_REF:0:12}"
+          fi
+
+          npm version "$NEW_VERSION" --no-git-tag-version --ignore-scripts
+
+          mkdir -p "$RUNNER_TEMP/release"
+          TARBALL=$(npm pack --json --ignore-scripts --pack-destination "$RUNNER_TEMP/release" | jq -er '.[0].filename')
+          mv "$RUNNER_TEMP/release/$TARBALL" "$RUNNER_TEMP/release/package.tgz"
+
+          echo "version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Upload release package
+        if: steps.package.outputs.version != ''
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: release-package
+          path: ${{ runner.temp }}/release/package.tgz
+          if-no-files-found: error
+          retention-days: 1
+
+  push:
+    name: push release version
+    needs: build
+    if: needs.build.outputs.dist_tag == 'latest' && needs.build.outputs.version != ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      NEW_VERSION: ${{ needs.build.outputs.version }}
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: setup Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "24"
+          package-manager-cache: false
+
+      # Recreate only the version change from a clean checkout. Do not execute
+      # dependencies or copy package metadata from the build job into Git.
+      - name: Commit release version
+        run: |
+          if [[ ! "$NEW_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+-[0-9]+$ ]]; then
+            echo "::error::Invalid release version."
+            exit 1
+          fi
+
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-          npm version "$NEW_VERSION" -m "CI: update to $NEW_VERSION [ci skip]"
-          git commit --amend --no-edit --author .
-          git push origin master
-          git push --tags
-          npm publish --tag latest --access public
-        env:
-          NEW_VERSION: ${{ env.NEW_VERSION }}
+          npm version "$NEW_VERSION" --no-git-tag-version --ignore-scripts
 
-      - name: Publish prerelease
+          git add package.json package-lock.json
+          git commit -m "CI: update to $NEW_VERSION [ci skip]"
+          git tag -a "v$NEW_VERSION" -m "CI: update to $NEW_VERSION [ci skip]"
+
+      - name: Push release commit and tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_DEPLOY_KEY: ${{ secrets.RELEASE_DEPLOY_KEY }}
+        run: |
+          if [ -z "$RELEASE_DEPLOY_KEY" ]; then
+            echo "::error::Set RELEASE_DEPLOY_KEY to a write-enabled deploy key allowed to bypass the master ruleset."
+            exit 1
+          fi
+
+          umask 077
+          KEY_FILE=$(mktemp "$RUNNER_TEMP/release-key.XXXXXX")
+          KNOWN_HOSTS=$(mktemp "$RUNNER_TEMP/release-known-hosts.XXXXXX")
+          trap 'rm -f "$KEY_FILE" "$KNOWN_HOSTS"' EXIT
+
+          printf '%s\n' "$RELEASE_DEPLOY_KEY" > "$KEY_FILE"
+          gh api meta --jq '.ssh_keys[] | "github.com " + .' > "$KNOWN_HOSTS"
+
+          export GIT_SSH_COMMAND="ssh -i '$KEY_FILE' -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile='$KNOWN_HOSTS'"
+          git remote set-url origin "git@github.com:${GITHUB_REPOSITORY}.git"
+
+          git push --atomic origin HEAD:refs/heads/master "refs/tags/v$NEW_VERSION"
+
+  publish:
+    name: publish release package
+    needs: [build, push]
+    if: >-
+      always() && !cancelled() &&
+      needs.build.result == 'success' && needs.build.outputs.version != '' &&
+      (needs.build.outputs.dist_tag != 'latest' || needs.push.result == 'success')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      DIST_TAG: ${{ needs.build.outputs.dist_tag }}
+      NEW_VERSION: ${{ needs.build.outputs.version }}
+      TRAQ_REF: ${{ needs.build.outputs.traq_ref }}
+
+    steps:
+      - name: Download release package
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: release-package
+          path: ${{ runner.temp }}/release
+
+      - name: setup Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "24"
+          package-manager-cache: false
+          registry-url: "https://registry.npmjs.org"
+
+      - name: update npm
+        run: npm install -g npm@12 --ignore-scripts
+
+      - name: Publish package
+        run: npm publish "$RUNNER_TEMP/release/package.tgz" --tag "$DIST_TAG" --access public --ignore-scripts
+
+      - name: Summarize prerelease
         if: env.DIST_TAG != 'latest'
         run: |
-          NEW_VERSION="0.0.0-${DIST_TAG}.${GITHUB_RUN_ID}.${GITHUB_RUN_ATTEMPT}.g${TRAQ_REF:0:12}"
-          npm version "$NEW_VERSION" --no-git-tag-version
-          npm publish --tag "$DIST_TAG" --access public
-
           {
             echo "### Prerelease"
             echo ""
