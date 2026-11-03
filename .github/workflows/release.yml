@@ -123,7 +123,7 @@ jobs:
           npm version "$NEW_VERSION" --no-git-tag-version --ignore-scripts
 
           mkdir -p "$RUNNER_TEMP/release"
-          TARBALL=$(npm pack --json --ignore-scripts --pack-destination "$RUNNER_TEMP/release" | jq -er '.[0].filename')
+          TARBALL=$(npm pack --json --ignore-scripts --pack-destination "$RUNNER_TEMP/release" | jq -er '.[] | .filename')
           mv "$RUNNER_TEMP/release/$TARBALL" "$RUNNER_TEMP/release/package.tgz"
 
           echo "version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
